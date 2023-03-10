@@ -3,5 +3,36 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "spartacus-mock": {
+      "projectType": "library",
+      "root": "projects/spartacus-mock",
+      "sourceRoot": "projects/spartacus-mock/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/spartacus-mock/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/spartacus-mock/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/spartacus-mock/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/spartacus-mock/src/test.ts",
+            "tsConfig": "projects/spartacus-mock/tsconfig.spec.json",
+            "karmaConfig": "projects/spartacus-mock/karma.conf.js"
+          }
+        }
+      }
+    }
   }
 }

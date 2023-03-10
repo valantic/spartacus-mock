@@ -1,27 +1,63 @@
 # SpartacusMock
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.10.
+This project offers you the possibility, to mock the OCC Endpoint of your Spartacus Storefront. It uses the [Mock Service Worker](https://mswjs.io/) to mock the API calls.
 
-## Development server
+## How to use
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Use the Default Mock Data for Spartacus Electronics Store 
 
-## Code scaffolding
+1. Install it: `npm i @valantic/spartacus-mock`
+2. Install the Mock Service Worker: `npm i --save-dev msw`
+3. Create the local service worker script: `npx msw init ./src --save`
+4. Add the service worker script to the `angular.json` assets array: `"assets": ["src/mockServiceWorker.js"]`
+5. Enhance your `environment.ts` with the information about your OCC Endpoint and the trigger to enable / disable the mock server:
+```ts
+export const environment = {
+  mockServer: true,
+	backend: {
+    occ: {
+      baseUrl: 'https://spartacus-demo.eastus.cloudapp.azure.com:8443',
+      prefix: '/occ/v2/',
+    },
+  }
+};
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+6. Adjust your `main.ts` file from
 
-## Build
+```ts
+if (document.readyState === 'complete') {
+  bootstrap();
+} else {
+  document.addEventListener('DOMContentLoaded', bootstrap);
+}
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
 
-## Running unit tests
+To
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```ts
 
-## Running end-to-end tests
+const mockConfig: MockConfig = {
+	enableWorker: environment.mockServer || false,
+  environment,
+}
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+if (document.readyState === 'complete') {
+  prepareMock(mockConfig).then(() => bootstrap());
+} else {
+  document.addEventListener(
+    'DOMContentLoaded',
+    () => prepareMock(mockConfig).then(() => bootstrap())
+  );
+}
+```
 
-## Further help
+### Use your own Mock Data for your project
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+TODO
+
+## GitHub issues
+
+If you encounter a problem with this library or if you have a new feature you'd like to see in this project,
+please create [a new issue](https://github.com/valantic/spartacus-mock/issues/new/choose).
