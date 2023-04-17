@@ -14,7 +14,7 @@ export const defaultPassThroughUrls: PassThroughUrl[] = [
 	{ url: '/manifest.webmanifest', requestFunction: 'get' },
 	{ url: '/favicon.ico', requestFunction: 'get' },
 	{ url: '/common.js', requestFunction: 'get' },
-	{ url: '*/users/anonymous/consenttemplates', requestFunction: 'head' },
+	{ url: '*/users/anonymous/consenttemplates*', requestFunction: 'head' },
   { url: '*.analytics.google.com/*', requestFunction: 'post' },
   { url: 'https://www.googletagmanager.com/*', requestFunction: 'get' },
   { url: 'https://maps.gstatic.com/*', requestFunction: 'get' },

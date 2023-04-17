@@ -1,7 +1,6 @@
 import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
 import { baseSites } from './mock-data/base-sites/base-sites';
 import { languages } from './mock-data/languages/languages';
-import { currencies } from './mock-data/currencies/currencies';
 import { consentTemplates } from './mock-data/consent-templates/consent-templates';
 import { getDefaultRoutes } from './defaultRoutes';
 import { Environment } from './types';
@@ -26,24 +25,35 @@ import { authRevoke, authToken } from './mock-data/auth/auth';
 import { user } from './mock-data/auth/user';
 import {
   addToCart,
-  addVoucher,
   CartUserType, deleteCart,
-  deleteVoucher,
   getCart, getCarts, getUserTypeById, removeEntries,
   updateEntries
 } from './mock-data/commerce/cart';
-import { titles } from './mock-data/account/titles';
 import { notificationPreferences } from './mock-data/account/notification-preferences';
 import { productInterests } from './mock-data/account/product-interests';
+import { addVoucher, deleteVoucher } from './mock-data/commerce/voucher';
+import { customerCoupons } from './mock-data/account/customer-coupons';
+import { availableAddresses } from './mock-data/account/addresses';
+import { getDeliveryAddress, getDeliveryModes } from './mock-data/commerce/checkout';
+import { titles } from './mock-data/general/titles';
+import { countries } from './mock-data/general/countries';
+import { currencies } from './mock-data/general/currencies';
+import { payments } from './mock-data/account/payments';
+import { getOrders } from './mock-data/order/order-history';
+import { createOrder } from './mock-data/order/order';
 
 export function getDefaultHandlers (environment: Environment): RestHandler[] {
   const routes = getDefaultRoutes(environment);
 
   return [
+    /**
+     * General Calls ***************************************************************************************************
+     */
     rest.get(routes.baseSites, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200), ctx.json(baseSites()));
     }),
 
+    // general calls to get options for several data types
     rest.get(routes.languages, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200), ctx.json(languages()));
     }),
@@ -52,16 +62,17 @@ export function getDefaultHandlers (environment: Environment): RestHandler[] {
       return res(ctx.status(200), ctx.json(currencies()));
     }),
 
+    rest.get(routes.titles, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(titles()));
+    }),
+
+    // call to get all title options
+    rest.get(routes.countries, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(countries()));
+    }),
+
     rest.get(routes.consentTemplates, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200), ctx.json(consentTemplates()));
-    }),
-
-    rest.get(routes.notificationPreferences, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(notificationPreferences()));
-    }),
-
-    rest.get(routes.productInterests, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(productInterests()));
     }),
 
     // custom call to return the translation files
@@ -72,13 +83,47 @@ export function getDefaultHandlers (environment: Environment): RestHandler[] {
       return res(ctx.status(200), ctx.json(translations(language, namespace)));
     }),
 
+    /**
+     * User related calls **********************************************************************************************
+     */
+
+    // user based calls
+    rest.get(routes.notificationPreferences, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(notificationPreferences()));
+    }),
+
+    rest.get(routes.productInterests, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(productInterests()));
+    }),
+
+    rest.get(routes.customerCoupons, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(customerCoupons()));
+    }),
+
+    rest.get(routes.addresses, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(availableAddresses()));
+    }),
+
+    rest.get(routes.payments, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(payments()));
+    }),
+
+    rest.post(routes.addressVerification, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(
+        ctx.status(201),
+        ctx.json({
+          decision: 'ACCEPT',
+        })
+      );
+    }),
+
     // authentication call to return the user token
     rest.post(routes.authLogin, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200), ctx.json(authToken()));
     }),
 
     // authentication call to revoke the user token
-    rest.get(routes.authRevoke, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+    rest.post(routes.authRevoke, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200), ctx.json(authRevoke()));
     }),
 
@@ -92,10 +137,9 @@ export function getDefaultHandlers (environment: Environment): RestHandler[] {
       return res(ctx.status(200), ctx.json(user()));
     }),
 
-    // call to get all title options
-    rest.get(routes.titles, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(titles()));
-    }),
+    /**
+     * CMS Calls *******************************************************************************************************
+     */
 
     // cms pages call
     rest.get(routes.pages, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
@@ -170,6 +214,10 @@ export function getDefaultHandlers (environment: Environment): RestHandler[] {
       return res(ctx.status(200), ctx.json(searchSuggestions(term, parseInt(max))));
     }),
 
+    /**
+     * Product Calls ***************************************************************************************************
+     */
+
     // product references call
     rest.get(routes.productReferences, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const referenceType = req.url.searchParams.get('referenceType') || '';
@@ -203,22 +251,31 @@ export function getDefaultHandlers (environment: Environment): RestHandler[] {
       }
     }),
 
+    /**
+     * Cart Calls ******************************************************************************************************
+     */
+
     // cart call to return the cart details for a cart containing products
     rest.get(routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
       const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+      const requestFields = req.url.searchParams?.get('fields') || '';
 
-      return res(ctx.status(200), ctx.json(getCart(cartId, getUserTypeById(userId))));
+      if (requestFields.indexOf('deliveryAddress') > -1) {
+        return res(ctx.status(201), ctx.json(getDeliveryAddress()));
+      } else {
+        return res(ctx.status(201), ctx.json(getCart(cartId, getUserTypeById(userId))));
+      }
     }),
 
-    // cart call to return multiple carts containing products
+    // cart call to return multiple carts for normal cart, wishlist and saved cart
     rest.get(routes.carts, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
 
       return res(ctx.status(200), ctx.json(getCarts(getUserTypeById(userId))));
     }),
 
-    // initial cart post call to get an empty cart with a cart id
+    // post call to get either cart data for the different scopes
     rest.post(routes.carts, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
 
@@ -252,7 +309,6 @@ export function getDefaultHandlers (environment: Environment): RestHandler[] {
 
     // cart save call which is done, if the currently loggedIn user does not have a wishlist cart
     rest.delete(routes.deleteCart, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      // const userId = typeof req.params.userId === 'string' ? req.params.userId : '';
       deleteCart();
 
       return res(ctx.status(201), ctx.json({}));
@@ -260,8 +316,6 @@ export function getDefaultHandlers (environment: Environment): RestHandler[] {
 
     // cart save call which is done, if the currently loggedIn user does not have a wishlist cart
     rest.patch(routes.saveCart, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      // const userId = typeof req.params.userId === 'string' ? req.params.userId : '';
-
       return res(ctx.status(201), ctx.json(getCart('', CartUserType.OCC_USER_ID_CURRENT)));
     }),
 
@@ -278,6 +332,67 @@ export function getDefaultHandlers (environment: Environment): RestHandler[] {
       deleteVoucher(voucherCode);
       return res(ctx.status(200), ctx.json({}));
     }),
+
+    /**
+     * Checkout Calls **************************************************************************************************
+     */
+    rest.put(routes.setDeliveryAddress, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(201), ctx.json({}));
+    }),
+
+    rest.post(routes.createDeliveryAddress, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      const body = await req.json();
+      return res(ctx.status(201), ctx.json(body));
+    }),
+
+    rest.delete(routes.removeDeliveryAddress, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(201), ctx.json({}));
+    }),
+
+    rest.delete(routes.deliveryMode, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(201), ctx.json({}));
+    }),
+
+    rest.put(routes.deliveryMode, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(201), ctx.json({}));
+    }),
+
+    rest.get(routes.deliveryModes, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(201), ctx.json(getDeliveryModes()));
+    }),
+
+    /**
+     * Order Calls *****************************************************************************************************
+     */
+    rest.post(routes.orderHistory, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(createOrder()));
+    }),
+
+    rest.get(routes.orderHistory, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(getOrders()));
+    }),
+
+    rest.get(routes.orderDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(createOrder()));
+    }),
+
+    /*rest.post(routes.orderReturnsSubmit, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(getOrderReturn()));
+    }),
+
+    rest.get(routes.orderReturns, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(getOrderReturn()));
+    }),
+
+    rest.get(routes.orderReturnsSubmit, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(getReturnRequestList(10)));
+    }),
+
+    rest.get(routes.returnListOfOrder, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      const orderId = typeof req.params['orderId'] === 'string' ? req.params['orderId'] : '';
+
+      return res(ctx.status(200), ctx.json(getReturnRequestList(faker.datatype.number({ min: 0, max: 5 }), orderId)));
+    }),*/
 
     // search page
     // TODO add mock search result and make search work

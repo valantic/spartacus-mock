@@ -1,5 +1,7 @@
 import { Environment } from './types';
-import { defaultOccCartConfig } from './occ-config/default-occ-cart-config';
+import { occCartConfig } from './occ-config/occ-cart-config';
+import { occCheckoutConfig } from './occ-config/occ-checkout-config';
+import { occOrderConfig } from './occ-config/occ-order-config';
 
 /**
  * TODO use endpoints from default configs
@@ -18,8 +20,9 @@ import { defaultOccCartConfig } from './occ-config/default-occ-cart-config';
 
 const i18nEndpoint = 'i18n/${language}/${namespace}';
 
-// TODO find a way to not need the any cast
-const cartEndpoints = defaultOccCartConfig.backend?.occ?.endpoints as any;
+const cartEndpoints = occCartConfig.backend.occ.endpoints;
+const checkoutEndpoints = occCheckoutConfig.backend.occ.endpoints;
+const orderEndpoints = occOrderConfig.backend.occ.endpoints;
 
 export function getDefaultRoutes (environment: Environment) {
   const occEndpoint = `${environment.backend.occ?.baseUrl}${environment.backend.occ?.prefix}`;
@@ -29,7 +32,6 @@ export function getDefaultRoutes (environment: Environment) {
     baseSites: `${occEndpoint}basesites`,
     languages: `${occEndpoint}:baseSiteId/languages`,
     currencies: `${occEndpoint}:baseSiteId/currencies`,
-    consentTemplates: `${occEndpoint}:baseSiteId/users/anonymous/consenttemplates`,
     pages: `${occEndpoint}:baseSiteId/cms/pages`,
     components: `${occEndpoint}:baseSiteId/cms/components`,
     authLogin: '*/authorizationserver/oauth/token',
@@ -38,22 +40,43 @@ export function getDefaultRoutes (environment: Environment) {
     usersTemp: `${occEndpoint}users/:user`,
     titles: `${occEndpoint}:baseSiteId/titles`,
     countries: `${occEndpoint}:baseSiteId/countries`,
+    consentTemplates: `${occEndpoint}:baseSiteId/users/:user/consenttemplates`,
     notificationPreferences: `${occEndpoint}:baseSiteId/users/:user/notificationpreferences`,
     productInterests: `${occEndpoint}:baseSiteId/users/:user/productinterests`,
+    customerCoupons: `${occEndpoint}:baseSiteId/users/:user/customercoupons`,
+    addresses: `${occEndpoint}:baseSiteId/users/:user/addresses`,
+    payments: `${occEndpoint}:baseSiteId/users/:user/paymentDetails`,
+    addressVerification: `${occEndpoint}:baseSiteId/users/:user/addresses/verification`,
 
     i18n: `${occEndpoint}:baseSiteId/${i18nEndpoint.split('?')[0].replace('${language}', ':language').replace('${namespace}', ':namespace')}`,
 
     // cart
-    carts: `${occEndpoint}:baseSiteId/${cartEndpoints?.carts.split('?')[0]}`.replace('${userId}', ':userId'),
-    cart: `${occEndpoint}:baseSiteId/${cartEndpoints?.cart.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
-    addEntries: `${occEndpoint}:baseSiteId/${cartEndpoints?.addEntries.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
-    updateEntries: `${occEndpoint}:baseSiteId/${cartEndpoints?.updateEntries.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId').replace('${entryNumber}', ':entryNumber'),
-    removeEntries: `${occEndpoint}:baseSiteId/${cartEndpoints?.removeEntries.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId').replace('${entryNumber}', ':entryNumber'),
-    deleteCart: `${occEndpoint}:baseSiteId/${cartEndpoints?.deleteCart.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
-    cartVoucher: `${occEndpoint}:baseSiteId/${cartEndpoints?.cartVoucher.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
-    cartVoucherRemove: `${occEndpoint}:baseSiteId/${cartEndpoints?.cartVoucher.split('?')[0]}/:voucherCode`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
-    validate: `${occEndpoint}:baseSiteId/${cartEndpoints?.validate.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
-    saveCart: `${occEndpoint}:baseSiteId/${cartEndpoints.saveCart.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    carts: `${occEndpoint}:baseSiteId/${(cartEndpoints.carts as string).split('?')[0]}`.replace('${userId}', ':userId'),
+    cart: `${occEndpoint}:baseSiteId/${(cartEndpoints.cart as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    addEntries: `${occEndpoint}:baseSiteId/${(cartEndpoints.addEntries as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    updateEntries: `${occEndpoint}:baseSiteId/${(cartEndpoints.updateEntries as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId').replace('${entryNumber}', ':entryNumber'),
+    removeEntries: `${occEndpoint}:baseSiteId/${(cartEndpoints.removeEntries as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId').replace('${entryNumber}', ':entryNumber'),
+    deleteCart: `${occEndpoint}:baseSiteId/${(cartEndpoints.deleteCart as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    cartVoucher: `${occEndpoint}:baseSiteId/${(cartEndpoints.cartVoucher as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    cartVoucherRemove: `${occEndpoint}:baseSiteId/${(cartEndpoints.cartVoucher as string).split('?')[0]}/:voucherCode`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    validate: `${occEndpoint}:baseSiteId/${(cartEndpoints.validate as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    saveCart: `${occEndpoint}:baseSiteId/${(cartEndpoints.saveCart as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+
+    // checkout
+    setDeliveryAddress: `${occEndpoint}:baseSiteId/${(checkoutEndpoints.setDeliveryAddress as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    createDeliveryAddress: `${occEndpoint}:baseSiteId/${(checkoutEndpoints.createDeliveryAddress as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    removeDeliveryAddress: `${occEndpoint}:baseSiteId/${(checkoutEndpoints.removeDeliveryAddress as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    deliveryMode: `${occEndpoint}:baseSiteId/${(checkoutEndpoints.deliveryMode as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    deliveryModes: `${occEndpoint}:baseSiteId/${(checkoutEndpoints.deliveryModes as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+
+    // order
+    orderHistory: `${occEndpoint}:baseSiteId/${(orderEndpoints.orderHistory as string).split('?')[0]}`.replace('${userId}', ':userId'),
+    orderDetail: `${occEndpoint}:baseSiteId/${(orderEndpoints.orderDetail as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${orderId}', ':orderId'),
+    cancelOrder: `${occEndpoint}:baseSiteId/${(orderEndpoints.cancelOrder as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${orderId}', ':orderId'),
+    returnOrder: `${occEndpoint}:baseSiteId/${(orderEndpoints.returnOrder as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${orderId}', ':orderId'),
+    orderReturns: `${occEndpoint}:baseSiteId/${(orderEndpoints.orderReturns as string).split('?')[0]}`.replace('${userId}', ':userId'),
+    orderReturnDetail: `${occEndpoint}:baseSiteId/${(orderEndpoints.orderReturnDetail as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${returnRequestCode}', ':returnRequestCode'),
+    cancelReturn: `${occEndpoint}:baseSiteId/${(orderEndpoints.cancelReturn as string).split('?')[0]}`.replace('${userId}', ':userId').replace('${returnRequestCode}', ':returnRequestCode'),
 
     // product
     productReferences: `${occEndpoint}:baseSiteId/products/:productCode/references`,

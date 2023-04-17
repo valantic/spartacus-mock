@@ -1,10 +1,20 @@
 import { OccConfig } from '@spartacus/core';
+import { CartOccEndpoints } from '@spartacus/cart/base/occ';
 
-export const defaultOccCartConfig: OccConfig = {
+// needed to have a working typing
+interface CartOccConfig extends OccConfig {
   backend: {
     occ: {
+      endpoints: CartOccEndpoints;
+    }
+  };
+}
+
+export const occCartConfig: CartOccConfig = {
+  backend: {
+    occ: {
+      // cannot extend from defaultOccCartConfig as it is not exported
       endpoints: {
-        // @ts-ignore
         carts:
           'users/${userId}/carts?fields=carts(DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue),user,saveTime,name,description)',
         cart: 'users/${userId}/carts/${cartId}?fields=DEFAULT,potentialProductPromotions,appliedProductPromotions,potentialOrderPromotions,appliedOrderPromotions,entries(totalPrice(formattedValue),product(images(FULL),stock(FULL)),basePrice(formattedValue,value),updateable),totalPrice(formattedValue),totalItems,totalPriceWithTax(formattedValue),totalDiscounts(value,formattedValue),subTotal(formattedValue),deliveryItemsQuantity,deliveryCost(formattedValue),totalTax(formattedValue, value),pickupItemsQuantity,net,appliedVouchers,productDiscounts(formattedValue),user,saveTime,name,description',
@@ -19,7 +29,6 @@ export const defaultOccCartConfig: OccConfig = {
         saveCart:
           '/users/${userId}/carts/${cartId}/save?saveCartName=${saveCartName}&saveCartDescription=${saveCartDescription}',
         validate: 'users/${userId}/carts/${cartId}/validate?fields=DEFAULT',
-        /* eslint-enable */
       },
     },
   },

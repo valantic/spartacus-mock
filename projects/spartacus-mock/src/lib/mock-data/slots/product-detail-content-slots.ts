@@ -3,6 +3,7 @@ import { productReferencesComponent } from '../components/default/product-refere
 import { cmsTabParagraphContainerComponent } from '../components/default/cms-tab-paragraph';
 import { ContentSlot } from '../../types';
 import { flexType } from '../components/default/flex-type';
+import { faker } from '@faker-js/faker';
 
 export const productDetailContentSlots = (): ContentSlot[] => {
   // content slots
@@ -14,7 +15,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       [
         {
           'uid': 'ProductImagesComponent',
-          'uuid': 'eyJpdGVtSWQiOiJQcm9kdWN0SW1hZ2VzQ29tcG9uZW50IiwiY2F0YWxvZ0lkIjoiZWxlY3Ryb25pY3Mtc3BhQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          'uuid': faker.datatype.uuid(),
           'typeCode': 'CMSFlexComponent',
           'modifiedtime': '2021-01-18T18:15:02.097Z',
           'name': 'ProductImagesComponent',
@@ -23,7 +24,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
         },
         {
           'uid': 'ProductIntroComponent',
-          'uuid': 'eyJpdGVtSWQiOiJQcm9kdWN0SW50cm9Db21wb25lbnQiLCJjYXRhbG9nSWQiOiJlbGVjdHJvbmljcy1zcGFDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          'uuid': faker.datatype.uuid(),
           'typeCode': 'CMSFlexComponent',
           'modifiedtime': '2021-01-18T18:15:02.107Z',
           'name': 'ProductIntroComponent',
@@ -32,7 +33,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
         },
         {
           'uid': 'ProductSummaryComponent',
-          'uuid': 'eyJpdGVtSWQiOiJQcm9kdWN0U3VtbWFyeUNvbXBvbmVudCIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
+          'uuid': faker.datatype.uuid(),
           'typeCode': 'CMSFlexComponent',
           'modifiedtime': '2021-01-18T18:15:02.116Z',
           'name': 'ProductSummaryComponent',
@@ -41,14 +42,14 @@ export const productDetailContentSlots = (): ContentSlot[] => {
         },
         {
           'uid': 'VariantSelector',
-          'uuid': 'eyJpdGVtSWQiOiJWYXJpYW50U2VsZWN0b3IiLCJjYXRhbG9nSWQiOiJlbGVjdHJvbmljcy1zcGFDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+          'uuid': faker.datatype.uuid(),
           'typeCode': 'ProductVariantSelectorComponent',
           'modifiedtime': '2021-01-18T18:15:02.182Z',
           'name': 'Product Variant Selector',
           'container': 'false'
         }, {
         'uid': 'AddToCart',
-        'uuid': 'eyJpdGVtSWQiOiJBZGRUb0NhcnQiLCJjYXRhbG9nSWQiOiJlbGVjdHJvbmljcy1zcGFDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
+        'uuid': faker.datatype.uuid(),
         'typeCode': 'ProductAddToCartComponent',
         'modifiedtime': '2021-01-18T18:15:02.149Z',
         'name': 'Product Add To Cart',
@@ -56,7 +57,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       },
         {
           'uid': 'ConfigureProductComponent',
-          'uuid': 'eyJpdGVtSWQiOiJDb25maWd1cmVQcm9kdWN0Q29tcG9uZW50IiwiY2F0YWxvZ0lkIjoiZWxlY3Ryb25pY3Mtc3BhQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          'uuid': faker.datatype.uuid(),
           'typeCode': 'CMSFlexComponent',
           'modifiedtime': '2021-01-18T18:15:02.159Z',
           'name': 'Configure Product Component',
@@ -65,7 +66,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
         },
         {
           'uid': 'AddToWishListComponent',
-          'uuid': 'eyJpdGVtSWQiOiJBZGRUb1dpc2hMaXN0Q29tcG9uZW50IiwiY2F0YWxvZ0lkIjoiZWxlY3Ryb25pY3Mtc3BhQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
+          'uuid': faker.datatype.uuid(),
           'typeCode': 'CMSFlexComponent',
           'modifiedtime': '2021-01-18T18:15:02.17Z',
           'name': 'AddToWishListComponent',
@@ -74,7 +75,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
         },
         {
           'uid': 'StockNotificationComponent',
-          'uuid': 'eyJpdGVtSWQiOiJTdG9ja05vdGlmaWNhdGlvbkNvbXBvbmVudCIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
+          'uuid': faker.datatype.uuid(),
           'typeCode': 'CMSFlexComponent',
           'modifiedtime': '2021-01-18T18:15:02.18Z',
           'name': 'StockNotificationComponent',
@@ -116,7 +117,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       'PlaceholderContentSlot',
       'PlaceholderContentSlot',
       [
-        flexType('ProfileTagScriptComponent', 'Profile Tag', 'ProfileTagScriptComponent', 'eyJpdGVtSWQiOiJQcm9maWxlVGFnU2NyaXB0Q29tcG9uZW50IiwiY2F0YWxvZ0lkIjoiZWxlY3Ryb25pY3Mtc3BhQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9')
+        flexType('ProfileTagScriptComponent', 'Profile Tag', 'ProfileTagScriptComponent', faker.datatype.uuid())
       ]
     ),
 
@@ -125,7 +126,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       'Section3',
       'Section3 Product Details Page',
       [
-        flexType('BundleCarouselComponent', 'Bundle Carousel Component', 'BundleCarouselComponent', 'eyJpdGVtSWQiOiJCdW5kbGVDYXJvdXNlbENvbXBvbmVudCIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ')
+        flexType('BundleCarouselComponent', 'Bundle Carousel Component', 'BundleCarouselComponent', faker.datatype.uuid())
       ]
     ),
   ];

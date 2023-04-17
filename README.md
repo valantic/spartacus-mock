@@ -16,7 +16,7 @@ This project offers you the possibility, to mock the OCC Endpoint of your Sparta
 ```ts
 export const environment = {
   mockServer: true,
-	backend: {
+  backend: {
     occ: {
       baseUrl: 'https://spartacus-demo.eastus.cloudapp.azure.com:8443',
       prefix: '/occ/v2/',

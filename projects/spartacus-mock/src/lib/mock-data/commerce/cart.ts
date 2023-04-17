@@ -2,7 +2,6 @@ import { Occ, Promotion, Stock } from '@spartacus/core';
 import ImageType = Occ.ImageType;
 import PriceType = Occ.PriceType;
 import { mediaImage } from '../media/media-image';
-import { Voucher } from '@spartacus/cart/base/root';
 import { ActiveCartEntry, LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
 import { faker } from '@faker-js/faker';
 import { product } from '../products/product';
@@ -163,7 +162,6 @@ const fullCartData = (cartGuid: string, userType: CartUserType): Occ.Cart => {
   let totalAmount = entries.reduce((acc, entry) => { return acc + (entry.totalPrice?.value || 0); }, 0);
 
   return {
-    // @ts-ignore
     appliedOrderPromotions: [],
     appliedProductPromotions: [],
     appliedVouchers: mockData.activeVouchers,
@@ -215,7 +213,7 @@ const fullCartData = (cartGuid: string, userType: CartUserType): Occ.Cart => {
 };
 
 export const getCart = (cartGuid: string, cartUserType: CartUserType): Occ.Cart => {
-  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}');
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
 
   if (cartGuid !== '' && mockData.activeCartEntries.length > 0) {
     return fullCartData(cartGuid, cartUserType);
@@ -225,7 +223,7 @@ export const getCart = (cartGuid: string, cartUserType: CartUserType): Occ.Cart 
 };
 
 export const getCarts = (cartUserType: CartUserType): Occ.CartList => {
-  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}');
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
   const cartsArray = [];
 
   if (mockData.activeCartEntries.length > 0) {
@@ -329,30 +327,6 @@ export const deleteCart = () => {
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 }
 
-export const addVoucher = (voucherId: string) => {
-  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}');
-
-  mockData.activeVouchers.push({
-    code: voucherId,
-    voucherCode: voucherId,
-  });
-
-  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
-};
-
-export const deleteVoucher = (voucherCode: string) => {
-  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}');
-
-  mockData = {
-    ...mockData,
-    activeVouchers: mockData.activeVouchers.filter((voucher: Voucher) => {
-      return voucher.code !== voucherCode;
-    }),
-  };
-
-  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
-};
-
 export const getUserForCart = (userType?: CartUserType) => {
   switch (userType) {
     case CartUserType.OCC_USER_ID_GUEST:
@@ -418,7 +392,7 @@ function getOrderEntry(index: number, productCode: string, quantity: number, isF
   return orderEntry
 }
 
-function getPriceWithDecimals(price: string): number {
+export function getPriceWithDecimals(price: string): number {
   let decimalsNumber = faker.datatype.number({ min: 0, max: 99 });
 
   return parseFloat(`${price}.${decimalsNumber === 0 ? '00' : decimalsNumber}`);
