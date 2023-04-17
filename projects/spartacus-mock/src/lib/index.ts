@@ -2,8 +2,12 @@ import { rest, SetupWorker, setupWorker } from 'msw';
 import { getDefaultHandlers } from './defaultHandlers';
 import { defaultPassThroughUrls } from './defaultPassthrough';
 import { MockConfig } from './types';
+import { createLocalstorage } from './defaultLocalStorage';
 
 function getWorker(config: MockConfig): SetupWorker {
+  // create default local storage if it does not exist
+  createLocalstorage(config);
+
   const passThroughUrls = [...defaultPassThroughUrls, ...config.passThroughUrls || []];
 
   return setupWorker(

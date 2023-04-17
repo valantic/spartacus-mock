@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
 import { cmsLinkComponent } from './default/cms-link';
 import { cmsFlexTypeComponent } from './default/cms-flex-type';
+import { cmsParagraphComponent, richTextExampleContent } from './default/cms-paragraph';
 
 /*
  * This function is used to render additional data for components being loaded within the pages calls
@@ -124,24 +125,23 @@ export const productDetailTabComponents = (componentIds: string[]): Occ.Componen
     component: [],
   };
   const tabUidMap: any = {
-    // device tab components
-    'productdetail_operating_modes_component': 'ValanticProductOperatingModesComponent',
-    'productdetail_main_features_component': 'ValanticProductMainFeaturesComponent',
-    'productdetail_technical_features_component': 'ValanticProductTechnicalFeaturesComponent',
-    'productdetail_documents_component': 'ValanticProductDocumentsComponent',
-    'productdetail_how_to_component': 'ValanticProductHowToComponent',
-    'productdetail_included_accessories_component': 'ValanticProductIncludedAccessoryComponent',
-
-    // accessory tab components
-    'productdetail_accessory_details_component': 'ValanticProductAccessoryDetailsComponent',
-    'productdetail_accessory_compatibility_component': 'ValanticProductAccessoryCompatibilityComponent'
+    ProductDetailsTabComponent: 'ProductDetailsTabComponent',
+    ProductSpecsTabComponent: 'ProductSpecsTabComponent',
+    ProductReviewsTabComponent: 'ProductReviewsTabComponent',
+    deliveryTab: 'deliveryTab',
   }
 
   componentIds.forEach((id) => {
     if (id) {
-      componentData.component?.push(
-        cmsFlexTypeComponent(id, tabUidMap[id], tabUidMap[id], faker.datatype.uuid())
-      )
+      if (id === 'deliveryTab') {
+        componentData.component?.push(
+          cmsParagraphComponent('deliveryTab', 'Delivery tab', '<div class=\\"tab-delivery\\">Lorem ipsum dolor sit amet, dolor sed, ut nam ut. Senectus mauris egestas a massa, enim placeat wisi congue purus fermentum. Ut aptent mauris dapibus congue in sit. Sed dolor varius amet feugiat volutpat dignissim, pede a rhoncus sodales aliquam adipiscing, dapibus massa fusce. Dui egestas ornare urna nibh facilisi, cras posuere. Lorem aliquam accumsan eleifend sem libero lorem, aliquam sequi sed urna nec. Eget dolor quisque dolor, amet suspendisse ullamcorper minus elit lectus nunc, est mattis dui id eu et facilisis, conubia sit tristique. Ac fusce gravida condimentum iaculis neque, a platea curabitur accumsan porttitor vel justo. Amet potenti ac, eget amet ducimus sit nulla, ac porttitor rhoncus, justo proin tortor integer turpis nulla vitae. Egestas mollis litora nunc platea dui, eu semper mauris diam, erat quam, porta maecenas fusce libero non aliquet. Amet tellus taciti ligula sed sollicitudin, nonummy cursus enim, hendrerit nec, sed lacus sed at sit quis, semper a arcu mollis sapien nec pretium. Ante mauris eros nec, nonummy mauris, nulla lacinia vel. Volutpat luctus velit eu.</div>')
+        )
+      } else {
+        componentData.component?.push(
+          cmsFlexTypeComponent(id, tabUidMap[id], tabUidMap[id], faker.datatype.uuid())
+        )
+      }
     }
   })
 

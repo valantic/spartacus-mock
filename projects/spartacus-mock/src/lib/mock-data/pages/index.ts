@@ -30,6 +30,7 @@ export interface Pages {
 
 interface AdditionalData {
   template?: string;
+  uid?: string;
 }
 
 const contentPage = (
@@ -38,12 +39,12 @@ const contentPage = (
   title: string,
   name: string,
   contentSlots: ContentSlot[],
-  additionalData?: AdditionalData
+  additionalData?: AdditionalData,
 ): Page => {
-  const { template } = additionalData || {};
+  const { template, uid } = additionalData || {};
 
   return {
-    uid: `contentPage${faker.datatype.number(1000)}`,
+    uid: uid ?? `contentPage${faker.datatype.number(1000)}`,
     uuid: faker.datatype.uuid(),
     title,
     template: template ?? 'ContentPage1Template',
@@ -75,13 +76,6 @@ export const contentPages = (): Pages => {
       'Account Overview',
       cmsPageContentSlotsFlexTypeComponent('account_overview_component', 'Account Overview', 'ValanticAccountOverviewComponent')
     ),
-    styleguide: contentPage(
-      'ContentPage',
-      '/styleguide',
-      'Valantic Styleguide',
-      'Styleguide',
-      cmsPageContentSlotsFlexTypeComponent('StyleguideComponent', 'Styleguide Component', 'ValanticStyleguideComponent')
-    ),
     'not-found': contentPage(
       'ContentPage',
       '/not-found',
@@ -89,6 +83,7 @@ export const contentPages = (): Pages => {
       'Page Not found',
       cmsPageContentSlotsNotFound()
     ),
+    cart: contentPage('ContentPage', '/cart', 'Your shopping cart', 'Cart Page', cmsCartContentSlots(), { template: 'CartPageTemplate', uid: 'cartPage' }),
     search: contentPage(
       'ContentPage',
       '/search',
@@ -96,6 +91,5 @@ export const contentPages = (): Pages => {
       'Search',
       cmsPageContentSlotsFlexTypeComponent('SearchResultsListComponent', 'Search Component', 'SearchResultsListComponent')
     ),
-    cart: contentPage('ContentPage', '/cart', 'Cart Page', 'Cart Page', cmsCartContentSlots()),
   };
 };

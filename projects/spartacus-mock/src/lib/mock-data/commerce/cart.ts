@@ -3,17 +3,22 @@ import ImageType = Occ.ImageType;
 import PriceType = Occ.PriceType;
 import { mediaImage } from '../media/media-image';
 import { Voucher } from '@spartacus/cart/base/root';
+import { ActiveCartEntry, LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
+import { faker } from '@faker-js/faker';
+import { product } from '../products/product';
+import OrderEntry = Occ.OrderEntry;
 
-const productPrice = 60.35;
-
-let cartQuantity = 0;
-let activeVoucherId = '';
+export enum CartUserType {
+  OCC_USER_ID_ANONYMOUS = 'anonymous',
+  OCC_USER_ID_GUEST = 'guest',
+  OCC_USER_ID_CURRENT = 'current',
+}
 
 interface ProductAddToCart {
   code: string;
 }
 
-const emptyCartData = (): Occ.Cart => {
+const emptyCartData = (cartUserType: CartUserType): Occ.Cart => {
   return {
     // @ts-ignore
     type: 'cartWsDTO',
@@ -22,8 +27,8 @@ const emptyCartData = (): Occ.Cart => {
     appliedVouchers: [],
     code: '0030424022',
     deliveryCost: {
-      formattedValue: 'CHF 0,00',
-      value: 0
+      formattedValue: '$0,00',
+      value: 0,
     },
     deliveryItemsQuantity: 0,
     entries: [],
@@ -31,307 +36,390 @@ const emptyCartData = (): Occ.Cart => {
     net: false,
     pickupItemsQuantity: 0,
     productDiscounts: {
-      formattedValue: 'CHF 0,00',
-      value: 0
+      formattedValue: '$0,00',
+      value: 0,
     },
     subTotal: {
-      formattedValue: 'CHF 0,00',
-      value: 0
+      formattedValue: '$0,00',
+      value: 0,
     },
     totalDiscounts: {
-      formattedValue: 'CHF 0,00',
-      value: 0
+      formattedValue: '$0,00',
+      value: 0,
     },
     totalItems: 0,
     totalPrice: {
-      currencyIso: 'CHF',
-      formattedValue: 'CHF 0,00',
-      value: 0
+      currencyIso: 'USD',
+      formattedValue: '$0,00',
+      value: 0,
     },
     totalPriceWithTax: {
-      currencyIso: 'CHF',
-      formattedValue: 'CHF 0,00',
-      value: 0
+      currencyIso: 'USD',
+      formattedValue: '$0,00',
+      value: 0,
     },
     totalTax: {
-      formattedValue: 'CHF 0,00',
-      value: 0
+      formattedValue: '$0,00',
+      value: 0,
     },
     totalTaxValues: [],
-    user: {
-      name: 'Anonymous',
-      uid: 'anonymous'
-    },
+    user: getUserForCart(cartUserType),
     potentialOrderPromotions: [],
-    potentialProductPromotions: []
-  }
-}
+    potentialProductPromotions: [],
+  };
+};
 
-const fullCartData = (cartGuid: string): Occ.Cart => {
-
-  const vouchers: Voucher[] = [];
-  const orderPromotions: Promotion[] = [];
-
-  if (activeVoucherId) {
-    vouchers.push({
-      code: '1234',
-      freeShipping: false,
-      voucherCode: '1234',
-    })
-
-    orderPromotions.push({
-      // @ts-ignore
-      consumedEntries: [],
-      description: 'Buy over $200.00 get $20.00 discount on cart',
-      promotion: {
-        code: 'order_threshold_fixed_discount_main',
-        promotionType: 'Rule Based Promotion'
-      }
-    })
-  }
-
+const wishlistCartData = (userType: CartUserType): Occ.Cart => {
   return {
-    // @ts-ignore
-    appliedOrderPromotions: [
-      {
-        consumedEntries: [],
-        description: 'Buy over $200.00 get $20.00 discount on cart',
-        promotion: {
-          code: 'order_threshold_fixed_discount_main',
-          promotionType: 'Rule Based Promotion'
-        }
-      }
-    ],
-    appliedProductPromotions: [],
+    appliedOrderPromotions: [],
     appliedVouchers: [],
-    code: '0030424022',
-    deliveryItemsQuantity: 1,
+    code: '0010032010',
+    deliveryItemsQuantity: 0,
     entries: [
       {
         basePrice: {
           formattedValue: '$1,066.18',
-          value: 1066.18
+          value: 1066.18,
         },
-        configurationInfos: [],
         entryNumber: 0,
         product: {
           availableForPickup: true,
           baseOptions: [],
-          categories: [
-            {
-              code: '578',
-              name: 'Digital SLR'
-            },
-            {
-              code: 'brand_10',
-              name: 'Canon'
-            }
-          ],
-          code: '2054947',
+          code: 'product', // needs to match product ID for mock product /de/products/product
           images: [
-            mediaImage('hires', ImageType.PRIMARY, 3500, 3500),
-            mediaImage('big', ImageType.PRIMARY, 675, 675),
-            mediaImage('detail', ImageType.PRIMARY, 480, 480),
-            mediaImage('compare', ImageType.PRIMARY, 110, 110),
-            mediaImage('thumbnail', ImageType.PRIMARY, 90, 90),
+            mediaImage('product-zoom', ImageType.PRIMARY, 900, 900),
+            mediaImage('product-Summary', ImageType.PRIMARY, 440, 440),
+            mediaImage('product-main', ImageType.PRIMARY, 240, 240),
+            mediaImage('product-thumbnail', ImageType.PRIMARY, 150, 150),
+            mediaImage('product-icon', ImageType.PRIMARY, 80, 80),
           ],
           manufacturer: 'Canon',
-          name: 'EOS 500D + 18-200mm IS',
+          name: 'Product 1',
           purchasable: true,
           stock: {
             isValueRounded: false,
             stockLevel: 671,
-            stockLevelStatus: 'inStock'
+            stockLevelStatus: 'noStock',
+            availableDate: new Date('2021-01-18T18:02:27+0000'),
           } as Stock,
-          url: '/Open-Catalogue/Cameras/Digital-Cameras/Digital-SLR/EOS-500D-%2B-18-200mm-IS/p/2054947'
+          url: '/products/product',
         },
         quantity: 1,
         statusSummaryList: [],
         totalPrice: {
           currencyIso: 'USD',
           formattedValue: '$1,066.18',
-          value: 1066.18
+          value: 1066.18,
         },
-        updateable: true
-      }
+        updateable: true,
+      },
     ],
+    guid: '22579b1a-9bb8-4c34-82fa-c71bb402a4d5',
+    net: false,
+    pickupItemsQuantity: 0,
+    productDiscounts: {
+      formattedValue: '$0.00',
+    },
+    subTotal: {
+      formattedValue: '$0.00',
+    },
+    totalDiscounts: {
+      currencyIso: 'USD',
+      formattedValue: '$0.00',
+      priceType: PriceType.BUY,
+      value: 0,
+    },
+    totalItems: 0,
+    totalPrice: {
+      currencyIso: 'USD',
+      formattedValue: '$0.00',
+      value: 0,
+    },
+    totalPriceWithTax: {
+      currencyIso: 'USD',
+      formattedValue: '$0.00',
+      value: 0,
+    },
+    totalTax: {
+      formattedValue: '$0.00',
+      value: 0,
+    },
+    user: getUserForCart(userType),
+    description: 'undefined',
+    // name consists out of 'wishlist' and user id and must match user id from user.ts
+    name: 'wishlist85c9e5b9-8924-474d-8f44-ec15b14c5888',
+    potentialOrderPromotions: [],
+    potentialProductPromotions: [],
+    saveTime: new Date('2023-03-27T10:59:18+0000'),
+  };
+};
+
+const fullCartData = (cartGuid: string, userType: CartUserType): Occ.Cart => {
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
+
+  const totalQuantity = mockData.activeCartEntries.reduce((acc, entry) => { return acc + entry.quantity; }, 0);
+  const entries: OrderEntry[] = mockData.activeCartEntries.map((entry, index) => getOrderEntry(index, entry.code, entry.quantity, true));
+
+  let totalAmount = entries.reduce((acc, entry) => { return acc + (entry.totalPrice?.value || 0); }, 0);
+
+  return {
+    // @ts-ignore
+    appliedOrderPromotions: [],
+    appliedProductPromotions: [],
+    appliedVouchers: mockData.activeVouchers,
+    code: '0030424022',
+    deliveryItemsQuantity: totalQuantity,
+    entries,
     guid: cartGuid,
     net: false,
     pickupItemsQuantity: 0,
     productDiscounts: {
-      formattedValue: '$0.00'
+      formattedValue: '$0.00',
     },
     subTotal: {
       currencyIso: 'USD',
-      formattedValue: '$1,046.18',
+      formattedValue: `$${totalAmount}`,
       priceType: PriceType.BUY,
-      value: 1046.18
+      value: totalAmount,
     },
     totalDiscounts: {
       currencyIso: 'USD',
       formattedValue: '$20.00',
       priceType: PriceType.BUY,
-      value: 20
+      value: 20,
     },
-    totalItems: 1,
+    totalItems: totalQuantity,
     totalPrice: {
       currencyIso: 'USD',
-      formattedValue: '$1,046.18',
+      formattedValue: `$${totalAmount}`,
       priceType: PriceType.BUY,
-      value: 1046.18
+      value: totalAmount,
     },
     totalPriceWithTax: {
       currencyIso: 'USD',
-      formattedValue: '$1,046.18',
+      formattedValue: `$${totalAmount}`,
       priceType: PriceType.BUY,
-      value: 1046.18
+      value: totalAmount,
     },
     totalTax: {
       currencyIso: 'USD',
       formattedValue: '$0.00',
       priceType: PriceType.BUY,
-      value: 0
+      value: 0,
     },
-    user: {
-      name: 'Anonymous',
-      uid: 'anonymous'
-    },
+    user: getUserForCart(userType),
     potentialOrderPromotions: [],
     potentialProductPromotions: [],
-    totalUnitCount: 1
-  }
-}
+    totalUnitCount: totalQuantity,
+  };
+};
 
-export const getCart = (cartGuid: string): Occ.Cart => {
-  if (cartGuid !== '' && cartQuantity > 0) {
-    return fullCartData(cartGuid);
-  } else {
-    return emptyCartData()
-  }
-}
+export const getCart = (cartGuid: string, cartUserType: CartUserType): Occ.Cart => {
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}');
 
-export const getCarts = (cartGuid: string): Occ.CartList => {
-  if (cartGuid !== '' && cartQuantity > 0) {
-    return { carts: [fullCartData(cartGuid)]};
+  if (cartGuid !== '' && mockData.activeCartEntries.length > 0) {
+    return fullCartData(cartGuid, cartUserType);
   } else {
-    return { carts: [emptyCartData()]}
+    return emptyCartData(cartUserType);
   }
-}
+};
+
+export const getCarts = (cartUserType: CartUserType): Occ.CartList => {
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}');
+  const cartsArray = [];
+
+  if (mockData.activeCartEntries.length > 0) {
+    cartsArray.push(fullCartData('', cartUserType));
+  } else {
+    cartsArray.push(emptyCartData(cartUserType));
+  }
+
+  if (cartUserType === CartUserType.OCC_USER_ID_CURRENT) {
+    cartsArray.push(wishlistCartData(cartUserType));
+  }
+
+  return { carts: cartsArray };
+};
 
 export const addToCart = (product: ProductAddToCart, quantity: number): Occ.CartModification => {
-  cartQuantity = cartQuantity + quantity;
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
+  let activeCartEntries = mockData.activeCartEntries;
+  let activeCartEntry = activeCartEntries.find((entry: ActiveCartEntry) => entry.code === product.code);
+
+  if (activeCartEntry) {
+    activeCartEntry.quantity += quantity;
+
+    activeCartEntries = activeCartEntries.filter(( activeCartEntry: ActiveCartEntry ) => {
+      return activeCartEntry.code !== product.code;
+    });
+  } else {
+    activeCartEntry = { code: product.code, quantity: quantity };
+  }
+
+  mockData = {
+    ...mockData,
+    activeCartEntries: [...activeCartEntries, activeCartEntry],
+  };
+
+  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 
   return {
-    entry: {
-      cancellableQuantity: 0,
-      configurationInfos: [],
-      entryNumber: 0,
-      product: {
-        availableForPickup: false,
-        baseOptions: [],
-        categories: [
-          {
-            code: 'accessory',
-            name: 'Zubehör'
-          },
-          {
-            code: 'cutleryTray',
-            name: 'Besteckauflagen'
-          },
-          {
-            code: 'shopvisible',
-            name: 'Zubehör im Shop sichtbar'
-          }
-        ],
-        code: product.code,
-        name: 'Vario-Besteckauflage',
-        purchasable: false,
-        stock: {
-          // @ts-ignore
-          isValueRounded: false,
-          stockLevelStatus: 'inStock'
-        },
-        url: '/zubehoer/geschirrspueler/besteckauflagen/vario-besteckauflage--pW83586'
-      },
-      quantity: cartQuantity,
-      returnableQuantity: 0,
-      statusSummaryList: [],
-      totalPrice: {
-        currencyIso: 'CHF',
-        value: quantity * productPrice
-      }
-    },
-    quantity: cartQuantity,
+    entry: getOrderEntry(0, product.code, activeCartEntry.quantity),
+    quantity: quantity,
     quantityAdded: quantity,
-    statusCode: 'success'
-  }
-}
+    statusCode: 'success',
+  };
+};
 
-export const updateCart = (_cartId: string, entryNumber: number, quantity: number): Occ.CartModification => {
+export const updateEntries = (_cartId: string, entryNumber: number, quantity: number): Occ.CartModification => {
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
+  let activeCartEntries = mockData.activeCartEntries;
+  let activeCartEntry = activeCartEntries[entryNumber];
+
   let quantityAdded = 0;
-  if (cartQuantity < quantity) {
+  if (activeCartEntry.quantity < quantity) {
     quantityAdded = 1;
-  } else if (cartQuantity > quantity) {
+  } else if (activeCartEntry.quantity > quantity) {
     quantityAdded = -1;
   }
 
-  cartQuantity = quantity;
+  activeCartEntry.quantity += quantityAdded;
+
+  mockData = {
+    ...mockData,
+    activeCartEntries: [...activeCartEntries],
+  };
+
+  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 
   return {
-    entry: {
-      cancellableQuantity: 0,
-      configurationInfos: [],
-      entryNumber,
-      product: {
-        availableForPickup: false,
-        baseOptions: [],
-        categories: [
-          {
-            code: 'accessory',
-            name: 'Zubehör'
-          },
-          {
-            code: 'cutleryTray',
-            name: 'Besteckauflagen'
-          },
-          {
-            code: 'shopvisible',
-            name: 'Zubehör im Shop sichtbar'
-          }
-        ],
-        code: 'W83586',
-        configurable: false,
-        name: 'Vario-Besteckauflage',
-        purchasable: false,
-        stock: {
-          // @ts-ignore
-          isValueRounded: false,
-          stockLevelStatus: 'inStock'
-        },
-        url: '/zubehoer/geschirrspueler/besteckauflagen/vario-besteckauflage--pW83586'
-      },
-      quantity,
-      returnableQuantity: 0,
-      statusSummaryList: [],
-      totalPrice: {
-        currencyIso: 'CHF',
-        value: quantity * productPrice,
-      }
-    },
-    quantity,
+    entry: getOrderEntry(0, activeCartEntry.code, activeCartEntry.quantity),
+    quantity: activeCartEntry.quantity,
     quantityAdded,
-    statusCode: 'success'
-  }
-}
+    statusCode: 'success',
+  };
+};
+
+export const removeEntries = (cartId: string, entryNumber: number) => {
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
+  let activeCartEntries = mockData.activeCartEntries;
+  let activeCartEntry = activeCartEntries[entryNumber];
+  const productCode = activeCartEntry.code;
+
+  activeCartEntries = activeCartEntries.filter(( activeCartEntry: ActiveCartEntry ) => {
+    return activeCartEntry.code !== productCode;
+  });
+
+  mockData = {
+    ...mockData,
+    activeCartEntries,
+  };
+
+  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
+};
 
 export const deleteCart = () => {
-  cartQuantity = 0;
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
+
+  mockData = {
+    ...mockData,
+    activeCartEntries: [],
+  };
+
+  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 }
 
 export const addVoucher = (voucherId: string) => {
-  activeVoucherId = voucherId;
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}');
+
+  mockData.activeVouchers.push({
+    code: voucherId,
+    voucherCode: voucherId,
+  });
+
+  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
+};
+
+export const deleteVoucher = (voucherCode: string) => {
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}');
+
+  mockData = {
+    ...mockData,
+    activeVouchers: mockData.activeVouchers.filter((voucher: Voucher) => {
+      return voucher.code !== voucherCode;
+    }),
+  };
+
+  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
+};
+
+export const getUserForCart = (userType?: CartUserType) => {
+  switch (userType) {
+    case CartUserType.OCC_USER_ID_GUEST:
+      return {
+        name: userType,
+        uid: '780da81b-f797-4274-b2a7-aa879808e6a7|' + faker.internet.email(),
+      };
+    case CartUserType.OCC_USER_ID_CURRENT:
+      return {
+        name: 'Hans Muster',
+        uid: 'hans.muster@gmail.com',
+      };
+    default:
+      return {
+        name: CartUserType.OCC_USER_ID_ANONYMOUS,
+        uid: CartUserType.OCC_USER_ID_ANONYMOUS,
+      };
+  }
+};
+
+export const getUserTypeById = (userId: string): CartUserType => {
+  switch (userId) {
+    case CartUserType.OCC_USER_ID_GUEST:
+      return CartUserType.OCC_USER_ID_GUEST;
+    case CartUserType.OCC_USER_ID_CURRENT:
+      return CartUserType.OCC_USER_ID_CURRENT;
+    default:
+      return CartUserType.OCC_USER_ID_ANONYMOUS;
+  }
+};
+
+function getOrderEntry(index: number, productCode: string, quantity: number, isFullCartRequest?: boolean): Occ.OrderEntry {
+  const price = faker.commerce.price(100, 10000, 0, '');
+  const priceNumber = getPriceWithDecimals(price);
+
+  let orderEntry: Occ.OrderEntry = {
+    // @ts-ignore
+    cancellableQuantity: 0,
+    configurationInfos: [],
+    entryNumber: index,
+    product: product(productCode, index),
+    quantity,
+    returnableQuantity: 0,
+    statusSummaryList: [],
+    totalPrice: {
+      currencyIso: 'USD',
+      formattedValue: `$${priceNumber}`,
+      value: priceNumber,
+    },
+  }
+
+  if(isFullCartRequest) {
+    orderEntry = {
+      ...orderEntry,
+      basePrice: {
+        formattedValue: `$${priceNumber}`,
+        value: priceNumber,
+      },
+      updateable: true,
+    }
+  }
+
+  return orderEntry
 }
 
-export const deleteVoucher = () => {
-  activeVoucherId = '';
+function getPriceWithDecimals(price: string): number {
+  let decimalsNumber = faker.datatype.number({ min: 0, max: 99 });
+
+  return parseFloat(`${price}.${decimalsNumber === 0 ? '00' : decimalsNumber}`);
 }

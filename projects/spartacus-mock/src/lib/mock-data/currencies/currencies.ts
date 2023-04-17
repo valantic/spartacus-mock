@@ -3,7 +3,7 @@ export const currencies = () => {
     currencies: [
       {
         active: true,
-        isocode: 'CHF',
+        isocode: 'USD',
         name: 'Swiss francs',
         symbol: ''
       },

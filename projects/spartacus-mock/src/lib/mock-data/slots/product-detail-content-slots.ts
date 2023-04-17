@@ -2,6 +2,7 @@ import { contentSlot } from '../components/default/content-slot';
 import { productReferencesComponent } from '../components/default/product-references';
 import { cmsTabParagraphContainerComponent } from '../components/default/cms-tab-paragraph';
 import { ContentSlot } from '../../types';
+import { flexType } from '../components/default/flex-type';
 
 export const productDetailContentSlots = (): ContentSlot[] => {
   // content slots
@@ -84,15 +85,6 @@ export const productDetailContentSlots = (): ContentSlot[] => {
     ),
 
     contentSlot(
-      'UpSellingSlot',
-      'UpSelling',
-      'Up Selling Slot',
-      [
-        productReferencesComponent('SimilarProducts', 'Similar Products', 'SIMILAR', 'You may also like..')
-      ]
-    ),
-
-    contentSlot(
       'TabsSlot',
       'Tabs',
       'Tabs Slot',
@@ -102,11 +94,38 @@ export const productDetailContentSlots = (): ContentSlot[] => {
     ),
 
     contentSlot(
+      'UpSellingSlot',
+      'UpSelling',
+      'Up Selling Slot',
+      [
+        productReferencesComponent('SimilarProducts', 'Similar Products', 'SIMILAR', 'You may also like..')
+      ]
+    ),
+
+    contentSlot(
       'CrossSellingSlot',
       'CrossSelling',
       'Cross Selling Slot',
       [
         productReferencesComponent('AccessoryProducts', 'Accessory Products', 'ACCESSORIES', 'The best accessories..')
+      ]
+    ),
+
+    contentSlot(
+      'PlaceholderContentSlot',
+      'PlaceholderContentSlot',
+      'PlaceholderContentSlot',
+      [
+        flexType('ProfileTagScriptComponent', 'Profile Tag', 'ProfileTagScriptComponent', 'eyJpdGVtSWQiOiJQcm9maWxlVGFnU2NyaXB0Q29tcG9uZW50IiwiY2F0YWxvZ0lkIjoiZWxlY3Ryb25pY3Mtc3BhQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9')
+      ]
+    ),
+
+    contentSlot(
+      'Section3-ProductDetailsSlot',
+      'Section3',
+      'Section3 Product Details Page',
+      [
+        flexType('BundleCarouselComponent', 'Bundle Carousel Component', 'BundleCarouselComponent', 'eyJpdGVtSWQiOiJCdW5kbGVDYXJvdXNlbENvbXBvbmVudCIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ')
       ]
     ),
   ];

@@ -1,7 +1,7 @@
-import { CustomComponent } from '../../types/types';
 import { faker } from '@faker-js/faker';
+import { Component } from '../../../types';
 
-export const flexType = (uid: string, name: string, typeCode: string, uuid?: string): CustomComponent => {
+export const flexType = (uid: string, name: string, typeCode: string, uuid?: string): Component => {
   return {
     uid,
     uuid: uuid ?? faker.datatype.uuid(),

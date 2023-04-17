@@ -32,8 +32,8 @@ export function getDefaultRoutes (environment: Environment) {
     consentTemplates: `${occEndpoint}:baseSiteId/users/anonymous/consenttemplates`,
     pages: `${occEndpoint}:baseSiteId/cms/pages`,
     components: `${occEndpoint}:baseSiteId/cms/components`,
-    authLogin: '/authorizationserver/oauth/token',
-    authRevoke: '/authorizationserver/oauth/revoke',
+    authLogin: '*/authorizationserver/oauth/token',
+    authRevoke: '*/authorizationserver/oauth/revoke',
     users: `${occEndpoint}:baseSiteId/users/:user`,
     usersTemp: `${occEndpoint}users/:user`,
     titles: `${occEndpoint}:baseSiteId/titles`,
@@ -49,10 +49,11 @@ export function getDefaultRoutes (environment: Environment) {
     addEntries: `${occEndpoint}:baseSiteId/${cartEndpoints?.addEntries.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
     updateEntries: `${occEndpoint}:baseSiteId/${cartEndpoints?.updateEntries.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId').replace('${entryNumber}', ':entryNumber'),
     removeEntries: `${occEndpoint}:baseSiteId/${cartEndpoints?.removeEntries.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId').replace('${entryNumber}', ':entryNumber'),
-    deleteCart: `${occEndpoint}:baseSiteId/${cartEndpoints?.removeEntries.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    deleteCart: `${occEndpoint}:baseSiteId/${cartEndpoints?.deleteCart.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
     cartVoucher: `${occEndpoint}:baseSiteId/${cartEndpoints?.cartVoucher.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
     cartVoucherRemove: `${occEndpoint}:baseSiteId/${cartEndpoints?.cartVoucher.split('?')[0]}/:voucherCode`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
     validate: `${occEndpoint}:baseSiteId/${cartEndpoints?.validate.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
+    saveCart: `${occEndpoint}:baseSiteId/${cartEndpoints.saveCart.split('?')[0]}`.replace('${userId}', ':userId').replace('${cartId}', ':cartId'),
 
     // product
     productReferences: `${occEndpoint}:baseSiteId/products/:productCode/references`,
