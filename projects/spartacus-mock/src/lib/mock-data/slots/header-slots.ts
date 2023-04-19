@@ -81,9 +81,9 @@ export const headerLinksSlot = (slotId: string, slotPosition: string, slotName: 
                 uuid: "eyJpdGVtSWQiOiJPcmRlckhpc3RvcnlOYXZOb2RlIiwiY2F0YWxvZ0lkIjoiZWxlY3Ryb25pY3Mtc3BhQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9",
                 entries: [
                   {
-                    itemId: "OrderHistoryLink",
+                    itemId: "OrdersLink",
                     itemSuperType: "AbstractCMSComponent",
-                    itemType: "CMSLinkComponent"
+                    itemType: "CMSLinkComponent",
                   }
                 ],
                 // @ts-ignore

@@ -15,6 +15,8 @@ import { checkoutDeliveryModeContentSlots } from '../slots/checkout-delivery-mod
 import { checkoutPaymentDetailsContentSlots } from '../slots/checkout-payment-details-content-slots';
 import { checkoutReviewOrderContentSlots } from '../slots/checkout-review-order-content-slots';
 import { orderConfirmationContentSlots } from '../slots/order-confirmation-content-slots';
+import { accountOrderHistorySlots } from '../slots/account-order-history-slots';
+import { accountOrderSlots } from '../slots/account-order-slots';
 
 export interface Page {
   uid: string;
@@ -106,5 +108,7 @@ export const contentPages = (): Pages => {
       'Account Overview',
       cmsPageContentSlotsFlexTypeComponent('account_overview_component', 'Account Overview', 'ValanticAccountOverviewComponent')
     ),
+    'my-account/orders': contentPage('ContentPage', '/my-account/orders', 'Order History', 'Order History', accountOrderHistorySlots(), { template: 'AccountPageTemplate' }),
+    'my-account/order': contentPage('ContentPage', '/my-account/order', 'Order Details', 'Order Details', accountOrderSlots(), { template: 'AccountPageTemplate' }),
   };
 };

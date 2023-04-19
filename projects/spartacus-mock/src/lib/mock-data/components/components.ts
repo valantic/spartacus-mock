@@ -73,7 +73,7 @@ export const myAccountLinkComponents = (componentIds: string[]): Occ.ComponentLi
 
   for (const componentId of componentIds) {
     // link target is derived from componentId besides if it's the logout link
-    let linkUrl = componentId.replace(/([^A-Z])([A-Z])/g, '$1-$2').substring(0, (componentId.length - 3)).toLowerCase();
+    let linkUrl = `my-account/${componentId.replace('Link', '').replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "-" : "") + $.toLowerCase())}`;
 
     if (componentId === 'SignOutLink') {
       // signout link needs to use the route "logout" to keep the CdcLogoutGuard working
