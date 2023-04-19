@@ -31,9 +31,8 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 
 1. Clone the repository
 2. Make sure, you use the same node version for your project and the spartacus-mock, to make npm link work
-3. Run `npm install` in the root of the project
-4. Do the Development
-5. Run `npm run build`
-6. Run `npm link` in the root of the project to be able to use the current dev version of the library in your project
-7. Run `npm link @valantic/spartacus-mock` in your project's root folder to link the dev version of the library
-8. When you're done, make a pull request with your changes
+3. Run `npm install` in the root of this project
+4. Run `npm link` in the root of this project to be able to use the current dev version of the library in your spartacus project
+5. Run `npm run watch` to start the watch mode
+6. Run `npm link @valantic/spartacus-mock` in your spartacus project's root folder to link the dev version of the library
+7. When you're done, make a pull request with your changes
