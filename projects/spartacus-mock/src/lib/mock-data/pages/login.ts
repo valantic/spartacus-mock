@@ -6,13 +6,13 @@ import { contentSlot } from '../components/default/content-slot';
 import { Page } from './index';
 import {flexTypeComponent} from "../components/default/flex-type-component";
 
-export const loginPage = (pageType: string, pageLabelOrId: string): Page => {
+export const loginPage = (): Page => {
   return {
     uid: `loginPage${faker.datatype.number(1000)}`,
     uuid: faker.datatype.uuid(),
     title: `Login Page`,
     template: 'LoginPageTemplate',
-    typeCode: pageType,
+    typeCode: 'ContentPage',
     name: 'Content Page',
     robotTag: 'INDEX_FOLLOW',
     contentSlots: {
@@ -28,17 +28,17 @@ export const loginPage = (pageType: string, pageLabelOrId: string): Page => {
         ...footerSlots()
       ]
     },
-    label: pageLabelOrId
+    label: '/login'
   };
 };
 
-export const registerPage = (pageType: string, pageLabelOrId: string): Page => {
+export const registerPage = (): Page => {
   return {
     uid: `loginPage${faker.datatype.number(1000)}`,
     uuid: faker.datatype.uuid(),
     title: `Register Page`,
     template: 'AccountPageTemplate',
-    typeCode: pageType,
+    typeCode: 'ContentPage',
     name: 'Register Page',
     robotTag: 'INDEX_FOLLOW',
     contentSlots: {
@@ -53,6 +53,6 @@ export const registerPage = (pageType: string, pageLabelOrId: string): Page => {
         ...footerSlots()
       ]
     },
-    label: pageLabelOrId
+    label: '/login/register'
   };
 };

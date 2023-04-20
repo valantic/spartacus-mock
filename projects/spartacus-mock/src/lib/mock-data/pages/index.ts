@@ -37,28 +37,19 @@ export interface Pages {
   [key: string]: Page;
 }
 
-interface AdditionalData {
-  template?: string;
-  uid?: string;
-}
-
 const contentPage = (
-  pageType: string,
   pageLabelOrId: string,
   title: string,
-  name: string,
   contentSlots: ContentSlot[],
-  additionalData?: AdditionalData,
+  template?: string
 ): Page => {
-  const { template, uid } = additionalData || {};
-
   return {
-    uid: uid ?? `contentPage${faker.datatype.number(1000)}`,
+    uid: `contentPage${faker.datatype.uuid()}`,
     uuid: faker.datatype.uuid(),
     title,
     template: template ?? 'ContentPage1Template',
-    typeCode: pageType,
-    name,
+    typeCode: 'ContentPage',
+    name: title ?? 'dummy title',
     robotTag: 'INDEX_FOLLOW',
     contentSlots: {
       contentSlot: [...headerSlots(breadcrumbComponent()), ...contentSlots, ...footerSlots()],
@@ -76,39 +67,20 @@ const contentPage = (
  */
 export const contentPages = (): Pages => {
   return {
-    'login/register': registerPage('ContentPage', '/login/register'),
-    login: loginPage('ContentPage', '/login'),
-    logout: contentPage('ContentPage', '/logout', 'Logout', 'Logout', cmsPageContentSlots()),
-    search: contentPage(
-      'ContentPage',
-      '/search',
-      'Search',
-      'Search',
-      cmsPageContentSlotsFlexTypeComponent('SearchResultsListComponent')
-    ),
-    'not-found': contentPage(
-      'ContentPage',
-      '/not-found',
-      'Page not found',
-      'Page Not found',
-      cmsPageContentSlotsNotFound()
-    ),
-    'cart': contentPage('ContentPage', '/cart', 'Your shopping cart', 'Cart Page', cmsCartContentSlots(), { template: 'CartPageTemplate', uid: 'cartPage' }),
-    'checkout-login': contentPage('ContentPage', '/checkout-login', 'Checkout Login', 'Checkout Login Page', checkoutLoginContentSlots(), { template: 'MultiStepCheckoutSummaryPageTemplate', uid: 'CheckoutLogin' }),
-    'checkout/delivery-address': contentPage('ContentPage', '/checkout/delivery-address', 'Checkout Delivery Address', 'Checkout Delivery Address Page', checkoutDeliveryAddressContentSlots(), { template: 'MultiStepCheckoutSummaryPageTemplate', uid: 'CheckoutDeliveryAddress' }),
-    'checkout/delivery-mode': contentPage('ContentPage', '/checkout/delivery-mode', 'Checkout Delivery Mode', 'Checkout Delivery Mode Page', checkoutDeliveryModeContentSlots(), { template: 'MultiStepCheckoutSummaryPageTemplate', uid: 'CheckoutDeliveryMode' }),
-    'checkout/payment-details': contentPage('ContentPage', '/checkout/payment-details', 'Checkout Payment Details', 'Checkout Payment Details Page', checkoutPaymentDetailsContentSlots(), { template: 'MultiStepCheckoutSummaryPageTemplate', uid: 'CheckoutPaymentDetails' }),
-    'checkout/review-order': contentPage('ContentPage', '/checkout/review-order', 'Checkout Review Order', 'Checkout Review Order Page', checkoutReviewOrderContentSlots(), { template: 'MultiStepCheckoutSummaryPageTemplate', uid: 'CheckoutReviewOrder' }),
-    'checkout': contentPage('ContentPage', '/checkout', 'Checkout', 'Checkout Page', checkoutContentSlots(), { template: 'MultiStepCheckoutSummaryPageTemplate', uid: 'Checkout' }),
-    'order-confirmation': contentPage('ContentPage', '/order-confirmation', 'Order Confirmation', 'Order Confirmation Page', orderConfirmationContentSlots(), { template: 'OrderConfirmationPageTemplate', uid: 'orderConfirmationPage' }),
-    account: contentPage(
-      'ContentPage',
-      '/account',
-      'Account Overview',
-      'Account Overview',
-      cmsPageContentSlotsFlexTypeComponent('ValanticAccountOverviewComponent')
-    ),
-    'my-account/orders': contentPage('ContentPage', '/my-account/orders', 'Order History', 'Order History', accountOrderHistorySlots(), { template: 'AccountPageTemplate' }),
-    'my-account/order': contentPage('ContentPage', '/my-account/order', 'Order Details', 'Order Details', accountOrderSlots(), { template: 'AccountPageTemplate' }),
+    'login/register': registerPage(),
+    login: loginPage(),
+    logout: contentPage('/logout', 'Logout', cmsPageContentSlots()),
+    search: contentPage('/search', 'Search', cmsPageContentSlotsFlexTypeComponent('SearchResultsListComponent')),
+    'not-found': contentPage('/not-found', 'Page not found', cmsPageContentSlotsNotFound()),
+    'cart': contentPage('/cart', 'Your shopping cart', cmsCartContentSlots(), 'CartPageTemplate'),
+    'checkout-login': contentPage('/checkout-login', 'Checkout Login',  checkoutLoginContentSlots(), 'MultiStepCheckoutSummaryPageTemplate'),
+    'checkout/delivery-address': contentPage('/checkout/delivery-address', 'Checkout Delivery Address', checkoutDeliveryAddressContentSlots(), 'MultiStepCheckoutSummaryPageTemplate'),
+    'checkout/delivery-mode': contentPage('/checkout/delivery-mode', 'Checkout Delivery Mode', checkoutDeliveryModeContentSlots(), 'MultiStepCheckoutSummaryPageTemplate'),
+    'checkout/payment-details': contentPage('/checkout/payment-details', 'Checkout Payment Details', checkoutPaymentDetailsContentSlots(), 'MultiStepCheckoutSummaryPageTemplate'),
+    'checkout/review-order': contentPage('/checkout/review-order', 'Checkout Review Order', checkoutReviewOrderContentSlots(), 'MultiStepCheckoutSummaryPageTemplate'),
+    'checkout': contentPage('/checkout', 'Checkout', checkoutContentSlots(), 'MultiStepCheckoutSummaryPageTemplate'),
+    'order-confirmation': contentPage('/order-confirmation', 'Order Confirmation', orderConfirmationContentSlots(), 'OrderConfirmationPageTemplate'),
+    'my-account/orders': contentPage('/my-account/orders', 'Order History', accountOrderHistorySlots(), 'AccountPageTemplate'),
+    'my-account/order': contentPage('/my-account/order', 'Order Details', accountOrderSlots(), 'AccountPageTemplate'),
   };
 };
