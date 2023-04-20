@@ -1,7 +1,7 @@
 import { contentSlot } from '../components/default/content-slot';
 import { ContentSlot } from '../../types';
-import { flexType } from '../components/default/flex-type';
 import { checkoutDefaultContentSlots } from './checkout-default-content-slots';
+import {flexTypeComponent} from "../components/default/flex-type-component";
 
 export const checkoutContentSlots = (): ContentSlot[] => {
   // content slots
@@ -11,14 +11,14 @@ export const checkoutContentSlots = (): ContentSlot[] => {
     contentSlot(
       'BodyContent',
       [
-        flexType('CheckoutOrchestrator')
+        flexTypeComponent('CheckoutOrchestrator')
       ]
     ),
 
     contentSlot(
       'SideContent',
       [
-        flexType('CheckoutOrderSummary')
+        flexTypeComponent('CheckoutOrderSummary')
       ]
     ),
   ];

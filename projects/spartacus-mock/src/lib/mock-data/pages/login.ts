@@ -3,8 +3,8 @@ import { headerSlots } from '../slots/header-slots';
 import { footerSlots } from '../slots/footer-slots';
 import { breadcrumbComponent } from '../components/default/breadcrumb';
 import { contentSlot } from '../components/default/content-slot';
-import { cmsFlexTypeComponent } from '../components/default/cms-flex-type';
 import { Page } from './index';
+import {flexTypeComponent} from "../components/default/flex-type-component";
 
 export const loginPage = (pageType: string, pageLabelOrId: string): Page => {
   return {
@@ -21,8 +21,8 @@ export const loginPage = (pageType: string, pageLabelOrId: string): Page => {
         contentSlot(
           'LeftContentSlot',
           [
-            cmsFlexTypeComponent('ReturningCustomerLoginComponent', 'Returning Customer Login Component', 'ReturningCustomerLoginComponent', faker.datatype.uuid()),
-            cmsFlexTypeComponent('ReturningCustomerRegisterComponent', 'Returning Customer Register Component', 'ReturningCustomerRegisterComponent', faker.datatype.uuid()),
+            flexTypeComponent('ReturningCustomerLoginComponent'),
+            flexTypeComponent('ReturningCustomerRegisterComponent'),
           ]
         ),
         ...footerSlots()
@@ -47,7 +47,7 @@ export const registerPage = (pageType: string, pageLabelOrId: string): Page => {
         contentSlot(
           'BodyContent',
           [
-            cmsFlexTypeComponent('RegisterCustomerComponent', 'Register Customer Component', 'RegisterCustomerComponent', faker.datatype.uuid()),
+            flexTypeComponent('RegisterCustomerComponent'),
           ]
         ),
         ...footerSlots()

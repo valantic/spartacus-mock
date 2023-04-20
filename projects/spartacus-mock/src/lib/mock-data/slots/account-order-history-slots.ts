@@ -1,6 +1,6 @@
 import { ContentSlot } from '../../types';
 import {contentSlot} from "../components/default/content-slot";
-import {flexType} from "../components/default/flex-type";
+import {flexTypeComponent} from "../components/default/flex-type-component";
 
 export const accountOrderHistorySlots = (): ContentSlot[] => {
   // content slots
@@ -8,7 +8,7 @@ export const accountOrderHistorySlots = (): ContentSlot[] => {
     contentSlot(
       'BodyContent',
       [
-        flexType('AccountOrderHistoryComponent')
+        flexTypeComponent('AccountOrderHistoryComponent')
       ]
     ),
   ];

@@ -1,6 +1,6 @@
 import { contentSlot } from '../components/default/content-slot';
 import { ContentSlot } from '../../types';
-import { flexType } from '../components/default/flex-type';
+import {flexTypeComponent} from "../components/default/flex-type-component";
 
 export const orderConfirmationContentSlots = (): ContentSlot[] => {
   // content slots
@@ -8,13 +8,13 @@ export const orderConfirmationContentSlots = (): ContentSlot[] => {
     contentSlot(
       'BodyContent',
       [
-        flexType('OrderConfirmationThankMessageComponent'),
-        flexType('OrderConfirmationOverviewComponent'),
-        flexType('OrderConfirmationItemsComponent'),
-        flexType('ExportOrderEntriesComponent'),
-        flexType('OrderConfirmationShippingComponent'),
-        flexType('OrderConfirmationTotalsComponent'),
-        flexType('OrderConfirmationContinueButtonComponent'),
+        flexTypeComponent('OrderConfirmationThankMessageComponent'),
+        flexTypeComponent('OrderConfirmationOverviewComponent'),
+        flexTypeComponent('OrderConfirmationItemsComponent'),
+        flexTypeComponent('ExportOrderEntriesComponent'),
+        flexTypeComponent('OrderConfirmationShippingComponent'),
+        flexTypeComponent('OrderConfirmationTotalsComponent'),
+        flexTypeComponent('OrderConfirmationContinueButtonComponent'),
       ]
     ),
 

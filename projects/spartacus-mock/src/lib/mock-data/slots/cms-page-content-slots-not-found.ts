@@ -8,7 +8,7 @@ export const cmsPageContentSlotsNotFound = (): ContentSlot[] => {
     contentSlot(
       'Section3',
       [
-        cmsParagraphComponent('RichTextExampleParagraph', 'CMS Content Text Paragraph', 'The page you have requested was not found.'),
+        cmsParagraphComponent('The page you have requested was not found.'),
         ]
     ),
   ];

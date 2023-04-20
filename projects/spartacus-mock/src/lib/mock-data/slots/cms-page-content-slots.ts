@@ -11,8 +11,6 @@ export const cmsPageContentSlots = (): ContentSlot[] => {
       'Section3',
       [
         simpleResponsiveBanner(
-          'ElectronicsHompageFreeDelBannerComponent',
-          'Electronics Homepage Free Delivery Banner Component',
           '/faq',
           {
             code: 'Elec_HomeSpeed_EN_01',
@@ -51,7 +49,7 @@ export const cmsPageContentSlots = (): ContentSlot[] => {
     contentSlot(
       'Section3',
       [
-        cmsParagraphComponent('RichTextExampleParagraph', 'CMS Content Text Paragraph', richTextExampleContent),
+        cmsParagraphComponent(),
       ]
     ),
   ];

@@ -1,6 +1,6 @@
 import { contentSlot } from '../components/default/content-slot';
 import { ContentSlot } from '../../types';
-import { flexType } from '../components/default/flex-type';
+import {flexTypeComponent} from "../components/default/flex-type-component";
 
 export const checkoutDefaultContentSlots = (): ContentSlot[] => {
   // content slots
@@ -13,7 +13,7 @@ export const checkoutDefaultContentSlots = (): ContentSlot[] => {
     contentSlot(
       'PlaceholderContentSlot',
       [
-        flexType('ProfileTagScriptComponent')
+        flexTypeComponent('ProfileTagScriptComponent')
       ]
     ),
 

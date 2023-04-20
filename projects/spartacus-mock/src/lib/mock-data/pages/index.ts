@@ -84,7 +84,7 @@ export const contentPages = (): Pages => {
       '/search',
       'Search',
       'Search',
-      cmsPageContentSlotsFlexTypeComponent('SearchResultsListComponent', 'Search Component', 'SearchResultsListComponent')
+      cmsPageContentSlotsFlexTypeComponent('SearchResultsListComponent')
     ),
     'not-found': contentPage(
       'ContentPage',
@@ -106,7 +106,7 @@ export const contentPages = (): Pages => {
       '/account',
       'Account Overview',
       'Account Overview',
-      cmsPageContentSlotsFlexTypeComponent('account_overview_component', 'Account Overview', 'ValanticAccountOverviewComponent')
+      cmsPageContentSlotsFlexTypeComponent('ValanticAccountOverviewComponent')
     ),
     'my-account/orders': contentPage('ContentPage', '/my-account/orders', 'Order History', 'Order History', accountOrderHistorySlots(), { template: 'AccountPageTemplate' }),
     'my-account/order': contentPage('ContentPage', '/my-account/order', 'Order Details', 'Order Details', accountOrderSlots(), { template: 'AccountPageTemplate' }),

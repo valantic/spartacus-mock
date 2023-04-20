@@ -1,13 +1,9 @@
 import { navigationNodeComponent } from './navigation-node';
 import { Component } from '../../../types';
+import {flexTypeComponent} from "./flex-type-component";
 
 export const footerNavigationComponent = (): Component => {
-  return {
-    uid: `FooterNavigationComponent`,
-    uuid: 'eyJpdGVtSWQiOiJGb290ZXJOYXZpZ2F0aW9uQ29tcG9uZW50IiwiY2F0YWxvZ0lkIjoiZWxlY3Ryb25pY3Mtc3BhQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
-    typeCode: 'FooterNavigationComponent',
-    modifiedtime: '2021-01-18T18:14:57.663Z',
-    name: `Footer Navigation Component`,
+  return flexTypeComponent('FooterNavigationComponent', undefined, {
     showLanguageCurrency: 'true',
     wrapAfter: '4',
     notice: 'Copyright © 2021 SAP SE or an SAP affiliate company. All rights reserved.',
@@ -100,5 +96,5 @@ export const footerNavigationComponent = (): Component => {
         }
       ]
     )
-  };
+  });
 };

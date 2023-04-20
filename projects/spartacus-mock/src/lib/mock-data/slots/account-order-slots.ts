@@ -1,6 +1,6 @@
 import { ContentSlot } from '../../types';
 import {contentSlot} from "../components/default/content-slot";
-import {flexType} from "../components/default/flex-type";
+import {flexTypeComponent} from "../components/default/flex-type-component";
 
 export const accountOrderSlots = (): ContentSlot[] => {
   // content slots
@@ -8,15 +8,14 @@ export const accountOrderSlots = (): ContentSlot[] => {
     contentSlot(
       'BodyContent',
       [
-        flexType('AccountOrderDetailsOverviewComponent'),
-        flexType('AccountOrderDetailsShippingComponent', 'Shipping Top'),
-        flexType('AccountOrderDetailsItemsComponent'),
-        flexType('ExportOrderEntriesComponent'),
-        flexType('AccountOrderDetailsTotalsComponent'),
-        flexType('AccountOrderDetailsShippingComponent', 'Shipping Bottom'),
-        flexType('AccountOrderDetailsActionsComponent'),
+        flexTypeComponent('AccountOrderDetailsOverviewComponent'),
+        flexTypeComponent('AccountOrderDetailsShippingComponent'),
+        flexTypeComponent('AccountOrderDetailsItemsComponent'),
+        flexTypeComponent('ExportOrderEntriesComponent'),
+        flexTypeComponent('AccountOrderDetailsTotalsComponent'),
+        flexTypeComponent('AccountOrderDetailsShippingComponent'),
+        flexTypeComponent('AccountOrderDetailsActionsComponent'),
       ]
-
     ),
   ];
 };

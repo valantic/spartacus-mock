@@ -305,8 +305,8 @@ export const siteContextSlot = (slotId: string, slotPosition: string, slotName: 
     slotShared: true,
     components: {
       component: [
-        siteContextComponent('LanguageComponent', 'eyJpdGVtSWQiOiJMYW5ndWFnZUNvbXBvbmVudCIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==', 'Site Languages', 'LANGUAGE'),
-        siteContextComponent('CurrencyComponent', 'eyJpdGVtSWQiOiJDdXJyZW5jeUNvbXBvbmVudCIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==', 'Site Currencies', 'CURRENCY')
+        siteContextComponent('LANGUAGE'),
+        siteContextComponent('CURRENCY')
       ]
     }
   };

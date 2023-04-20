@@ -1,7 +1,6 @@
-import { faker } from '@faker-js/faker';
 import { contentSlot } from '../components/default/content-slot';
-import { cmsFlexTypeComponent } from '../components/default/cms-flex-type';
 import {ContentSlot} from "../../types";
+import {flexTypeComponent} from "../components/default/flex-type-component";
 
 export const cmsPageContentSlotsAccountOverview = (): ContentSlot[] => {
   // content slots
@@ -9,7 +8,7 @@ export const cmsPageContentSlotsAccountOverview = (): ContentSlot[] => {
     contentSlot(
       'Section3',
       [
-        cmsFlexTypeComponent('account_overview_component', 'Account Overview', 'XxxAccountOverviewComponent', faker.datatype.uuid()),
+        flexTypeComponent('XxxAccountOverviewComponent'),
       ]
     ),
   ];

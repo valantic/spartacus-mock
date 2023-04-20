@@ -1,15 +1,9 @@
-import { faker } from '@faker-js/faker';
 import { navigationNodeComponent } from './navigation-node';
 import { Component } from '../../../types';
+import {flexTypeComponent} from "./flex-type-component";
 
 export const categoryNavigationComponent = (): Component => {
-  return {
-    uid: 'ElectronicsCategoryNavComponent',
-    uuid: faker.datatype.uuid(),
-    typeCode: 'CategoryNavigationComponent',
-    modifiedtime: '2021-01-18T18:14:58.466Z',
-    name: 'Category Navigation Component',
-    container: 'false',
+  return flexTypeComponent('CategoryNavigationComponent', undefined, {
     wrapAfter: '10',
     navigationNode: navigationNodeComponent(
       'ElectronicsCategoryNavComponent',
@@ -220,5 +214,5 @@ export const categoryNavigationComponent = (): Component => {
         }
       ]
     )
-  };
+  })
 };

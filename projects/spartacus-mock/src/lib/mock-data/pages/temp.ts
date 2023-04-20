@@ -19,7 +19,7 @@ export const tempPage = (pageType: string, pageLabelOrId: string) => {
         contentSlot(
           'csn_main',
           [
-            cmsParagraphComponent('RichTextExampleParagraph', 'CMS Content Text Paragraph', `<h1>Oooups</h1><p>The page of type <b>"${pageType}"</b> with the label <b>"${pageLabelOrId}"</b> has not been mocked yet.</p>`),
+            cmsParagraphComponent(`<h1>Oooups</h1><p>The page of type <b>"${pageType}"</b> with the label <b>"${pageLabelOrId}"</b> has not been mocked yet.</p>`),
           ]
         ),
         ...footerSlots()

@@ -11,8 +11,6 @@ export const homeContentSlots = (): ContentSlot[] => {
       'Section1',
       [
         simpleResponsiveBanner(
-          'ElectronicsHompageSplashBannerComponent',
-          'Electronics Homepage Splash Banner Component',
           '/OpenCatalogue/Cameras/Digital-Cameras/Digital-SLR/c/578',
           {
             code: 'Elec_HomeSpeed_EN_01',
@@ -52,8 +50,6 @@ export const homeContentSlots = (): ContentSlot[] => {
       'Section2A',
       [
         simpleResponsiveBanner(
-          'ElectronicsHompageLightFamBannerComponent',
-          'Electronics Homepage Light Family Banner Component',
           '/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/c/576',
           {
             code: 'Elec_HomeFam_EN_01',
@@ -87,8 +83,6 @@ export const homeContentSlots = (): ContentSlot[] => {
           }
         ),
         simpleResponsiveBanner(
-          'ElectronicsHompageLightFamTextBannerComponent',
-          'Electronics Homepage Light Family Text Banner Component',
           '/Open-Catalogue/Cameras/CameraAccessories-%26-Supplies/CameraLenses/c/588',
           {
             code: 'Elec_HomeFam_EN_01',
@@ -124,8 +118,6 @@ export const homeContentSlots = (): ContentSlot[] => {
       'Section2B',
       [
         simpleResponsiveBanner(
-          'ElectronicsHompageCamcordersChildBannerComponent',
-          'Electronics Homepage Light Family Banner Component Child',
           '/Open-Catalogue/Cameras/Hand-held-Camcorders/c/584',
           {
             code: 'Elec_HomeCaptureFirst_EN_01',
@@ -155,8 +147,6 @@ export const homeContentSlots = (): ContentSlot[] => {
           }
         ),
         simpleResponsiveBanner(
-          'ElectronicsHompageCamcordersBannerComponent',
-          'Electronics Homepage Camcorders Banner Component',
           '/Open-Catalogue/Cameras/Hand-held-Camcorders/c/816',
           {
             code: 'Elec_HomeCaptureFirst_EN_01',
@@ -196,8 +186,8 @@ export const homeContentSlots = (): ContentSlot[] => {
     contentSlot(
       'Section3',
       [
-        productCarousel('ElectronicsHomepageProductCarouselComponent', 'Electronics Homepage Product Carousel', '300938 358639 553637 816802 1934793 1382080 1981415 816780 1934406 1986316 592506', 'Our Bestselling Products'),
-        productCarousel('NewElectronicsHomepageProductCarouselComponent', 'What\'s New Electronics Homepage Product Carousel', '932577 1776948 1641905 1981415 1934796 2278102 1992693', 'What\'s New')
+        productCarousel(['300938', '358639', '553637', '816802', '1934793', '1382080', '1981415', '816780', '1934406', '1986316', '592506'], 'Our Bestselling Products'),
+        productCarousel(['932577', '1776948', '1641905', '1981415', '1934796', '2278102', '1992693'], 'What\'s New')
       ]
     ),
 
@@ -205,8 +195,6 @@ export const homeContentSlots = (): ContentSlot[] => {
       'Section4',
       [
         simpleResponsiveBanner(
-          'ElectronicsHompageFreeDelBannerComponent',
-          'Electronics Homepage Free Delivery Banner Component',
           '/faq',
           {
             code: 'Elec_HomeSpeed_EN_01',

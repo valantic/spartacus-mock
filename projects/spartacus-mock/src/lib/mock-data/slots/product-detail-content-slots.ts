@@ -2,8 +2,8 @@ import { contentSlot } from '../components/default/content-slot';
 import { productReferencesComponent } from '../components/default/product-references';
 import { cmsTabParagraphContainerComponent } from '../components/default/cms-tab-paragraph';
 import { ContentSlot } from '../../types';
-import { flexType } from '../components/default/flex-type';
 import { faker } from '@faker-js/faker';
+import {flexTypeComponent} from "../components/default/flex-type-component";
 
 export const productDetailContentSlots = (): ContentSlot[] => {
   // content slots
@@ -86,35 +86,35 @@ export const productDetailContentSlots = (): ContentSlot[] => {
     contentSlot(
       'Tabs',
       [
-        cmsTabParagraphContainerComponent('TabPanelContainer', 'Tab container', 'ProductDetailsTabComponent ProductSpecsTabComponent ProductReviewsTabComponent deliveryTab')
+        cmsTabParagraphContainerComponent(['ProductDetailsTabComponent', 'ProductSpecsTabComponent', 'ProductReviewsTabComponent', 'deliveryTab'])
       ]
     ),
 
     contentSlot(
       'UpSelling',
       [
-        productReferencesComponent('SimilarProducts', 'Similar Products', 'SIMILAR', 'You may also like..')
+        productReferencesComponent('SIMILAR', 'You may also like..')
       ]
     ),
 
     contentSlot(
       'CrossSelling',
       [
-        productReferencesComponent('AccessoryProducts', 'Accessory Products', 'ACCESSORIES', 'The best accessories..')
+        productReferencesComponent('ACCESSORIES', 'The best accessories..')
       ]
     ),
 
     contentSlot(
       'PlaceholderContentSlot',
       [
-        flexType('ProfileTagScriptComponent')
+        flexTypeComponent('ProfileTagScriptComponent')
       ]
     ),
 
     contentSlot(
       'Section3',
       [
-        flexType('BundleCarouselComponent')
+        flexTypeComponent('BundleCarouselComponent')
       ]
     ),
   ];

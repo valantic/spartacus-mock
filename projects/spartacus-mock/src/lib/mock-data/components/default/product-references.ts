@@ -1,18 +1,12 @@
-import { faker } from '@faker-js/faker';
 import { Component } from '../../../types';
+import {flexTypeComponent} from "./flex-type-component";
 
-export const productReferencesComponent = (uid: string, name: string, referenceType: string, title: string): Component => {
-  return {
-    uid,
-    uuid: faker.datatype.uuid(),
-    typeCode: 'ProductReferencesComponent',
-    modifiedtime: '2021-01-18T18:14:57.663Z',
-    name,
-    container: 'false',
+export const productReferencesComponent = (referenceType: string, title: string): Component => {
+  return flexTypeComponent('ProductReferencesComponent', undefined, {
     productReferenceTypes: referenceType,
     displayProductPrices: 'true',
     maximumNumberProducts: '5',
     displayProductTitles: 'true',
     title
-  };
+  });
 };
