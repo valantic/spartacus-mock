@@ -9,9 +9,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
   // content slots
   return [
     contentSlot(
-      'ProductSummarySlot',
       'Summary',
-      'Summary for product details',
       [
         {
           'uid': 'ProductImagesComponent',
@@ -86,27 +84,21 @@ export const productDetailContentSlots = (): ContentSlot[] => {
     ),
 
     contentSlot(
-      'TabsSlot',
       'Tabs',
-      'Tabs Slot',
       [
         cmsTabParagraphContainerComponent('TabPanelContainer', 'Tab container', 'ProductDetailsTabComponent ProductSpecsTabComponent ProductReviewsTabComponent deliveryTab')
       ]
     ),
 
     contentSlot(
-      'UpSellingSlot',
       'UpSelling',
-      'Up Selling Slot',
       [
         productReferencesComponent('SimilarProducts', 'Similar Products', 'SIMILAR', 'You may also like..')
       ]
     ),
 
     contentSlot(
-      'CrossSellingSlot',
       'CrossSelling',
-      'Cross Selling Slot',
       [
         productReferencesComponent('AccessoryProducts', 'Accessory Products', 'ACCESSORIES', 'The best accessories..')
       ]
@@ -114,17 +106,13 @@ export const productDetailContentSlots = (): ContentSlot[] => {
 
     contentSlot(
       'PlaceholderContentSlot',
-      'PlaceholderContentSlot',
-      'PlaceholderContentSlot',
       [
         flexType('ProfileTagScriptComponent')
       ]
     ),
 
     contentSlot(
-      'Section3-ProductDetailsSlot',
       'Section3',
-      'Section3 Product Details Page',
       [
         flexType('BundleCarouselComponent')
       ]

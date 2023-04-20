@@ -8,9 +8,7 @@ export const cmsPageContentSlots = (): ContentSlot[] => {
   // content slots
   return [
     contentSlot(
-      'Section3Slot-ContentPage',
       'Section3',
-      'Section3 Slot for Content Page',
       [
         simpleResponsiveBanner(
           'ElectronicsHompageFreeDelBannerComponent',
@@ -51,9 +49,7 @@ export const cmsPageContentSlots = (): ContentSlot[] => {
     ),
 
     contentSlot(
-      'Section3Slot-ContentPage',
       'Section3',
-      'Section3 Slot for ContentPage',
       [
         cmsParagraphComponent('RichTextExampleParagraph', 'CMS Content Text Paragraph', richTextExampleContent),
       ]

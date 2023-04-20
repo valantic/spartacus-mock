@@ -1,29 +1,15 @@
 import { faker } from '@faker-js/faker';
-import { Occ } from '@spartacus/core';
 import { Component, ContentSlot } from '../../../types';
 
-export const contentSlot = (slotId: string, slotPosition: string, slotName: string, components: Component[]): ContentSlot => {
-  const componentList: Occ.Component[] = [];
-
-  const contentSlotObject: ContentSlot = {
-    slotId,
+export const contentSlot = (slotPosition: string, components: Component[], slotName?: string, slotId?: string ): ContentSlot => {
+  return {
+    slotId: slotId ?? `${slotPosition}-${faker.datatype.uuid()}`,
     slotUuid: faker.datatype.uuid(),
     position: slotPosition,
-    name: slotName,
+    name: slotName ?? `Slot-${slotPosition}`,
     slotShared: true,
     components: {
-      component: componentList,
+      component: components,
     }
   };
-
-  for (const component of components) {
-    componentList.push(component);
-  }
-
-  if (contentSlotObject.components) {
-    contentSlotObject.components.component = componentList;
-  }
-
-
-  return contentSlotObject;
 };

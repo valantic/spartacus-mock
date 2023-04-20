@@ -7,9 +7,7 @@ export const cmsPageContentSlotsFlexTypeComponent = (uid: string, name: string, 
   // content slots
   return [
     contentSlot(
-      'Section3Slot-ContentPage',
       'Section3',
-      'Section3 Slot for Content Page',
       [
         cmsFlexTypeComponent(uid, name, flexType, uuid || faker.datatype.uuid(), additionalData)
       ]

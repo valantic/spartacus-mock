@@ -19,9 +19,7 @@ export const loginPage = (pageType: string, pageLabelOrId: string): Page => {
       contentSlot: [
         ...headerSlots(breadcrumbComponent()),
         contentSlot(
-          'LeftContentSlot-login',
           'LeftContentSlot',
-          'Left Content Slot for Customer Login',
           [
             cmsFlexTypeComponent('ReturningCustomerLoginComponent', 'Returning Customer Login Component', 'ReturningCustomerLoginComponent', faker.datatype.uuid()),
             cmsFlexTypeComponent('ReturningCustomerRegisterComponent', 'Returning Customer Register Component', 'ReturningCustomerRegisterComponent', faker.datatype.uuid()),
@@ -47,9 +45,7 @@ export const registerPage = (pageType: string, pageLabelOrId: string): Page => {
       contentSlot: [
         ...headerSlots(breadcrumbComponent()),
         contentSlot(
-          'BodyContentSlot-register',
           'BodyContent',
-          'Body Content Slot for Register',
           [
             cmsFlexTypeComponent('RegisterCustomerComponent', 'Register Customer Component', 'RegisterCustomerComponent', faker.datatype.uuid()),
           ]

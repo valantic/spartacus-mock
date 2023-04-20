@@ -8,9 +8,7 @@ export const homeContentSlots = (): ContentSlot[] => {
   // content slots
   return [
     contentSlot(
-      'Section1Slot-Homepage',
       'Section1',
-      'Section1 Slot for Homepage',
       [
         simpleResponsiveBanner(
           'ElectronicsHompageSplashBannerComponent',
@@ -51,9 +49,7 @@ export const homeContentSlots = (): ContentSlot[] => {
     ),
 
     contentSlot(
-      'Section2ASlot-Homepage',
       'Section2A',
-      'Section2A Slot for Homepage',
       [
         simpleResponsiveBanner(
           'ElectronicsHompageLightFamBannerComponent',
@@ -125,9 +121,7 @@ export const homeContentSlots = (): ContentSlot[] => {
     ),
 
     contentSlot(
-      'Section2BSlot-Homepage',
       'Section2B',
-      'Section2B Slot for Homepage',
       [
         simpleResponsiveBanner(
           'ElectronicsHompageCamcordersChildBannerComponent',
@@ -195,16 +189,12 @@ export const homeContentSlots = (): ContentSlot[] => {
     ),
 
     contentSlot(
-      'Section2CSlot-Homepage',
       'Section2C',
-      'Section2C Slot for Homepage',
       []
     ),
 
     contentSlot(
-      'Section3Slot-Homepage',
       'Section3',
-      'Section3 Slot for Homepage',
       [
         productCarousel('ElectronicsHomepageProductCarouselComponent', 'Electronics Homepage Product Carousel', '300938 358639 553637 816802 1934793 1382080 1981415 816780 1934406 1986316 592506', 'Our Bestselling Products'),
         productCarousel('NewElectronicsHomepageProductCarouselComponent', 'What\'s New Electronics Homepage Product Carousel', '932577 1776948 1641905 1981415 1934796 2278102 1992693', 'What\'s New')
@@ -212,9 +202,7 @@ export const homeContentSlots = (): ContentSlot[] => {
     ),
 
     contentSlot(
-      'Section4Slot-Homepage',
       'Section4',
-      'Section4 Slot for Homepage',
       [
         simpleResponsiveBanner(
           'ElectronicsHompageFreeDelBannerComponent',
@@ -255,9 +243,7 @@ export const homeContentSlots = (): ContentSlot[] => {
     ),
 
     contentSlot(
-      'Section5Slot-Homepage',
       'Section5',
-      'Section5 Slot for Homepage',
       []
     ),
   ];

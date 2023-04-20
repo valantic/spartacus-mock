@@ -8,27 +8,21 @@ export const cmsCartContentSlots = (): ContentSlot[] => {
   // content slots
   return [
     contentSlot(
-      'EmptyCartMiddleContent-cartPage',
       'EmptyCartMiddleContent',
-      'Empty Cart Middle Slot for Cart Page',
       [
         cmsParagraphComponent('RichTextExampleParagraph', 'CMS Content Text Paragraph', `<h2>Your shopping cart is empty</h2><p>Suggestions</p><ul><li>Browse our products by selecting a category above</li></ul>`),
         cmsFlexTypeComponent('ImportOrderEntriesComponent', 'Import Order Entries Component', 'ImportOrderEntriesComponent', faker.datatype.uuid()),
       ]
     ),
     contentSlot(
-      'CenterLeftContentSlot-cartPage',
       'CenterLeftContentSlot',
-      'Center Left Content Slot for Cart Page',
       [
         cmsFlexTypeComponent('PromotionsComponent', 'Promotions Component', 'PromotionsComponent', faker.datatype.uuid()),
         cmsFlexTypeComponent('PotentialPromotionsComponent', 'Potential Promotions Component', 'PotentialPromotionsComponent', faker.datatype.uuid()),
       ]
     ),
     contentSlot(
-      'CenterRightContentSlot-cartPage',
       'CenterRightContentSlot',
-      'Center Right Content Slot for Cart Page',
       [
         cmsFlexTypeComponent('CartTotalsComponent', 'Cart Totals Display Component', 'CartTotalsComponent', faker.datatype.uuid()),
         cmsFlexTypeComponent('CartApplyCouponComponent', 'Cart Apply Coupon Component', 'CartApplyCouponComponent', faker.datatype.uuid()),
@@ -37,9 +31,7 @@ export const cmsCartContentSlots = (): ContentSlot[] => {
       ]
     ),
     contentSlot(
-      'BottomContentSlot-cartPage',
       'BottomContentSlot',
-      'Bottom Content Slot for Cart Page',
       [
         cmsFlexTypeComponent('CheckoutComponent', 'Checkout Display Component', 'CheckoutComponent', faker.datatype.uuid()),
         cmsFlexTypeComponent('CartSuggestions', 'Cart Suggestions', 'CartSuggestionComponent', faker.datatype.uuid(), {
@@ -54,9 +46,7 @@ export const cmsCartContentSlots = (): ContentSlot[] => {
       ]
     ),
     contentSlot(
-      'TopContent-cartPage',
       'TopContent',
-      'Top content for Cart Slot',
       [
         cmsFlexTypeComponent('AddToSavedCartsComponent', 'Add To Saved Carts Component', 'AddToSavedCartsComponent', faker.datatype.uuid()),
         cmsFlexTypeComponent('CartComponent', 'Cart Display Component', 'CartComponent', faker.datatype.uuid()),
