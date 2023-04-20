@@ -20,7 +20,7 @@ export const checkoutDefaultContentSlots = (): ContentSlot[] => {
       'PlaceholderContentSlot',
       'PlaceholderContentSlot',
       [
-        flexType('ProfileTagScriptComponent', 'Profile Tag', 'ProfileTagScriptComponent', faker.datatype.uuid())
+        flexType('ProfileTagScriptComponent')
       ]
     ),
 

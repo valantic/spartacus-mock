@@ -117,7 +117,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       'PlaceholderContentSlot',
       'PlaceholderContentSlot',
       [
-        flexType('ProfileTagScriptComponent', 'Profile Tag', 'ProfileTagScriptComponent', faker.datatype.uuid())
+        flexType('ProfileTagScriptComponent')
       ]
     ),
 
@@ -126,7 +126,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       'Section3',
       'Section3 Product Details Page',
       [
-        flexType('BundleCarouselComponent', 'Bundle Carousel Component', 'BundleCarouselComponent', faker.datatype.uuid())
+        flexType('BundleCarouselComponent')
       ]
     ),
   ];

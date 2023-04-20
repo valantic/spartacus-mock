@@ -17,11 +17,11 @@ export const checkoutReviewOrderContentSlots = (): ContentSlot[] => {
       'BodyContent',
       'Checkout Review Order Slot',
       [
-        flexType('CheckoutProgressComponent', 'Checkout Progress Component', 'CheckoutProgress', faker.datatype.uuid()),
-        flexType('CheckoutProgressMobileTopComponent', 'Checkout Progress Mobile Top Component', 'CheckoutProgressMobileTop', faker.datatype.uuid()),
-        flexType('CheckoutReviewOrderComponent', 'Checkout Review Order Component', 'CheckoutReviewOrder', faker.datatype.uuid()),
-        flexType('ExportOrderEntriesComponent', 'Export Order Entries Component', 'ExportOrderEntriesComponent', faker.datatype.uuid()),
-        flexType('CheckoutProgressMobileBottomComponent', 'Checkout Progress Mobile Bottom Component', 'CheckoutProgressMobileBottom', faker.datatype.uuid()),
+        flexType('CheckoutProgress'),
+        flexType('CheckoutProgressMobileTop'),
+        flexType('CheckoutReviewOrder'),
+        flexType('ExportOrderEntriesComponent'),
+        flexType('CheckoutProgressMobileBottom'),
       ]
     ),
 
@@ -30,8 +30,8 @@ export const checkoutReviewOrderContentSlots = (): ContentSlot[] => {
       'SideContent',
       'Order Summary Slot',
       [
-        flexType('CheckoutOrderSummaryComponent', 'Checkout OrderSummary Component', 'CheckoutOrderSummary', faker.datatype.uuid()),
-        flexType('CheckoutPlaceOrderComponent', 'Checkout Place Order Component', 'CheckoutPlaceOrder', faker.datatype.uuid()),
+        flexType('CheckoutOrderSummary'),
+        flexType('CheckoutPlaceOrder'),
       ]
     ),
   ];

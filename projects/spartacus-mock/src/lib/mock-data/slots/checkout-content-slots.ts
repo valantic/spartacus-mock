@@ -16,7 +16,7 @@ export const checkoutContentSlots = (): ContentSlot[] => {
       'BodyContent',
       'Checkout Orchestrator Slot',
       [
-        flexType('CheckoutOrchestratorComponent', 'Checkout Orchestrator Component', 'CheckoutOrchestrator', faker.datatype.uuid())
+        flexType('CheckoutOrchestrator')
       ]
     ),
 
@@ -25,7 +25,7 @@ export const checkoutContentSlots = (): ContentSlot[] => {
       'SideContent',
       'Order Summary Slot',
       [
-        flexType('CheckoutOrderSummaryComponent', 'Checkout OrderSummary Component', 'CheckoutOrderSummary', faker.datatype.uuid())
+        flexType('CheckoutOrderSummary')
       ]
     ),
   ];

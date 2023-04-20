@@ -11,7 +11,7 @@ export const accountOrderHistorySlots = (): ContentSlot[] => {
       'BodyContent',
       'BodyContent',
       [
-        flexType('AccountOrderHistoryComponent', 'Account Order History Component', 'AccountOrderHistoryComponent', faker.datatype.uuid())
+        flexType('AccountOrderHistoryComponent')
       ]
     ),
   ];

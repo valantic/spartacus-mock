@@ -17,10 +17,10 @@ export const checkoutDeliveryAddressContentSlots = (): ContentSlot[] => {
       'BodyContent',
       'Checkout Delivery Address Slot',
       [
-        flexType('CheckoutProgressComponent', 'Checkout Progress Component', 'CheckoutProgress', faker.datatype.uuid()),
-        flexType('CheckoutProgressMobileTopComponent', 'Checkout Progress Mobile Top Component', 'CheckoutProgressMobileTop', faker.datatype.uuid()),
-        flexType('CheckoutDeliveryAddressComponent', 'Checkout Delivery Address Component', 'CheckoutDeliveryAddress', faker.datatype.uuid()),
-        flexType('CheckoutProgressMobileBottomComponent', 'Checkout Progress Mobile Bottom Component', 'CheckoutProgressMobileBottom', faker.datatype.uuid()),
+        flexType('CheckoutProgress'),
+        flexType('CheckoutProgressMobileTop'),
+        flexType('CheckoutDeliveryAddress'),
+        flexType('CheckoutProgressMobileBottom'),
       ]
     ),
 
@@ -29,7 +29,7 @@ export const checkoutDeliveryAddressContentSlots = (): ContentSlot[] => {
       'SideContent',
       'Order Summary Slot',
       [
-        flexType('CheckoutOrderSummaryComponent', 'Checkout OrderSummary Component', 'CheckoutOrderSummary', faker.datatype.uuid())
+        flexType('CheckoutOrderSummary')
       ]
     ),
   ];

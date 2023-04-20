@@ -11,13 +11,13 @@ export const accountOrderSlots = (): ContentSlot[] => {
       'BodyContent',
       'BodyContent',
       [
-        flexType('AccountOrderDetailsOverviewComponent', 'Account Order Details Overview', 'AccountOrderDetailsOverviewComponent', faker.datatype.uuid()),
-        flexType('AccountOrderDetailsShippingComponent_TOP', 'Account Order Details Shipping TOP', 'AccountOrderDetailsShippingComponent', faker.datatype.uuid()),
-        flexType('AccountOrderDetailsItemsComponent', 'Account Order Details Items', 'AccountOrderDetailsItemsComponent', faker.datatype.uuid()),
-        flexType('ExportOrderEntriesComponent', 'Export Order Entries', 'ExportOrderEntriesComponent', faker.datatype.uuid()),
-        flexType('AccountOrderDetailsTotalsComponent', 'Account Order Details Totals', 'AccountOrderDetailsTotalsComponent', faker.datatype.uuid()),
-        flexType('AccountOrderDetailsShippingComponent_BOTTOM', 'Account Order Details Shipping BOTTOM', 'AccountOrderDetailsShippingComponent', faker.datatype.uuid()),
-        flexType('AccountOrderDetailsActionsComponent', 'Account Order Details Actions', 'AccountOrderDetailsActionsComponent', faker.datatype.uuid()),
+        flexType('AccountOrderDetailsOverviewComponent'),
+        flexType('AccountOrderDetailsShippingComponent', 'Shipping Top'),
+        flexType('AccountOrderDetailsItemsComponent'),
+        flexType('ExportOrderEntriesComponent'),
+        flexType('AccountOrderDetailsTotalsComponent'),
+        flexType('AccountOrderDetailsShippingComponent', 'Shipping Bottom'),
+        flexType('AccountOrderDetailsActionsComponent'),
       ]
     ),
   ];
