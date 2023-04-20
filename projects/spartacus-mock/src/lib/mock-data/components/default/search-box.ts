@@ -1,5 +1,5 @@
 import { Component } from '../../../types';
-import {flexTypeComponent} from "./flex-type-component";
+import { flexTypeComponent } from './flex-type-component';
 
 export const searchBoxComponent = (): Component => {
   return flexTypeComponent('SearchBoxComponent', undefined, {
@@ -9,6 +9,6 @@ export const searchBoxComponent = (): Component => {
     displayProducts: 'true',
     displayProductImages: 'true',
     waitTimeBeforeRequest: '0',
-    minCharactersBeforeRequest: '0'
+    minCharactersBeforeRequest: '0',
   });
 };

@@ -23,16 +23,14 @@ export const savedCartList = {
   actions: 'Actions',
   makeCartActive: 'Make cart active',
   notFound: 'No Saved Carts Found',
-  swapCartNoActiveCart:
-    'Existing cart is activated by {{cartName}} successfully.',
+  swapCartNoActiveCart: 'Existing cart is activated by {{cartName}} successfully.',
   swapCartWithActiveCart:
     'Existing cart is activated by {{cartName}} successfully. Your previous items were saved in a cart {{previousCartName}}.',
 };
 
 export const savedCartCartPage = {
   messages: {
-    cartSaved:
-      'Your cart items have been successfully saved for later in the "{{cartName}}" cart',
+    cartSaved: 'Your cart items have been successfully saved for later in the "{{cartName}}" cart',
   },
 };
 
@@ -47,8 +45,7 @@ export const savedCartDialog = {
   save: 'Save',
   restore: 'Restore',
   followingCartDelete: 'The following saved cart will be deleted',
-  followingCartRestore:
-    'The following saved cart will be restored as the active cart',
+  followingCartRestore: 'The following saved cart will be restored as the active cart',
   delete: 'Delete',
   deleteCartSuccess: 'Cart Deleted Successfully',
   editCartSuccess: 'Cart Edited Successfully',

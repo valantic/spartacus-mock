@@ -5,7 +5,7 @@ export const getSharedAddress = (isDefaultAddress?: boolean, isShippingAddress?:
   return {
     country: {
       isocode: 'CH',
-      name: 'Switzerland'
+      name: 'Switzerland',
     },
     defaultAddress: isShippingAddress || true,
     firstName: 'Hans',
@@ -21,8 +21,8 @@ export const getSharedAddress = (isDefaultAddress?: boolean, isShippingAddress?:
     title: 'Mr.',
     titleCode: 'mr',
     visibleInAddressBook: isShippingAddress || true,
-  }
-}
+  };
+};
 
 export const createAddress = (): Address => {
   const gender = faker.helpers.arrayElement(['female', 'male']); // 1 = women, 2 = men

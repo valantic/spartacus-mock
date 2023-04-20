@@ -99,8 +99,7 @@ export const common = {
     forbidden:
       'You are not authorized to perform this action. Please contact your administrator if you think this is a mistake.',
     gatewayTimeout: 'The server did not respond, please try again later.',
-    internalServerError:
-      'An Internal Server Error occurred. Please try again later.',
+    internalServerError: 'An Internal Server Error occurred. Please try again later.',
     sessionExpired: 'Your session has expired. Please login again.',
     unknownError: 'An unknown error occurred',
     unauthorized: {
@@ -109,32 +108,25 @@ export const common = {
     },
     validationErrors: {
       missing: {
-        card_cardType:
-          'The selected credit card is not supported. Please select another.',
+        card_cardType: 'The selected credit card is not supported. Please select another.',
         card_accountNumber: 'The credit card number entered is not valid.',
         card_cvNumber: 'The security code entered is not valid.',
-        card_expirationMonth:
-          'The credit card expiration date entered is not valid.',
-        card_expirationYear:
-          'The credit card expiration date entered is not valid.',
+        card_expirationMonth: 'The credit card expiration date entered is not valid.',
+        card_expirationYear: 'The credit card expiration date entered is not valid.',
         billTo_firstName: 'The first name entered is not valid.',
         billTo_lastName: 'The last name entered is not valid.',
         billTo_street1: 'The address entered is not valid.',
         billTo_street2: 'The address entered is not valid.',
         billTo_city: 'The city entered is not valid for this credit card.',
-        billTo_state:
-          'The state/province entered is not valid for this credit card.',
-        billTo_country:
-          'The country/region entered is not valid for this credit card.',
-        billTo_postalCode:
-          'The zip/postal code is not valid for this credit card.',
+        billTo_state: 'The state/province entered is not valid for this credit card.',
+        billTo_country: 'The country/region entered is not valid for this credit card.',
+        billTo_postalCode: 'The zip/postal code is not valid for this credit card.',
         country: {
           isocode: 'Missing country/region',
         },
       },
       invalid: {
-        card_expirationMonth:
-          'The credit card expiration date entered is not valid.',
+        card_expirationMonth: 'The credit card expiration date entered is not valid.',
         firstName: 'First Name entered is not valid.',
         lastName: 'Last Name entered is not valid.',
         password: 'Password entered is not valid.',
@@ -145,8 +137,7 @@ export const common = {
     },
     cartNotFound: 'Cart not found.',
     invalidCodeProvided: 'Invalid code provided.',
-    voucherExceeded:
-      'This coupon has exceeded the number of times it can be used',
+    voucherExceeded: 'This coupon has exceeded the number of times it can be used',
     unknownIdentifier: 'Item not found.',
     otherCartErrors: 'Cart errors occurred.',
   },

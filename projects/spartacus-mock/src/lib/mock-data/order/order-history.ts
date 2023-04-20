@@ -1,6 +1,6 @@
-import { SortModel} from '@spartacus/core';
+import { SortModel } from '@spartacus/core';
 import { OrderHistoryList } from '@spartacus/order/root';
-import {createOrder} from "./order";
+import { createOrder } from './order';
 
 export const getOrders = (amount: number = 5): OrderHistoryList => {
   return {
@@ -17,9 +17,9 @@ export const getOrders = (amount: number = 5): OrderHistoryList => {
 };
 
 const getSorts = (selected?: string): SortModel[] => {
-  return ['Date', 'Code', 'Status', 'Total'].map(code => ({
+  return ['Date', 'Code', 'Status', 'Total'].map((code) => ({
     code: code.toLowerCase(),
     name: code,
-    selected: code === selected
-  }))
-}
+    selected: code === selected,
+  }));
+};

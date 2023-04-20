@@ -6,7 +6,7 @@ interface CartOccConfig extends OccConfig {
   backend: {
     occ: {
       endpoints: CartOccEndpoints;
-    }
+    };
   };
 }
 

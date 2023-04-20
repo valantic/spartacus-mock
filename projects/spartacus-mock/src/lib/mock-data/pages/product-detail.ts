@@ -13,11 +13,7 @@ export const productDetailPage = (productCode: string) => {
     name: 'Product Detail Page',
     robotTag: 'INDEX_FOLLOW',
     contentSlots: {
-      contentSlot: [
-        ...headerSlots(),
-        ...productDetailContentSlots(),
-        ...footerSlots()
-      ]
+      contentSlot: [...headerSlots(), ...productDetailContentSlots(), ...footerSlots()],
     },
   };
 };

@@ -3,7 +3,7 @@ import { profileScriptComponent } from '../components/default/profile-script';
 import { footerNavigationComponent } from '../components/default/footer-navigation';
 import { cmsParagraphComponent } from '../components/default/cms-paragraph';
 import { ContentSlot } from '../../types';
-import {flexTypeComponent} from "../components/default/flex-type-component";
+import { flexTypeComponent } from '../components/default/flex-type-component';
 
 export const placeholderContentSlot = (slotId: string, slotPosition: string, slotName: string) => {
   return {
@@ -13,10 +13,8 @@ export const placeholderContentSlot = (slotId: string, slotPosition: string, slo
     name: slotName,
     slotShared: true,
     components: {
-      component: [
-        profileScriptComponent()
-      ]
-    }
+      component: [profileScriptComponent()],
+    },
   };
 };
 
@@ -31,10 +29,12 @@ export const footerSlot = (slotId: string, slotPosition: string, slotName: strin
       component: [
         footerNavigationComponent(),
         flexTypeComponent('AnonymousConsentOpenDialogComponent'),
-        cmsParagraphComponent('<div class="cx-notice">Copyright © 2020 SAP SE or an SAP affiliate company. All rights reserved.</div>'),
-        flexTypeComponent('AnonymousConsentManagementBannerComponent')
-      ]
-    }
+        cmsParagraphComponent(
+          '<div class="cx-notice">Copyright © 2020 SAP SE or an SAP affiliate company. All rights reserved.</div>'
+        ),
+        flexTypeComponent('AnonymousConsentManagementBannerComponent'),
+      ],
+    },
   };
 };
 
@@ -42,6 +42,6 @@ export const footerSlots = (): ContentSlot[] => {
   // shared footer slots
   return [
     placeholderContentSlot('PlaceholderContentSlot', 'PlaceholderContentSlot', 'Placeholder for Addon tag files'),
-    footerSlot('FooterSlot', 'Footer', 'Footer')
+    footerSlot('FooterSlot', 'Footer', 'Footer'),
   ];
 };

@@ -10,8 +10,7 @@ export const cart = {
     item: 'Item',
     itemPrice: 'Item price',
     quantity: 'Qty',
-    quantityTitle:
-      'The quantity represents the total number of this item in your cart.',
+    quantityTitle: 'The quantity represents the total number of this item in your cart.',
     total: 'Total',
     actions: 'Actions',
     cartTotal: 'Cart total ({{count}} item)',
@@ -61,15 +60,11 @@ export const cart = {
     allItemsWillBeRemoved: 'All items in your active cart will be removed.',
   },
   validation: {
-    cartEntriesChangeDuringCheckout:
-      'During checkout we found problems with your entries. Please review your cart.',
-    cartEntryRemoved:
-      '{{name}} was removed from the cart due to being out of stock.',
-    productOutOfStock:
-      '{{name}} has been removed from the cart due to insufficient stock.',
+    cartEntriesChangeDuringCheckout: 'During checkout we found problems with your entries. Please review your cart.',
+    cartEntryRemoved: '{{name}} was removed from the cart due to being out of stock.',
+    productOutOfStock: '{{name}} has been removed from the cart due to insufficient stock.',
     lowStock: 'Quantity has reduced to {{quantity}} due to insufficient stock.',
-    reviewConfiguration:
-      'Resolve the issues in the configuration for cart entry first.',
+    reviewConfiguration: 'Resolve the issues in the configuration for cart entry first.',
     pricingError:
       'Configurator pricing is currently not available. Checkout/quote submission is not possible. Please try again later.',
     unresolvableIssues:

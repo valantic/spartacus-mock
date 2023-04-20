@@ -1,5 +1,5 @@
 import { Component } from '../../../types';
-import {flexTypeComponent} from "./flex-type-component";
+import { flexTypeComponent } from './flex-type-component';
 
 export const productReferencesComponent = (referenceType: string, title: string): Component => {
   return flexTypeComponent('ProductReferencesComponent', undefined, {
@@ -7,6 +7,6 @@ export const productReferencesComponent = (referenceType: string, title: string)
     displayProductPrices: 'true',
     maximumNumberProducts: '5',
     displayProductTitles: 'true',
-    title
+    title,
   });
 };

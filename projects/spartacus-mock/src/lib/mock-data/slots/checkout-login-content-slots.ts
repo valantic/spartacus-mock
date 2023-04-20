@@ -7,18 +7,12 @@ export const checkoutLoginContentSlots = (): ContentSlot[] => {
   return [
     ...checkoutDefaultContentSlots(),
 
-    contentSlot(
-      'BodyContent',
-      [
-        // TODO check which component needs to be added here
-      ]
-    ),
+    contentSlot('BodyContent', [
+      // TODO check which component needs to be added here
+    ]),
 
-    contentSlot(
-      'SideContent',
-      [
-        // TODO check which component needs to be added here
-      ]
-    ),
+    contentSlot('SideContent', [
+      // TODO check which component needs to be added here
+    ]),
   ];
 };

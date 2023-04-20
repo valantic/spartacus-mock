@@ -14,7 +14,7 @@ import {
   footerLinkComponents,
   myAccountLinkComponents,
   navMainLinkComponents,
-  productDetailTabComponents
+  productDetailTabComponents,
 } from './mock-data/components/components';
 import { activeTabItems, product, productBaseData, productClassifications } from './mock-data/products/product';
 import { searchSuggestions } from './mock-data/search/search-suggestions';
@@ -25,9 +25,13 @@ import { authRevoke, authToken } from './mock-data/auth/auth';
 import { user } from './mock-data/auth/user';
 import {
   addToCart,
-  CartUserType, deleteCart,
-  getCart, getCarts, getUserTypeById, removeEntries,
-  updateEntries
+  CartUserType,
+  deleteCart,
+  getCart,
+  getCarts,
+  getUserTypeById,
+  removeEntries,
+  updateEntries,
 } from './mock-data/commerce/cart';
 import { notificationPreferences } from './mock-data/account/notification-preferences';
 import { productInterests } from './mock-data/account/product-interests';
@@ -42,7 +46,7 @@ import { payments } from './mock-data/account/payments';
 import { getOrders } from './mock-data/order/order-history';
 import { createOrder } from './mock-data/order/order';
 
-export function getDefaultHandlers (environment: Environment): RestHandler[] {
+export function getDefaultHandlers(environment: Environment): RestHandler[] {
   const routes = getDefaultRoutes(environment);
 
   return [
@@ -189,7 +193,7 @@ export function getDefaultHandlers (environment: Environment): RestHandler[] {
       const componentIds = req.url.searchParams?.get('componentIds') || '';
       const componentIdsArray = componentIds.split(',');
 
-      if (activeTabItems.some(tabUid => componentIds.indexOf(tabUid) > -1)) {
+      if (activeTabItems.some((tabUid) => componentIds.indexOf(tabUid) > -1)) {
         return res(ctx.status(200), ctx.json(productDetailTabComponents(componentIdsArray || [])));
       } else if (componentIds.indexOf('PersonalDetailsLink') > -1) {
         // special call to get the MyAccount Dropdown Link components
@@ -409,5 +413,5 @@ export function getDefaultHandlers (environment: Environment): RestHandler[] {
     /*rest.get(routes.mediaCommerce, (req: RestRequest, res: ResponseComposition, _ctx: RestContext) => {
       return res(redirect(`https://sparta.webdev.v-zug.ch${req.url.pathname}`, 301));
     }),*/
-  ]
+  ];
 }

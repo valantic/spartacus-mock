@@ -11,9 +11,9 @@ export const createDeliveryCost = () => {
     currencyIso: 'USD',
     formattedValue: `$${priceNumber}`,
     priceType: PriceType.BUY,
-    value: priceNumber
-  }
-}
+    value: priceNumber,
+  };
+};
 
 export const createDeliveryMode = (code: string, name: string): DeliveryMode => {
   return {

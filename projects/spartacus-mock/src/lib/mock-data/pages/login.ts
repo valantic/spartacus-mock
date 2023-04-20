@@ -4,7 +4,7 @@ import { footerSlots } from '../slots/footer-slots';
 import { breadcrumbComponent } from '../components/default/breadcrumb';
 import { contentSlot } from '../components/default/content-slot';
 import { Page } from './index';
-import {flexTypeComponent} from "../components/default/flex-type-component";
+import { flexTypeComponent } from '../components/default/flex-type-component';
 
 export const loginPage = (): Page => {
   return {
@@ -18,17 +18,14 @@ export const loginPage = (): Page => {
     contentSlots: {
       contentSlot: [
         ...headerSlots(breadcrumbComponent()),
-        contentSlot(
-          'LeftContentSlot',
-          [
-            flexTypeComponent('ReturningCustomerLoginComponent'),
-            flexTypeComponent('ReturningCustomerRegisterComponent'),
-          ]
-        ),
-        ...footerSlots()
-      ]
+        contentSlot('LeftContentSlot', [
+          flexTypeComponent('ReturningCustomerLoginComponent'),
+          flexTypeComponent('ReturningCustomerRegisterComponent'),
+        ]),
+        ...footerSlots(),
+      ],
     },
-    label: '/login'
+    label: '/login',
   };
 };
 
@@ -44,15 +41,10 @@ export const registerPage = (): Page => {
     contentSlots: {
       contentSlot: [
         ...headerSlots(breadcrumbComponent()),
-        contentSlot(
-          'BodyContent',
-          [
-            flexTypeComponent('RegisterCustomerComponent'),
-          ]
-        ),
-        ...footerSlots()
-      ]
+        contentSlot('BodyContent', [flexTypeComponent('RegisterCustomerComponent')]),
+        ...footerSlots(),
+      ],
     },
-    label: '/login/register'
+    label: '/login/register',
   };
 };

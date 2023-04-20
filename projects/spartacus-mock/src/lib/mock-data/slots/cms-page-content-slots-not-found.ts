@@ -4,12 +4,5 @@ import { ContentSlot } from '../../types';
 
 export const cmsPageContentSlotsNotFound = (): ContentSlot[] => {
   // content slots
-  return [
-    contentSlot(
-      'Section3',
-      [
-        cmsParagraphComponent('The page you have requested was not found.'),
-        ]
-    ),
-  ];
+  return [contentSlot('Section3', [cmsParagraphComponent('The page you have requested was not found.')])];
 };

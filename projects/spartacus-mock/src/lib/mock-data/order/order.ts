@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { OrderEntry } from '@spartacus/cart/base/root';
-import { PriceType, Product} from '@spartacus/core';
+import { PriceType, Product } from '@spartacus/core';
 import { createPromotion } from '../commerce/promotion';
 import { createVoucher } from '../commerce/voucher';
 import { product } from '../products/product';
@@ -74,8 +74,8 @@ const createConsignmentEntry = (
   return {
     orderEntry: createOrderEntry(entryNumber, maxPrice, returnable, noReturnableQuantity),
     quantity: 1,
-  }
-}
+  };
+};
 
 const createConsignment = (numEntries?: number) => {
   return {
@@ -87,8 +87,8 @@ const createConsignment = (numEntries?: number) => {
     statusDate: faker.date.past(),
     statusDisplay: faker.helpers.arrayElement(orderStatusDisplayOptions),
     shippingAddress: createAddress(),
-  }
-}
+  };
+};
 
 export const createOrder = (code?: string, numEntries?: number, numVouchers?: number, freeOrder?: boolean): any => {
   const totalItems = numEntries || faker.datatype.number({ min: 3, max: 10 });

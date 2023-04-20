@@ -1,8 +1,7 @@
 export const myAccount = {
   closeAccount: {
     confirmAccountClosure: 'Confirm Account Closure',
-    confirmAccountClosureMessage:
-      'Are you sure you want to close your account?',
+    confirmAccountClosureMessage: 'Are you sure you want to close your account?',
     closeMyAccount: 'CLOSE MY ACCOUNT',
     accountClosedSuccessfully: 'Account closed with success',
     accountClosedFailure: 'Failed to close account',
@@ -72,16 +71,14 @@ export const myAccount = {
     endDateDesc: 'End Date (descending)',
     sortBy: 'Sort by',
     sortCoupons: 'Sort coupons',
-    notesPreffix:
-      'You can set your preferred channels for receiving coupon notifications on the ',
+    notesPreffix: 'You can set your preferred channels for receiving coupon notifications on the ',
     notesLink: 'Notification Channels',
     notesSuffix: ' page.',
   },
   notificationPreference: {
     message: 'Select your preferred notification channels',
     note: 'Note: ',
-    noteMessage:
-      'If you deactivate all channels you will not be able to receive any further notifications.',
+    noteMessage: 'If you deactivate all channels you will not be able to receive any further notifications.',
     EMAIL: 'Email:',
     SMS: 'SMS:',
     SITE_MESSAGE: 'SiteMessage',

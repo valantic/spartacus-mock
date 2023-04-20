@@ -1,7 +1,11 @@
 import { faker } from '@faker-js/faker';
-import {CmsComponentAdditionalData, Component} from '../../../types';
+import { CmsComponentAdditionalData, Component } from '../../../types';
 
-export const flexTypeComponent = (typeCode: string, flexType?: string, additionalData?: CmsComponentAdditionalData): Component => {
+export const flexTypeComponent = (
+  typeCode: string,
+  flexType?: string,
+  additionalData?: CmsComponentAdditionalData
+): Component => {
   const component = {
     uid: `${typeCode}-${faker.datatype.uuid()}`,
     uuid: faker.datatype.uuid(),
@@ -15,11 +19,11 @@ export const flexTypeComponent = (typeCode: string, flexType?: string, additiona
     return {
       ...component,
       flexType,
-    }
+    };
   }
 
   return {
     ...component,
     ...additionalData,
-  }
-}
+  };
+};

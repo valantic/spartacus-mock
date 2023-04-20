@@ -1,7 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { CmsNavigationEntry, CmsNavigationNode } from '@spartacus/core';
 
-const getNavigationNode = (uid: string, entries: CmsNavigationEntry[], children: CmsNavigationNode[], title?: string): CmsNavigationNode => {
+const getNavigationNode = (
+  uid: string,
+  entries: CmsNavigationEntry[],
+  children: CmsNavigationNode[],
+  title?: string
+): CmsNavigationNode => {
   const navigationNode = {
     uid,
     uuid: faker.datatype.uuid(),
@@ -14,12 +19,19 @@ const getNavigationNode = (uid: string, entries: CmsNavigationEntry[], children:
   }
 
   for (const child of children) {
-    navigationNode.children?.push(getNavigationNode(child.uid || '', child.entries || [], child.children || [], child.title));
+    navigationNode.children?.push(
+      getNavigationNode(child.uid || '', child.entries || [], child.children || [], child.title)
+    );
   }
 
   return navigationNode;
 };
 
-export const navigationNodeComponent = (uid: string, entries: CmsNavigationEntry[], children: CmsNavigationNode[], title?: string): CmsNavigationNode => {
+export const navigationNodeComponent = (
+  uid: string,
+  entries: CmsNavigationEntry[],
+  children: CmsNavigationNode[],
+  title?: string
+): CmsNavigationNode => {
   return getNavigationNode(uid, entries, children, title);
 };

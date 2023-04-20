@@ -7,7 +7,7 @@ import { createDeliveryMode } from './delivery-mode';
 export const getDeliveryAddress = (): Occ.Cart => {
   return {
     // @ts-ignore
-    type : 'cartWsDTO',
+    type: 'cartWsDTO',
     deliveryAddress: getSharedAddress(),
     deliveryMode: {
       code: 'standard-gross',
@@ -15,14 +15,14 @@ export const getDeliveryAddress = (): Occ.Cart => {
         currencyIso: 'USD',
         formattedValue: '$8.99',
         priceType: PriceType.BUY,
-        value: 8.99
+        value: 8.99,
       },
       description: '3-5 business days',
-      name: 'Standard Delivery'
+      name: 'Standard Delivery',
     },
-    paymentInfo: getDefaultPayment()
-  }
-}
+    paymentInfo: getDefaultPayment(),
+  };
+};
 
 export const getDeliveryModes = (): Occ.DeliveryModeList => {
   return {
@@ -30,6 +30,6 @@ export const getDeliveryModes = (): Occ.DeliveryModeList => {
       createDeliveryMode('standard', 'Standard Delivery'),
       createDeliveryMode('premium', 'Premium Delivery'),
       createDeliveryMode('express', 'Express Delivery'),
-    ]
-  }
-}
+    ],
+  };
+};

@@ -9,17 +9,14 @@ export const activeTabItems = [
   'ProductDetailsTabComponent',
   'ProductSpecsTabComponent',
   'ProductReviewsTabComponent',
-  'deliveryTab'
-]
+  'deliveryTab',
+];
 
 interface OccProductExtended extends Occ.Product {
   displayedTabs: string[];
 }
 
-export const product = (
-  productCode: string,
-  _productIndex: number = 1,
-): OccProductExtended => {
+export const product = (productCode: string, _productIndex: number = 1): OccProductExtended => {
   const productName = faker.commerce.productName();
 
   const purchasable = true;
@@ -78,5 +75,5 @@ export const productBaseData = (): Occ.Product => {
 export const productClassifications = (): Occ.Product => {
   return {
     classifications: new Array(faker.datatype.number(10)).fill(null).map(() => productClassification()),
-  }
-}
+  };
+};

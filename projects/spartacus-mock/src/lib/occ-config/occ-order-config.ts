@@ -6,7 +6,7 @@ interface OrderOccConfig extends OccConfig {
   backend: {
     occ: {
       endpoints: OrderOccEndpoints;
-    }
+    };
   };
 }
 
@@ -17,8 +17,7 @@ export const occOrderConfig: OrderOccConfig = {
       endpoints: {
         orderHistory: 'users/${userId}/orders',
         orderDetail: 'users/${userId}/orders/${orderId}?fields=FULL',
-        consignmentTracking:
-          'users/${userId}/orders/${orderCode}/consignments/${consignmentCode}/tracking',
+        consignmentTracking: 'users/${userId}/orders/${orderCode}/consignments/${consignmentCode}/tracking',
         cancelOrder: 'users/${userId}/orders/${orderId}/cancellation',
         returnOrder:
           'users/${userId}/orderReturns?fields=BASIC,returnEntries(BASIC,refundAmount(formattedValue),orderEntry(basePrice(formattedValue),product(name,code,baseOptions,images(DEFAULT,galleryIndex)))),deliveryCost(formattedValue),totalPrice(formattedValue),subTotal(formattedValue)',
@@ -31,8 +30,7 @@ export const occOrderConfig: OrderOccConfig = {
         /** scheduled replenishment endpoints start */
         replenishmentOrderDetails:
           'users/${userId}/replenishmentOrders/${replenishmentOrderCode}?fields=FULL,costCenter(FULL),purchaseOrderNumber,paymentType,user',
-        replenishmentOrderDetailsHistory:
-          'users/${userId}/replenishmentOrders/${replenishmentOrderCode}/orders',
+        replenishmentOrderDetailsHistory: 'users/${userId}/replenishmentOrders/${replenishmentOrderCode}/orders',
         cancelReplenishmentOrder:
           'users/${userId}/replenishmentOrders/${replenishmentOrderCode}?fields=FULL,costCenter(FULL),purchaseOrderNumber,paymentType,user',
         replenishmentOrderHistory:

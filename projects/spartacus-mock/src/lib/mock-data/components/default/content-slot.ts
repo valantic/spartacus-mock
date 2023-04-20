@@ -10,6 +10,6 @@ export const contentSlot = (slotPosition: string, components: Component[]): Cont
     slotShared: true,
     components: {
       component: components,
-    }
+    },
   };
 };

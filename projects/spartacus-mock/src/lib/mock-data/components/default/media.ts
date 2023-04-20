@@ -21,7 +21,9 @@ export const media = (mediaInput: ResponsiveMediaInput) => {
       code: `${mediaInput.code}-${rendition.width}x${rendition.height}`,
       mime: 'image/jpeg',
       altText: mediaInput.altText,
-      url: `https://picsum.photos/${rendition.width}/${rendition.height}.webp?random=${Math.round(Math.random() * 1000)}`
+      url: `https://picsum.photos/${rendition.width}/${rendition.height}.webp?random=${Math.round(
+        Math.random() * 1000
+      )}`,
     } as CmsBannerComponentMedia;
   }
 

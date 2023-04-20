@@ -6,15 +6,12 @@ export const getCurrency = (isocode: string, name: string, symbol: string): Curr
     active: true,
     isocode,
     name,
-    symbol
-  }
-}
+    symbol,
+  };
+};
 
 export const currencies = () => {
   return {
-    currencies: [
-      getCurrency('USD', 'US Dollar', '$'),
-      getCurrency('CHF', 'Swiss Franc', 'CHF'),
-    ]
+    currencies: [getCurrency('USD', 'US Dollar', '$'), getCurrency('CHF', 'Swiss Franc', 'CHF')],
   };
 };
