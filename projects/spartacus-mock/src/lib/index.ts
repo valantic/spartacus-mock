@@ -8,7 +8,7 @@ function getWorker(config: MockConfig): SetupWorker {
   // create default local storage if it does not exist
   createLocalstorage(config);
 
-  const passThroughUrls = [...defaultPassThroughUrls, ...config.passThroughUrls || []];
+  const passThroughUrls = [...defaultPassThroughUrls, ...(config.passThroughUrls || [])];
 
   return setupWorker(
     ...passThroughUrls.map((passThroughUrl) => {

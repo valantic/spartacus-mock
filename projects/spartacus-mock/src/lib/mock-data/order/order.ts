@@ -9,6 +9,35 @@ import { createAddress } from '../account/addresses';
 import { createDeliveryCost, createDeliveryMode } from '../commerce/delivery-mode';
 import { getDefaultPayment } from '../account/payments';
 
+const orderStatusDisplayOptions = [
+  'cancelled',
+  'cancelling',
+  'completed',
+  'created',
+  'error',
+  'processing',
+  'open',
+  'approved',
+];
+
+const orderStatusOptions = [
+  'IN_TRANSIT',
+  'READY_FOR_PICKUP',
+  'READY_FOR_SHIPPING',
+  'WAITING',
+  'DELIVERING',
+  'PICKPACK',
+  'PICKUP_COMPLETE',
+  'DELIVERY_COMPLETED',
+  'PAYMENT_NOT_CAPTURED',
+  'READY',
+  'DELIVERY_REJECTED',
+  'DELIVERY_REJECTED',
+  'SHIPPED',
+  'TAX_NOT_COMMITTED',
+  'CANCELLED',
+];
+
 export const createOrderEntry = (
   entryNumber: number,
   maxPrice: number = 1000,
@@ -36,16 +65,45 @@ export const createOrderEntry = (
   };
 };
 
+const createConsignmentEntry = (
+  entryNumber: number,
+  maxPrice: number = 1000,
+  returnable?: boolean,
+  noReturnableQuantity?: boolean
+) => {
+  return {
+    orderEntry: createOrderEntry(entryNumber, maxPrice, returnable, noReturnableQuantity),
+    quantity: 1,
+  };
+};
+
+const createConsignment = (numEntries?: number) => {
+  return {
+    code: 'cons' + faker.datatype.uuid(),
+    entries: new Array(numEntries || faker.datatype.number({ min: 1, max: 10 }))
+      .fill(null)
+      .map((_entry, index) => createConsignmentEntry(index + 1, 1000, index > 1, index === 1)),
+    status: faker.helpers.arrayElement(orderStatusOptions),
+    statusDate: faker.date.past(),
+    statusDisplay: faker.helpers.arrayElement(orderStatusDisplayOptions),
+    shippingAddress: createAddress(),
+  };
+};
+
 export const createOrder = (code?: string, numEntries?: number, numVouchers?: number, freeOrder?: boolean): any => {
   const totalItems = numEntries || faker.datatype.number({ min: 3, max: 10 });
+  const genericEntries = new Array(totalItems)
+    .fill(null)
+    .map((_entry, index) => createOrderEntry(index + 1, freeOrder ? 0 : 1000, index > 1, index === 1));
 
   return {
     code: code || faker.datatype.number({ min: 100000, max: 999999 }).toString(),
     calculated: true,
     guid: faker.datatype.uuid(),
-    entries: new Array(totalItems)
+    entries: genericEntries,
+    consignments: new Array(faker.datatype.number({ min: 1, max: 3 }))
       .fill(null)
-      .map((_entry, index) => createOrderEntry(index + 1, freeOrder ? 0 : 1000, index > 1, index === 1)),
+      .map(() => createConsignment(faker.datatype.number({ min: 1, max: 5 }))),
     appliedOrderPromotions: new Array(numVouchers).fill(null).map(() => createPromotion(faker.datatype.string(10))),
     appliedProductPromotions: new Array(numVouchers).fill(null).map(() => createPromotion(faker.datatype.string(10))),
     appliedVouchers: new Array(numVouchers).fill(null).map(() => createVoucher(faker.datatype.string(10))),
@@ -90,6 +148,19 @@ export const createOrder = (code?: string, numEntries?: number, numVouchers?: nu
     cancellable: false,
     user: {
       uid: faker.internet.email(),
+    },
+    created: faker.date.past(),
+    status: faker.helpers.arrayElement(orderStatusOptions),
+    statusDisplay: faker.helpers.arrayElement(orderStatusDisplayOptions),
+    placed: faker.date.past(),
+    total: productPrice(
+      freeOrder ? 0 : faker.datatype.number({ min: 10, max: 100, precision: 0.1 }),
+      'CHF',
+      PriceType.BUY
+    ),
+    shippedToName: {
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName(),
     },
   };
 };

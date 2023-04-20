@@ -24,8 +24,7 @@ export const importEntries = {
 export const importEntriesDialog = {
   importProducts: 'Import Products',
   importProductsSubtitle: 'Add products by importing a .CSV file.',
-  importProductsNewSavedCartSubtitle:
-    'Add products by importing a .CSV file and creating a new saved cart.',
+  importProductsNewSavedCartSubtitle: 'Add products by importing a .CSV file and creating a new saved cart.',
   importProductFileDetails:
     'Text file should contain list of products with required columns separated by comma: SKU and quantity.',
   selectFile: 'Select File',
@@ -41,16 +40,14 @@ export const importEntriesDialog = {
     loadedToCart: 'Products has been loaded to cart {{ cartName }}',
     loaded: 'Products has been loaded',
     loading: 'Products are being processed... ({{ count }}/{{ total }})',
-    successes:
-      '{{ successesCount }} out of {{ total }} products have been imported successfully.',
+    successes: '{{ successesCount }} out of {{ total }} products have been imported successfully.',
     warning: '{{ count }} product was not imported totally.',
     warning_other: '{{ count }} products were not imported totally.',
     error: '{{ count }} product was not imported.',
     error_other: '{{ count }} products were not imported.',
     messages: {
       unknownIdentifier: 'Product SKU "{{ productCode}}" does not exist.',
-      lowStock:
-        'Quantity for {{ productName }}: {{ quantity }} has been reduced to {{ quantityAdded }}.',
+      lowStock: 'Quantity for {{ productName }}: {{ quantity }} has been reduced to {{ quantityAdded }}.',
       noStock: '{{ productName }} is currently out of stock.',
       unknownError: 'Unrecognized problem with "{{ productCode }}".',
       limitExceeded: 'Can not add "{{ productCode }}". Limit exceeded.',

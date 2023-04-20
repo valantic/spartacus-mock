@@ -1,13 +1,8 @@
 import { Component } from '../../../types';
+import { flexTypeComponent } from './flex-type-component';
 
-export const siteContextComponent = (uid: string, uuid: string, name: string, context: string): Component => {
-  return {
-    uid,
-    uuid,
-    typeCode: 'CMSSiteContextComponent',
-    modifiedtime: '2021-01-18T18:14:57.663Z',
-    name,
-    container: 'false',
+export const siteContextComponent = (context: string): Component => {
+  return flexTypeComponent('CMSSiteContextComponent', undefined, {
     context,
-  };
+  });
 };

@@ -15,8 +15,7 @@ export const payment = {
     setAsDefault: 'Set as default payment method',
     billingAddress: 'Billing address',
     sameAsDeliveryAddress: 'Same as delivery address',
-    billingAddressSameAsShipping:
-      'Billing address is the same as delivery address',
+    billingAddressSameAsShipping: 'Billing address is the same as delivery address',
     selectOne: 'Select One...',
     monthMask: 'MM',
     yearMask: 'YYYY',
@@ -30,8 +29,7 @@ export const payment = {
   paymentMethods: {
     paymentMethods: 'Payment methods',
     paymentMethodSelected: 'Payment method selected',
-    newPaymentMethodsAreAddedDuringCheckout:
-      'New payment methods are added during checkout.',
+    newPaymentMethodsAreAddedDuringCheckout: 'New payment methods are added during checkout.',
     invalidField: 'InvalidField: {{ field }}',
   },
   paymentCard: {

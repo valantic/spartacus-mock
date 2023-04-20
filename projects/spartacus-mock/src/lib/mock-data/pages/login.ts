@@ -3,60 +3,48 @@ import { headerSlots } from '../slots/header-slots';
 import { footerSlots } from '../slots/footer-slots';
 import { breadcrumbComponent } from '../components/default/breadcrumb';
 import { contentSlot } from '../components/default/content-slot';
-import { cmsFlexTypeComponent } from '../components/default/cms-flex-type';
 import { Page } from './index';
+import { flexTypeComponent } from '../components/default/flex-type-component';
 
-export const loginPage = (pageType: string, pageLabelOrId: string): Page => {
+export const loginPage = (): Page => {
   return {
     uid: `loginPage${faker.datatype.number(1000)}`,
     uuid: faker.datatype.uuid(),
     title: `Login Page`,
     template: 'LoginPageTemplate',
-    typeCode: pageType,
+    typeCode: 'ContentPage',
     name: 'Content Page',
     robotTag: 'INDEX_FOLLOW',
     contentSlots: {
       contentSlot: [
         ...headerSlots(breadcrumbComponent()),
-        contentSlot(
-          'LeftContentSlot-login',
-          'LeftContentSlot',
-          'Left Content Slot for Customer Login',
-          [
-            cmsFlexTypeComponent('ReturningCustomerLoginComponent', 'Returning Customer Login Component', 'ReturningCustomerLoginComponent', faker.datatype.uuid()),
-            cmsFlexTypeComponent('ReturningCustomerRegisterComponent', 'Returning Customer Register Component', 'ReturningCustomerRegisterComponent', faker.datatype.uuid()),
-          ]
-        ),
-        ...footerSlots()
-      ]
+        contentSlot('LeftContentSlot', [
+          flexTypeComponent('ReturningCustomerLoginComponent'),
+          flexTypeComponent('ReturningCustomerRegisterComponent'),
+        ]),
+        ...footerSlots(),
+      ],
     },
-    label: pageLabelOrId
+    label: '/login',
   };
 };
 
-export const registerPage = (pageType: string, pageLabelOrId: string): Page => {
+export const registerPage = (): Page => {
   return {
     uid: `loginPage${faker.datatype.number(1000)}`,
     uuid: faker.datatype.uuid(),
     title: `Register Page`,
     template: 'AccountPageTemplate',
-    typeCode: pageType,
+    typeCode: 'ContentPage',
     name: 'Register Page',
     robotTag: 'INDEX_FOLLOW',
     contentSlots: {
       contentSlot: [
         ...headerSlots(breadcrumbComponent()),
-        contentSlot(
-          'BodyContentSlot-register',
-          'BodyContent',
-          'Body Content Slot for Register',
-          [
-            cmsFlexTypeComponent('RegisterCustomerComponent', 'Register Customer Component', 'RegisterCustomerComponent', faker.datatype.uuid()),
-          ]
-        ),
-        ...footerSlots()
-      ]
+        contentSlot('BodyContent', [flexTypeComponent('RegisterCustomerComponent')]),
+        ...footerSlots(),
+      ],
     },
-    label: pageLabelOrId
+    label: '/login/register',
   };
 };

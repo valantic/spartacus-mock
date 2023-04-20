@@ -87,19 +87,16 @@ export const order = {
       setAll: 'Set all quantities to maximum',
       totalPrice: 'Total',
       submit: 'Submit Request',
-      submitDescription:
-        'Submit Request. Items on this page will be included in the cancellation request.',
+      submitDescription: 'Submit Request. Items on this page will be included in the cancellation request.',
       returnSuccess: 'Your return request ({{rma}}) was submitted',
-      cancelSuccess:
-        'Your cancellation request was submitted (original order {{orderCode}} will be updated)',
+      cancelSuccess: 'Your cancellation request was submitted (original order {{orderCode}} will be updated)',
     },
     cancelReplenishment: {
       title: 'Cancel Replenishment',
       description: 'Cancel any future replenishment order?',
       accept: 'Yes',
       reject: 'No',
-      cancelSuccess:
-        'Replenishment order #{{replenishmentOrderCode}} has been successfully cancelled',
+      cancelSuccess: 'Replenishment order #{{replenishmentOrderCode}} has been successfully cancelled',
     },
     caption: 'Order contents.',
   },
@@ -112,8 +109,7 @@ export const order = {
     PONumber: 'P.O. Number',
     total: 'Total',
     noOrders: 'We have no order records for this account.',
-    noReplenishmentOrders:
-      'We have no replenishment order records for this account.',
+    noReplenishmentOrders: 'We have no replenishment order records for this account.',
     startShopping: 'Start Shopping',
     sortBy: 'Sort by',
     sortOrders: 'Sort orders',
@@ -181,17 +177,14 @@ export const order = {
     dialog: {
       reorderProducts: 'Reorder products',
       messages: {
-        reviewConfiguration:
-          'An error occurred with "{{ productCode}}" configuration.',
-        lowStock:
-          'Quantity for {{ productName }}: {{ quantity }} has been reduced to {{ quantityAdded }}.',
+        reviewConfiguration: 'An error occurred with "{{ productCode}}" configuration.',
+        lowStock: 'Quantity for {{ productName }}: {{ quantity }} has been reduced to {{ quantityAdded }}.',
         noStock: '{{ productName }} is currently out of stock.',
         pricingError: 'Pricing problem with "{{ productCode }}".',
         unresolvableIssues: 'Unrecognized problem with "{{ productCode }}".',
         success: 'Products have been successfully added to the cart',
       },
-      areYouSureToReplaceCart:
-        'Current cart will be replaced with new items. Do you wish to continue?',
+      areYouSureToReplaceCart: 'Current cart will be replaced with new items. Do you wish to continue?',
       cancel: 'Cancel',
       continue: 'Continue',
     },

@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { profileScriptComponent } from '../components/default/profile-script';
 import { footerNavigationComponent } from '../components/default/footer-navigation';
-import { cmsFlexTypeComponent } from '../components/default/cms-flex-type';
 import { cmsParagraphComponent } from '../components/default/cms-paragraph';
 import { ContentSlot } from '../../types';
+import { flexTypeComponent } from '../components/default/flex-type-component';
 
 export const placeholderContentSlot = (slotId: string, slotPosition: string, slotName: string) => {
   return {
@@ -13,10 +13,8 @@ export const placeholderContentSlot = (slotId: string, slotPosition: string, slo
     name: slotName,
     slotShared: true,
     components: {
-      component: [
-        profileScriptComponent()
-      ]
-    }
+      component: [profileScriptComponent()],
+    },
   };
 };
 
@@ -30,11 +28,13 @@ export const footerSlot = (slotId: string, slotPosition: string, slotName: strin
     components: {
       component: [
         footerNavigationComponent(),
-        cmsFlexTypeComponent('AnonymousConsentOpenDialogComponent', 'Anonymous Consent Open Dialog Component', 'AnonymousConsentOpenDialogComponent', 'eyJpdGVtSWQiOiJBbm9ueW1vdXNDb25zZW50T3BlbkRpYWxvZ0NvbXBvbmVudCIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ=='),
-        cmsParagraphComponent('NoticeTextParagraph', 'Notice Text Paragraph', '<div class="cx-notice">Copyright © 2020 SAP SE or an SAP affiliate company. All rights reserved.</div>'),
-        cmsFlexTypeComponent('AnonymousConsentManagementBannerComponent', 'Anonymous Consent Management Banner Component', 'AnonymousConsentManagementBannerComponent', 'eyJpdGVtSWQiOiJBbm9ueW1vdXNDb25zZW50TWFuYWdlbWVudEJhbm5lckNvbXBvbmVudCIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==')
-      ]
-    }
+        flexTypeComponent('AnonymousConsentOpenDialogComponent'),
+        cmsParagraphComponent(
+          '<div class="cx-notice">Copyright © 2020 SAP SE or an SAP affiliate company. All rights reserved.</div>'
+        ),
+        flexTypeComponent('AnonymousConsentManagementBannerComponent'),
+      ],
+    },
   };
 };
 
@@ -42,6 +42,6 @@ export const footerSlots = (): ContentSlot[] => {
   // shared footer slots
   return [
     placeholderContentSlot('PlaceholderContentSlot', 'PlaceholderContentSlot', 'Placeholder for Addon tag files'),
-    footerSlot('FooterSlot', 'Footer', 'Footer')
+    footerSlot('FooterSlot', 'Footer', 'Footer'),
   ];
 };

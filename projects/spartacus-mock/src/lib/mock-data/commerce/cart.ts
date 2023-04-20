@@ -156,10 +156,16 @@ const wishlistCartData = (userType: CartUserType): Occ.Cart => {
 const fullCartData = (cartGuid: string, userType: CartUserType): Occ.Cart => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
 
-  const totalQuantity = mockData.activeCartEntries.reduce((acc, entry) => { return acc + entry.quantity; }, 0);
-  const entries: OrderEntry[] = mockData.activeCartEntries.map((entry, index) => getOrderEntry(index, entry.code, entry.quantity, true));
+  const totalQuantity = mockData.activeCartEntries.reduce((acc, entry) => {
+    return acc + entry.quantity;
+  }, 0);
+  const entries: OrderEntry[] = mockData.activeCartEntries.map((entry, index) =>
+    getOrderEntry(index, entry.code, entry.quantity, true)
+  );
 
-  let totalAmount = entries.reduce((acc, entry) => { return acc + (entry.totalPrice?.value || 0); }, 0);
+  let totalAmount = entries.reduce((acc, entry) => {
+    return acc + (entry.totalPrice?.value || 0);
+  }, 0);
 
   return {
     appliedOrderPromotions: [],
@@ -247,7 +253,7 @@ export const addToCart = (product: ProductAddToCart, quantity: number): Occ.Cart
   if (activeCartEntry) {
     activeCartEntry.quantity += quantity;
 
-    activeCartEntries = activeCartEntries.filter(( activeCartEntry: ActiveCartEntry ) => {
+    activeCartEntries = activeCartEntries.filter((activeCartEntry: ActiveCartEntry) => {
       return activeCartEntry.code !== product.code;
     });
   } else {
@@ -304,7 +310,7 @@ export const removeEntries = (cartId: string, entryNumber: number) => {
   let activeCartEntry = activeCartEntries[entryNumber];
   const productCode = activeCartEntry.code;
 
-  activeCartEntries = activeCartEntries.filter(( activeCartEntry: ActiveCartEntry ) => {
+  activeCartEntries = activeCartEntries.filter((activeCartEntry: ActiveCartEntry) => {
     return activeCartEntry.code !== productCode;
   });
 
@@ -325,7 +331,7 @@ export const deleteCart = () => {
   };
 
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
-}
+};
 
 export const getUserForCart = (userType?: CartUserType) => {
   switch (userType) {
@@ -358,7 +364,12 @@ export const getUserTypeById = (userId: string): CartUserType => {
   }
 };
 
-function getOrderEntry(index: number, productCode: string, quantity: number, isFullCartRequest?: boolean): Occ.OrderEntry {
+function getOrderEntry(
+  index: number,
+  productCode: string,
+  quantity: number,
+  isFullCartRequest?: boolean
+): Occ.OrderEntry {
   const price = faker.commerce.price(100, 10000, 0, '');
   const priceNumber = getPriceWithDecimals(price);
 
@@ -376,9 +387,9 @@ function getOrderEntry(index: number, productCode: string, quantity: number, isF
       formattedValue: `$${priceNumber}`,
       value: priceNumber,
     },
-  }
+  };
 
-  if(isFullCartRequest) {
+  if (isFullCartRequest) {
     orderEntry = {
       ...orderEntry,
       basePrice: {
@@ -386,10 +397,10 @@ function getOrderEntry(index: number, productCode: string, quantity: number, isF
         value: priceNumber,
       },
       updateable: true,
-    }
+    };
   }
 
-  return orderEntry
+  return orderEntry;
 }
 
 export function getPriceWithDecimals(price: string): number {

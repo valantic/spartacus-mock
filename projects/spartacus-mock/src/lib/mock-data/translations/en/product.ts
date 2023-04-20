@@ -17,8 +17,7 @@ export const product = {
       label: 'Filter by',
       action: 'Filter by',
     },
-    activeFilter:
-      '{{filter}} filter, clicking on this button will remove the filter',
+    activeFilter: '{{filter}} filter, clicking on this button will remove the filter',
     appliedFilter: 'Applied filter:',
     showLess: 'Show less...',
     showMore: 'Show more...',
@@ -40,13 +39,10 @@ export const product = {
     showLess: 'Show less...',
     showMore: 'Show more...',
     sortBy: 'Sort by',
-    ariaLabelShowLess:
-      'Show Less, button, clicking on this button will reduce options for the active group',
-    ariaLabelShowMore:
-      'Show more, button, clicking on this button will show all options for the active group',
+    ariaLabelShowLess: 'Show Less, button, clicking on this button will reduce options for the active group',
+    ariaLabelShowMore: 'Show more, button, clicking on this button will show all options for the active group',
     ariaLabelItemsAvailable: '{{name}}, {{state}} {{count}} item available',
-    ariaLabelItemsAvailable_other:
-      '{{name}}, {{state}} {{count}} items available',
+    ariaLabelItemsAvailable_other: '{{name}}, {{state}} {{count}} items available',
     decreaseOptionsVisibility:
       'Options were hidden from the active group, tab backward to read them or forward for the next group',
     increaseOptionsVisibility:
@@ -55,8 +51,7 @@ export const product = {
   productSummary: {
     id: 'ID',
     showReviews: 'Show reviews',
-    showReviewsDetailed:
-      'Show {{count}} reviews, Rated {{rating}} out of 5 stars',
+    showReviewsDetailed: 'Show {{count}} reviews, Rated {{rating}} out of 5 stars',
     share: 'Share',
     newItemPrice: 'New item price',
   },
@@ -72,16 +67,14 @@ export const product = {
     writeReview: 'Write a Review',
     more: 'Show More Reviews',
     less: 'Show Less Reviews',
-    thankYouForReview:
-      'Thank you for the review! Note that reviews may require review before appearing here.',
+    thankYouForReview: 'Thank you for the review! Note that reviews may require review before appearing here.',
   },
   productCarousel: {
     carouselLabel: 'Carousel, {{title}}',
   },
   addToCart: {
     itemsAddedToYourCart: 'Item(s) added to your cart',
-    itemsIncrementedInYourCart:
-      'This item was already in your cart. The quantity was updated.',
+    itemsIncrementedInYourCart: 'This item was already in your cart. The quantity was updated.',
     items: 'items',
     updatingCart: 'Updating cart...',
     addToCart: 'Add to cart',
@@ -123,22 +116,19 @@ export const product = {
     activateChannelsSuffix: '.',
     notified: 'You will be notified when this product is back in stock.',
     getNotified: 'Get notified when this product is back in stock.',
-    unsubscribeSuccess:
-      'You will not receive back-in-stock notification for this product.',
+    unsubscribeSuccess: 'You will not receive back-in-stock notification for this product.',
     subscriptionDialog: {
       header: 'Out of stock subscription',
       notifiedPrefix: 'You will be notified on:',
       notifiedSuffix: 'as soon as this product is back in stock.',
-      manageChannelsPrefix:
-        'Manage your preferred notification channels on the ',
+      manageChannelsPrefix: 'Manage your preferred notification channels on the ',
       manageChannelsLink: 'Notification Preference',
       manageChannelsSuffix: ' page.',
       manageSubscriptionsPrefix: 'You can manage your subscriptions on ',
       manageSubscriptionsLink: 'My Interests',
       manageSubscriptionsSuffix: ' page.',
       okBtn: 'OK',
-      subscribing:
-        'Subscribing you to Out of Stock notifications for this product',
+      subscribing: 'Subscribing you to Out of Stock notifications for this product',
     },
   },
   itemCounter: {

@@ -7,9 +7,8 @@ export const cmsLinkComponent = (
   external: string = 'false',
   target: string = 'false',
   contentPage?: string,
-  contentPageLabelOrId?: string,
+  contentPageLabelOrId?: string
 ) => {
-
   let linkComponent = {
     uid,
     uuid,

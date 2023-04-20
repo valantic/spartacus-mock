@@ -1,15 +1,9 @@
-import { faker } from '@faker-js/faker';
 import { navigationNodeComponent } from './navigation-node';
 import { Component } from '../../../types';
+import { flexTypeComponent } from './flex-type-component';
 
 export const categoryNavigationComponent = (): Component => {
-  return {
-    uid: 'ElectronicsCategoryNavComponent',
-    uuid: faker.datatype.uuid(),
-    typeCode: 'CategoryNavigationComponent',
-    modifiedtime: '2021-01-18T18:14:58.466Z',
-    name: 'Category Navigation Component',
-    container: 'false',
+  return flexTypeComponent('CategoryNavigationComponent', undefined, {
     wrapAfter: '10',
     navigationNode: navigationNodeComponent(
       'ElectronicsCategoryNavComponent',
@@ -21,21 +15,22 @@ export const categoryNavigationComponent = (): Component => {
             {
               itemId: 'AllBrandsCategoryLink',
               itemSuperType: 'AbstractCMSComponent',
-              itemType: 'CMSLinkComponent'
-            }
+              itemType: 'CMSLinkComponent',
+            },
           ],
           children: [
             {
               uid: 'BrandLinksNavNode',
               entries: [],
-              title: 'Cameras'
-            }, {
+              title: 'Cameras',
+            },
+            {
               uid: 'AccessoryBrandLinksNavNode',
               entries: [],
-              title: 'Accessories'
-            }
+              title: 'Accessories',
+            },
           ],
-          title: 'Brands'
+          title: 'Brands',
         },
         {
           uid: 'DigitalCamerasNavNode',
@@ -43,8 +38,8 @@ export const categoryNavigationComponent = (): Component => {
             {
               itemId: 'DigitalCamerasCategoryLink',
               itemSuperType: 'AbstractCMSComponent',
-              itemType: 'CMSLinkComponent'
-            }
+              itemType: 'CMSLinkComponent',
+            },
           ],
           children: [
             {
@@ -53,23 +48,24 @@ export const categoryNavigationComponent = (): Component => {
                 {
                   itemId: 'DigitalCompactsCategoryLink',
                   itemSuperType: 'AbstractCMSComponent',
-                  itemType: 'CMSLinkComponent'
-                }
+                  itemType: 'CMSLinkComponent',
+                },
               ],
-              children: []
-            }, {
+              children: [],
+            },
+            {
               uid: 'DigitalSLRNavNode',
               entries: [
                 {
                   itemId: 'DigitalSLRCategoryLink',
                   itemSuperType: 'AbstractCMSComponent',
-                  itemType: 'CMSLinkComponent'
-                }
+                  itemType: 'CMSLinkComponent',
+                },
               ],
-              children: []
-            }
+              children: [],
+            },
           ],
-          title: 'Digital Cameras'
+          title: 'Digital Cameras',
         },
         {
           uid: 'FilmCamerasNavNode',
@@ -77,11 +73,11 @@ export const categoryNavigationComponent = (): Component => {
             {
               itemId: 'FilmCamerasCategoryLink',
               itemSuperType: 'AbstractCMSComponent',
-              itemType: 'CMSLinkComponent'
-            }
+              itemType: 'CMSLinkComponent',
+            },
           ],
           children: [],
-          title: 'Film Cameras'
+          title: 'Film Cameras',
         },
         {
           uid: 'HandheldCamcordersNavNode',
@@ -89,11 +85,11 @@ export const categoryNavigationComponent = (): Component => {
             {
               itemId: 'HandheldCamcordersCategoryLink',
               itemSuperType: 'AbstractCMSComponent',
-              itemType: 'CMSLinkComponent'
-            }
+              itemType: 'CMSLinkComponent',
+            },
           ],
           children: [],
-          title: 'Camcorders'
+          title: 'Camcorders',
         },
         {
           uid: 'WebcamsNavNode',
@@ -101,11 +97,11 @@ export const categoryNavigationComponent = (): Component => {
             {
               itemId: 'WebcamsCategoryLink',
               itemSuperType: 'AbstractCMSComponent',
-              itemType: 'CMSLinkComponent'
-            }
+              itemType: 'CMSLinkComponent',
+            },
           ],
           children: [],
-          title: 'Webcams'
+          title: 'Webcams',
         },
         {
           uid: 'CameraAccessoriesNavNode',
@@ -113,8 +109,8 @@ export const categoryNavigationComponent = (): Component => {
             {
               itemId: 'CameraAccessoriesCategoryLink',
               itemSuperType: 'AbstractCMSComponent',
-              itemType: 'CMSLinkComponent'
-            }
+              itemType: 'CMSLinkComponent',
+            },
           ],
           children: [
             {
@@ -127,55 +123,59 @@ export const categoryNavigationComponent = (): Component => {
                     {
                       itemId: 'CamerasFlashesCategoryLink',
                       itemSuperType: 'AbstractCMSComponent',
-                      itemType: 'CMSLinkComponent'
-                    }
+                      itemType: 'CMSLinkComponent',
+                    },
                   ],
-                  children: []
-                }, {
+                  children: [],
+                },
+                {
                   uid: 'TripodsNavNode',
                   entries: [
                     {
                       itemId: 'TripodsCategoryLink',
                       itemSuperType: 'AbstractCMSComponent',
-                      itemType: 'CMSLinkComponent'
-                    }
+                      itemType: 'CMSLinkComponent',
+                    },
                   ],
-                  children: []
-                }, {
+                  children: [],
+                },
+                {
                   uid: 'CameraLensesNavNode',
                   entries: [
                     {
                       itemId: 'CameraLensesCategoryLink',
                       itemSuperType: 'AbstractCMSComponent',
-                      itemType: 'CMSLinkComponent'
-                    }
+                      itemType: 'CMSLinkComponent',
+                    },
                   ],
-                  children: []
-                }, {
+                  children: [],
+                },
+                {
                   uid: 'FlashMemoryNavNode',
                   entries: [
                     {
                       itemId: 'FlashMemoryCategoryLink',
                       itemSuperType: 'AbstractCMSComponent',
-                      itemType: 'CMSLinkComponent'
-                    }
+                      itemType: 'CMSLinkComponent',
+                    },
                   ],
                   children: [],
-                  title: 'Flash Memory'
-                }, {
+                  title: 'Flash Memory',
+                },
+                {
                   uid: 'PowerSuppliesNavNode',
                   entries: [
                     {
                       itemId: 'PowerSuppliesCategoryLink',
                       itemSuperType: 'AbstractCMSComponent',
-                      itemType: 'CMSLinkComponent'
-                    }
+                      itemType: 'CMSLinkComponent',
+                    },
                   ],
                   children: [],
-                  title: 'Power Supplies'
-                }
+                  title: 'Power Supplies',
+                },
               ],
-              title: 'Gear'
+              title: 'Gear',
             },
             {
               uid: 'SuppliesNavNode',
@@ -187,38 +187,40 @@ export const categoryNavigationComponent = (): Component => {
                     {
                       itemId: 'ColourFilmsCategoryLink',
                       itemSuperType: 'AbstractCMSComponent',
-                      itemType: 'CMSLinkComponent'
-                    }
+                      itemType: 'CMSLinkComponent',
+                    },
                   ],
-                  children: []
-                }, {
+                  children: [],
+                },
+                {
                   uid: 'BlackAndWhiteFilmsNavNode',
                   entries: [
                     {
                       itemId: 'BlackAndWhiteFilmsCategoryLink',
                       itemSuperType: 'AbstractCMSComponent',
-                      itemType: 'CMSLinkComponent'
-                    }
+                      itemType: 'CMSLinkComponent',
+                    },
                   ],
-                  children: []
-                }, {
+                  children: [],
+                },
+                {
                   uid: 'BlankVideotapesNavNode',
                   entries: [
                     {
                       itemId: 'BlankVideotapesCategoryLink',
                       itemSuperType: 'AbstractCMSComponent',
-                      itemType: 'CMSLinkComponent'
-                    }
+                      itemType: 'CMSLinkComponent',
+                    },
                   ],
-                  children: []
-                }
+                  children: [],
+                },
               ],
-              title: 'Supplies'
-            }
+              title: 'Supplies',
+            },
           ],
-          title: 'Accessories'
-        }
+          title: 'Accessories',
+        },
       ]
-    )
-  };
+    ),
+  });
 };

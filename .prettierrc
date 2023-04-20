@@ -1,0 +1,73 @@
+{
+  "printWidth": 120,
+  "tabWidth": 2,
+  "useTabs": false,
+  "endOfLine": "auto",
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+
+  "importOrder": [
+    "^@spartacus/(.*)$",
+    "^rxjs(.*)$",
+    "./component",
+    "../converters/(.*)$",
+    "../enums/(.*)$",
+    "../core/(.*)$",
+    "../services",
+    "@services/(.*)$",
+    "@directives/(.*)$",
+    "@pipes/(.*)$",
+    "@tracking/(.*)$",
+    "@elements/(.*)$",
+    "^[./]",
+    "@config/(.*)$",
+    "@models/(.*)$",
+    "@tests/(.*)$",
+    "@environments/(.*)$"
+  ],
+  "importOrderSortSpecifiers": true,
+  "importOrderParserPlugins": ["typescript", "[\"decorators-legacy\", { \"decoratorsBeforeExport\": true }]"],
+
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx"],
+      "options": {
+        "parser": "babel"
+      }
+    },
+    {
+      "files": "*.json",
+      "options": {
+        "parser": "json"
+      }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "parser": "markdown",
+        "useTabs": false,
+        "tabWidth": 2,
+        "printWidth": 60
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "options": {
+        "parser": "typescript"
+      }
+    },
+    {
+      "files": ["*.yml", "*.yaml"],
+      "options": {
+        "parser": "yaml",
+        "singleQuote": false,
+        "useTabs": false,
+        "tabWidth": 2
+      }
+    }
+  ]
+}

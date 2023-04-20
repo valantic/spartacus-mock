@@ -1,32 +1,15 @@
 import { contentSlot } from '../components/default/content-slot';
-import { productReferencesComponent } from '../components/default/product-references';
-import { cmsTabParagraphContainerComponent } from '../components/default/cms-tab-paragraph';
 import { ContentSlot } from '../../types';
-import { flexType } from '../components/default/flex-type';
-import { faker } from '@faker-js/faker';
 import { checkoutDefaultContentSlots } from './checkout-default-content-slots';
+import { flexTypeComponent } from '../components/default/flex-type-component';
 
 export const checkoutContentSlots = (): ContentSlot[] => {
   // content slots
   return [
     ...checkoutDefaultContentSlots(),
 
-    contentSlot(
-      'BodyContentSlot-checkout',
-      'BodyContent',
-      'Checkout Orchestrator Slot',
-      [
-        flexType('CheckoutOrchestratorComponent', 'Checkout Orchestrator Component', 'CheckoutOrchestrator', faker.datatype.uuid())
-      ]
-    ),
+    contentSlot('BodyContent', [flexTypeComponent('CheckoutOrchestrator')]),
 
-    contentSlot(
-      'SideContentSlot-checkout',
-      'SideContent',
-      'Order Summary Slot',
-      [
-        flexType('CheckoutOrderSummaryComponent', 'Checkout OrderSummary Component', 'CheckoutOrderSummary', faker.datatype.uuid())
-      ]
-    ),
+    contentSlot('SideContent', [flexTypeComponent('CheckoutOrderSummary')]),
   ];
 };

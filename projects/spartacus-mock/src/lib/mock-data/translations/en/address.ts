@@ -64,8 +64,7 @@ export const address = {
   },
   addressSuggestion: {
     verifyYourAddress: 'Verify your address',
-    ensureAccuracySuggestChange:
-      'To ensure delivery accuracy, we suggest the change selected below.',
+    ensureAccuracySuggestChange: 'To ensure delivery accuracy, we suggest the change selected below.',
     chooseAddressToUse: 'Please choose which address you would like to use:',
     suggestedAddress: 'Suggested address',
     enteredAddress: 'Entered address',
@@ -73,7 +72,6 @@ export const address = {
     saveAddress: 'Save address',
   },
   addressMessages: {
-    setAsDefaultSuccessfully:
-      'Address {{ streetAddress }} was successfully set as default',
+    setAsDefaultSuccessfully: 'Address {{ streetAddress }} was successfully set as default',
   },
 };

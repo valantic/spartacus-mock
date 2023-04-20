@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 
 export const productPrice = (price?: number, currency?: string, priceType: PriceType = PriceType.FROM): Price => {
   const priceValue = price || faker.datatype.number(9999);
-  const currencyValue = currency || 'USD'
+  const currencyValue = currency || 'USD';
 
   return {
     currencyIso: currency,
@@ -12,5 +12,5 @@ export const productPrice = (price?: number, currency?: string, priceType: Price
     minQuantity: undefined,
     priceType,
     value: priceValue,
-  }
-}
+  };
+};

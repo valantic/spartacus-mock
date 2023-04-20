@@ -10,8 +10,7 @@ export const user = {
     },
     banner: {
       title: 'This website uses cookies',
-      description:
-        "We use cookies/browser's storage to personalize the content and improve user experience.",
+      description: "We use cookies/browser's storage to personalize the content and improve user experience.",
       allowAll: 'Allow All',
       viewDetails: 'View Details',
     },

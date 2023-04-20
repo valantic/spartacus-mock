@@ -13,11 +13,7 @@ export const homePage = () => {
     name: 'Homepage',
     robotTag: 'INDEX_FOLLOW',
     contentSlots: {
-      contentSlot: [
-        ...headerSlots(),
-        ...homeContentSlots(),
-        ...footerSlots()
-      ]
+      contentSlot: [...headerSlots(), ...homeContentSlots(), ...footerSlots()],
     },
   };
 };

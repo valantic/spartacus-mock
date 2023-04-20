@@ -11,7 +11,7 @@ export const productCategories = (): Occ.Category[] => {
     categories.push({
       code: faker.datatype.number(999).toString(),
       name: faker.lorem.words(2),
-      url: `/mock/category/${categoryName.replace(' ', '-')}/c/${categoryName}`
+      url: `/mock/category/${categoryName.replace(' ', '-')}/c/${categoryName}`,
     });
   }
 

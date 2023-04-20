@@ -17,14 +17,12 @@ export const quickOrderCartForm = {
 
 export const quickOrderForm = {
   placeholder: 'Enter Product name or SKU',
-  searchBoxLabel:
-    'Enter Product name or SKU for quick order. You can add up to {{ limit }} products per order.',
+  searchBoxLabel: 'Enter Product name or SKU for quick order. You can add up to {{ limit }} products per order.',
   listLimitReached: 'The product limit has been reached.',
   id: 'ID {{ id }}',
   noResults: 'We could not find any results',
   addProduct: 'Add product {{ product }}',
-  initialDescription:
-    'When autocomplete results are available use up and down arrows to review and enter to select.',
+  initialDescription: 'When autocomplete results are available use up and down arrows to review and enter to select.',
   productsResults: '{{ count }} products are available.',
   quickOrderSearch: 'Find product for quick order',
 };
@@ -40,16 +38,13 @@ export const quickOrderList = {
   errors: {
     productIsOutOfStock: '{{ name }} (#{{code}}) is out of stock.',
     reviewErrors: 'Please review these errors.',
-    listIsFull:
-      'The list is full, add these {{ count }} products to Cart in order to continue.',
+    listIsFull: 'The list is full, add these {{ count }} products to Cart in order to continue.',
     nonPurchasableError: 'Product {{ name }} cannot be purchased',
     outOfStockErrorFound: '{{count}} out of stock product was not added.',
-    outOfStockErrorFound_other:
-      '{{count}} out of stock products were not added.',
+    outOfStockErrorFound_other: '{{count}} out of stock products were not added.',
   },
   warnings: {
-    productWasReduced:
-      'Quantity for {{ name }} (#{{code}}) was reduced to {{ quantityAdded}}.',
+    productWasReduced: 'Quantity for {{ name }} (#{{code}}) was reduced to {{ quantityAdded}}.',
     reviewWarnings: 'Please review these warnings.',
     reduceWarningFound: '{{count}} product quantity was reduced.',
     reduceWarningFound_other: '{{count}} products quantity were reduced.',
@@ -60,8 +55,7 @@ export const quickOrderList = {
     addedToCartFound_other: '{{ count }} products were added to cart.',
   },
   informations: {
-    addProductBeforeAddingToCart:
-      'Add products to the list before adding to the cart.',
+    addProductBeforeAddingToCart: 'Add products to the list before adding to the cart.',
   },
   undo: 'UNDO',
   revokeUndo: 'Revoked product "{{name}}" deletion.',

@@ -1,17 +1,11 @@
-import { faker } from '@faker-js/faker';
 import { Component } from '../../../types';
+import { flexTypeComponent } from './flex-type-component';
 
-export const productCarousel = (uid: string, name: string, productCodes: string, title: string): Component => {
-  return {
-    uid,
-    uuid: faker.datatype.uuid(),
-    typeCode: 'ProductCarouselComponent',
-    modifiedtime: '2021-01-18T18:14:58.899Z',
-    name,
-    container: 'false',
+export const productCarousel = (productCodes: string[], title: string): Component => {
+  return flexTypeComponent('ProductCarouselComponent', undefined, {
     popup: 'false',
     scroll: 'ALLVISIBLE',
-    productCodes,
-    title
-  };
+    productCodes: productCodes.join(' '),
+    title,
+  });
 };

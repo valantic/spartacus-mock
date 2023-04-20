@@ -16,16 +16,13 @@ export const tempPage = (pageType: string, pageLabelOrId: string) => {
     contentSlots: {
       contentSlot: [
         ...headerSlots(),
-        contentSlot(
-          'CsnMainSlot-Homepage',
-          'csn_main',
-          'CsnMain Slot for Homepage',
-          [
-            cmsParagraphComponent('RichTextExampleParagraph', 'CMS Content Text Paragraph', `<h1>Oooups</h1><p>The page of type <b>"${pageType}"</b> with the label <b>"${pageLabelOrId}"</b> has not been mocked yet.</p>`),
-          ]
-        ),
-        ...footerSlots()
-      ]
+        contentSlot('csn_main', [
+          cmsParagraphComponent(
+            `<h1>Oooups</h1><p>The page of type <b>"${pageType}"</b> with the label <b>"${pageLabelOrId}"</b> has not been mocked yet.</p>`
+          ),
+        ]),
+        ...footerSlots(),
+      ],
     },
   };
 };

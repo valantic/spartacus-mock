@@ -8,8 +8,8 @@ _Pull requests, bug reports, and all other forms of contribution are welcomed an
 - [Asking Questions](#bulb-asking-questions)
 - [How can I Contribute?](#inbox_tray-how-can-i-contribute)
 
-> **This guide serves to set clear expectations for everyone involved with the project so that we can improve it 
-> together while also creating a welcoming space for everyone to participate. Following these guidelines will help 
+> **This guide serves to set clear expectations for everyone involved with the project so that we can improve it
+> together while also creating a welcoming space for everyone to participate. Following these guidelines will help
 > ensure a positive experience for contributors and maintainers.**
 
 ## :book: Code of Conduct
@@ -24,7 +24,7 @@ If you have any question that does not relate to a bug or a feature request, ple
 
 ### GitHub issues
 
-If you encounter a problem with this library or if you have a new feature you'd like to see in this project, 
+If you encounter a problem with this library or if you have a new feature you'd like to see in this project,
 please create [a new issue](https://github.com/valantic/spartacus-mock/issues/new/choose).
 
 ### Join the Dev Team

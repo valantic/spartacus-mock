@@ -24,8 +24,7 @@ export const storeFinder = {
     searchBox: 'Postal code, town or address',
     backToList: 'Back to list',
     noStoresMessage: 'No stores found in database...',
-    geolocationNotEnabled:
-      'Cannot locate nearby stores. Geolocation consent has not been enabled',
+    geolocationNotEnabled: 'Cannot locate nearby stores. Geolocation consent has not been enabled',
     searchNearestStores: 'Search nearest stores',
     searchBoxLabel: 'Enter postal code, town or address',
   },
