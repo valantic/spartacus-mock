@@ -19,8 +19,7 @@
     "target": "es2020",
     "skipLibCheck": true,
     "paths": {
-      "spartacus-mock": ["dist/spartacus-mock"],
-      "@types/*": ["projects/spartacus-mock/src/lib/types/*"]
+      "spartacus-mock": ["dist/spartacus-mock"]
     },
     "module": "es2020",
     "lib": ["es2020", "dom"]
