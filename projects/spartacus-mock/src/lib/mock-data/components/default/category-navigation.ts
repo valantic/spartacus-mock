@@ -1,6 +1,6 @@
-import { navigationNodeComponent } from './navigation-node';
 import { Component } from '../../../types';
 import { flexTypeComponent } from './flex-type-component';
+import { navigationNodeComponent } from './navigation-node';
 
 export const categoryNavigationComponent = (): Component => {
   return flexTypeComponent('CategoryNavigationComponent', undefined, {

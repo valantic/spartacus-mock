@@ -1,8 +1,8 @@
-import { contentSlot } from '../components/default/content-slot';
-import { cmsParagraphComponent, richTextExampleContent } from '../components/default/cms-paragraph';
-import { simpleResponsiveBanner } from '../components/default/simple-responsive-banner';
-import { ResponsiveMediaRendition } from '../components/default/media';
 import { ContentSlot } from '../../types';
+import { cmsParagraphComponent, richTextExampleContent } from '../components/default/cms-paragraph';
+import { contentSlot } from '../components/default/content-slot';
+import { ResponsiveMediaRendition } from '../components/default/media';
+import { simpleResponsiveBanner } from '../components/default/simple-responsive-banner';
 
 export const cmsPageContentSlots = (): ContentSlot[] => {
   // content slots

@@ -31,8 +31,17 @@
             "tsConfig": "projects/spartacus-mock/tsconfig.spec.json",
             "karmaConfig": "projects/spartacus-mock/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/spartacus-mock/**/*.ts"]
+          }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }

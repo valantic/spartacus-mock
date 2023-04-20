@@ -17,8 +17,10 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2020",
+    "skipLibCheck": true,
     "paths": {
-      "spartacus-mock": ["dist/spartacus-mock"]
+      "spartacus-mock": ["dist/spartacus-mock"],
+      "@types/*": ["projects/spartacus-mock/src/lib/types/*"]
     },
     "module": "es2020",
     "lib": ["es2020", "dom"]
@@ -28,5 +30,6 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "exclude": ["./dist", "node_modules"]
 }

@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
-import { profileScriptComponent } from '../components/default/profile-script';
-import { footerNavigationComponent } from '../components/default/footer-navigation';
-import { cmsParagraphComponent } from '../components/default/cms-paragraph';
 import { ContentSlot } from '../../types';
+import { cmsParagraphComponent } from '../components/default/cms-paragraph';
 import { flexTypeComponent } from '../components/default/flex-type-component';
+import { footerNavigationComponent } from '../components/default/footer-navigation';
+import { profileScriptComponent } from '../components/default/profile-script';
 
 export const placeholderContentSlot = (slotId: string, slotPosition: string, slotName: string) => {
   return {

@@ -1,5 +1,5 @@
-import { OccConfig } from '@spartacus/core';
 import { CheckoutOccEndpoints } from '@spartacus/checkout/base/occ';
+import { OccConfig } from '@spartacus/core';
 
 // needed to have a working typing
 interface CheckoutOccConfig extends OccConfig {

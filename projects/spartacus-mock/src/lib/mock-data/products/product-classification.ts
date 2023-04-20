@@ -1,5 +1,6 @@
-import { Occ } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
+
 import Feature = Occ.Feature;
 
 function classificationFeature(): Feature {

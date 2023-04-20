@@ -1,6 +1,6 @@
-import { contentSlot } from '../components/default/content-slot';
 import { ContentSlot } from '../../types';
 import { cmsParagraphComponent } from '../components/default/cms-paragraph';
+import { contentSlot } from '../components/default/content-slot';
 import { flexTypeComponent } from '../components/default/flex-type-component';
 
 export const cmsCartContentSlots = (): ContentSlot[] => {

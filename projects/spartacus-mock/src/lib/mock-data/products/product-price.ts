@@ -1,5 +1,5 @@
-import { Price, PriceType } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
+import { Price, PriceType } from '@spartacus/core';
 
 export const productPrice = (price?: number, currency?: string, priceType: PriceType = PriceType.FROM): Price => {
   const priceValue = price || faker.datatype.number(9999);

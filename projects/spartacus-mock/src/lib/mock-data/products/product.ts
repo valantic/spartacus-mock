@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { ImageType, Occ } from '@spartacus/core';
-import { productCategories } from './product-categories';
 import { mediaImage } from '../media/media-image';
-import { productPrice } from './product-price';
+import { productCategories } from './product-categories';
 import { productClassification } from './product-classification';
+import { productPrice } from './product-price';
 
 export const activeTabItems = [
   'ProductDetailsTabComponent',
@@ -13,7 +13,7 @@ export const activeTabItems = [
 ];
 
 interface OccProductExtended extends Occ.Product {
-  displayedTabs: string[];
+  displayedTabs?: string[];
 }
 
 export const product = (productCode: string, _productIndex: number = 1): OccProductExtended => {

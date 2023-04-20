@@ -1,22 +1,22 @@
 import { faker } from '@faker-js/faker';
-import { headerSlots } from '../slots/header-slots';
-import { footerSlots } from '../slots/footer-slots';
-import { cmsPageContentSlotsNotFound } from '../slots/cms-page-content-slots-not-found';
-import { cmsPageContentSlots } from '../slots/cms-page-content-slots';
-import { cmsCartContentSlots } from '../slots/cart-content-slots';
-import { cmsPageContentSlotsFlexTypeComponent } from '../slots/cms-page-content-slots-flex-type-component';
-import { loginPage, registerPage } from './login';
-import { breadcrumbComponent } from '../components/default/breadcrumb';
 import { ContentSlot } from '../../types';
-import { checkoutContentSlots } from '../slots/checkout-content-slots';
-import { checkoutLoginContentSlots } from '../slots/checkout-login-content-slots';
-import { checkoutDeliveryAddressContentSlots } from '../slots/checkout-delivery-address-content-slots';
-import { checkoutDeliveryModeContentSlots } from '../slots/checkout-delivery-mode-content-slots';
-import { checkoutPaymentDetailsContentSlots } from '../slots/checkout-payment-details-content-slots';
-import { checkoutReviewOrderContentSlots } from '../slots/checkout-review-order-content-slots';
-import { orderConfirmationContentSlots } from '../slots/order-confirmation-content-slots';
+import { breadcrumbComponent } from '../components/default/breadcrumb';
 import { accountOrderHistorySlots } from '../slots/account-order-history-slots';
 import { accountOrderSlots } from '../slots/account-order-slots';
+import { cmsCartContentSlots } from '../slots/cart-content-slots';
+import { checkoutContentSlots } from '../slots/checkout-content-slots';
+import { checkoutDeliveryAddressContentSlots } from '../slots/checkout-delivery-address-content-slots';
+import { checkoutDeliveryModeContentSlots } from '../slots/checkout-delivery-mode-content-slots';
+import { checkoutLoginContentSlots } from '../slots/checkout-login-content-slots';
+import { checkoutPaymentDetailsContentSlots } from '../slots/checkout-payment-details-content-slots';
+import { checkoutReviewOrderContentSlots } from '../slots/checkout-review-order-content-slots';
+import { cmsPageContentSlots } from '../slots/cms-page-content-slots';
+import { cmsPageContentSlotsFlexTypeComponent } from '../slots/cms-page-content-slots-flex-type-component';
+import { cmsPageContentSlotsNotFound } from '../slots/cms-page-content-slots-not-found';
+import { footerSlots } from '../slots/footer-slots';
+import { headerSlots } from '../slots/header-slots';
+import { orderConfirmationContentSlots } from '../slots/order-confirmation-content-slots';
+import { loginPage, registerPage } from './login';
 
 export interface Page {
   uid: string;
@@ -98,7 +98,7 @@ export const contentPages = (): Pages => {
       checkoutReviewOrderContentSlots(),
       'MultiStepCheckoutSummaryPageTemplate'
     ),
-    checkout: contentPage('/checkout', 'Checkout', checkoutContentSlots(), 'MultiStepCheckoutSummaryPageTemplate'),
+    checkout: contentPage('ContentPage', '/checkout', checkoutContentSlots(), 'MultiStepCheckoutSummaryPageTemplate'),
     'order-confirmation': contentPage(
       '/order-confirmation',
       'Order Confirmation',

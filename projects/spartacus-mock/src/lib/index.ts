@@ -1,8 +1,8 @@
-import { rest, SetupWorker, setupWorker } from 'msw';
+import { SetupWorker, rest, setupWorker } from 'msw';
 import { getDefaultHandlers } from './defaultHandlers';
+import { createLocalstorage } from './defaultLocalStorage';
 import { defaultPassThroughUrls } from './defaultPassthrough';
 import { MockConfig } from './types';
-import { createLocalstorage } from './defaultLocalStorage';
 
 function getWorker(config: MockConfig): SetupWorker {
   // create default local storage if it does not exist

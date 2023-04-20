@@ -1,8 +1,8 @@
+import { ContentSlot } from '../../types';
 import { contentSlot } from '../components/default/content-slot';
-import { simpleResponsiveBanner } from '../components/default/simple-responsive-banner';
 import { ResponsiveMediaRendition } from '../components/default/media';
 import { productCarousel } from '../components/default/product-carousel';
-import { ContentSlot } from '../../types';
+import { simpleResponsiveBanner } from '../components/default/simple-responsive-banner';
 
 export const homeContentSlots = (): ContentSlot[] => {
   // content slots

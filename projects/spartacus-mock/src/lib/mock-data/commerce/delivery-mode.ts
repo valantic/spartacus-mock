@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { DeliveryMode } from '@spartacus/cart/base/root';
-import { getPriceWithDecimals } from './cart';
 import { PriceType } from '@spartacus/core';
+import { getPriceWithDecimals } from './cart';
 
 export const createDeliveryCost = () => {
   const price = faker.commerce.price(100, 10000, 0, '');

@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { headerSlots } from '../slots/header-slots';
 import { footerSlots } from '../slots/footer-slots';
+import { headerSlots } from '../slots/header-slots';
 import { homeContentSlots } from '../slots/home-content-slots';
 
 export const homePage = () => {
