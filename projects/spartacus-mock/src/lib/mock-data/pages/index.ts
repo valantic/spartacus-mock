@@ -17,6 +17,7 @@ import { checkoutReviewOrderContentSlots } from '../slots/checkout-review-order-
 import { orderConfirmationContentSlots } from '../slots/order-confirmation-content-slots';
 import { accountOrderHistorySlots } from '../slots/account-order-history-slots';
 import { accountOrderSlots } from '../slots/account-order-slots';
+import { accountWishListSlots } from '../slots/account-wish-list-slots';
 
 export interface Page {
   uid: string;
@@ -112,5 +113,11 @@ export const contentPages = (): Pages => {
       'AccountPageTemplate'
     ),
     'my-account/order': contentPage('/my-account/order', 'Order Details', accountOrderSlots(), 'AccountPageTemplate'),
+    'my-account/wish-list': contentPage(
+      '/my-account/wish-list',
+      'Wishlist',
+      accountWishListSlots(),
+      'AccountPageTemplate'
+    ),
   };
 };
