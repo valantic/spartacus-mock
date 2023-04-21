@@ -24,6 +24,7 @@ import { accountAddressBookSlots } from '../slots/account-address-book-slots';
 import { accountPaymentDetailsSlots } from '../slots/account-payment-details-slots';
 import { accountPersonalDetailsSlots } from '../slots/account-personal-details-slots';
 import { accountUpdatePasswordSlots } from '../slots/account-update-password-slots';
+import { accountUpdateEmailSlots } from '../slots/account-update-email-slots';
 
 export interface Page {
   uid: string;
@@ -159,6 +160,12 @@ export const contentPages = (): Pages => {
       '/my-account/update-password',
       'Update Password',
       accountUpdatePasswordSlots(),
+      'AccountPageTemplate'
+    ),
+    'my-account/update-email': contentPage(
+      '/my-account/update-email',
+      'Update E-Mail',
+      accountUpdateEmailSlots(),
       'AccountPageTemplate'
     ),
   };

@@ -471,7 +471,10 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       return res(ctx.status(200), ctx.json(user()));
     }),
     rest.put(routes.userUpdatePassword, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(202));
+      return res(ctx.status(200));
+    }),
+    rest.put(routes.userUpdateLoginId, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200));
     }),
 
     // search page

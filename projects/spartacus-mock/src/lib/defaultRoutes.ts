@@ -170,5 +170,9 @@ export function getDefaultRoutes(environment: Environment) {
       '${userId}',
       ':userId'
     ),
+    userUpdateLoginId: `${occEndpoint}:baseSiteId/${userProfileEndpoints?.userUpdateLoginId}`.replace(
+      '${userId}',
+      ':userId'
+    ),
   };
 }
