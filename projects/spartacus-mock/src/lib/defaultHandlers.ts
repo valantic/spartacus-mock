@@ -467,6 +467,9 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     rest.delete(routes.paymentDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200));
     }),
+    rest.patch(routes.users, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(user()));
+    }),
 
     // search page
     // TODO add mock search result and make search work

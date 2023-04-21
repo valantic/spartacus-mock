@@ -87,6 +87,10 @@ export const myAccountLinkComponents = (componentIds: string[]): Occ.ComponentLi
       linkUrl = 'logout';
     }
 
+    if (componentId === 'PersonalDetailsLink') {
+      linkUrl = 'my-account/update-profile';
+    }
+
     componentData.component?.push(
       cmsLinkComponent(
         componentId,
