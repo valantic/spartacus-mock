@@ -20,6 +20,7 @@ import { accountOrderSlots } from '../slots/account-order-slots';
 import { accountWishListSlots } from '../slots/account-wish-list-slots';
 import { accountSavedCartsSlots } from '../slots/account-saved-carts-slots';
 import { accountSavedCartSlots } from '../slots/account-saved-cart-slots';
+import { accountAddressBookSlots } from '../slots/account-address-book-slots';
 
 export interface Page {
   uid: string;
@@ -131,6 +132,12 @@ export const contentPages = (): Pages => {
       '/my-account/saved-cart',
       'Saved Cart',
       accountSavedCartSlots(),
+      'AccountPageTemplate'
+    ),
+    'my-account/address-book': contentPage(
+      '/my-account/address-book',
+      'Address Book',
+      accountAddressBookSlots(),
       'AccountPageTemplate'
     ),
   };

@@ -47,6 +47,7 @@ import { getOrders } from './mock-data/order/order-history';
 import { createOrder } from './mock-data/order/order';
 import { updateLocalStorage } from './defaultLocalStorage';
 import { savedCartResult } from './mock-data/account/saved-cart';
+import { regions } from './mock-data/general/regions';
 
 export function getDefaultHandlers(environment: Environment): RestHandler[] {
   const routes = getDefaultRoutes(environment);
@@ -87,6 +88,10 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       const namespace = typeof req.params['namespace'] === 'string' ? req.params['namespace'] : '';
 
       return res(ctx.status(200), ctx.json(translations(language, namespace)));
+    }),
+
+    rest.get(routes.regions, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(regions()));
     }),
 
     /**
@@ -449,6 +454,12 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
 
       return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
+    }),
+    rest.patch(routes.addressDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json({}));
+    }),
+    rest.delete(routes.addressDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json({}));
     }),
 
     // search page

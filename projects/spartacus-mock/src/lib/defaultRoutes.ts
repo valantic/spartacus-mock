@@ -3,6 +3,7 @@ import { occCartConfig } from './occ-config/occ-cart-config';
 import { occCheckoutConfig } from './occ-config/occ-checkout-config';
 import { occOrderConfig } from './occ-config/occ-order-config';
 import { occSavedCartConfig } from './occ-config/occ-saved-cart-config';
+import { occUserConfig } from './occ-config/occ-user-config';
 
 /**
  * TODO use endpoints from default configs
@@ -25,6 +26,7 @@ const cartEndpoints = occCartConfig.backend.occ.endpoints;
 const checkoutEndpoints = occCheckoutConfig.backend.occ.endpoints;
 const orderEndpoints = occOrderConfig.backend.occ.endpoints;
 const savedCartEndpoints = occSavedCartConfig.backend?.occ?.endpoints;
+const userEndpoints = occUserConfig.backend?.occ?.endpoints;
 
 export function getDefaultRoutes(environment: Environment) {
   const occEndpoint = `${environment.backend.occ?.baseUrl}${environment.backend.occ?.prefix}`;
@@ -42,6 +44,7 @@ export function getDefaultRoutes(environment: Environment) {
     usersTemp: `${occEndpoint}users/:user`,
     titles: `${occEndpoint}:baseSiteId/titles`,
     countries: `${occEndpoint}:baseSiteId/countries`,
+    regions: `${occEndpoint}:baseSiteId/countries/:countryIso/regions`,
     consentTemplates: `${occEndpoint}:baseSiteId/users/:user/consenttemplates`,
     notificationPreferences: `${occEndpoint}:baseSiteId/users/:user/notificationpreferences`,
     productInterests: `${occEndpoint}:baseSiteId/users/:user/productinterests`,
@@ -155,5 +158,8 @@ export function getDefaultRoutes(environment: Environment) {
     savedCart: `${occEndpoint}:baseSideId/${savedCartEndpoints?.savedCart}`
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'),
+    addressDetail: `${occEndpoint}:baseSideId/${userEndpoints?.addressDetail}`
+      .replace('${userId}', ':userId')
+      .replace('${addressId}', ':addressId'),
   };
 }
