@@ -174,5 +174,9 @@ export function getDefaultRoutes(environment: Environment) {
       '${userId}',
       ':userId'
     ),
+    consentDetail: `${occEndpoint}:baseSiteId/${userEndpoints?.consentDetail}`
+      .replace('${userId}', ':userId')
+      .replace('${consentId}', ':consentId'),
+    consents: `${occEndpoint}:baseSiteId/${userEndpoints?.consents}`.replace('${userId}', ':userId'),
   };
 }

@@ -1,7 +1,7 @@
 import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
 import { baseSites } from './mock-data/base-sites/base-sites';
 import { languages } from './mock-data/languages/languages';
-import { consentTemplates } from './mock-data/consent-templates/consent-templates';
+import { consentTemplates, createConsentTemplate } from './mock-data/consent-templates/consent-templates';
 import { getDefaultRoutes } from './defaultRoutes';
 import { Environment } from './types';
 import { translations } from './mock-data/translations/translations';
@@ -475,6 +475,12 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     }),
     rest.put(routes.userUpdateLoginId, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200));
+    }),
+    rest.delete(routes.consentDetail, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200));
+    }),
+    rest.post(routes.consents, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(createConsentTemplate(true)));
     }),
 
     // search page

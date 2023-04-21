@@ -91,6 +91,10 @@ export const myAccountLinkComponents = (componentIds: string[]): Occ.ComponentLi
       linkUrl = 'my-account/update-profile';
     }
 
+    if (componentId === 'ConsentManagementLink') {
+      linkUrl = 'my-account/consents';
+    }
+
     componentData.component?.push(
       cmsLinkComponent(
         componentId,
