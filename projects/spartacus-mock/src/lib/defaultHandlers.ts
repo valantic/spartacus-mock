@@ -329,14 +329,14 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       const entryNumber = parseInt(typeof req.params['entryNumber'] === 'string' ? req.params['entryNumber'] : '');
 
       removeEntries(cartId, entryNumber);
-      return res(ctx.status(200), ctx.json({}));
+      return res(ctx.status(200));
     }),
 
     // cart save call which is done, if the currently loggedIn user does not have a wishlist cart
     rest.delete(routes.deleteCart, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       deleteCart();
 
-      return res(ctx.status(201), ctx.json({}));
+      return res(ctx.status(201));
     }),
 
     // cart save call which is done, if the currently loggedIn user does not have a wishlist cart
@@ -362,21 +362,21 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       const voucherId = req.url.searchParams?.get('voucherId') || '';
 
       addVoucher(voucherId);
-      return res(ctx.status(200), ctx.json({}));
+      return res(ctx.status(200));
     }),
 
     rest.delete(routes.cartVoucherRemove, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const voucherCode = typeof req.params['voucherCode'] === 'string' ? req.params['voucherCode'] : '';
 
       deleteVoucher(voucherCode);
-      return res(ctx.status(200), ctx.json({}));
+      return res(ctx.status(200));
     }),
 
     /**
      * Checkout Calls **************************************************************************************************
      */
     rest.put(routes.setDeliveryAddress, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201), ctx.json({}));
+      return res(ctx.status(201));
     }),
 
     rest.post(routes.createDeliveryAddress, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
@@ -385,15 +385,15 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     }),
 
     rest.delete(routes.removeDeliveryAddress, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201), ctx.json({}));
+      return res(ctx.status(201));
     }),
 
     rest.delete(routes.deliveryMode, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201), ctx.json({}));
+      return res(ctx.status(201));
     }),
 
     rest.put(routes.deliveryMode, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201), ctx.json({}));
+      return res(ctx.status(201));
     }),
 
     rest.get(routes.deliveryModes, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
@@ -469,6 +469,9 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     }),
     rest.patch(routes.users, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200), ctx.json(user()));
+    }),
+    rest.put(routes.userUpdatePassword, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(202));
     }),
 
     // search page

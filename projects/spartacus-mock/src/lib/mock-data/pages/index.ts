@@ -23,6 +23,7 @@ import { accountSavedCartSlots } from '../slots/account-saved-cart-slots';
 import { accountAddressBookSlots } from '../slots/account-address-book-slots';
 import { accountPaymentDetailsSlots } from '../slots/account-payment-details-slots';
 import { accountPersonalDetailsSlots } from '../slots/account-personal-details-slots';
+import { accountUpdatePasswordSlots } from '../slots/account-update-password-slots';
 
 export interface Page {
   uid: string;
@@ -152,6 +153,12 @@ export const contentPages = (): Pages => {
       '/my-account/update-profile',
       'Update Personal Details',
       accountPersonalDetailsSlots(),
+      'AccountPageTemplate'
+    ),
+    'my-account/update-password': contentPage(
+      '/my-account/update-password',
+      'Update Password',
+      accountUpdatePasswordSlots(),
       'AccountPageTemplate'
     ),
   };

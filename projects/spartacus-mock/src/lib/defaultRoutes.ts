@@ -4,6 +4,7 @@ import { occCheckoutConfig } from './occ-config/occ-checkout-config';
 import { occOrderConfig } from './occ-config/occ-order-config';
 import { occSavedCartConfig } from './occ-config/occ-saved-cart-config';
 import { occUserConfig } from './occ-config/occ-user-config';
+import { defaultOccUserProfileConfig } from '@spartacus/user/profile/occ';
 
 /**
  * TODO use endpoints from default configs
@@ -27,6 +28,7 @@ const checkoutEndpoints = occCheckoutConfig.backend.occ.endpoints;
 const orderEndpoints = occOrderConfig.backend.occ.endpoints;
 const savedCartEndpoints = occSavedCartConfig.backend?.occ?.endpoints;
 const userEndpoints = occUserConfig.backend?.occ?.endpoints;
+const userProfileEndpoints = defaultOccUserProfileConfig.backend?.occ?.endpoints;
 
 export function getDefaultRoutes(environment: Environment) {
   const occEndpoint = `${environment.backend.occ?.baseUrl}${environment.backend.occ?.prefix}`;
@@ -164,5 +166,9 @@ export function getDefaultRoutes(environment: Environment) {
     paymentDetail: `${occEndpoint}:baseSiteId/${userEndpoints?.paymentDetail}`
       .replace('${userId}', ':userId')
       .replace('${paymentDetailId}', ':paymentDetailId'),
+    userUpdatePassword: `${occEndpoint}:baseSiteId/${userProfileEndpoints?.userUpdatePassword}`.replace(
+      '${userId}',
+      ':userId'
+    ),
   };
 }
