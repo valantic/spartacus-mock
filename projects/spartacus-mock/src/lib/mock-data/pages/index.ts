@@ -29,6 +29,7 @@ import { accountConsentsSlots } from '../slots/account-consents-slots';
 import { accountCloseAccountSlots } from '../slots/account-close-account-slots';
 import { accountMyInterestsSlots } from '../slots/account-my-interests-slots';
 import { accountNotificationPreferenceSlots } from '../slots/account-notification-preference-slots';
+import { accountCouponsSlots } from '../slots/account-coupons-slots';
 
 export interface Page {
   uid: string;
@@ -194,6 +195,12 @@ export const contentPages = (): Pages => {
       '/my-account/notification-preference',
       'Notification Preference',
       accountNotificationPreferenceSlots(),
+      'AccountPageTemplate'
+    ),
+    'my-account/coupons': contentPage(
+      '/my-account/coupons',
+      'My Coupons',
+      accountCouponsSlots(),
       'AccountPageTemplate'
     ),
   };

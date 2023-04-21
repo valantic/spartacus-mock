@@ -95,6 +95,10 @@ export const myAccountLinkComponents = (componentIds: string[]): Occ.ComponentLi
       linkUrl = 'my-account/consents';
     }
 
+    if (componentId === 'MyCouponsLink') {
+      linkUrl = 'my-account/coupons';
+    }
+
     componentData.component?.push(
       cmsLinkComponent(
         componentId,
