@@ -37,7 +37,7 @@ import { notificationPreferences } from './mock-data/account/notification-prefer
 import { productInterests } from './mock-data/account/product-interests';
 import { addVoucher, deleteVoucher } from './mock-data/commerce/voucher';
 import { customerCoupons } from './mock-data/account/customer-coupons';
-import { availableAddresses } from './mock-data/account/addresses';
+import { availableAddresses, createAddress } from './mock-data/account/addresses';
 import { getDeliveryAddress, getDeliveryModes } from './mock-data/commerce/checkout';
 import { titles } from './mock-data/general/titles';
 import { countries } from './mock-data/general/countries';
@@ -460,6 +460,9 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     }),
     rest.delete(routes.addressDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200), ctx.json({}));
+    }),
+    rest.post(routes.addresses, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(201), ctx.json(createAddress()));
     }),
 
     // search page
