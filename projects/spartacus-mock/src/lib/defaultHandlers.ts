@@ -482,6 +482,9 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     rest.post(routes.consents, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200), ctx.json(createConsentTemplate(true)));
     }),
+    rest.delete(routes.users, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200));
+    }),
 
     // search page
     // TODO add mock search result and make search work

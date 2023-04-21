@@ -26,6 +26,7 @@ import { accountPersonalDetailsSlots } from '../slots/account-personal-details-s
 import { accountUpdatePasswordSlots } from '../slots/account-update-password-slots';
 import { accountUpdateEmailSlots } from '../slots/account-update-email-slots';
 import { accountConsentsSlots } from '../slots/account-consents-slots';
+import { accountCloseAccountSlots } from '../slots/account-close-account-slots';
 
 export interface Page {
   uid: string;
@@ -173,6 +174,12 @@ export const contentPages = (): Pages => {
       '/my-account/consents',
       'Consent Management',
       accountConsentsSlots(),
+      'AccountPageTemplate'
+    ),
+    'my-account/close-account': contentPage(
+      '/my-account/close-account',
+      'Close Account',
+      accountCloseAccountSlots(),
       'AccountPageTemplate'
     ),
   };
