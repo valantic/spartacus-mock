@@ -27,6 +27,7 @@ import { accountUpdatePasswordSlots } from '../slots/account-update-password-slo
 import { accountUpdateEmailSlots } from '../slots/account-update-email-slots';
 import { accountConsentsSlots } from '../slots/account-consents-slots';
 import { accountCloseAccountSlots } from '../slots/account-close-account-slots';
+import { accountMyInterestsSlots } from '../slots/account-my-interests-slots';
 
 export interface Page {
   uid: string;
@@ -180,6 +181,12 @@ export const contentPages = (): Pages => {
       '/my-account/close-account',
       'Close Account',
       accountCloseAccountSlots(),
+      'AccountPageTemplate'
+    ),
+    'my-account/my-interests': contentPage(
+      '/my-account/my-interests',
+      'My Interests',
+      accountMyInterestsSlots(),
       'AccountPageTemplate'
     ),
   };
