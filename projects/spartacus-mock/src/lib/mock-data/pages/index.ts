@@ -16,6 +16,7 @@ import { cmsPageContentSlotsNotFound } from '../slots/cms-page-content-slots-not
 import { footerSlots } from '../slots/footer-slots';
 import { headerSlots } from '../slots/header-slots';
 import { orderConfirmationContentSlots } from '../slots/order-confirmation-content-slots';
+import { storeFinderOrderSlots } from '../slots/store-finder-slots';
 import { loginPage, registerPage } from './login';
 
 export interface Page {
@@ -112,5 +113,6 @@ export const contentPages = (): Pages => {
       'AccountPageTemplate'
     ),
     'my-account/order': contentPage('/my-account/order', 'Order Details', accountOrderSlots(), 'AccountPageTemplate'),
+    'store-finder': contentPage('/store-finder', 'Find a store', storeFinderOrderSlots(), 'StoreFinderPageTemplate'),
   };
 };

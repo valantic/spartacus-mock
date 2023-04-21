@@ -1,31 +1,17 @@
-import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
-import { baseSites } from './mock-data/base-sites/base-sites';
-import { languages } from './mock-data/languages/languages';
-import { consentTemplates } from './mock-data/consent-templates/consent-templates';
-import { getDefaultRoutes } from './defaultRoutes';
-import { Environment } from './types';
-import { translations } from './mock-data/translations/translations';
-import { contentPages } from './mock-data/pages';
-import { productDetailPage } from './mock-data/pages/product-detail';
-import { homePage } from './mock-data/pages/home';
-import { tempPage } from './mock-data/pages/temp';
-import {
-  components,
-  footerLinkComponents,
-  myAccountLinkComponents,
-  navMainLinkComponents,
-  productDetailTabComponents,
-} from './mock-data/components/components';
-import { activeTabItems, product, productBaseData, productClassifications } from './mock-data/products/product';
-import { searchSuggestions } from './mock-data/search/search-suggestions';
-import { productReferences } from './mock-data/products/product-references';
 import { faker } from '@faker-js/faker';
-import { productReviews, productReviewSubmit } from './mock-data/products/product-reviews';
+import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { getDefaultRoutes } from './defaultRoutes';
+import { availableAddresses } from './mock-data/account/addresses';
+import { customerCoupons } from './mock-data/account/customer-coupons';
+import { notificationPreferences } from './mock-data/account/notification-preferences';
+import { payments } from './mock-data/account/payments';
+import { productInterests } from './mock-data/account/product-interests';
 import { authRevoke, authToken } from './mock-data/auth/auth';
 import { user } from './mock-data/auth/user';
+import { baseSites } from './mock-data/base-sites/base-sites';
 import {
-  addToCart,
   CartUserType,
+  addToCart,
   deleteCart,
   getCart,
   getCarts,
@@ -33,18 +19,33 @@ import {
   removeEntries,
   updateEntries,
 } from './mock-data/commerce/cart';
-import { notificationPreferences } from './mock-data/account/notification-preferences';
-import { productInterests } from './mock-data/account/product-interests';
-import { addVoucher, deleteVoucher } from './mock-data/commerce/voucher';
-import { customerCoupons } from './mock-data/account/customer-coupons';
-import { availableAddresses } from './mock-data/account/addresses';
 import { getDeliveryAddress, getDeliveryModes } from './mock-data/commerce/checkout';
-import { titles } from './mock-data/general/titles';
+import { addVoucher, deleteVoucher } from './mock-data/commerce/voucher';
+import {
+  components,
+  footerLinkComponents,
+  myAccountLinkComponents,
+  navMainLinkComponents,
+  productDetailTabComponents,
+} from './mock-data/components/components';
+import { consentTemplates } from './mock-data/consent-templates/consent-templates';
 import { countries } from './mock-data/general/countries';
 import { currencies } from './mock-data/general/currencies';
-import { payments } from './mock-data/account/payments';
-import { getOrders } from './mock-data/order/order-history';
+import { titles } from './mock-data/general/titles';
+import { languages } from './mock-data/languages/languages';
 import { createOrder } from './mock-data/order/order';
+import { getOrders } from './mock-data/order/order-history';
+import { contentPages } from './mock-data/pages';
+import { homePage } from './mock-data/pages/home';
+import { productDetailPage } from './mock-data/pages/product-detail';
+import { tempPage } from './mock-data/pages/temp';
+import { activeTabItems, product, productBaseData, productClassifications } from './mock-data/products/product';
+import { productReferences } from './mock-data/products/product-references';
+import { productReviewSubmit, productReviews } from './mock-data/products/product-reviews';
+import { searchSuggestions } from './mock-data/search/search-suggestions';
+import { store, stores, storesAndRegionsStoreCount } from './mock-data/store-finder/store-finder';
+import { translations } from './mock-data/translations/translations';
+import { Environment } from './types';
 
 export function getDefaultHandlers(environment: Environment): RestHandler[] {
   const routes = getDefaultRoutes(environment);
@@ -413,5 +414,21 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     /*rest.get(routes.mediaCommerce, (req: RestRequest, res: ResponseComposition, _ctx: RestContext) => {
       return res(redirect(`https://sparta.webdev.v-zug.ch${req.url.pathname}`, 301));
     }),*/
+
+    /**
+     * Store Finder ****************************************************************************************************
+     */
+
+    rest.get(routes.storescounts, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(storesAndRegionsStoreCount()));
+    }),
+
+    rest.get(routes.stores, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(stores()));
+    }),
+
+    rest.get(routes.store, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(store()));
+    }),
   ];
 }

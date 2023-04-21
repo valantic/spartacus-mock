@@ -1,7 +1,8 @@
-import { Environment } from './types';
 import { occCartConfig } from './occ-config/occ-cart-config';
 import { occCheckoutConfig } from './occ-config/occ-checkout-config';
 import { occOrderConfig } from './occ-config/occ-order-config';
+import { occStoreFinderConfig } from './occ-config/occ-store-finder-config';
+import { Environment } from './types';
 
 /**
  * TODO use endpoints from default configs
@@ -23,6 +24,7 @@ const i18nEndpoint = 'i18n/${language}/${namespace}';
 const cartEndpoints = occCartConfig.backend.occ.endpoints;
 const checkoutEndpoints = occCheckoutConfig.backend.occ.endpoints;
 const orderEndpoints = occOrderConfig.backend.occ.endpoints;
+const storeFinderEndpoints = occStoreFinderConfig.backend.occ.endpoints;
 
 export function getDefaultRoutes(environment: Environment) {
   const occEndpoint = `${environment.backend.occ?.baseUrl}${environment.backend.occ?.prefix}`;
@@ -142,5 +144,13 @@ export function getDefaultRoutes(environment: Environment) {
 
     // search
     searchSuggestions: `${occEndpoint}:baseSiteId/products/suggestions`,
+
+    // store finder
+    storescounts: `${occEndpoint}:baseSiteId/${(storeFinderEndpoints.storescounts as string).split('?')[0]}`,
+    stores: `${occEndpoint}:baseSiteId/${(storeFinderEndpoints.stores as string).split('?')[0]}`,
+    store: `${occEndpoint}:baseSiteId/${(storeFinderEndpoints.store as string).split('?')[0]}`.replace(
+      '${storeId}',
+      ':storeId'
+    ),
   };
 }
