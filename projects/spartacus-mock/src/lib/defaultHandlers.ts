@@ -456,13 +456,16 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
     }),
     rest.patch(routes.addressDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json({}));
+      return res(ctx.status(200));
     }),
     rest.delete(routes.addressDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json({}));
+      return res(ctx.status(200));
     }),
     rest.post(routes.addresses, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(201), ctx.json(createAddress()));
+    }),
+    rest.delete(routes.paymentDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200));
     }),
 
     // search page

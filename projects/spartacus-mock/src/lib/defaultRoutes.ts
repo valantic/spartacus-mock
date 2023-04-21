@@ -161,5 +161,8 @@ export function getDefaultRoutes(environment: Environment) {
     addressDetail: `${occEndpoint}:baseSideId/${userEndpoints?.addressDetail}`
       .replace('${userId}', ':userId')
       .replace('${addressId}', ':addressId'),
+    paymentDetail: `${occEndpoint}:baseSiteId/${userEndpoints?.paymentDetail}`
+      .replace('${userId}', ':userId')
+      .replace('${paymentDetailId}', ':paymentDetailId'),
   };
 }
