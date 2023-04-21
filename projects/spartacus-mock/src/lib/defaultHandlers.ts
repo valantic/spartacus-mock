@@ -45,6 +45,8 @@ import { currencies } from './mock-data/general/currencies';
 import { payments } from './mock-data/account/payments';
 import { getOrders } from './mock-data/order/order-history';
 import { createOrder } from './mock-data/order/order';
+import { updateLocalStorage } from './defaultLocalStorage';
+import { savedCartResult } from './mock-data/account/saved-cart';
 
 export function getDefaultHandlers(environment: Environment): RestHandler[] {
   const routes = getDefaultRoutes(environment);
@@ -286,6 +288,20 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       return res(ctx.status(201), ctx.json(getCart('', getUserTypeById(userId))));
     }),
 
+    // patch call to save a cart
+    rest.patch(routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      console.log('FOO');
+      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+
+      return res(
+        ctx.status(200),
+        ctx.json({
+          savedCartData: getCart(cartId, getUserTypeById(userId)),
+        })
+      );
+    }),
+
     // cart post call to add entries to the cart
     rest.post(routes.addEntries, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const { quantity, product } = await req.json();
@@ -319,8 +335,22 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     }),
 
     // cart save call which is done, if the currently loggedIn user does not have a wishlist cart
-    rest.patch(routes.saveCart, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201), ctx.json(getCart('', CartUserType.OCC_USER_ID_CURRENT)));
+    rest.patch(routes.saveCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      const name = req.url.searchParams?.get('saveCartName') || '';
+      const description = req.url.searchParams?.get('saveCartDescription') || '';
+
+      // Clears the active cart
+      setTimeout(() => updateLocalStorage('activeCartEntries', []));
+      return res(
+        ctx.status(201),
+        ctx.json({
+          savedCartData: {
+            ...getCart('', CartUserType.OCC_USER_ID_CURRENT),
+            name,
+            description,
+          },
+        })
+      );
     }),
 
     rest.post(routes.cartVoucher, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
@@ -397,6 +427,29 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
 
       return res(ctx.status(200), ctx.json(getReturnRequestList(faker.datatype.number({ min: 0, max: 5 }), orderId)));
     }),*/
+
+    /**
+     * Account Calls *****************************************************************************************************
+     */
+    rest.patch(routes.restoreSavedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+
+      return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
+    }),
+    rest.post(routes.cloneSavedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+      const name = req.url.searchParams?.get('name') || '';
+
+      return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId, name)));
+    }),
+    rest.get(routes.savedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+
+      return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
+    }),
 
     // search page
     // TODO add mock search result and make search work

@@ -6,6 +6,7 @@ import { ActiveCartEntry, LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../
 import { faker } from '@faker-js/faker';
 import { product } from '../products/product';
 import OrderEntry = Occ.OrderEntry;
+import { productPrice } from '../products/product-price';
 
 export enum CartUserType {
   OCC_USER_ID_ANONYMOUS = 'anonymous',
@@ -153,13 +154,77 @@ const wishlistCartData = (userType: CartUserType): Occ.Cart => {
   };
 };
 
-const fullCartData = (cartGuid: string, userType: CartUserType): Occ.Cart => {
+const savedCartData = (userType: CartUserType): Occ.Cart => {
+  return {
+    appliedOrderPromotions: [],
+    appliedVouchers: [],
+    code: '0010032010',
+    deliveryItemsQuantity: 0,
+    entries: [
+      {
+        basePrice: {
+          formattedValue: '$1,066.18',
+          value: 1066.18,
+        },
+        entryNumber: 0,
+        product: {
+          availableForPickup: true,
+          baseOptions: [],
+          code: 'product', // needs to match product ID for mock product /de/products/product
+          images: [
+            mediaImage('product-zoom', ImageType.PRIMARY, 900, 900),
+            mediaImage('product-Summary', ImageType.PRIMARY, 440, 440),
+            mediaImage('product-main', ImageType.PRIMARY, 240, 240),
+            mediaImage('product-thumbnail', ImageType.PRIMARY, 150, 150),
+            mediaImage('product-icon', ImageType.PRIMARY, 80, 80),
+          ],
+          manufacturer: 'Canon',
+          name: 'Product 1',
+          purchasable: true,
+          stock: {
+            isValueRounded: false,
+            stockLevel: 671,
+            stockLevelStatus: 'noStock',
+            availableDate: new Date('2021-01-18T18:02:27+0000'),
+          } as Stock,
+          url: '/products/product',
+        },
+        quantity: 1,
+        statusSummaryList: [],
+        totalPrice: productPrice(),
+        updateable: true,
+      },
+    ],
+    guid: '22579b1a-9bb8-4c34-82fa-c71bb402a4d5',
+    net: false,
+    pickupItemsQuantity: 0,
+    productDiscounts: productPrice(),
+    subTotal: productPrice(),
+    totalDiscounts: productPrice(),
+    totalItems: 0,
+    totalPrice: productPrice(),
+    totalPriceWithTax: productPrice(),
+    totalTax: productPrice(),
+    user: getUserForCart(userType),
+    description: 'undefined',
+    // name consists out of 'wishlist' and user id and must match user id from user.ts
+    name: 'saved1234',
+    potentialOrderPromotions: [],
+    potentialProductPromotions: [],
+    saveTime: new Date('2023-03-27T10:59:18+0000'),
+    totalUnitCount: faker.datatype.number({ min: 1, max: 99 }),
+  };
+};
+
+const fullCartData = (cartGuid: string, userType: CartUserType, forceEntries?: boolean): Occ.Cart => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
 
-  const totalQuantity = mockData.activeCartEntries.reduce((acc, entry) => {
+  const activeCartEntries = forceEntries ? [{ code: 'entry1', quantity: 1 }] : mockData.activeCartEntries;
+
+  const totalQuantity = activeCartEntries.reduce((acc, entry) => {
     return acc + entry.quantity;
   }, 0);
-  const entries: OrderEntry[] = mockData.activeCartEntries.map((entry, index) =>
+  const entries: OrderEntry[] = activeCartEntries.map((entry, index) =>
     getOrderEntry(index, entry.code, entry.quantity, true)
   );
 
@@ -218,11 +283,11 @@ const fullCartData = (cartGuid: string, userType: CartUserType): Occ.Cart => {
   };
 };
 
-export const getCart = (cartGuid: string, cartUserType: CartUserType): Occ.Cart => {
+export const getCart = (cartGuid: string, cartUserType: CartUserType, forceEntries?: boolean): Occ.Cart => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
 
-  if (cartGuid !== '' && mockData.activeCartEntries.length > 0) {
-    return fullCartData(cartGuid, cartUserType);
+  if (cartGuid !== '' && (mockData.activeCartEntries.length > 0 || forceEntries)) {
+    return fullCartData(cartGuid, cartUserType, forceEntries);
   } else {
     return emptyCartData(cartUserType);
   }
@@ -240,6 +305,7 @@ export const getCarts = (cartUserType: CartUserType): Occ.CartList => {
 
   if (cartUserType === CartUserType.OCC_USER_ID_CURRENT) {
     cartsArray.push(wishlistCartData(cartUserType));
+    cartsArray.push(savedCartData(cartUserType));
   }
 
   return { carts: cartsArray };

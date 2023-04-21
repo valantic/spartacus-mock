@@ -18,6 +18,8 @@ import { orderConfirmationContentSlots } from '../slots/order-confirmation-conte
 import { accountOrderHistorySlots } from '../slots/account-order-history-slots';
 import { accountOrderSlots } from '../slots/account-order-slots';
 import { accountWishListSlots } from '../slots/account-wish-list-slots';
+import { accountSavedCartsSlots } from '../slots/account-saved-carts-slots';
+import { accountSavedCartSlots } from '../slots/account-saved-cart-slots';
 
 export interface Page {
   uid: string;
@@ -117,6 +119,18 @@ export const contentPages = (): Pages => {
       '/my-account/wish-list',
       'Wishlist',
       accountWishListSlots(),
+      'AccountPageTemplate'
+    ),
+    'my-account/saved-carts': contentPage(
+      '/my-account/saved-carts',
+      'Saved Carts',
+      accountSavedCartsSlots(),
+      'AccountPageTemplate'
+    ),
+    'my-account/saved-cart': contentPage(
+      '/my-account/saved-cart',
+      'Saved Cart',
+      accountSavedCartSlots(),
       'AccountPageTemplate'
     ),
   };

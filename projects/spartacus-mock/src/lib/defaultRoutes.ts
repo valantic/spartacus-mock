@@ -2,6 +2,7 @@ import { Environment } from './types';
 import { occCartConfig } from './occ-config/occ-cart-config';
 import { occCheckoutConfig } from './occ-config/occ-checkout-config';
 import { occOrderConfig } from './occ-config/occ-order-config';
+import { occSavedCartConfig } from './occ-config/occ-saved-cart-config';
 
 /**
  * TODO use endpoints from default configs
@@ -23,6 +24,7 @@ const i18nEndpoint = 'i18n/${language}/${namespace}';
 const cartEndpoints = occCartConfig.backend.occ.endpoints;
 const checkoutEndpoints = occCheckoutConfig.backend.occ.endpoints;
 const orderEndpoints = occOrderConfig.backend.occ.endpoints;
+const savedCartEndpoints = occSavedCartConfig.backend?.occ?.endpoints;
 
 export function getDefaultRoutes(environment: Environment) {
   const occEndpoint = `${environment.backend.occ?.baseUrl}${environment.backend.occ?.prefix}`;
@@ -81,9 +83,9 @@ export function getDefaultRoutes(environment: Environment) {
     validate: `${occEndpoint}:baseSiteId/${(cartEndpoints.validate as string).split('?')[0]}`
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'),
-    saveCart: `${occEndpoint}:baseSiteId/${(cartEndpoints.saveCart as string).split('?')[0]}`
+    saveCart: `${occEndpoint}:baseSiteId${(cartEndpoints.saveCart as string).split('?')[0]}`
       .replace('${userId}', ':userId')
-      .replace('${cartId}', ':cartId'),
+      .replace('${cartId}', ':cartId'), // Note: The saveCart endpoint from the Spartacus Core starts with a "/"
 
     // checkout
     setDeliveryAddress: `${occEndpoint}:baseSiteId/${(checkoutEndpoints.setDeliveryAddress as string).split('?')[0]}`
@@ -142,5 +144,16 @@ export function getDefaultRoutes(environment: Environment) {
 
     // search
     searchSuggestions: `${occEndpoint}:baseSiteId/products/suggestions`,
+
+    // account
+    restoreSavedCart: `${occEndpoint}:baseSideId/${savedCartEndpoints?.restoreSavedCart}`
+      .replace('${userId}', ':userId')
+      .replace('${cartId}', ':cartId'),
+    cloneSavedCart: `${occEndpoint}:baseSideId/${savedCartEndpoints?.cloneSavedCart}`
+      .replace('${userId}', ':userId')
+      .replace('${cartId}', ':cartId'),
+    savedCart: `${occEndpoint}:baseSideId/${savedCartEndpoints?.savedCart}`
+      .replace('${userId}', ':userId')
+      .replace('${cartId}', ':cartId'),
   };
 }
