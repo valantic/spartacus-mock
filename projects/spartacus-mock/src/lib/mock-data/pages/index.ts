@@ -30,6 +30,7 @@ import { accountCloseAccountSlots } from '../slots/account-close-account-slots';
 import { accountMyInterestsSlots } from '../slots/account-my-interests-slots';
 import { accountNotificationPreferenceSlots } from '../slots/account-notification-preference-slots';
 import { accountCouponsSlots } from '../slots/account-coupons-slots';
+import { accountQuickOrderSlots } from '../slots/account-quick-order-slots';
 
 export interface Page {
   uid: string;
@@ -201,6 +202,12 @@ export const contentPages = (): Pages => {
       '/my-account/coupons',
       'My Coupons',
       accountCouponsSlots(),
+      'AccountPageTemplate'
+    ),
+    'my-account/quick-order': contentPage(
+      '/my-account/quick-order',
+      'Quick Order',
+      accountQuickOrderSlots(),
       'AccountPageTemplate'
     ),
   };
