@@ -1,9 +1,9 @@
-import { contentSlot } from '../components/default/content-slot';
-import { productReferencesComponent } from '../components/default/product-references';
-import { cmsTabParagraphContainerComponent } from '../components/default/cms-tab-paragraph';
-import { ContentSlot } from '../../types';
 import { faker } from '@faker-js/faker';
+import { ContentSlot } from '../../types';
+import { cmsTabParagraphContainerComponent } from '../components/default/cms-tab-paragraph';
+import { contentSlot } from '../components/default/content-slot';
 import { flexTypeComponent } from '../components/default/flex-type-component';
+import { productReferencesComponent } from '../components/default/product-references';
 
 export const productDetailContentSlots = (): ContentSlot[] => {
   // content slots

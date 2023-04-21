@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
-import { headerSlots } from '../slots/header-slots';
-import { footerSlots } from '../slots/footer-slots';
 import { breadcrumbComponent } from '../components/default/breadcrumb';
 import { contentSlot } from '../components/default/content-slot';
-import { Page } from './index';
 import { flexTypeComponent } from '../components/default/flex-type-component';
+import { footerSlots } from '../slots/footer-slots';
+import { headerSlots } from '../slots/header-slots';
+import { Page } from './index';
 
 export const loginPage = (): Page => {
   return {

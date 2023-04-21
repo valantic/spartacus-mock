@@ -1,8 +1,9 @@
 import { Occ } from '@spartacus/core';
 import { getSharedAddress } from '../account/addresses';
-import PriceType = Occ.PriceType;
 import { getDefaultPayment } from '../account/payments';
 import { createDeliveryMode } from './delivery-mode';
+
+import PriceType = Occ.PriceType;
 
 export const getDeliveryAddress = (): Occ.Cart => {
   return {

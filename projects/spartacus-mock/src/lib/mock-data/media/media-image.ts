@@ -1,5 +1,5 @@
-import { Image, ImageType } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
+import { Image, ImageType } from '@spartacus/core';
 
 export const mediaImage = (
   format?: string,

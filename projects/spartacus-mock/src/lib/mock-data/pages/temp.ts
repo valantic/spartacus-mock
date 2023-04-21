@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { headerSlots } from '../slots/header-slots';
-import { footerSlots } from '../slots/footer-slots';
-import { contentSlot } from '../components/default/content-slot';
 import { cmsParagraphComponent } from '../components/default/cms-paragraph';
+import { contentSlot } from '../components/default/content-slot';
+import { footerSlots } from '../slots/footer-slots';
+import { headerSlots } from '../slots/header-slots';
 
 export const tempPage = (pageType: string, pageLabelOrId: string) => {
   return {

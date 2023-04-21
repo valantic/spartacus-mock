@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker';
-import { simpleBannerComponent } from '../components/default/simple-banner';
-import { miniCartComponent } from '../components/default/mini-cart';
-import { cmsLinkComponent } from '../components/default/cms-link';
-import { searchBoxComponent } from '../components/default/search-box';
-import { siteContextComponent } from '../components/default/site-context';
-import { categoryNavigationComponent } from '../components/default/category-navigation';
 import { Component, ContentSlot } from '../../types';
+import { categoryNavigationComponent } from '../components/default/category-navigation';
+import { cmsLinkComponent } from '../components/default/cms-link';
+import { miniCartComponent } from '../components/default/mini-cart';
+import { searchBoxComponent } from '../components/default/search-box';
+import { simpleBannerComponent } from '../components/default/simple-banner';
+import { siteContextComponent } from '../components/default/site-context';
 
 export const siteLogoSlot = (slotId: string, slotPosition: string, slotName: string) => {
   return {

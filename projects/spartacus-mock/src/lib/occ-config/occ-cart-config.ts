@@ -1,5 +1,5 @@
-import { OccConfig } from '@spartacus/core';
 import { CartOccEndpoints } from '@spartacus/cart/base/occ';
+import { OccConfig } from '@spartacus/core';
 
 // needed to have a working typing
 interface CartOccConfig extends OccConfig {

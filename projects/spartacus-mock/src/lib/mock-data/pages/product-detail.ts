@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { headerSlots } from '../slots/header-slots';
 import { footerSlots } from '../slots/footer-slots';
+import { headerSlots } from '../slots/header-slots';
 import { productDetailContentSlots } from '../slots/product-detail-content-slots';
 
 export const productDetailPage = (productCode: string) => {
