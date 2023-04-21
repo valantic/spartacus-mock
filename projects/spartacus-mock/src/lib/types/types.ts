@@ -1,6 +1,6 @@
 import { RestHandler } from 'msw';
-import { BackendConfig, Occ, OccConfig, Page as SpartacusPage } from '@spartacus/core';
 import { Voucher } from '@spartacus/cart/base/root';
+import { BackendConfig, Occ, OccConfig, Page as SpartacusPage } from '@spartacus/core';
 
 export interface ActiveCartEntry {
   code: string;
@@ -10,6 +10,7 @@ export interface ActiveCartEntry {
 export interface LocalStorageMockData {
   activeCartEntries: ActiveCartEntry[];
   activeVouchers: Voucher[];
+  isGuestCheckout: boolean;
 }
 
 export const LOCAL_STORAGE_KEY = 'spartacus⚿⚿mock-data';

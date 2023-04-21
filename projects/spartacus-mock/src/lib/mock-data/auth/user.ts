@@ -1,7 +1,7 @@
 import { getSharedAddress } from '../account/addresses';
 import { getCurrency } from '../general/currencies';
 
-export const user = () => {
+export const user = (isActive: boolean) => {
   return {
     active: true,
     currency: getCurrency('USD', 'US Dollar', '$'),

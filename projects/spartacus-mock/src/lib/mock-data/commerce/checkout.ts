@@ -1,11 +1,11 @@
 import { Occ } from '@spartacus/core';
 import { getSharedAddress } from '../account/addresses';
-import { getDefaultPayment } from '../account/payments';
+import { createPaymentDetails } from '../account/payments';
 import { createDeliveryMode } from './delivery-mode';
 
 import PriceType = Occ.PriceType;
 
-export const getDeliveryAddress = (): Occ.Cart => {
+export const getCheckoutDetails = (): Occ.Cart => {
   return {
     // @ts-ignore
     type: 'cartWsDTO',
@@ -21,7 +21,7 @@ export const getDeliveryAddress = (): Occ.Cart => {
       description: '3-5 business days',
       name: 'Standard Delivery',
     },
-    paymentInfo: getDefaultPayment(),
+    paymentInfo: createPaymentDetails(true),
   };
 };
 
@@ -31,6 +31,41 @@ export const getDeliveryModes = (): Occ.DeliveryModeList => {
       createDeliveryMode('standard', 'Standard Delivery'),
       createDeliveryMode('premium', 'Premium Delivery'),
       createDeliveryMode('express', 'Express Delivery'),
+    ],
+  };
+};
+
+export const getCardTypes = (): Occ.CardTypeList => {
+  return {
+    cardTypes: [
+      {
+        code: 'amex',
+        name: 'American Express',
+      },
+      {
+        code: 'maestro',
+        name: 'Maestro',
+      },
+      {
+        code: 'switch',
+        name: 'Switch',
+      },
+      {
+        code: 'visa',
+        name: 'Visa',
+      },
+      {
+        code: 'master',
+        name: 'Mastercard',
+      },
+      {
+        code: 'mastercard_eurocard',
+        name: 'Mastercard/Eurocard',
+      },
+      {
+        code: 'diners',
+        name: "Diner's Club",
+      },
     ],
   };
 };
