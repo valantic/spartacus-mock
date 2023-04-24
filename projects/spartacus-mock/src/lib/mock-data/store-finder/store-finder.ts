@@ -6,7 +6,7 @@ const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export const storesAndRegionsStoreCount = (): Occ.StoreCountList => {
   return {
-    countriesAndRegionsStoreCount: countries().countries.map((country) => {
+    countriesAndRegionsStoreCount: countries().countries?.map((country) => {
       return {
         count: faker.datatype.number({ min: 1, max: 15 }),
         isoCode: country.isocode,
