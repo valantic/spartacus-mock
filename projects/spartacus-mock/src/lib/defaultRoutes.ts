@@ -1,11 +1,11 @@
-import { Environment } from './types';
+import { defaultOccUserProfileConfig } from '@spartacus/user/profile/occ';
 import { occCartConfig } from './occ-config/occ-cart-config';
 import { occCheckoutConfig } from './occ-config/occ-checkout-config';
 import { occOrderConfig } from './occ-config/occ-order-config';
 import { occSavedCartConfig } from './occ-config/occ-saved-cart-config';
-import { occUserConfig } from './occ-config/occ-user-config';
-import { defaultOccUserProfileConfig } from '@spartacus/user/profile/occ';
 import { occStoreFinderConfig } from './occ-config/occ-store-finder-config';
+import { occUserConfig } from './occ-config/occ-user-config';
+import { Environment } from './types';
 
 /**
  * TODO use endpoints from default configs
@@ -136,7 +136,7 @@ export function getDefaultRoutes(environment: Environment) {
     }`
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'),
-    sopMockProcess: `${occEndpoint}:baseSiteId/acceleratorservices/sop-mock/process`,
+    sopMockProcess: `${environment.backend.occ?.baseUrl}/acceleratorservices/sop-mock/process`,
 
     // order
     placeOrder: `${occEndpoint}:baseSiteId/${(orderEndpoints.placeOrder as string).split('?')[0]}`.replace(

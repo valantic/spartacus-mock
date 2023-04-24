@@ -1,11 +1,13 @@
 import { faker } from '@faker-js/faker';
 import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { updateLocalStorage } from './defaultLocalStorage';
 import { getDefaultRoutes } from './defaultRoutes';
 import { availableAddresses, createAddress } from './mock-data/account/addresses';
 import { customerCoupons } from './mock-data/account/customer-coupons';
 import { notificationPreferences } from './mock-data/account/notification-preferences';
 import { createPaymentDetails, payments } from './mock-data/account/payments';
 import { productInterests } from './mock-data/account/product-interests';
+import { savedCartResult } from './mock-data/account/saved-cart';
 import { authRevoke, authToken } from './mock-data/auth/auth';
 import { user } from './mock-data/auth/user';
 import { baseSites } from './mock-data/base-sites/base-sites';
@@ -22,6 +24,7 @@ import {
 } from './mock-data/commerce/cart';
 import { getCardTypes, getCheckoutDetails, getDeliveryModes } from './mock-data/commerce/checkout';
 import { getPaymentSopRequest } from './mock-data/commerce/payment-sop';
+import { getPaymentSopResponse } from './mock-data/commerce/payment-sop-response';
 import { addVoucher, deleteVoucher } from './mock-data/commerce/voucher';
 import {
   components,
@@ -47,11 +50,9 @@ import { productReferences } from './mock-data/products/product-references';
 import { productReviewSubmit, productReviews } from './mock-data/products/product-reviews';
 import { productSearch } from './mock-data/products/product-search';
 import { searchSuggestions } from './mock-data/search/search-suggestions';
+import { store, stores, storesAndRegionsStoreCount } from './mock-data/store-finder/store-finder';
 import { translations } from './mock-data/translations/translations';
 import { Environment } from './types';
-import { savedCartResult } from './mock-data/account/saved-cart';
-import { updateLocalStorage } from './defaultLocalStorage';
-import { store, stores, storesAndRegionsStoreCount } from './mock-data/store-finder/store-finder';
 
 export function getDefaultHandlers(environment: Environment): RestHandler[] {
   const routes = getDefaultRoutes(environment);
@@ -328,13 +329,19 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     // post call to get either cart data for the different scopes
     rest.post(routes.carts, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+      let cartId = '';
+      // oldCartId is only present if the call is done after login to merge the anonymous cart with the user cart
+      const oldCartId = req.url.searchParams?.get('oldCartId') || '';
 
-      return res(ctx.status(201), ctx.json(getCart('', getUserTypeById(userId))));
+      if (oldCartId) {
+        cartId = '8e2cb9e8-406e-4746-a398-f663a88730f3';
+      }
+
+      return res(ctx.status(201), ctx.json(getCart(cartId, getUserTypeById(userId))));
     }),
 
     // patch call to save a cart
     rest.patch(routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      console.log('FOO');
       const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
       const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
 
@@ -450,6 +457,10 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
 
     rest.get(routes.paymentProviderSubInfo, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200), ctx.json(getPaymentSopRequest()));
+    }),
+
+    rest.post(routes.sopMockProcess, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.text(getPaymentSopResponse()));
     }),
 
     rest.post(routes.createPaymentDetails, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
