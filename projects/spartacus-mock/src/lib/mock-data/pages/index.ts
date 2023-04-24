@@ -13,6 +13,7 @@ import { checkoutReviewOrderContentSlots } from '../slots/checkout-review-order-
 import { cmsPageContentSlots } from '../slots/cms-page-content-slots';
 import { cmsPageContentSlotsFlexTypeComponent } from '../slots/cms-page-content-slots-flex-type-component';
 import { cmsPageContentSlotsNotFound } from '../slots/cms-page-content-slots-not-found';
+import { exampleContentSlots } from '../slots/example-content-slots';
 import { footerSlots } from '../slots/footer-slots';
 import { headerSlots } from '../slots/header-slots';
 import { orderConfirmationContentSlots } from '../slots/order-confirmation-content-slots';
@@ -62,6 +63,7 @@ const contentPage = (pageLabelOrId: string, title: string, contentSlots: Content
  */
 export const contentPages = (): Pages => {
   return {
+    'example-content': contentPage('/example-content', 'Example Content Page', exampleContentSlots()),
     'login/register': registerPage(),
     login: loginPage(),
     logout: contentPage('/logout', 'Logout', cmsPageContentSlots()),

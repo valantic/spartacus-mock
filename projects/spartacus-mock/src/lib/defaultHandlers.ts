@@ -41,7 +41,6 @@ import { getOrders } from './mock-data/order/order-history';
 import { contentPages } from './mock-data/pages';
 import { homePage } from './mock-data/pages/home';
 import { productDetailPage } from './mock-data/pages/product-detail';
-import { tempPage } from './mock-data/pages/temp';
 import { activeTabItems, product, productBaseData, productClassifications } from './mock-data/products/product';
 import { productReferences } from './mock-data/products/product-references';
 import { productReviewSubmit, productReviews } from './mock-data/products/product-reviews';
@@ -196,7 +195,21 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
         // its the homepage
         return res(ctx.status(200), ctx.json(homePage()));
       } else {
-        return res(ctx.status(200), ctx.json(tempPage(pageType || 'ContentPage', pageLabelOrId || '')));
+        // eslint-disable-next-line  no-console
+        console.error(
+          `The page with the pageLabelOrId ${pageLabelOrId} and the page type ${pageType} has not been mocked yet`
+        );
+        return res(
+          ctx.status(404),
+          ctx.json({
+            errors: [
+              {
+                message: `The page with the pageLabelOrId ${pageLabelOrId} and the page type ${pageType} has not been mocked yet`,
+                type: 'CMSItemNotFoundError',
+              },
+            ],
+          })
+        );
       }
     }),
 
