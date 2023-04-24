@@ -86,6 +86,18 @@ export const myAccountLinkComponents = (componentIds: string[]): Occ.ComponentLi
       linkUrl = 'logout';
     }
 
+    if (componentId === 'PersonalDetailsLink') {
+      linkUrl = 'my-account/update-profile';
+    }
+
+    if (componentId === 'ConsentManagementLink') {
+      linkUrl = 'my-account/consents';
+    }
+
+    if (componentId === 'MyCouponsLink') {
+      linkUrl = 'my-account/coupons';
+    }
+
     componentData.component?.push(
       cmsLinkComponent(
         componentId,

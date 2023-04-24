@@ -1,8 +1,10 @@
+import { Occ } from '@spartacus/core';
 import { getSharedAddress } from '../account/addresses';
 import { getCurrency } from '../general/currencies';
 
-export const user = () => {
+export const user = (isActive: boolean): Occ.User => {
   return {
+    // @ts-ignore
     active: true,
     currency: getCurrency('USD', 'US Dollar', '$'),
     customerId: '85c9e5b9-8924-474d-8f44-ec15b14c5888',
