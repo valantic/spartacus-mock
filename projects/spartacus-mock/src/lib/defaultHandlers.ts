@@ -37,11 +37,12 @@ import { createOrder } from './mock-data/order/order';
 import { getOrders } from './mock-data/order/order-history';
 import { contentPages } from './mock-data/pages';
 import { homePage } from './mock-data/pages/home';
+import { productCategoryPage } from './mock-data/pages/product-category';
 import { productDetailPage } from './mock-data/pages/product-detail';
-import { tempPage } from './mock-data/pages/temp';
 import { activeTabItems, product, productBaseData, productClassifications } from './mock-data/products/product';
 import { productReferences } from './mock-data/products/product-references';
 import { productReviewSubmit, productReviews } from './mock-data/products/product-reviews';
+import { productSearch } from './mock-data/products/product-search';
 import { searchSuggestions } from './mock-data/search/search-suggestions';
 import { translations } from './mock-data/translations/translations';
 import { Environment } from './types';
@@ -175,6 +176,9 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
             ],
           })
         );
+      } else if (pageType === 'CategoryPage') {
+        // its a product category page
+        return res(ctx.status(200), ctx.json(productCategoryPage()));
       } else if (pageType === 'ProductPage') {
         // its a product detail page
         const productCode = req.url.searchParams?.get('code');
@@ -224,6 +228,10 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       }
     }),
 
+    /**
+     * Search Calls ****************************************************************************************************
+     */
+
     // Search suggestions
     rest.get(routes.searchSuggestions, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const term = req.url.searchParams.get('term') || '';
@@ -250,6 +258,15 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
 
     rest.post(routes.productReviews, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200), ctx.json(productReviewSubmit()));
+    }),
+
+    rest.get(routes.productSearch, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      const query = req.url.searchParams.get('query') || '';
+      const pageSize = parseInt(req.url.searchParams.get('pageSize') || '');
+      const sort = req.url.searchParams.get('sort') || '';
+      const currentPage = parseInt(req.url.searchParams.get('currentPage') || '0');
+
+      return res(ctx.status(200), ctx.json(productSearch(query, pageSize, sort, currentPage, pageSize === 5)));
     }),
 
     // product general data call (used for product call scopes default / list / details)
@@ -410,16 +427,6 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       const orderId = typeof req.params['orderId'] === 'string' ? req.params['orderId'] : '';
 
       return res(ctx.status(200), ctx.json(getReturnRequestList(faker.datatype.number({ min: 0, max: 5 }), orderId)));
-    }),*/
-
-    // search page
-    // TODO add mock search result and make search work
-    /*rest.get(routes.search, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const query = req.url.searchParams.get('query') || '';
-      const pageSize = parseInt(req.url.searchParams.get('pageSize') || '', 10);
-      const currentPage = parseInt(req.url.searchParams.get('currentPage') || '', 10);
-
-      return res(ctx.status(200), ctx.json(searchResult(query, 0, pageSize)));
     }),*/
 
     // media route to load sap related media's from project's dev server

@@ -1,12 +1,15 @@
 import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
 import { breadcrumbComponent } from '../components/default/breadcrumb';
 import { contentSlot } from '../components/default/content-slot';
 import { flexTypeComponent } from '../components/default/flex-type-component';
 import { footerSlots } from '../slots/footer-slots';
 import { headerSlots } from '../slots/header-slots';
-import { Page } from './index';
+import { OccCmsPageExtended } from './index';
 
-export const loginPage = (): Page => {
+import PageRobots = Occ.PageRobots;
+
+export const loginPage = (): OccCmsPageExtended => {
   return {
     uid: `loginPage${faker.datatype.number(1000)}`,
     uuid: faker.datatype.uuid(),
@@ -14,7 +17,7 @@ export const loginPage = (): Page => {
     template: 'LoginPageTemplate',
     typeCode: 'ContentPage',
     name: 'Content Page',
-    robotTag: 'INDEX_FOLLOW',
+    robotTag: PageRobots.INDEX_FOLLOW,
     contentSlots: {
       contentSlot: [
         ...headerSlots(breadcrumbComponent()),
@@ -29,7 +32,7 @@ export const loginPage = (): Page => {
   };
 };
 
-export const registerPage = (): Page => {
+export const registerPage = (): OccCmsPageExtended => {
   return {
     uid: `loginPage${faker.datatype.number(1000)}`,
     uuid: faker.datatype.uuid(),
@@ -37,7 +40,7 @@ export const registerPage = (): Page => {
     template: 'AccountPageTemplate',
     typeCode: 'ContentPage',
     name: 'Register Page',
-    robotTag: 'INDEX_FOLLOW',
+    robotTag: PageRobots.INDEX_FOLLOW,
     contentSlots: {
       contentSlot: [
         ...headerSlots(breadcrumbComponent()),

@@ -403,13 +403,13 @@ export const headerSlots = (breadcrumb?: Component): ContentSlot[] => {
   return [
     siteLogoSlot('SiteLogoSlot', 'SiteLogo', 'Default Site Logo Slot'),
     miniCartSlot('MiniCartSlot', 'MiniCart', 'Mini Cart'),
-    homePageNavLinkSlot('HomepageNavLinkSlot', 'HomepageNavLink', 'Default Homepage Link'),
+    homePageNavLinkSlot('NavLinkSlot', 'HomepageNavLink', 'Default Homepage Link'),
     headerLinksSlot('HeaderLinksSlot', 'HeaderLinks', 'Header links'),
     searchBoxSlot('SearchBoxSlot', 'SearchBox', 'Search Box'),
     topHeaderSlot('TopHeaderSlot', 'TopHeaderSlot', 'Top Header'),
     siteContextSlot('SiteContextSlot', 'SiteContext', 'Site Context Slot'),
     siteLinksSlot('SiteLinksSlot', 'SiteLinks', 'Site Links Slot'),
     navigationBarSlot('NavigationBarSlot', 'NavigationBar', 'Navigation Bar'),
-    bottomHeaderSlot('HomepageBottomHeaderSlot', 'BottomHeaderSlot', 'Homepage Bottom Header Slot', breadcrumb),
+    bottomHeaderSlot('BottomHeaderSlot', 'BottomHeaderSlot', 'Homepage Bottom Header Slot', breadcrumb),
   ];
 };
