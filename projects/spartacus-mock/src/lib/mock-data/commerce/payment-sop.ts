@@ -1,6 +1,12 @@
-import { getSharedAddress } from '../account/addresses';
+import { Occ } from '@spartacus/core';
+import { user } from '../auth/user';
+import { getDeliveryModes } from './checkout';
+
+import User = Occ.User;
 
 export const getPaymentSopRequest = (): object => {
+  const userData: User = user(false);
+
   return {
     mappingLabels: {
       entry: [
@@ -110,15 +116,15 @@ export const getPaymentSopRequest = (): object => {
       entry: [
         {
           key: 'billTo_city',
-          value: 'fdffgdfg',
+          value: userData.defaultAddress?.town,
         },
         {
           key: 'billTo_email',
-          value: 'jan.widmer86@gmail.com',
+          value: userData.uid,
         },
         {
           key: 'shipTo_lastName',
-          value: 'sddffd',
+          value: userData.lastName,
         },
         {
           key: 'recurringSubscriptionInfo_automaticRenew',
@@ -126,23 +132,24 @@ export const getPaymentSopRequest = (): object => {
         },
         {
           key: 'billTo_country',
-          value: 'CH',
+          value: userData.defaultAddress?.country?.isocode,
         },
         {
           key: 'billTo_lastName',
-          value: 'sddffd',
+          value: userData.lastName,
         },
         {
           key: 'billTo_street2',
-          value: 'sdfsdf',
+          value: userData.defaultAddress?.line2,
         },
         {
           key: 'billTo_street1',
-          value: 'sdfdsf',
+          value: userData.defaultAddress?.line1,
         },
         {
           key: 'shipTo_shippingMethod',
-          value: 'standard-gross',
+          // @ts-ignore
+          value: getDeliveryModes().deliveryModes ? getDeliveryModes().deliveryModes[0].code : '',
         },
         {
           key: 'orderPage_transactionType',
@@ -158,7 +165,7 @@ export const getPaymentSopRequest = (): object => {
         },
         {
           key: 'shipTo_city',
-          value: 'fdffgdfg',
+          value: userData.defaultAddress?.town,
         },
         {
           key: 'recurringSubscriptionInfo_startDate',
@@ -166,11 +173,11 @@ export const getPaymentSopRequest = (): object => {
         },
         {
           key: 'shipTo_street1',
-          value: 'sdfdsf',
+          value: userData.defaultAddress?.line1,
         },
         {
           key: 'shipTo_street2',
-          value: 'sdfsdf',
+          value: userData.defaultAddress?.line2,
         },
         {
           key: 'recurringSubscriptionInfo_frequency',
@@ -178,11 +185,11 @@ export const getPaymentSopRequest = (): object => {
         },
         {
           key: 'shipTo_postalCode',
-          value: '3333',
+          value: userData.defaultAddress?.postalCode,
         },
         {
           key: 'currency',
-          value: 'USD',
+          value: userData.currency?.isocode,
         },
         {
           key: 'orderPage_signaturePublic',
@@ -190,7 +197,7 @@ export const getPaymentSopRequest = (): object => {
         },
         {
           key: 'shipTo_country',
-          value: 'CH',
+          value: userData.defaultAddress?.country?.isocode,
         },
         {
           key: 'orderPage_serialNumber',
@@ -210,7 +217,7 @@ export const getPaymentSopRequest = (): object => {
         },
         {
           key: 'shipTo_firstName',
-          value: 'dfgfgd',
+          value: userData.firstName,
         },
         {
           key: 'orderPage_colorScheme',
@@ -222,7 +229,7 @@ export const getPaymentSopRequest = (): object => {
         },
         {
           key: 'billTo_postalCode',
-          value: '3333',
+          value: userData.defaultAddress?.postalCode,
         },
         {
           key: 'shipTo_phoneNumber',
@@ -234,7 +241,7 @@ export const getPaymentSopRequest = (): object => {
         },
         {
           key: 'billTo_firstName',
-          value: 'dfgfgd',
+          value: userData.firstName,
         },
         {
           key: 'orderPage_timestamp',

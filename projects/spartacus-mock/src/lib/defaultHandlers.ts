@@ -33,6 +33,7 @@ import {
 import { consentTemplates } from './mock-data/consent-templates/consent-templates';
 import { countries } from './mock-data/general/countries';
 import { currencies } from './mock-data/general/currencies';
+import { regions } from './mock-data/general/regions';
 import { titles } from './mock-data/general/titles';
 import { languages } from './mock-data/languages/languages';
 import { createOrder } from './mock-data/order/order';
@@ -78,7 +79,7 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     }),
 
     rest.get(routes.regions, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(countries()));
+      return res(ctx.status(200), ctx.json(regions()));
     }),
 
     rest.get(routes.consentTemplates, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
