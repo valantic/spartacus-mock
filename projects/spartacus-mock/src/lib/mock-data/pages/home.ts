@@ -1,9 +1,13 @@
 import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
 import { footerSlots } from '../slots/footer-slots';
 import { headerSlots } from '../slots/header-slots';
 import { homeContentSlots } from '../slots/home-content-slots';
+import { OccCmsPageExtended } from './index';
 
-export const homePage = () => {
+import PageRobots = Occ.PageRobots;
+
+export const homePage = (): OccCmsPageExtended => {
   return {
     uid: 'homepage',
     uuid: faker.datatype.uuid(),
@@ -11,7 +15,7 @@ export const homePage = () => {
     template: 'LandingPage2Template',
     typeCode: 'ContentPage',
     name: 'Homepage',
-    robotTag: 'INDEX_FOLLOW',
+    robotTag: PageRobots.INDEX_FOLLOW,
     contentSlots: {
       contentSlot: [...headerSlots(), ...homeContentSlots(), ...footerSlots()],
     },

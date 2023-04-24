@@ -174,9 +174,10 @@ export function getDefaultRoutes(environment: Environment) {
     productCompatibleModels: `${occEndpoint}:baseSiteId/products/:productCode/compatibleModels`,
     productReviews: `${occEndpoint}:baseSiteId/products/:productCode/reviews`,
     productSelection: `${occEndpoint}:baseSiteId/products/:productCode/productSelection/:selection`,
+    productSearch: `${occEndpoint}:baseSiteId/products/search`,
     product: `${occEndpoint}:baseSiteId/products/:productCode`,
 
-    // search
+    // search suggestions
     searchSuggestions: `${occEndpoint}:baseSiteId/products/suggestions`,
 
     // account

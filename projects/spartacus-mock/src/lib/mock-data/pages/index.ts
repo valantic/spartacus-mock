@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
 import { ContentSlot } from '../../types';
 import { breadcrumbComponent } from '../components/default/breadcrumb';
 import { cmsCartContentSlots } from '../slots/cart-content-slots';
@@ -9,13 +10,13 @@ import { checkoutLoginContentSlots } from '../slots/checkout-login-content-slots
 import { checkoutPaymentDetailsContentSlots } from '../slots/checkout-payment-details-content-slots';
 import { checkoutReviewOrderContentSlots } from '../slots/checkout-review-order-content-slots';
 import { cmsPageContentSlots } from '../slots/cms-page-content-slots';
-import { cmsPageContentSlotsFlexTypeComponent } from '../slots/cms-page-content-slots-flex-type-component';
 import { cmsPageContentSlotsNotFound } from '../slots/cms-page-content-slots-not-found';
 import { exampleContentSlots } from '../slots/example-content-slots';
 import { footerSlots } from '../slots/footer-slots';
 import { headerSlots } from '../slots/header-slots';
 import { orderConfirmationContentSlots } from '../slots/order-confirmation-content-slots';
 import { storeFinderOrderSlots } from '../slots/store-finder-slots';
+import { cmsSearchContentSlots } from '../slots/search-content-slots';
 import { loginPage, registerPage } from './login';
 import { accountOrderHistorySlots } from '../slots/account-order-history-slots';
 import { accountOrderSlots } from '../slots/account-order-slots';
@@ -34,26 +35,22 @@ import { accountNotificationPreferenceSlots } from '../slots/account-notificatio
 import { accountCouponsSlots } from '../slots/account-coupons-slots';
 import { accountQuickOrderSlots } from '../slots/account-quick-order-slots';
 
-export interface Page {
-  uid: string;
+import PageRobots = Occ.PageRobots;
+
+export interface OccCmsPageExtended extends Occ.CMSPage {
   uuid: string;
-  title: string;
-  template: string;
-  typeCode: string;
-  name: string;
-  robotTag: string;
-  contentSlots: {
-    contentSlot: ContentSlot[];
-  };
-  label: string;
-  pageId?: string;
 }
 
 export interface Pages {
-  [key: string]: Page;
+  [key: string]: OccCmsPageExtended;
 }
 
-const contentPage = (pageLabelOrId: string, title: string, contentSlots: ContentSlot[], template?: string): Page => {
+const contentPage = (
+  pageLabelOrId: string,
+  title: string,
+  contentSlots: ContentSlot[],
+  template?: string
+): OccCmsPageExtended => {
   return {
     uid: `contentPage${faker.datatype.uuid()}`,
     uuid: faker.datatype.uuid(),
@@ -61,7 +58,7 @@ const contentPage = (pageLabelOrId: string, title: string, contentSlots: Content
     template: template ?? 'ContentPage1Template',
     typeCode: 'ContentPage',
     name: title ?? 'dummy title',
-    robotTag: 'INDEX_FOLLOW',
+    robotTag: PageRobots.INDEX_FOLLOW,
     contentSlots: {
       contentSlot: [...headerSlots(breadcrumbComponent()), ...contentSlots, ...footerSlots()],
     },
@@ -82,7 +79,12 @@ export const contentPages = (): Pages => {
     'login/register': registerPage(),
     login: loginPage(),
     logout: contentPage('/logout', 'Logout', cmsPageContentSlots()),
-    search: contentPage('/search', 'Search', cmsPageContentSlotsFlexTypeComponent('SearchResultsListComponent')),
+    search: contentPage(
+      '/search',
+      'Search',
+      cmsSearchContentSlots('SearchResultsListSlot', 'SearchResultsListComponent'),
+      'SearchResultsListPageTemplate'
+    ),
     'not-found': contentPage('/not-found', 'Page not found', cmsPageContentSlotsNotFound()),
     cart: contentPage('/cart', 'Your shopping cart', cmsCartContentSlots(), 'CartPageTemplate'),
     'checkout-login': contentPage(
