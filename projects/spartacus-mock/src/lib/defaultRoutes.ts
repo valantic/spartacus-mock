@@ -1,7 +1,7 @@
-import { Environment } from './types';
 import { occCartConfig } from './occ-config/occ-cart-config';
 import { occCheckoutConfig } from './occ-config/occ-checkout-config';
 import { occOrderConfig } from './occ-config/occ-order-config';
+import { Environment } from './types';
 
 /**
  * TODO use endpoints from default configs
@@ -36,10 +36,12 @@ export function getDefaultRoutes(environment: Environment) {
     components: `${occEndpoint}:baseSiteId/cms/components`,
     authLogin: '*/authorizationserver/oauth/token',
     authRevoke: '*/authorizationserver/oauth/revoke',
-    users: `${occEndpoint}:baseSiteId/users/:user`,
-    usersTemp: `${occEndpoint}users/:user`,
+    users: `${occEndpoint}:baseSiteId/users`,
+    user: `${occEndpoint}:baseSiteId/users/:user`,
+    userTemp: `${occEndpoint}users/:user`,
     titles: `${occEndpoint}:baseSiteId/titles`,
     countries: `${occEndpoint}:baseSiteId/countries`,
+    regions: `${occEndpoint}:baseSiteId/countries/:isocode/regions`,
     consentTemplates: `${occEndpoint}:baseSiteId/users/:user/consenttemplates`,
     notificationPreferences: `${occEndpoint}:baseSiteId/users/:user/notificationpreferences`,
     productInterests: `${occEndpoint}:baseSiteId/users/:user/productinterests`,
@@ -70,6 +72,9 @@ export function getDefaultRoutes(environment: Environment) {
       .replace('${cartId}', ':cartId')
       .replace('${entryNumber}', ':entryNumber'),
     deleteCart: `${occEndpoint}:baseSiteId/${(cartEndpoints.deleteCart as string).split('?')[0]}`
+      .replace('${userId}', ':userId')
+      .replace('${cartId}', ':cartId'),
+    addEmail: `${occEndpoint}:baseSiteId/${(cartEndpoints.addEmail as string).split('?')[0]}`
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'),
     cartVoucher: `${occEndpoint}:baseSiteId/${(cartEndpoints.cartVoucher as string).split('?')[0]}`
@@ -105,8 +110,31 @@ export function getDefaultRoutes(environment: Environment) {
     deliveryModes: `${occEndpoint}:baseSiteId/${(checkoutEndpoints.deliveryModes as string).split('?')[0]}`
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'),
+    cardTypes: `${occEndpoint}:baseSiteId/${(checkoutEndpoints.cardTypes as string).split('?')[0]}`
+      .replace('${userId}', ':userId')
+      .replace('${cartId}', ':cartId'),
+    paymentProviderSubInfo: `${occEndpoint}:baseSiteId/${
+      (checkoutEndpoints.paymentProviderSubInfo as string).split('?')[0]
+    }`
+      .replace('${userId}', ':userId')
+      .replace('${cartId}', ':cartId'),
+    createPaymentDetails: `${occEndpoint}:baseSiteId/${
+      (checkoutEndpoints.createPaymentDetails as string).split('?')[0]
+    }`
+      .replace('${userId}', ':userId')
+      .replace('${cartId}', ':cartId'),
+    setCartPaymentDetails: `${occEndpoint}:baseSiteId/${
+      (checkoutEndpoints.setCartPaymentDetails as string).split('?')[0]
+    }`
+      .replace('${userId}', ':userId')
+      .replace('${cartId}', ':cartId'),
+    sopMockProcess: `${occEndpoint}:baseSiteId/acceleratorservices/sop-mock/process`,
 
     // order
+    placeOrder: `${occEndpoint}:baseSiteId/${(orderEndpoints.placeOrder as string).split('?')[0]}`.replace(
+      '${userId}',
+      ':userId'
+    ),
     orderHistory: `${occEndpoint}:baseSiteId/${(orderEndpoints.orderHistory as string).split('?')[0]}`.replace(
       '${userId}',
       ':userId'

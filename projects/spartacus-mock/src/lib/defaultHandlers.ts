@@ -4,7 +4,7 @@ import { getDefaultRoutes } from './defaultRoutes';
 import { availableAddresses } from './mock-data/account/addresses';
 import { customerCoupons } from './mock-data/account/customer-coupons';
 import { notificationPreferences } from './mock-data/account/notification-preferences';
-import { payments } from './mock-data/account/payments';
+import { createPaymentDetails, payments } from './mock-data/account/payments';
 import { productInterests } from './mock-data/account/product-interests';
 import { authRevoke, authToken } from './mock-data/auth/auth';
 import { user } from './mock-data/auth/user';
@@ -17,9 +17,11 @@ import {
   getCarts,
   getUserTypeById,
   removeEntries,
+  setGuestCheckout,
   updateEntries,
 } from './mock-data/commerce/cart';
-import { getDeliveryAddress, getDeliveryModes } from './mock-data/commerce/checkout';
+import { getCardTypes, getCheckoutDetails, getDeliveryModes } from './mock-data/commerce/checkout';
+import { getPaymentSopRequest } from './mock-data/commerce/payment-sop';
 import { addVoucher, deleteVoucher } from './mock-data/commerce/voucher';
 import {
   components,
@@ -31,6 +33,7 @@ import {
 import { consentTemplates } from './mock-data/consent-templates/consent-templates';
 import { countries } from './mock-data/general/countries';
 import { currencies } from './mock-data/general/currencies';
+import { regions } from './mock-data/general/regions';
 import { titles } from './mock-data/general/titles';
 import { languages } from './mock-data/languages/languages';
 import { createOrder } from './mock-data/order/order';
@@ -38,7 +41,6 @@ import { getOrders } from './mock-data/order/order-history';
 import { contentPages } from './mock-data/pages';
 import { homePage } from './mock-data/pages/home';
 import { productDetailPage } from './mock-data/pages/product-detail';
-import { tempPage } from './mock-data/pages/temp';
 import { activeTabItems, product, productBaseData, productClassifications } from './mock-data/products/product';
 import { productReferences } from './mock-data/products/product-references';
 import { productReviewSubmit, productReviews } from './mock-data/products/product-reviews';
@@ -73,6 +75,10 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     // call to get all title options
     rest.get(routes.countries, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       return res(ctx.status(200), ctx.json(countries()));
+    }),
+
+    rest.get(routes.regions, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(regions()));
     }),
 
     rest.get(routes.consentTemplates, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
@@ -132,13 +138,18 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     }),
 
     // user call to return the user details after login
-    rest.get(routes.users, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(user()));
+    rest.get(routes.user, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(user(true)));
     }),
 
     // temp user call to return the user details after login
-    rest.get(routes.usersTemp, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(user()));
+    rest.get(routes.userTemp, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(user(true)));
+    }),
+
+    // user call to register a new user
+    rest.post(routes.users, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(201), ctx.json(user(false)));
     }),
 
     /**
@@ -280,7 +291,7 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       const requestFields = req.url.searchParams?.get('fields') || '';
 
       if (requestFields.indexOf('deliveryAddress') > -1) {
-        return res(ctx.status(201), ctx.json(getDeliveryAddress()));
+        return res(ctx.status(201), ctx.json(getCheckoutDetails()));
       } else {
         return res(ctx.status(201), ctx.json(getCart(cartId, getUserTypeById(userId))));
       }
@@ -325,11 +336,16 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       return res(ctx.status(200), ctx.json({}));
     }),
 
-    // cart save call which is done, if the currently loggedIn user does not have a wishlist cart
     rest.delete(routes.deleteCart, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       deleteCart();
 
       return res(ctx.status(201), ctx.json({}));
+    }),
+
+    rest.put(routes.addEmail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      setGuestCheckout(true);
+
+      return res(ctx.status(200), ctx.json({}));
     }),
 
     // cart save call which is done, if the currently loggedIn user does not have a wishlist cart
@@ -376,14 +392,37 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     }),
 
     rest.get(routes.deliveryModes, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201), ctx.json(getDeliveryModes()));
+      return res(ctx.status(200), ctx.json(getDeliveryModes()));
+    }),
+
+    rest.get(routes.cardTypes, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(getCardTypes()));
+    }),
+
+    rest.get(routes.paymentProviderSubInfo, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(getPaymentSopRequest()));
+    }),
+
+    rest.post(routes.createPaymentDetails, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(createPaymentDetails(true)));
+    }),
+
+    rest.put(routes.setCartPaymentDetails, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json({}));
     }),
 
     /**
      * Order Calls *****************************************************************************************************
      */
-    rest.post(routes.orderHistory, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createOrder()));
+    rest.post(routes.placeOrder, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+
+      const responseData = createOrder(getUserTypeById(userId));
+
+      setGuestCheckout(false);
+      deleteCart();
+
+      return res(ctx.status(200), ctx.json(responseData));
     }),
 
     rest.get(routes.orderHistory, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
@@ -391,7 +430,7 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     }),
 
     rest.get(routes.orderDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createOrder()));
+      return res(ctx.status(200), ctx.json(createOrder(CartUserType.OCC_USER_ID_CURRENT)));
     }),
 
     /*rest.post(routes.orderReturnsSubmit, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
