@@ -1,16 +1,17 @@
 import { ContentSlot } from '../../types';
-import { cmsParagraphComponent, richTextExampleContent } from '../components/default/cms-paragraph';
+import { cmsParagraphComponent } from '../components/default/cms-paragraph';
 import { contentSlot } from '../components/default/content-slot';
 import { ResponsiveMediaRendition } from '../components/default/media';
 import { simpleResponsiveBanner } from '../components/default/simple-responsive-banner';
 
-export const cmsPageContentSlots = (): ContentSlot[] => {
+export const exampleContentSlots = (): ContentSlot[] => {
   // content slots
   return [
-    contentSlot('Section3', [
+    contentSlot('Section2A', [
+      cmsParagraphComponent(),
       simpleResponsiveBanner('/example-content', {
-        code: 'Elec_HomeSpeed_EN_01',
-        altText: 'Save Big On Select SLR & DSLR Cameras',
+        code: 'image-code',
+        altText: 'Image Alt Text',
         renditions: [
           {
             key: 'mobile',
@@ -39,7 +40,5 @@ export const cmsPageContentSlots = (): ContentSlot[] => {
         ],
       }),
     ]),
-
-    contentSlot('Section3', [cmsParagraphComponent()]),
   ];
 };

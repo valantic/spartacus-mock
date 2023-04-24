@@ -11,6 +11,10 @@ export function createLocalstorage(_config: MockConfig) {
     mockData.activeVouchers = [];
   }
 
+  if (!mockData.isGuestCheckout) {
+    mockData.isGuestCheckout = false;
+  }
+
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 }
 

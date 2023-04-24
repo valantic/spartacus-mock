@@ -1,4 +1,6 @@
-export const countries = () => {
+import { Occ } from '@spartacus/core';
+
+export const countries = (): Occ.CountryList => {
   return {
     countries: [
       {

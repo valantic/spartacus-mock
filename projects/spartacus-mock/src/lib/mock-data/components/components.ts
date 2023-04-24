@@ -14,7 +14,6 @@ export const components = (componentIds: string[]): Occ.ComponentList => {
   };
 
   for (const componentId of componentIds) {
-    // TODO check what other components need component data
     if (componentId.endsWith('Link')) {
       const componentLinkText = faker.lorem.words(2);
       let componentCategoryCode = '';
@@ -38,7 +37,7 @@ export const components = (componentIds: string[]): Occ.ComponentList => {
             componentId, // must match with the componentId from the pages call
             faker.datatype.uuid(),
             componentLinkText,
-            `/${faker.lorem.word()}`
+            `/example-content/${faker.lorem.word()}`
           )
         );
       }

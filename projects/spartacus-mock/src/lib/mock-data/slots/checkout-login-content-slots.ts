@@ -1,5 +1,6 @@
-import { contentSlot } from '../components/default/content-slot';
 import { ContentSlot } from '../../types';
+import { contentSlot } from '../components/default/content-slot';
+import { flexTypeComponent } from '../components/default/flex-type-component';
 import { checkoutDefaultContentSlots } from './checkout-default-content-slots';
 
 export const checkoutLoginContentSlots = (): ContentSlot[] => {
@@ -7,12 +8,8 @@ export const checkoutLoginContentSlots = (): ContentSlot[] => {
   return [
     ...checkoutDefaultContentSlots(),
 
-    contentSlot('BodyContent', [
-      // TODO check which component needs to be added here
-    ]),
+    contentSlot('BodyContent', [flexTypeComponent('ReturningCustomerCheckoutLoginComponent')]),
 
-    contentSlot('SideContent', [
-      // TODO check which component needs to be added here
-    ]),
+    contentSlot('SideContent', [flexTypeComponent('GuestCheckoutLoginComponent')]),
   ];
 };

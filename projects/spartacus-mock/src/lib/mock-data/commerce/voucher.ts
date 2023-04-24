@@ -1,6 +1,6 @@
-import { LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
 import { faker } from '@faker-js/faker';
 import { Voucher } from '@spartacus/cart/base/root';
+import { LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
 import { getCurrency } from '../general/currencies';
 
 export const createVoucher = (code?: string, name?: string, description?: string) => {
@@ -11,7 +11,7 @@ export const createVoucher = (code?: string, name?: string, description?: string
     freeShipping: faker.datatype.boolean(),
     name: name || faker.lorem.words(4),
     value: 0,
-    valueFormatted: 'CHF 0.00',
+    valueFormatted: 'USD 0.00',
     valueString: '0',
     voucherCode: code,
   };
