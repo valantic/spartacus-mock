@@ -177,7 +177,7 @@ export const homeContentSlots = (): ContentSlot[] => {
     ]),
 
     contentSlot('Section4', [
-      simpleResponsiveBanner('/faq', {
+      simpleResponsiveBanner('/example-content', {
         code: 'Elec_HomeSpeed_EN_01',
         altText: 'Save Big On Select SLR & DSLR Cameras',
         renditions: [

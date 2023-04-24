@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { Component } from '../../../types';
 import { flexTypeComponent } from './flex-type-component';
 
-export const richTextExampleContent = `<h2>This is a h2 title, ${faker.lorem.words(
+export const richTextExampleContent = `<h2>This is an Example Content page, ${faker.lorem.words(
   3
 )}</h2><h3>and this a h3 title, ${faker.lorem.words(
   3
