@@ -348,7 +348,7 @@ export const siteLinksSlot = (slotId: string, slotPosition: string, slotName: st
           'ContactUsLink',
           'eyJpdGVtSWQiOiJDb250YWN0VXNMaW5rIiwiY2F0YWxvZ0lkIjoiZWxlY3Ryb25pY3Mtc3BhQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
           'Contact Us',
-          '/contact',
+          '/example-content',
           'false',
           'false'
         ),
@@ -357,7 +357,7 @@ export const siteLinksSlot = (slotId: string, slotPosition: string, slotName: st
           'HelpLink',
           'eyJpdGVtSWQiOiJIZWxwTGluayIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
           'Help',
-          '/faq',
+          '/example-content',
           'false',
           'false'
         ),

@@ -1,11 +1,15 @@
+import { faker } from '@faker-js/faker';
 import { Occ, Promotion, Stock } from '@spartacus/core';
+import { ActiveCartEntry, LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
+import { mediaImage } from '../media/media-image';
+import { OccOrderEntryExtended, createOrderEntry } from '../order/order';
+import { product } from '../products/product';
+
 import ImageType = Occ.ImageType;
 import PriceType = Occ.PriceType;
-import { mediaImage } from '../media/media-image';
-import { ActiveCartEntry, LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
-import { faker } from '@faker-js/faker';
-import { product } from '../products/product';
+
 import OrderEntry = Occ.OrderEntry;
+import { productPrice } from '../products/product-price';
 
 export enum CartUserType {
   OCC_USER_ID_ANONYMOUS = 'anonymous',
@@ -61,7 +65,6 @@ const emptyCartData = (cartUserType: CartUserType): Occ.Cart => {
       formattedValue: '$0,00',
       value: 0,
     },
-    totalTaxValues: [],
     user: getUserForCart(cartUserType),
     potentialOrderPromotions: [],
     potentialProductPromotions: [],
@@ -153,14 +156,78 @@ const wishlistCartData = (userType: CartUserType): Occ.Cart => {
   };
 };
 
-const fullCartData = (cartGuid: string, userType: CartUserType): Occ.Cart => {
+const savedCartData = (userType: CartUserType): Occ.Cart => {
+  return {
+    appliedOrderPromotions: [],
+    appliedVouchers: [],
+    code: '0010032010',
+    deliveryItemsQuantity: 0,
+    entries: [
+      {
+        basePrice: {
+          formattedValue: '$1,066.18',
+          value: 1066.18,
+        },
+        entryNumber: 0,
+        product: {
+          availableForPickup: true,
+          baseOptions: [],
+          code: 'product', // needs to match product ID for mock product /de/products/product
+          images: [
+            mediaImage('product-zoom', ImageType.PRIMARY, 900, 900),
+            mediaImage('product-Summary', ImageType.PRIMARY, 440, 440),
+            mediaImage('product-main', ImageType.PRIMARY, 240, 240),
+            mediaImage('product-thumbnail', ImageType.PRIMARY, 150, 150),
+            mediaImage('product-icon', ImageType.PRIMARY, 80, 80),
+          ],
+          manufacturer: 'Canon',
+          name: 'Product 1',
+          purchasable: true,
+          stock: {
+            isValueRounded: false,
+            stockLevel: 671,
+            stockLevelStatus: 'noStock',
+            availableDate: new Date('2021-01-18T18:02:27+0000'),
+          } as Stock,
+          url: '/products/product',
+        },
+        quantity: 1,
+        statusSummaryList: [],
+        totalPrice: productPrice(),
+        updateable: true,
+      },
+    ],
+    guid: '22579b1a-9bb8-4c34-82fa-c71bb402a4d5',
+    net: false,
+    pickupItemsQuantity: 0,
+    productDiscounts: productPrice(),
+    subTotal: productPrice(),
+    totalDiscounts: productPrice(),
+    totalItems: 0,
+    totalPrice: productPrice(),
+    totalPriceWithTax: productPrice(),
+    totalTax: productPrice(),
+    user: getUserForCart(userType),
+    description: 'undefined',
+    // name consists out of 'wishlist' and user id and must match user id from user.ts
+    name: 'saved1234',
+    potentialOrderPromotions: [],
+    potentialProductPromotions: [],
+    saveTime: new Date('2023-03-27T10:59:18+0000'),
+    totalUnitCount: faker.datatype.number({ min: 1, max: 99 }),
+  };
+};
+
+const fullCartData = (cartGuid: string, userType: CartUserType, forceEntries?: boolean): Occ.Cart => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
 
-  const totalQuantity = mockData.activeCartEntries.reduce((acc, entry) => {
+  const activeCartEntries = forceEntries ? [{ code: 'entry1', quantity: 1 }] : mockData.activeCartEntries;
+
+  const totalQuantity = activeCartEntries.reduce((acc, entry) => {
     return acc + entry.quantity;
   }, 0);
-  const entries: OrderEntry[] = mockData.activeCartEntries.map((entry, index) =>
-    getOrderEntry(index, entry.code, entry.quantity, true)
+  const entries: OrderEntry[] = activeCartEntries.map((entry, index) =>
+    getCartOrderEntry(index, entry.code, entry.quantity, true)
   );
 
   let totalAmount = entries.reduce((acc, entry) => {
@@ -218,11 +285,11 @@ const fullCartData = (cartGuid: string, userType: CartUserType): Occ.Cart => {
   };
 };
 
-export const getCart = (cartGuid: string, cartUserType: CartUserType): Occ.Cart => {
+export const getCart = (cartGuid: string, cartUserType: CartUserType, forceEntries?: boolean): Occ.Cart => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
 
-  if (cartGuid !== '' && mockData.activeCartEntries.length > 0) {
-    return fullCartData(cartGuid, cartUserType);
+  if (cartGuid !== '' && (mockData.activeCartEntries.length > 0 || forceEntries)) {
+    return fullCartData(cartGuid, cartUserType, forceEntries);
   } else {
     return emptyCartData(cartUserType);
   }
@@ -240,6 +307,7 @@ export const getCarts = (cartUserType: CartUserType): Occ.CartList => {
 
   if (cartUserType === CartUserType.OCC_USER_ID_CURRENT) {
     cartsArray.push(wishlistCartData(cartUserType));
+    cartsArray.push(savedCartData(cartUserType));
   }
 
   return { carts: cartsArray };
@@ -268,7 +336,7 @@ export const addToCart = (product: ProductAddToCart, quantity: number): Occ.Cart
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 
   return {
-    entry: getOrderEntry(0, product.code, activeCartEntry.quantity),
+    entry: getCartOrderEntry(0, product.code, activeCartEntry.quantity),
     quantity: quantity,
     quantityAdded: quantity,
     statusCode: 'success',
@@ -297,14 +365,14 @@ export const updateEntries = (_cartId: string, entryNumber: number, quantity: nu
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 
   return {
-    entry: getOrderEntry(0, activeCartEntry.code, activeCartEntry.quantity),
+    entry: getCartOrderEntry(0, activeCartEntry.code, activeCartEntry.quantity),
     quantity: activeCartEntry.quantity,
     quantityAdded,
     statusCode: 'success',
   };
 };
 
-export const removeEntries = (cartId: string, entryNumber: number) => {
+export const removeEntries = (_cartId: string, entryNumber: number) => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
   let activeCartEntries = mockData.activeCartEntries;
   let activeCartEntry = activeCartEntries[entryNumber];
@@ -333,7 +401,24 @@ export const deleteCart = () => {
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 };
 
+export const setGuestCheckout = (newState: boolean) => {
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
+
+  mockData = {
+    ...mockData,
+    isGuestCheckout: newState,
+  };
+
+  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
+};
+
 export const getUserForCart = (userType?: CartUserType) => {
+  let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
+
+  if (mockData.isGuestCheckout) {
+    userType = CartUserType.OCC_USER_ID_GUEST;
+  }
+
   switch (userType) {
     case CartUserType.OCC_USER_ID_GUEST:
       return {
@@ -364,17 +449,16 @@ export const getUserTypeById = (userId: string): CartUserType => {
   }
 };
 
-function getOrderEntry(
+function getCartOrderEntry(
   index: number,
   productCode: string,
   quantity: number,
   isFullCartRequest?: boolean
-): Occ.OrderEntry {
+): OccOrderEntryExtended {
   const price = faker.commerce.price(100, 10000, 0, '');
   const priceNumber = getPriceWithDecimals(price);
 
-  let orderEntry: Occ.OrderEntry = {
-    // @ts-ignore
+  let orderEntry: OccOrderEntryExtended = {
     cancellableQuantity: 0,
     configurationInfos: [],
     entryNumber: index,
@@ -389,6 +473,7 @@ function getOrderEntry(
     },
   };
 
+  // updateable needs to be set to true to enable the item counter in the add to cart dialog
   if (isFullCartRequest) {
     orderEntry = {
       ...orderEntry,
