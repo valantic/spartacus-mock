@@ -49,6 +49,7 @@ import { translations } from './mock-data/translations/translations';
 import { Environment } from './types';
 import { savedCartResult } from './mock-data/account/saved-cart';
 import { updateLocalStorage } from './defaultLocalStorage';
+import { store, stores, storesAndRegionsStoreCount } from './mock-data/store-finder/store-finder';
 
 export function getDefaultHandlers(environment: Environment): RestHandler[] {
   const routes = getDefaultRoutes(environment);
