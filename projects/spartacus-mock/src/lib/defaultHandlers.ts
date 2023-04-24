@@ -95,10 +95,6 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
       return res(ctx.status(200), ctx.json(translations(language, namespace)));
     }),
 
-    rest.get(routes.regions, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(regions()));
-    }),
-
     /**
      * User related calls **********************************************************************************************
      */
