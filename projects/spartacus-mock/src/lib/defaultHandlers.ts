@@ -49,6 +49,7 @@ import { translations } from './mock-data/translations/translations';
 import { Environment } from './types';
 import { savedCartResult } from './mock-data/account/saved-cart';
 import { updateLocalStorage } from './defaultLocalStorage';
+import { store, stores, storesAndRegionsStoreCount } from './mock-data/store-finder/store-finder';
 
 export function getDefaultHandlers(environment: Environment): RestHandler[] {
   const routes = getDefaultRoutes(environment);
@@ -552,5 +553,21 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
     /*rest.get(routes.mediaCommerce, (req: RestRequest, res: ResponseComposition, _ctx: RestContext) => {
       return res(redirect(`https://sparta.webdev.v-zug.ch${req.url.pathname}`, 301));
     }),*/
+
+    /**
+     * Store Finder ****************************************************************************************************
+     */
+
+    rest.get(routes.storescounts, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(storesAndRegionsStoreCount()));
+    }),
+
+    rest.get(routes.stores, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(stores()));
+    }),
+
+    rest.get(routes.store, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+      return res(ctx.status(200), ctx.json(store()));
+    }),
   ];
 }

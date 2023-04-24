@@ -5,6 +5,7 @@ import { occOrderConfig } from './occ-config/occ-order-config';
 import { occSavedCartConfig } from './occ-config/occ-saved-cart-config';
 import { occUserConfig } from './occ-config/occ-user-config';
 import { defaultOccUserProfileConfig } from '@spartacus/user/profile/occ';
+import { occStoreFinderConfig } from './occ-config/occ-store-finder-config';
 
 /**
  * TODO use endpoints from default configs
@@ -29,6 +30,7 @@ const orderEndpoints = occOrderConfig.backend.occ.endpoints;
 const savedCartEndpoints = occSavedCartConfig.backend?.occ?.endpoints;
 const userEndpoints = occUserConfig.backend?.occ?.endpoints;
 const userProfileEndpoints = defaultOccUserProfileConfig.backend?.occ?.endpoints;
+const storeFinderEndpoints = occStoreFinderConfig.backend.occ.endpoints;
 
 export function getDefaultRoutes(environment: Environment) {
   const occEndpoint = `${environment.backend.occ?.baseUrl}${environment.backend.occ?.prefix}`;
@@ -208,6 +210,14 @@ export function getDefaultRoutes(environment: Environment) {
     notificationPreference: `${occEndpoint}:baseSiteId/${userEndpoints?.notificationPreference}`.replace(
       '${userId}',
       ':userId'
+    ),
+
+    // store finder
+    storescounts: `${occEndpoint}:baseSiteId/${(storeFinderEndpoints.storescounts as string).split('?')[0]}`,
+    stores: `${occEndpoint}:baseSiteId/${(storeFinderEndpoints.stores as string).split('?')[0]}`,
+    store: `${occEndpoint}:baseSiteId/${(storeFinderEndpoints.store as string).split('?')[0]}`.replace(
+      '${storeId}',
+      ':storeId'
     ),
   };
 }
