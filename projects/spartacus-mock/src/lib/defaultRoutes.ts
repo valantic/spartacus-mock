@@ -37,19 +37,31 @@ export function getDefaultRoutes(environment: Environment) {
 
   // TODO Take all endpoints from the defaultXxx configs above
   return {
+    /**
+     * General Calls ***************************************************************************************************
+     */
     baseSites: `${occEndpoint}basesites`,
     languages: `${occEndpoint}:baseSiteId/languages`,
     currencies: `${occEndpoint}:baseSiteId/currencies`,
-    pages: `${occEndpoint}:baseSiteId/cms/pages`,
-    components: `${occEndpoint}:baseSiteId/cms/components`,
+    titles: `${occEndpoint}:baseSiteId/titles`,
+    countries: `${occEndpoint}:baseSiteId/countries`,
+    regions: `${occEndpoint}:baseSiteId/countries/:isocode/regions`,
+    i18n: `${occEndpoint}:baseSiteId/${i18nEndpoint
+      .split('?')[0]
+      .replace('${language}', ':language')
+      .replace('${namespace}', ':namespace')}`,
+
+    /**
+     * User related calls **********************************************************************************************
+     */
     authLogin: '*/authorizationserver/oauth/token',
     authRevoke: '*/authorizationserver/oauth/revoke',
     users: `${occEndpoint}:baseSiteId/users`,
     user: `${occEndpoint}:baseSiteId/users/:user`,
+
+    // call somehow needed and done whitout baseSite sometimes
     userTemp: `${occEndpoint}users/:user`,
-    titles: `${occEndpoint}:baseSiteId/titles`,
-    countries: `${occEndpoint}:baseSiteId/countries`,
-    regions: `${occEndpoint}:baseSiteId/countries/:isocode/regions`,
+
     consentTemplates: `${occEndpoint}:baseSiteId/users/:user/consenttemplates`,
     notificationPreferences: `${occEndpoint}:baseSiteId/users/:user/notificationpreferences`,
     productInterests: `${occEndpoint}:baseSiteId/users/:user/productinterests`,
@@ -58,12 +70,28 @@ export function getDefaultRoutes(environment: Environment) {
     payments: `${occEndpoint}:baseSiteId/users/:user/paymentDetails`,
     addressVerification: `${occEndpoint}:baseSiteId/users/:user/addresses/verification`,
 
-    i18n: `${occEndpoint}:baseSiteId/${i18nEndpoint
-      .split('?')[0]
-      .replace('${language}', ':language')
-      .replace('${namespace}', ':namespace')}`,
+    /**
+     * CMS Calls *******************************************************************************************************
+     */
+    pages: `${occEndpoint}:baseSiteId/cms/pages`,
+    components: `${occEndpoint}:baseSiteId/cms/components`,
 
-    // cart
+    /**
+     * Product Calls ***************************************************************************************************
+     */
+    productReferences: `${occEndpoint}:baseSiteId/products/:productCode/references`,
+    productDocuments: `${occEndpoint}:baseSiteId/products/:productCode/documents`,
+    productMainFeatures: `${occEndpoint}:baseSiteId/products/:productCode/mainFeatures`,
+    productCompatibleModels: `${occEndpoint}:baseSiteId/products/:productCode/compatibleModels`,
+    productReviews: `${occEndpoint}:baseSiteId/products/:productCode/reviews`,
+    productSelection: `${occEndpoint}:baseSiteId/products/:productCode/productSelection/:selection`,
+    productSearch: `${occEndpoint}:baseSiteId/products/search`,
+    searchSuggestions: `${occEndpoint}:baseSiteId/products/suggestions`,
+    product: `${occEndpoint}:baseSiteId/products/:productCode`,
+
+    /**
+     * Cart Calls ******************************************************************************************************
+     */
     carts: `${occEndpoint}:baseSiteId/${(cartEndpoints.carts as string).split('?')[0]}`.replace('${userId}', ':userId'),
     cart: `${occEndpoint}:baseSiteId/${(cartEndpoints.cart as string).split('?')[0]}`
       .replace('${userId}', ':userId')
@@ -98,7 +126,9 @@ export function getDefaultRoutes(environment: Environment) {
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'), // Note: The saveCart endpoint from the Spartacus Core starts with a "/"
 
-    // checkout
+    /**
+     * Checkout Calls **************************************************************************************************
+     */
     setDeliveryAddress: `${occEndpoint}:baseSiteId/${(checkoutEndpoints.setDeliveryAddress as string).split('?')[0]}`
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'),
@@ -138,7 +168,9 @@ export function getDefaultRoutes(environment: Environment) {
       .replace('${cartId}', ':cartId'),
     sopMockProcess: `${environment.backend.occ?.baseUrl}/acceleratorservices/sop-mock/process`,
 
-    // order
+    /**
+     * Order Calls *****************************************************************************************************
+     */
     placeOrder: `${occEndpoint}:baseSiteId/${(orderEndpoints.placeOrder as string).split('?')[0]}`.replace(
       '${userId}',
       ':userId'
@@ -167,20 +199,9 @@ export function getDefaultRoutes(environment: Environment) {
       .replace('${userId}', ':userId')
       .replace('${returnRequestCode}', ':returnRequestCode'),
 
-    // product
-    productReferences: `${occEndpoint}:baseSiteId/products/:productCode/references`,
-    productDocuments: `${occEndpoint}:baseSiteId/products/:productCode/documents`,
-    productMainFeatures: `${occEndpoint}:baseSiteId/products/:productCode/mainFeatures`,
-    productCompatibleModels: `${occEndpoint}:baseSiteId/products/:productCode/compatibleModels`,
-    productReviews: `${occEndpoint}:baseSiteId/products/:productCode/reviews`,
-    productSelection: `${occEndpoint}:baseSiteId/products/:productCode/productSelection/:selection`,
-    productSearch: `${occEndpoint}:baseSiteId/products/search`,
-    product: `${occEndpoint}:baseSiteId/products/:productCode`,
-
-    // search suggestions
-    searchSuggestions: `${occEndpoint}:baseSiteId/products/suggestions`,
-
-    // account
+    /**
+     * Account Calls ***************************************************************************************************
+     */
     restoreSavedCart: `${occEndpoint}:baseSideId/${savedCartEndpoints?.restoreSavedCart}`
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'),
@@ -213,7 +234,9 @@ export function getDefaultRoutes(environment: Environment) {
       ':userId'
     ),
 
-    // store finder
+    /**
+     * Store Finder ****************************************************************************************************
+     */
     storescounts: `${occEndpoint}:baseSiteId/${(storeFinderEndpoints.storescounts as string).split('?')[0]}`,
     stores: `${occEndpoint}:baseSiteId/${(storeFinderEndpoints.stores as string).split('?')[0]}`,
     store: `${occEndpoint}:baseSiteId/${(storeFinderEndpoints.store as string).split('?')[0]}`.replace(
