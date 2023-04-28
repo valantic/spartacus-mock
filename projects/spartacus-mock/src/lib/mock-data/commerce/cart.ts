@@ -2,8 +2,8 @@ import { faker } from '@faker-js/faker';
 import { Occ, Promotion, Stock } from '@spartacus/core';
 import { ActiveCartEntry, LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
 import { mediaImage } from '../media/media-image';
-import { OccOrderEntryExtended, createOrderEntry } from '../order/order';
-import { product } from '../products/product';
+import { OccOrderEntryExtended } from '../order/order';
+import { createProduct } from '../products/product';
 
 import ImageType = Occ.ImageType;
 import PriceType = Occ.PriceType;
@@ -462,7 +462,7 @@ function getCartOrderEntry(
     cancellableQuantity: 0,
     configurationInfos: [],
     entryNumber: index,
-    product: product(productCode, index),
+    product: createProduct({ code: productCode }),
     quantity,
     returnableQuantity: 0,
     statusSummaryList: [],

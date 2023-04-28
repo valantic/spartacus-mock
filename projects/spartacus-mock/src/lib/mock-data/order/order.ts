@@ -5,10 +5,10 @@ import { createAddress } from '../account/addresses';
 import { createPaymentDetails, DEFAULT_PAYMENT_ID } from '../account/payments';
 import { CartUserType, getUserForCart } from '../commerce/cart';
 import { createDeliveryCost, createDeliveryMode } from '../commerce/delivery-mode';
-import { createPromotion } from '../commerce/promotion';
 import { createVoucher } from '../commerce/voucher';
-import { product } from '../products/product';
+import { createProduct } from '../products/product';
 import { productPrice } from '../products/product-price';
+import { createPromotionResult } from '../commerce/promotion';
 
 // needed since Occ.Order seems to have these properties missing
 interface OccOrderExtended extends Occ.Order {
@@ -70,7 +70,7 @@ export const createOrderEntry = (
     quantity,
     basePrice: productPrice(priceExclTax, 'USD', PriceType.BUY),
     totalPrice: productPrice(priceInclTax, 'USD', PriceType.BUY),
-    product: product(faker.datatype.number({ min: 100000, max: 999999 }).toString()),
+    product: createProduct(),
     updateable: false,
     deliveryMode: createDeliveryMode('standard', 'Standard Delivery'),
     deliveryPointOfService: undefined,
@@ -126,8 +126,8 @@ export const createOrder = (
     consignments: new Array(faker.datatype.number({ min: 1, max: 3 }))
       .fill(null)
       .map(() => createConsignment(faker.datatype.number({ min: 1, max: 5 }))),
-    appliedOrderPromotions: new Array(numVouchers).fill(null).map(() => createPromotion(faker.datatype.string(10))),
-    appliedProductPromotions: new Array(numVouchers).fill(null).map(() => createPromotion(faker.datatype.string(10))),
+    appliedOrderPromotions: new Array(numVouchers).fill(null).map(() => createPromotionResult()),
+    appliedProductPromotions: new Array(numVouchers).fill(null).map(() => createPromotionResult()),
     appliedVouchers: new Array(numVouchers).fill(null).map(() => createVoucher(faker.datatype.string(10))),
     deliveryAddress: createAddress(),
     deliveryCost: createDeliveryCost(),

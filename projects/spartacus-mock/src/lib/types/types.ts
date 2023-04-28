@@ -1,6 +1,6 @@
 import { RestHandler } from 'msw';
 import { Voucher } from '@spartacus/cart/base/root';
-import { BackendConfig, Occ, OccConfig, Page as SpartacusPage } from '@spartacus/core';
+import { BackendConfig, ImageType, Occ, OccConfig, Page as SpartacusPage } from '@spartacus/core';
 
 export interface ActiveCartEntry {
   code: string;
@@ -62,4 +62,34 @@ export interface MockConfig {
   footerSlots?: ContentSlot[];
 
   // TODO Components Call Handler Options
+}
+
+export interface ProductSearchPageModifier {
+  query?: string;
+  pageSize?: number;
+  sort?: string;
+  currentPage?: number;
+}
+
+export interface SearchStateModifier {
+  query?: string;
+  activeSort?: string;
+}
+
+export interface FacetValueModifier extends SearchStateModifier {}
+
+export interface ProductReferenceListModifier {
+  referenceType?: string;
+}
+
+export interface ImageModifier {
+  width?: number;
+  height?: number;
+  imageType?: Occ.ImageType;
+  format?: string;
+  galleryIndex?: number;
+}
+
+export interface ProductModifier {
+  fieldSet?: string;
 }

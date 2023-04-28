@@ -21,10 +21,6 @@ import { addVoucher, deleteVoucher } from './mock-data/commerce/voucher';
 import { createConsentTemplate } from './mock-data/consent-templates/consent-templates';
 import { createOrder } from './mock-data/order/order';
 import { getOrders } from './mock-data/order/order-history';
-import { product, productBaseData, productClassifications } from './mock-data/products/product';
-import { productReferences } from './mock-data/products/product-references';
-import { productReviewSubmit, productReviews } from './mock-data/products/product-reviews';
-import { productSearch } from './mock-data/products/product-search';
 import { Environment } from './types';
 import { savedCartResult } from './mock-data/account/saved-cart';
 import { updateLocalStorage } from './defaultLocalStorage';
@@ -34,58 +30,13 @@ import { getUserHandlers } from './handlers/user-handler';
 import { createUser } from './mock-data/auth/user';
 import { getCmsHandlers } from './handlers/cms-handler';
 import { getSearchHandlers } from './handlers/search-handler';
+import { getProductHandlers } from './handlers/product-handler';
 
 export class DefaultHandlers {
   readonly routes;
 
   constructor(protected environment: Environment) {
     this.routes = getDefaultRoutes(environment);
-  }
-
-  getProductHandlers(): RestHandler[] {
-    return [
-      // product references call
-      rest.get(this.routes.productReferences, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        const referenceType = req.url.searchParams.get('referenceType') || '';
-
-        return res(ctx.status(200), ctx.json(productReferences(referenceType, faker.datatype.number(100))));
-      }),
-
-      // product reviews call
-      rest.get(this.routes.productReviews, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(productReviews()));
-      }),
-
-      rest.post(this.routes.productReviews, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(productReviewSubmit()));
-      }),
-
-      rest.get(this.routes.productSearch, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        const query = req.url.searchParams.get('query') || '';
-        const pageSize = parseInt(req.url.searchParams.get('pageSize') || '');
-        const sort = req.url.searchParams.get('sort') || '';
-        const currentPage = parseInt(req.url.searchParams.get('currentPage') || '0');
-
-        return res(ctx.status(200), ctx.json(productSearch(query, pageSize, sort, currentPage, pageSize === 5)));
-      }),
-
-      // product general data call (used for product call scopes default / list / details)
-      rest.get(this.routes.product, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        const productCode = typeof req.params['productCode'] === 'string' ? req.params['productCode'] : '';
-        const requestFields = req.url.searchParams?.get('fields') || '';
-
-        if (requestFields.indexOf('variantOptions') > -1) {
-          // fields=name,purchasable,baseOptions(DEFAULT),baseProduct,variantOptions(DEFAULT),variantType
-          return res(ctx.status(200), ctx.json(productBaseData()));
-        } else if (requestFields.indexOf('classifications') > -1) {
-          // fields=classifications
-          return res(ctx.status(200), ctx.json(productClassifications()));
-        } else {
-          // all other scopes
-          return res(ctx.status(200), ctx.json(product(productCode, 1)));
-        }
-      }),
-    ];
   }
 
   getCartHandlers(): RestHandler[] {
@@ -389,7 +340,7 @@ export class DefaultHandlers {
       ...getUserHandlers(this.routes),
       ...getCmsHandlers(this.routes),
       ...getSearchHandlers(this.routes),
-      ...this.getProductHandlers(),
+      ...getProductHandlers(this.routes),
       ...this.getCartHandlers(),
       ...this.getCheckoutHandlers(),
       ...this.getOrderHandlers(),
