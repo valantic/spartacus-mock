@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { image } from '../media/media-image';
+import { image } from '../media/image';
 
 export const createPromotionOrderEntryConsumed = (
   additionalData?: Occ.PromotionOrderEntryConsumed

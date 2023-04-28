@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { image } from '../media/media-image';
+import { image } from '../media/image';
 import { createProductCategory } from './product-categories';
 import { createProductClassification } from './product-classification';
 import { createBaseOption, createVariantOption } from './product-base-option';
@@ -24,77 +24,77 @@ export const createBaseProduct = (additionalData?: Occ.Product): Occ.Product => 
     name: faker.commerce.productName(),
     images: [
       // PRIMARY
-      image(undefined, { width: 3500, height: 3500, format: 'hires' }),
-      image(undefined, { width: 675, height: 675, format: 'product' }),
-      image(undefined, { width: 180, height: 180, format: 'thumbnail' }),
-      image(undefined, { width: 180, height: 180, format: 'cartIcon' }),
+      image({ format: 'hires' }, { width: 3500, height: 3500 }),
+      image({ format: 'product' }, { width: 675, height: 675 }),
+      image({ format: 'thumbnail' }, { width: 180, height: 180 }),
+      image({ format: 'cartIcon' }, { width: 180, height: 180 }),
 
       // GALLERY
-      image(undefined, {
-        width: 1200,
-        height: 1200,
-        format: 'zoom',
-        imageType: Occ.ImageType.GALLERY,
-        galleryIndex: 1,
-      }),
-      image(undefined, {
-        width: 480,
-        height: 480,
-        format: 'product',
-        imageType: Occ.ImageType.GALLERY,
-        galleryIndex: 1,
-      }),
-      image(undefined, {
-        width: 180,
-        height: 180,
-        format: 'thumbnail',
-        imageType: Occ.ImageType.GALLERY,
-        galleryIndex: 1,
-      }),
+      image(
+        { format: 'zoom', imageType: Occ.ImageType.GALLERY, galleryIndex: 1 },
+        {
+          width: 1200,
+          height: 1200,
+        }
+      ),
+      image(
+        { format: 'product', imageType: Occ.ImageType.GALLERY, galleryIndex: 1 },
+        {
+          width: 480,
+          height: 480,
+        }
+      ),
+      image(
+        { format: 'thumbnail', imageType: Occ.ImageType.GALLERY, galleryIndex: 1 },
+        {
+          width: 180,
+          height: 180,
+        }
+      ),
 
-      image(undefined, {
-        width: 1200,
-        height: 1200,
-        format: 'zoom',
-        imageType: Occ.ImageType.GALLERY,
-        galleryIndex: 2,
-      }),
-      image(undefined, {
-        width: 480,
-        height: 480,
-        format: 'product',
-        imageType: Occ.ImageType.GALLERY,
-        galleryIndex: 2,
-      }),
-      image(undefined, {
-        width: 180,
-        height: 180,
-        format: 'thumbnail',
-        imageType: Occ.ImageType.GALLERY,
-        galleryIndex: 2,
-      }),
+      image(
+        { format: 'zoom', imageType: Occ.ImageType.GALLERY, galleryIndex: 2 },
+        {
+          width: 1200,
+          height: 1200,
+        }
+      ),
+      image(
+        { format: 'product', imageType: Occ.ImageType.GALLERY, galleryIndex: 2 },
+        {
+          width: 480,
+          height: 480,
+        }
+      ),
+      image(
+        { format: 'thumbnail', imageType: Occ.ImageType.GALLERY, galleryIndex: 2 },
+        {
+          width: 180,
+          height: 180,
+        }
+      ),
 
-      image(undefined, {
-        width: 1200,
-        height: 1200,
-        format: 'zoom',
-        imageType: Occ.ImageType.GALLERY,
-        galleryIndex: 3,
-      }),
-      image(undefined, {
-        width: 480,
-        height: 480,
-        format: 'product',
-        imageType: Occ.ImageType.GALLERY,
-        galleryIndex: 3,
-      }),
-      image(undefined, {
-        width: 180,
-        height: 180,
-        format: 'thumbnail',
-        imageType: Occ.ImageType.GALLERY,
-        galleryIndex: 3,
-      }),
+      image(
+        { format: 'zoom', imageType: Occ.ImageType.GALLERY, galleryIndex: 3 },
+        {
+          width: 1200,
+          height: 1200,
+        }
+      ),
+      image(
+        { format: 'product', imageType: Occ.ImageType.GALLERY, galleryIndex: 3 },
+        {
+          width: 480,
+          height: 480,
+        }
+      ),
+      image(
+        { format: 'thumbnail', imageType: Occ.ImageType.GALLERY, galleryIndex: 3 },
+        {
+          width: 180,
+          height: 180,
+        }
+      ),
     ],
     baseProduct: `BASE_${faker.random.numeric(6)}`,
     price: createPrice(),

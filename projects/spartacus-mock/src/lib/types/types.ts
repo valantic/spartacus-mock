@@ -85,9 +85,6 @@ export interface ProductReferenceListModifier {
 export interface ImageModifier {
   width?: number;
   height?: number;
-  imageType?: Occ.ImageType;
-  format?: string;
-  galleryIndex?: number;
 }
 
 export interface ProductModifier {

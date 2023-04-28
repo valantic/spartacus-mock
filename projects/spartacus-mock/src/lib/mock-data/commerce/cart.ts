@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Occ, Promotion, Stock } from '@spartacus/core';
 import { ActiveCartEntry, LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
-import { mediaImage } from '../media/media-image';
+import { image } from '../media/image';
 import { OccOrderEntryExtended } from '../order/order';
 import { createProduct } from '../products/product';
 
@@ -89,11 +89,11 @@ const wishlistCartData = (userType: CartUserType): Occ.Cart => {
           baseOptions: [],
           code: 'product', // needs to match product ID for mock product /de/products/product
           images: [
-            mediaImage('product-zoom', ImageType.PRIMARY, 900, 900),
-            mediaImage('product-Summary', ImageType.PRIMARY, 440, 440),
-            mediaImage('product-main', ImageType.PRIMARY, 240, 240),
-            mediaImage('product-thumbnail', ImageType.PRIMARY, 150, 150),
-            mediaImage('product-icon', ImageType.PRIMARY, 80, 80),
+            image({ format: 'product-zoom' }, { width: 900, height: 900 }),
+            image({ format: 'product-Summary' }, { width: 440, height: 440 }),
+            image({ format: 'product-main' }, { width: 240, height: 240 }),
+            image({ format: 'product-thumbnail' }, { width: 150, height: 150 }),
+            image({ format: 'product-icon' }, { width: 80, height: 80 }),
           ],
           manufacturer: 'Canon',
           name: 'Product 1',
@@ -174,11 +174,11 @@ const savedCartData = (userType: CartUserType): Occ.Cart => {
           baseOptions: [],
           code: 'product', // needs to match product ID for mock product /de/products/product
           images: [
-            mediaImage('product-zoom', ImageType.PRIMARY, 900, 900),
-            mediaImage('product-Summary', ImageType.PRIMARY, 440, 440),
-            mediaImage('product-main', ImageType.PRIMARY, 240, 240),
-            mediaImage('product-thumbnail', ImageType.PRIMARY, 150, 150),
-            mediaImage('product-icon', ImageType.PRIMARY, 80, 80),
+            image({ format: 'product-zoom' }, { width: 900, height: 900 }),
+            image({ format: 'product-Summary' }, { width: 440, height: 440 }),
+            image({ format: 'product-main' }, { width: 240, height: 240 }),
+            image({ format: 'product-thumbnail' }, { width: 150, height: 150 }),
+            image({ format: 'product-icon' }, { width: 80, height: 80 }),
           ],
           manufacturer: 'Canon',
           name: 'Product 1',
