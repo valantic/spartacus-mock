@@ -11,7 +11,7 @@ export const createNotificationPreference = (additionalData?: NotificationPrefer
   };
 };
 
-export const notificationPreferences = (): NotificationPreferenceList => {
+export const notificationPreferenceList = (): NotificationPreferenceList => {
   return {
     preferences: [
       createNotificationPreference(),

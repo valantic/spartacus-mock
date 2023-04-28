@@ -15,7 +15,7 @@ export const createConsentTemplate = (additionalData?: Occ.ConsentTemplate): Occ
   };
 };
 
-export const consentTemplates = (): Occ.ConsentTemplateList => {
+export const consentTemplateList = (): Occ.ConsentTemplateList => {
   return {
     consentTemplates: [
       createConsentTemplate(),

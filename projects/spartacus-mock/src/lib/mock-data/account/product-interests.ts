@@ -23,7 +23,9 @@ export const createProductInterestEntryRelation = (
   };
 };
 
-export const productInterests = (additionalData?: Occ.ProductInterestSearchResult): Occ.ProductInterestSearchResult => {
+export const productInterestSearchResult = (
+  additionalData?: Occ.ProductInterestSearchResult
+): Occ.ProductInterestSearchResult => {
   return {
     pagination: createPagination(),
     results: [createProductInterestEntryRelation()],

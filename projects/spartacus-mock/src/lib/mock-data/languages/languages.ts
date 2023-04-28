@@ -10,7 +10,7 @@ export const createLanguage = (additionalData?: Occ.Language): Occ.Language => {
   };
 };
 
-export const languages = (): Occ.LanguageList => {
+export const languageList = (): Occ.LanguageList => {
   return {
     languages: [
       createLanguage(),

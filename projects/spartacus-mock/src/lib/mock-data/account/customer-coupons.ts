@@ -17,7 +17,9 @@ export const createCustomerCoupon = (additionalData?: Occ.CustomerCoupon): Occ.C
   };
 };
 
-export const customerCoupons = (additionalData?: Occ.CustomerCouponSearchResult): Occ.CustomerCouponSearchResult => {
+export const customerCouponSearchResult = (
+  additionalData?: Occ.CustomerCouponSearchResult
+): Occ.CustomerCouponSearchResult => {
   return {
     coupons: [createCustomerCoupon()],
     pagination: createPagination(),

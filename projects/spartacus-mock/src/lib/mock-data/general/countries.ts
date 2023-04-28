@@ -8,7 +8,7 @@ export const createCountry = (additionalData?: Occ.Country): Occ.Country => {
   };
 };
 
-export const countries = (): Occ.CountryList => {
+export const countryList = (): Occ.CountryList => {
   return {
     countries: [
       createCountry({

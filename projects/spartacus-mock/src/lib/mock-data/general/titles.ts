@@ -8,7 +8,7 @@ export const createTitle = (additionalData?: Occ.Title): Occ.Title => {
   };
 };
 
-export const titles = (): Occ.TitleList => {
+export const titleList = (): Occ.TitleList => {
   return {
     titles: [
       createTitle({

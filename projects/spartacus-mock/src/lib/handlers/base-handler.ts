@@ -1,10 +1,10 @@
 import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
-import { baseSites, languages } from '../mock-data';
-import { currencies } from '../mock-data/general/currencies';
-import { titles } from '../mock-data/general/titles';
-import { countries } from '../mock-data/general/countries';
-import { regions } from '../mock-data/general/regions';
-import { consentTemplates } from '../mock-data/consent-templates/consent-templates';
+import { baseSites, languageList } from '../mock-data';
+import { currencyList } from '../mock-data/general/currencies';
+import { titleList } from '../mock-data/general/titles';
+import { countryList } from '../mock-data/general/countries';
+import { regionList } from '../mock-data/general/regions';
+import { consentTemplateList } from '../mock-data/consent-templates/consent-templates';
 import { translations } from '../mock-data/translations/translations';
 import { readUrlParams } from '../utils/request-params';
 
@@ -15,27 +15,27 @@ export const getBaseHandlers = (routes: any): RestHandler[] => {
     }),
 
     rest.get(routes.languages, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(languages()));
+      return res(ctx.status(200), ctx.json(languageList()));
     }),
 
     rest.get(routes.currencies, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(currencies()));
+      return res(ctx.status(200), ctx.json(currencyList()));
     }),
 
     rest.get(routes.titles, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(titles()));
+      return res(ctx.status(200), ctx.json(titleList()));
     }),
 
     rest.get(routes.countries, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(countries()));
+      return res(ctx.status(200), ctx.json(countryList()));
     }),
 
     rest.get(routes.regions, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(regions()));
+      return res(ctx.status(200), ctx.json(regionList()));
     }),
 
     rest.get(routes.consentTemplates, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(consentTemplates()));
+      return res(ctx.status(200), ctx.json(consentTemplateList()));
     }),
 
     // TODO: Check if we can import custom translations and languages via config

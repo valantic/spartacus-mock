@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { countries } from '../general/countries';
+import { countryList } from '../general/countries';
 
 const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export const storesAndRegionsStoreCount = (): Occ.StoreCountList => {
   return {
-    countriesAndRegionsStoreCount: countries().countries?.map((country) => {
+    countriesAndRegionsStoreCount: countryList().countries?.map((country) => {
       return {
         count: faker.datatype.number({ min: 1, max: 15 }),
         isoCode: country.isocode,

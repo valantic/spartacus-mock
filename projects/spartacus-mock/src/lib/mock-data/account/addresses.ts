@@ -31,7 +31,7 @@ export const createAddress = (additionalData?: Occ.Address): Occ.Address => {
   };
 };
 
-export const addresses = (): Occ.AddressList => {
+export const addressList = (): Occ.AddressList => {
   return {
     addresses: [
       createAddress({

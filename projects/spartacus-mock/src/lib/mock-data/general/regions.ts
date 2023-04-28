@@ -10,7 +10,7 @@ export const createRegion = (additionalData?: Occ.Region): Occ.Region => {
   };
 };
 
-export const regions = (): Occ.RegionList => {
+export const regionList = (): Occ.RegionList => {
   return {
     regions: [
       createRegion(),

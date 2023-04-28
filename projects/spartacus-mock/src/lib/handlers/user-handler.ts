@@ -1,8 +1,8 @@
 import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
-import { notificationPreferences } from '../mock-data/account/notification-preferences';
-import { productInterests } from '../mock-data/account/product-interests';
-import { customerCoupons } from '../mock-data/account/customer-coupons';
-import { addresses } from '../mock-data/account/addresses';
+import { notificationPreferenceList } from '../mock-data/account/notification-preferences';
+import { productInterestSearchResult } from '../mock-data/account/product-interests';
+import { customerCouponSearchResult } from '../mock-data/account/customer-coupons';
+import { addressList } from '../mock-data/account/addresses';
 import { paymentDetailsList } from '../mock-data/account/payments';
 import { authRevoke, createAuthToken } from '../mock-data/auth/auth';
 import { createUser } from '../mock-data/auth/user';
@@ -10,19 +10,19 @@ import { createUser } from '../mock-data/auth/user';
 export const getUserHandlers = (routes: any): RestHandler[] => {
   return [
     rest.get(routes.notificationPreferences, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(notificationPreferences()));
+      return res(ctx.status(200), ctx.json(notificationPreferenceList()));
     }),
 
     rest.get(routes.productInterests, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(productInterests()));
+      return res(ctx.status(200), ctx.json(productInterestSearchResult()));
     }),
 
     rest.get(routes.customerCoupons, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(customerCoupons()));
+      return res(ctx.status(200), ctx.json(customerCouponSearchResult()));
     }),
 
     rest.get(routes.addresses, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(addresses()));
+      return res(ctx.status(200), ctx.json(addressList()));
     }),
 
     rest.get(routes.payments, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {

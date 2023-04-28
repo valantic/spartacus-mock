@@ -10,7 +10,7 @@ export const createCurrency = (additionalData?: Occ.Currency): Occ.Currency => {
   };
 };
 
-export const currencies = (): Occ.CurrencyList => {
+export const currencyList = (): Occ.CurrencyList => {
   return {
     currencies: [
       createCurrency(),
