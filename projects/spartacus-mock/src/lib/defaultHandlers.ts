@@ -18,13 +18,6 @@ import { getCardTypes, getCheckoutDetails, getDeliveryModes } from './mock-data/
 import { getPaymentSopRequest } from './mock-data/commerce/payment-sop';
 import { getPaymentSopResponse } from './mock-data/commerce/payment-sop-response';
 import { addVoucher, deleteVoucher } from './mock-data/commerce/voucher';
-import {
-  components,
-  footerLinkComponents,
-  myAccountLinkComponents,
-  navMainLinkComponents,
-  productDetailTabComponents,
-} from './mock-data/components/components';
 import { createConsentTemplate } from './mock-data/consent-templates/consent-templates';
 import { createOrder } from './mock-data/order/order';
 import { getOrders } from './mock-data/order/order-history';
@@ -32,33 +25,21 @@ import { product, productBaseData, productClassifications } from './mock-data/pr
 import { productReferences } from './mock-data/products/product-references';
 import { productReviewSubmit, productReviews } from './mock-data/products/product-reviews';
 import { productSearch } from './mock-data/products/product-search';
-import { searchSuggestions } from './mock-data/search/search-suggestions';
 import { Environment } from './types';
 import { savedCartResult } from './mock-data/account/saved-cart';
 import { updateLocalStorage } from './defaultLocalStorage';
 import { store, stores, storesAndRegionsStoreCount } from './mock-data/store-finder/store-finder';
-import { getMockPage } from './utils/mock-page';
 import { getBaseHandlers } from './handlers/base-handler';
 import { getUserHandlers } from './handlers/user-handler';
 import { createUser } from './mock-data/auth/user';
 import { getCmsHandlers } from './handlers/cms-handler';
+import { getSearchHandlers } from './handlers/search-handler';
 
 export class DefaultHandlers {
   readonly routes;
 
   constructor(protected environment: Environment) {
     this.routes = getDefaultRoutes(environment);
-  }
-
-  getSearchHandlers(): RestHandler[] {
-    return [
-      rest.get(this.routes.searchSuggestions, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        const term = req.url.searchParams.get('term') || '';
-        const max = req.url.searchParams.get('max') || '';
-
-        return res(ctx.status(200), ctx.json(searchSuggestions(term, parseInt(max))));
-      }),
-    ];
   }
 
   getProductHandlers(): RestHandler[] {
@@ -407,7 +388,7 @@ export class DefaultHandlers {
       ...getBaseHandlers(this.routes),
       ...getUserHandlers(this.routes),
       ...getCmsHandlers(this.routes),
-      ...this.getSearchHandlers(),
+      ...getSearchHandlers(this.routes),
       ...this.getProductHandlers(),
       ...this.getCartHandlers(),
       ...this.getCheckoutHandlers(),
