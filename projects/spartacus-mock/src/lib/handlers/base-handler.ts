@@ -38,6 +38,7 @@ export const getBaseHandlers = (routes: any): RestHandler[] => {
       return res(ctx.status(200), ctx.json(consentTemplates()));
     }),
 
+    // TODO: Check if we can import custom translations and languages via config
     // custom call to return the translation files
     rest.get(routes.i18n, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const language = readUrlParams(req, 'language');

@@ -1,10 +1,14 @@
-export const authToken = () => {
+import { AuthToken } from '@spartacus/core';
+import { faker } from '@faker-js/faker';
+
+export const createAuthToken = (): AuthToken => {
   return {
-    access_token: 'ylIQXrUuvFwDBQ6Hbvk5mz2mv3Q',
+    access_token: faker.datatype.uuid(),
+    refresh_token: faker.datatype.uuid(),
+    expires_at: faker.date.future().toTimeString(),
+    granted_scopes: ['basic', 'openid'],
+    access_token_stored_at: '',
     token_type: 'bearer',
-    refresh_token: '-j2nhkCiw29AS_nEwNa0tD7hHow',
-    expires_in: 86399,
-    scope: 'basic openid',
   };
 };
 

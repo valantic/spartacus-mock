@@ -1,19 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
 
-const NUMBER_OF_CATEGORIES = 3;
-
-export const productCategories = (): Occ.Category[] => {
-  const categories = [];
-  const categoryName = faker.lorem.words(2);
-
-  for (let i = 0; i < NUMBER_OF_CATEGORIES; i++) {
-    categories.push({
-      code: faker.datatype.number(999).toString(),
-      name: faker.lorem.words(2),
-      url: `/mock/category/${categoryName.replace(' ', '-')}/c/${categoryName}`,
-    });
-  }
-
-  return categories;
+export const createProductCategory = (additionalData?: Occ.Category): Occ.Category => {
+  return {
+    code: faker.datatype.uuid(),
+    name: faker.commerce.department(),
+    image: undefined,
+    url: faker.internet.url(),
+    ...additionalData,
+  };
 };

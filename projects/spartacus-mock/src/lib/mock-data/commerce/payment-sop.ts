@@ -1,11 +1,10 @@
 import { Occ } from '@spartacus/core';
-import { user } from '../auth/user';
 import { getDeliveryModes } from './checkout';
-
 import User = Occ.User;
+import { createUser } from '../auth/user';
 
 export const getPaymentSopRequest = (): object => {
-  const userData: User = user(false);
+  const userData: User = createUser();
 
   return {
     mappingLabels: {

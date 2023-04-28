@@ -1,13 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
 import { getDefaultRoutes } from './defaultRoutes';
-import { availableAddresses, createAddress } from './mock-data/account/addresses';
-import { customerCoupons } from './mock-data/account/customer-coupons';
-import { notificationPreferences } from './mock-data/account/notification-preferences';
-import { createPaymentDetails, payments } from './mock-data/account/payments';
-import { productInterests } from './mock-data/account/product-interests';
-import { authRevoke, authToken } from './mock-data/auth/auth';
-import { user } from './mock-data/auth/user';
+import { createAddress } from './mock-data/account/addresses';
+import { createPaymentDetails, DEFAULT_PAYMENT_ID } from './mock-data/account/payments';
 import {
   CartUserType,
   addToCart,
@@ -45,70 +40,14 @@ import { updateLocalStorage } from './defaultLocalStorage';
 import { store, stores, storesAndRegionsStoreCount } from './mock-data/store-finder/store-finder';
 import { getMockPage } from './utils/mock-page';
 import { getBaseHandlers } from './handlers/base-handler';
+import { getUserHandlers } from './handlers/user-handler';
+import { createUser } from './mock-data/auth/user';
 
 export class DefaultHandlers {
   readonly routes;
 
   constructor(protected environment: Environment) {
     this.routes = getDefaultRoutes(environment);
-  }
-
-  getUserHandlers(): RestHandler[] {
-    return [
-      rest.get(this.routes.notificationPreferences, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(notificationPreferences()));
-      }),
-
-      rest.get(this.routes.productInterests, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(productInterests()));
-      }),
-
-      rest.get(this.routes.customerCoupons, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(customerCoupons()));
-      }),
-
-      rest.get(this.routes.addresses, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(availableAddresses()));
-      }),
-
-      rest.get(this.routes.payments, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(payments()));
-      }),
-
-      rest.post(this.routes.addressVerification, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(
-          ctx.status(201),
-          ctx.json({
-            decision: 'ACCEPT',
-          })
-        );
-      }),
-
-      // authentication call to return the user token
-      rest.post(this.routes.authLogin, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(authToken()));
-      }),
-
-      // authentication call to revoke the user token
-      rest.post(this.routes.authRevoke, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(authRevoke()));
-      }),
-
-      // user call to return the user details after login
-      rest.get(this.routes.user, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(user(true)));
-      }),
-
-      // temp user call to return the user details after login
-      rest.get(this.routes.userTemp, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(user(true)));
-      }),
-
-      // user call to register a new user
-      rest.post(this.routes.users, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(201), ctx.json(user(false)));
-      }),
-    ];
   }
 
   getCmsHandlers(): RestHandler[] {
@@ -393,7 +332,7 @@ export class DefaultHandlers {
       }),
 
       rest.post(this.routes.createPaymentDetails, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(createPaymentDetails(true)));
+        return res(ctx.status(200), ctx.json(createPaymentDetails({ defaultPayment: true, id: DEFAULT_PAYMENT_ID })));
       }),
 
       rest.put(this.routes.setCartPaymentDetails, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
@@ -477,7 +416,7 @@ export class DefaultHandlers {
         return res(ctx.status(200));
       }),
       rest.patch(this.routes.users, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        return res(ctx.status(200), ctx.json(user(true)));
+        return res(ctx.status(200), ctx.json(createUser()));
       }),
       rest.put(this.routes.userUpdatePassword, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
         return res(ctx.status(200));
@@ -519,7 +458,7 @@ export class DefaultHandlers {
   getAllHandlers(): RestHandler[] {
     return [
       ...getBaseHandlers(this.routes),
-      ...this.getUserHandlers(),
+      ...getUserHandlers(this.routes),
       ...this.getCmsHandlers(),
       ...this.getSearchHandlers(),
       ...this.getProductHandlers(),

@@ -1,18 +1,29 @@
 import { Occ } from '@spartacus/core';
+import { createLanguage, languages } from '../languages';
+import { createCurrency, currencies } from '../general/currencies';
+
+export const createBaseStore = (additionalData?: Occ.BaseStore): Occ.BaseStore => {
+  return {
+    currencies: currencies().currencies,
+    defaultCurrency: createCurrency(),
+    languages: languages().languages,
+    defaultLanguage: createLanguage(),
+    ...additionalData,
+  };
+};
 
 export const createBaseSite = (additionalData?: Occ.BaseSite): Occ.BaseSite => {
   return {
-    defaultLanguage: { isocode: 'en' },
-    stores: [
-      {
-        currencies: [{ isocode: 'USD' }, { isocode: 'CHF' }],
-        defaultCurrency: { isocode: 'USD' },
-        defaultLanguage: { isocode: 'en' },
-        languages: [{ isocode: 'en' }, { isocode: 'de' }, { isocode: 'fr' }, { isocode: 'it' }],
-      },
-    ],
+    channel: '',
+    defaultLanguage: createLanguage(),
+    defaultPreviewCatalogId: '',
+    defaultPreviewCategoryCode: '',
+    defaultPreviewProductCode: '',
+    locale: '',
+    name: '',
+    theme: '',
     uid: 'electronics-spa',
-    urlEncodingAttributes: ['storefront', 'language', 'currency'],
+    stores: [createBaseStore()],
     urlPatterns: [
       '(?i)^https?://[^/]+(/[^?]*)?\\?(.*\\&)?(site=electronics-spa)(|\\&.*)$',
       '(?i)^https?://electronics-spa\\.[^/]+(|/.*|\\?.*)$',
@@ -22,6 +33,8 @@ export const createBaseSite = (additionalData?: Occ.BaseSite): Occ.BaseSite => {
       '(?i)^https?://[^/]+/electronics-spa(|/.|\\?.)$',
       '(?i)^https?://[^/]+/electronics-spa(|/.*|\\?.*)$',
     ],
+    urlEncodingAttributes: ['storefront', 'language', 'currency'],
+    requiresAuthentication: false,
     ...additionalData,
   };
 };

@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { Occ, Price, PriceType } from '@spartacus/core';
 import { LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
 import { createAddress } from '../account/addresses';
-import { createPaymentDetails } from '../account/payments';
+import { createPaymentDetails, DEFAULT_PAYMENT_ID } from '../account/payments';
 import { CartUserType, getUserForCart } from '../commerce/cart';
 import { createDeliveryCost, createDeliveryMode } from '../commerce/delivery-mode';
 import { createPromotion } from '../commerce/promotion';
@@ -133,7 +133,7 @@ export const createOrder = (
     deliveryCost: createDeliveryCost(),
     deliveryItemsQuantity: 1,
     deliveryMode: createDeliveryMode('standard', 'Standard Delivery'),
-    paymentInfo: createPaymentDetails(true),
+    paymentInfo: createPaymentDetails({ defaultPayment: true, id: DEFAULT_PAYMENT_ID }),
     totalItems,
     totalDiscounts: productPrice(
       freeOrder ? 0 : faker.datatype.number({ min: 10, max: 100, precision: 0.1 }),

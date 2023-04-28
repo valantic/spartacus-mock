@@ -1,6 +1,6 @@
 import { Occ } from '@spartacus/core';
-import { getSharedAddress } from '../account/addresses';
-import { createPaymentDetails } from '../account/payments';
+import { createAddress } from '../account/addresses';
+import { createPaymentDetails, DEFAULT_PAYMENT_ID } from '../account/payments';
 import { createDeliveryMode } from './delivery-mode';
 
 import PriceType = Occ.PriceType;
@@ -9,7 +9,7 @@ export const getCheckoutDetails = (): Occ.Cart => {
   return {
     // @ts-ignore
     type: 'cartWsDTO',
-    deliveryAddress: getSharedAddress(),
+    deliveryAddress: createAddress(),
     deliveryMode: {
       code: 'standard-gross',
       deliveryCost: {
@@ -21,7 +21,10 @@ export const getCheckoutDetails = (): Occ.Cart => {
       description: '3-5 business days',
       name: 'Standard Delivery',
     },
-    paymentInfo: createPaymentDetails(true),
+    paymentInfo: createPaymentDetails({
+      defaultPayment: true,
+      id: DEFAULT_PAYMENT_ID,
+    }),
   };
 };
 
