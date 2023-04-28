@@ -6,9 +6,9 @@ import { createPaymentDetails, DEFAULT_PAYMENT_ID } from '../account/payments';
 import { CartUserType, getUserForCart } from '../commerce/cart';
 import { createDeliveryCost, createDeliveryMode } from '../commerce/delivery-mode';
 import { createVoucher } from '../commerce/voucher';
-import { createProduct } from '../products/product';
-import { productPrice } from '../products/product-price';
+import { createFullProduct } from '../products/product';
 import { createPromotionResult } from '../commerce/promotion';
+import { createPrice } from '../commerce/price';
 
 // needed since Occ.Order seems to have these properties missing
 interface OccOrderExtended extends Occ.Order {
@@ -60,17 +60,15 @@ export const createOrderEntry = (
   returnable?: boolean,
   noReturnableQuantity?: boolean
 ): OccOrderEntryExtended => {
-  const priceInclTax = maxPrice >= 1 ? faker.datatype.number({ min: 1, max: maxPrice, precision: 0.1 }) : 0;
-  const priceExclTax = maxPrice >= 1 ? priceInclTax * 0.923 : 0;
   const quantity = faker.datatype.number({ min: 1, max: 20 });
   const returnableQuantity = noReturnableQuantity ? 0 : faker.datatype.number({ min: 0, max: quantity });
 
   return {
     entryNumber: entryNumber,
     quantity,
-    basePrice: productPrice(priceExclTax, 'USD', PriceType.BUY),
-    totalPrice: productPrice(priceInclTax, 'USD', PriceType.BUY),
-    product: createProduct(),
+    basePrice: createPrice(),
+    totalPrice: createPrice(),
+    product: createFullProduct(),
     updateable: false,
     deliveryMode: createDeliveryMode('standard', 'Standard Delivery'),
     deliveryPointOfService: undefined,
@@ -135,31 +133,11 @@ export const createOrder = (
     deliveryMode: createDeliveryMode('standard', 'Standard Delivery'),
     paymentInfo: createPaymentDetails({ defaultPayment: true, id: DEFAULT_PAYMENT_ID }),
     totalItems,
-    totalDiscounts: productPrice(
-      freeOrder ? 0 : faker.datatype.number({ min: 10, max: 100, precision: 0.1 }),
-      'USD',
-      PriceType.BUY
-    ),
-    subTotal: productPrice(
-      freeOrder ? 0 : faker.datatype.number({ min: 10, max: 2000, precision: 0.1 }),
-      'USD',
-      PriceType.BUY
-    ),
-    totalPrice: productPrice(
-      freeOrder ? 0 : faker.datatype.number({ min: 10, max: 2000, precision: 0.1 }),
-      'USD',
-      PriceType.BUY
-    ),
-    totalPriceWithTax: productPrice(
-      freeOrder ? 0 : faker.datatype.number({ min: 10, max: 2000, precision: 0.1 }),
-      'USD',
-      PriceType.BUY
-    ),
-    totalTax: productPrice(
-      freeOrder ? 0 : faker.datatype.number({ min: 10, max: 100, precision: 0.1 }),
-      'USD',
-      PriceType.BUY
-    ),
+    totalDiscounts: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
+    subTotal: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
+    totalPrice: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
+    totalPriceWithTax: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
+    totalTax: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
     returnable: faker.datatype.boolean(),
     cancellable: false,
     user: getUserForCart(cartUserType),
@@ -167,10 +145,6 @@ export const createOrder = (
     status: faker.helpers.arrayElement(orderStatusOptions),
     statusDisplay: faker.helpers.arrayElement(orderStatusDisplayOptions),
     placed: faker.date.past(),
-    total: productPrice(
-      freeOrder ? 0 : faker.datatype.number({ min: 10, max: 100, precision: 0.1 }),
-      'USD',
-      PriceType.BUY
-    ),
+    total: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
   };
 };

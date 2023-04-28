@@ -9,7 +9,6 @@ import { createFutureStock, createProductStock } from './product-stock';
 import { createPromotion } from '../commerce/promotion';
 import { createProductReference } from './product-references';
 import { reviewList } from './product-reviews';
-import { ProductModifier } from '../../types';
 
 export const activeTabItems = [
   'ProductDetailsTabComponent',
@@ -18,6 +17,9 @@ export const activeTabItems = [
   'deliveryTab',
 ];
 
+/**
+ * Gets a Base Set of Product Data
+ */
 export const createBaseProduct = (additionalData?: Occ.Product): Occ.Product => {
   return {
     code: faker.random.numeric(6),
@@ -106,9 +108,9 @@ export const createBaseProduct = (additionalData?: Occ.Product): Occ.Product => 
 };
 
 /**
- * Gets a FULL product data response.
+ * Gets a Full Set of Product Data
  */
-export const createProduct = (additionalData?: Occ.Product, modifier?: ProductModifier): Occ.Product => {
+export const createFullProduct = (additionalData?: Occ.Product): Occ.Product => {
   return {
     ...createBaseProduct(),
     availableForPickup: true,

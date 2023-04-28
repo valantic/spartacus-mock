@@ -1,8 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
+import { PriceModifier } from '../../types';
 
-export const createPrice = (additionalData?: Occ.Price): Occ.Price => {
-  const value = faker.datatype.number({ min: 1, max: 9999, precision: 0.05 });
+export const createPrice = (additionalData?: Occ.Price, modifier?: PriceModifier): Occ.Price => {
+  const value = modifier?.value || faker.datatype.number({ min: 1, max: 9999, precision: 0.05 });
 
   return {
     currencyIso: 'CHF',

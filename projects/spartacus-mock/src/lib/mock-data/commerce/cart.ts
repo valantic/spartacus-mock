@@ -1,15 +1,14 @@
 import { faker } from '@faker-js/faker';
-import { Occ, Promotion, Stock } from '@spartacus/core';
+import { Occ, Stock } from '@spartacus/core';
 import { ActiveCartEntry, LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
 import { image } from '../media/image';
 import { OccOrderEntryExtended } from '../order/order';
-import { createProduct } from '../products/product';
+import { createFullProduct } from '../products/product';
 
-import ImageType = Occ.ImageType;
 import PriceType = Occ.PriceType;
 
 import OrderEntry = Occ.OrderEntry;
-import { productPrice } from '../products/product-price';
+import { createPrice } from './price';
 
 export enum CartUserType {
   OCC_USER_ID_ANONYMOUS = 'anonymous',
@@ -193,20 +192,20 @@ const savedCartData = (userType: CartUserType): Occ.Cart => {
         },
         quantity: 1,
         statusSummaryList: [],
-        totalPrice: productPrice(),
+        totalPrice: createPrice(),
         updateable: true,
       },
     ],
     guid: '22579b1a-9bb8-4c34-82fa-c71bb402a4d5',
     net: false,
     pickupItemsQuantity: 0,
-    productDiscounts: productPrice(),
-    subTotal: productPrice(),
-    totalDiscounts: productPrice(),
+    productDiscounts: createPrice(),
+    subTotal: createPrice(),
+    totalDiscounts: createPrice(),
     totalItems: 0,
-    totalPrice: productPrice(),
-    totalPriceWithTax: productPrice(),
-    totalTax: productPrice(),
+    totalPrice: createPrice(),
+    totalPriceWithTax: createPrice(),
+    totalTax: createPrice(),
     user: getUserForCart(userType),
     description: 'undefined',
     // name consists out of 'wishlist' and user id and must match user id from user.ts
@@ -462,7 +461,7 @@ function getCartOrderEntry(
     cancellableQuantity: 0,
     configurationInfos: [],
     entryNumber: index,
-    product: createProduct({ code: productCode }),
+    product: createFullProduct({ code: productCode }),
     quantity,
     returnableQuantity: 0,
     statusSummaryList: [],

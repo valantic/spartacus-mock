@@ -1,18 +1,16 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { ReturnRequest, ReturnRequestEntry, ReturnRequestList } from '@spartacus/order/root';
+import { ReturnRequest, ReturnRequestList } from '@spartacus/order/root';
 import { CartUserType } from '../commerce/cart';
-import { productPrice } from '../products/product-price';
 import { createOrder, createOrderEntry } from './order';
-
-// import { ReturnReasons, ReturnRequestStatusMap } from '@models/order';
+import { createPrice } from '../commerce/price';
 
 const createReturnRequestEntry = (entryNumber: number): Occ.ReturnRequestEntry => {
   const productCode = faker.datatype.number({ min: 100000, max: 999999 }).toString();
   return {
     orderEntry: createOrderEntry(entryNumber, productCode, 500),
     expectedQuantity: 1,
-    refundAmount: productPrice(faker.datatype.number({ min: 10, max: 500 })),
+    refundAmount: createPrice(),
   };
 };
 
@@ -31,9 +29,9 @@ export const getOrderReturn = (numEntries?: number, orderId?: string): Occ.Retur
     returnLabelDownloadUrl: '/download-url',
     rma: faker.datatype.number({ min: 100000, max: 999999 }).toString(),
     // status: faker.helpers.arrayElement(returnRequestStatusOptions),
-    deliveryCost: productPrice(faker.datatype.number({ min: 0, max: 50 })),
-    subTotal: productPrice(faker.datatype.number({ min: 50, max: 4000 })),
-    totalPrice: productPrice(faker.datatype.number({ min: 50, max: 4000 })),
+    deliveryCost: createPrice(),
+    subTotal: createPrice(),
+    totalPrice: createPrice(),
   };
 };
 

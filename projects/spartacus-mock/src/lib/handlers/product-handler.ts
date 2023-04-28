@@ -1,7 +1,7 @@
 import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
 import { productReferenceList } from '../mock-data/products/product-references';
 import { createReview, reviewList } from '../mock-data/products/product-reviews';
-import { createProduct } from '../mock-data/products/product';
+import { createFullProduct } from '../mock-data/products/product';
 import { productSearchPage } from '../mock-data/search/search';
 import { readSearchParams, readUrlParams } from '../utils/request-params';
 
@@ -44,7 +44,7 @@ export const getProductHandlers = (routes: any): RestHandler[] => {
     rest.get(routes.product, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const productCode = readUrlParams(req, 'productCode');
 
-      return res(ctx.status(200), ctx.json(createProduct({ code: productCode })));
+      return res(ctx.status(200), ctx.json(createFullProduct({ code: productCode })));
     }),
   ];
 };

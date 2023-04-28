@@ -87,6 +87,6 @@ export interface ImageModifier {
   height?: number;
 }
 
-export interface ProductModifier {
-  fieldSet?: string;
+export interface PriceModifier {
+  value?: number;
 }

@@ -2,7 +2,7 @@ import { Occ } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
 import { createPagination } from '../general/pagination';
 import { createSort } from '../general/sort';
-import { createProduct } from '../products/product';
+import { createFullProduct } from '../products/product';
 
 export const createProductInterestEntry = (additionalData?: Occ.ProductInterestEntry): Occ.ProductInterestEntry => {
   return {
@@ -17,7 +17,7 @@ export const createProductInterestEntryRelation = (
   additionalData?: Occ.ProductInterestEntryRelation
 ): Occ.ProductInterestEntryRelation => {
   return {
-    product: createProduct(),
+    product: createFullProduct(),
     productInterestEntry: [createProductInterestEntry()],
     ...additionalData,
   };

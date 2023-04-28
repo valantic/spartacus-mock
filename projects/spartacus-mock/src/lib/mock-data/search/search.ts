@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import { createSortModel } from '../general/sort';
 import { createFacet } from './facet';
 import { createPaginationModel } from '../general/pagination';
-import { createProduct } from '../products/product';
+import { createFullProduct } from '../products/product';
 import { ProductSearchPageModifier, SearchStateModifier } from '../../types';
 import { createBreadcrumb } from './breadcrumb';
 
@@ -63,7 +63,7 @@ export const productSearchPage = (
           }
         : undefined
     ),
-    products: new Array(numberOfResults).fill(null).map(() => createProduct()),
+    products: new Array(numberOfResults).fill(null).map(() => createFullProduct()),
     sorts: [
       createSortModel({ code: 'relevance', name: 'Relevance', selected: modifier?.sort === 'relevance' }),
       createSortModel({ code: 'topRated', name: 'Top Rated', selected: modifier?.sort === 'topRated' }),
