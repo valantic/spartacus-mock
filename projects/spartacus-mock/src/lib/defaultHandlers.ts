@@ -1,16 +1,13 @@
 import { faker } from '@faker-js/faker';
 import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
-import { updateLocalStorage } from './defaultLocalStorage';
 import { getDefaultRoutes } from './defaultRoutes';
 import { availableAddresses, createAddress } from './mock-data/account/addresses';
 import { customerCoupons } from './mock-data/account/customer-coupons';
 import { notificationPreferences } from './mock-data/account/notification-preferences';
 import { createPaymentDetails, payments } from './mock-data/account/payments';
 import { productInterests } from './mock-data/account/product-interests';
-import { savedCartResult } from './mock-data/account/saved-cart';
 import { authRevoke, authToken } from './mock-data/auth/auth';
 import { user } from './mock-data/auth/user';
-import { baseSites } from './mock-data/base-sites/base-sites';
 import {
   CartUserType,
   addToCart,
@@ -33,177 +30,99 @@ import {
   navMainLinkComponents,
   productDetailTabComponents,
 } from './mock-data/components/components';
-import { consentTemplates, createConsentTemplate } from './mock-data/consent-templates/consent-templates';
-import { countries } from './mock-data/general/countries';
-import { currencies } from './mock-data/general/currencies';
-import { regions } from './mock-data/general/regions';
-import { titles } from './mock-data/general/titles';
-import { languages } from './mock-data/languages/languages';
+import { createConsentTemplate } from './mock-data/consent-templates/consent-templates';
 import { createOrder } from './mock-data/order/order';
 import { getOrders } from './mock-data/order/order-history';
-import { contentPages } from './mock-data/pages';
-import { homePage } from './mock-data/pages/home';
-import { productCategoryPage } from './mock-data/pages/product-category';
-import { productDetailPage } from './mock-data/pages/product-detail';
+import { OccCmsPageExtended } from './mock-data/pages';
 import { activeTabItems, product, productBaseData, productClassifications } from './mock-data/products/product';
 import { productReferences } from './mock-data/products/product-references';
 import { productReviewSubmit, productReviews } from './mock-data/products/product-reviews';
 import { productSearch } from './mock-data/products/product-search';
 import { searchSuggestions } from './mock-data/search/search-suggestions';
-import { store, stores, storesAndRegionsStoreCount } from './mock-data/store-finder/store-finder';
-import { translations } from './mock-data/translations/translations';
 import { Environment } from './types';
+import { savedCartResult } from './mock-data/account/saved-cart';
+import { updateLocalStorage } from './defaultLocalStorage';
+import { store, stores, storesAndRegionsStoreCount } from './mock-data/store-finder/store-finder';
+import { getMockPage } from './utils/mock-page';
+import { getBaseHandlers } from './handlers/base-handler';
 
-export function getDefaultHandlers(environment: Environment): RestHandler[] {
-  const routes = getDefaultRoutes(environment);
+export class DefaultHandlers {
+  readonly routes;
 
-  return [
-    /**
-     * General Calls ***************************************************************************************************
-     */
-    rest.get(routes.baseSites, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(baseSites()));
-    }),
+  constructor(protected environment: Environment) {
+    this.routes = getDefaultRoutes(environment);
+  }
 
-    // general calls to get options for several data types
-    rest.get(routes.languages, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(languages()));
-    }),
+  getUserHandlers(): RestHandler[] {
+    return [
+      rest.get(this.routes.notificationPreferences, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(notificationPreferences()));
+      }),
 
-    rest.get(routes.currencies, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(currencies()));
-    }),
+      rest.get(this.routes.productInterests, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(productInterests()));
+      }),
 
-    rest.get(routes.titles, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(titles()));
-    }),
+      rest.get(this.routes.customerCoupons, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(customerCoupons()));
+      }),
 
-    // call to get all title options
-    rest.get(routes.countries, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(countries()));
-    }),
+      rest.get(this.routes.addresses, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(availableAddresses()));
+      }),
 
-    rest.get(routes.regions, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(regions()));
-    }),
+      rest.get(this.routes.payments, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(payments()));
+      }),
 
-    rest.get(routes.consentTemplates, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(consentTemplates()));
-    }),
-
-    // custom call to return the translation files
-    rest.get(routes.i18n, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const language = typeof req.params['language'] === 'string' ? req.params['language'] : '';
-      const namespace = typeof req.params['namespace'] === 'string' ? req.params['namespace'] : '';
-
-      return res(ctx.status(200), ctx.json(translations(language, namespace)));
-    }),
-
-    /**
-     * User related calls **********************************************************************************************
-     */
-
-    // user based calls
-    rest.get(routes.notificationPreferences, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(notificationPreferences()));
-    }),
-
-    rest.get(routes.productInterests, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(productInterests()));
-    }),
-
-    rest.get(routes.customerCoupons, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(customerCoupons()));
-    }),
-
-    rest.get(routes.addresses, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(availableAddresses()));
-    }),
-
-    rest.get(routes.payments, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(payments()));
-    }),
-
-    rest.post(routes.addressVerification, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(
-        ctx.status(201),
-        ctx.json({
-          decision: 'ACCEPT',
-        })
-      );
-    }),
-
-    // authentication call to return the user token
-    rest.post(routes.authLogin, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(authToken()));
-    }),
-
-    // authentication call to revoke the user token
-    rest.post(routes.authRevoke, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(authRevoke()));
-    }),
-
-    // user call to return the user details after login
-    rest.get(routes.user, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(user(true)));
-    }),
-
-    // temp user call to return the user details after login
-    rest.get(routes.userTemp, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(user(true)));
-    }),
-
-    // user call to register a new user
-    rest.post(routes.users, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201), ctx.json(user(false)));
-    }),
-
-    /**
-     * CMS Calls *******************************************************************************************************
-     */
-
-    // cms pages call
-    rest.get(routes.pages, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const pageLabelOrId = req.url.searchParams?.get('pageLabelOrId');
-      const pageType = req.url.searchParams?.get('pageType');
-
-      if (pageType === 'ContentPage' && pageLabelOrId) {
-        let pageLabelOrIdSanitized = pageLabelOrId;
-
-        if (pageLabelOrId.startsWith('/')) {
-          pageLabelOrIdSanitized = pageLabelOrId.slice(1, pageLabelOrId.length);
-        }
-
-        for (const mockPageLabelOrId in contentPages()) {
-          if (pageLabelOrIdSanitized.startsWith(mockPageLabelOrId)) {
-            return res(ctx.status(200), ctx.json(contentPages()[mockPageLabelOrId]));
-          }
-        }
-
-        // return 404 page as the page was not found
+      rest.post(this.routes.addressVerification, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
         return res(
-          ctx.status(404),
+          ctx.status(201),
           ctx.json({
-            errors: [
-              {
-                message: `No content page found matching the provided label or id: ${pageLabelOrId}`,
-                type: 'CMSItemNotFoundError',
-              },
-            ],
+            decision: 'ACCEPT',
           })
         );
-      } else if (pageType === 'CategoryPage') {
-        // it's a product category page
-        return res(ctx.status(200), ctx.json(productCategoryPage()));
-      } else if (pageType === 'ProductPage') {
-        // its a product detail page
-        const productCode = req.url.searchParams?.get('code');
+      }),
 
-        return res(ctx.status(200), ctx.json(productDetailPage(productCode || '')));
-      } else if (!pageType && !pageLabelOrId) {
-        // its the homepage
-        return res(ctx.status(200), ctx.json(homePage()));
-      } else {
+      // authentication call to return the user token
+      rest.post(this.routes.authLogin, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(authToken()));
+      }),
+
+      // authentication call to revoke the user token
+      rest.post(this.routes.authRevoke, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(authRevoke()));
+      }),
+
+      // user call to return the user details after login
+      rest.get(this.routes.user, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(user(true)));
+      }),
+
+      // temp user call to return the user details after login
+      rest.get(this.routes.userTemp, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(user(true)));
+      }),
+
+      // user call to register a new user
+      rest.post(this.routes.users, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(201), ctx.json(user(false)));
+      }),
+    ];
+  }
+
+  getCmsHandlers(): RestHandler[] {
+    return [
+      rest.get(this.routes.pages, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const pageType: string = req.url.searchParams?.get('pageType') || '';
+        const pageLabelOrId: string = req.url.searchParams?.get('pageLabelOrId') || '';
+        const productCode: string = req.url.searchParams?.get('code') || '';
+        const page: OccCmsPageExtended | null = getMockPage(pageType, pageLabelOrId, productCode);
+
+        if (page) {
+          return res(ctx.status(200), ctx.json(page));
+        }
+
         // eslint-disable-next-line  no-console
         console.error(
           `The page with the pageLabelOrId ${pageLabelOrId} and the page type ${pageType} has not been mocked yet`
@@ -219,374 +138,396 @@ export function getDefaultHandlers(environment: Environment): RestHandler[] {
             ],
           })
         );
-      }
-    }),
+      }),
 
-    // additional component data call
-    rest.get(routes.components, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const componentIds = req.url.searchParams?.get('componentIds') || '';
-      const componentIdsArray = componentIds.split(',');
+      // additional component data call
+      rest.get(this.routes.components, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const componentIds = req.url.searchParams?.get('componentIds') || '';
+        const componentIdsArray = componentIds.split(',');
 
-      if (activeTabItems.some((tabUid) => componentIds.indexOf(tabUid) > -1)) {
-        return res(ctx.status(200), ctx.json(productDetailTabComponents(componentIdsArray || [])));
-      } else if (componentIds.indexOf('PersonalDetailsLink') > -1) {
-        // special call to get the MyAccount Dropdown Link components
-        return res(ctx.status(200), ctx.json(myAccountLinkComponents(componentIdsArray || [])));
-      } else if (componentIds.indexOf('nav_main_') > -1) {
-        // special call to get the Nav Main Link components
-        return res(ctx.status(200), ctx.json(navMainLinkComponents(componentIdsArray || [])));
-      } else if (componentIds.indexOf('footer_') > -1) {
-        // special call to get the Footer Link components
-        return res(ctx.status(200), ctx.json(footerLinkComponents(componentIdsArray || [])));
-      } else {
-        // generall call to get the Main Navigation Link components
-        return res(ctx.status(200), ctx.json(components(componentIdsArray || [])));
-      }
-    }),
+        if (activeTabItems.some((tabUid) => componentIds.indexOf(tabUid) > -1)) {
+          return res(ctx.status(200), ctx.json(productDetailTabComponents(componentIdsArray || [])));
+        } else if (componentIds.indexOf('PersonalDetailsLink') > -1) {
+          // special call to get the MyAccount Dropdown Link components
+          return res(ctx.status(200), ctx.json(myAccountLinkComponents(componentIdsArray || [])));
+        } else if (componentIds.indexOf('nav_main_') > -1) {
+          // special call to get the Nav Main Link components
+          return res(ctx.status(200), ctx.json(navMainLinkComponents(componentIdsArray || [])));
+        } else if (componentIds.indexOf('footer_') > -1) {
+          // special call to get the Footer Link components
+          return res(ctx.status(200), ctx.json(footerLinkComponents(componentIdsArray || [])));
+        } else {
+          // general call to get the Main Navigation Link components
+          return res(ctx.status(200), ctx.json(components(componentIdsArray || [])));
+        }
+      }),
+    ];
+  }
 
-    /**
-     * Search Calls ****************************************************************************************************
-     */
+  getSearchHandlers(): RestHandler[] {
+    return [
+      rest.get(this.routes.searchSuggestions, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const term = req.url.searchParams.get('term') || '';
+        const max = req.url.searchParams.get('max') || '';
 
-    // Search suggestions
-    rest.get(routes.searchSuggestions, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const term = req.url.searchParams.get('term') || '';
-      const max = req.url.searchParams.get('max') || '';
+        return res(ctx.status(200), ctx.json(searchSuggestions(term, parseInt(max))));
+      }),
+    ];
+  }
 
-      return res(ctx.status(200), ctx.json(searchSuggestions(term, parseInt(max))));
-    }),
+  getProductHandlers(): RestHandler[] {
+    return [
+      // product references call
+      rest.get(this.routes.productReferences, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const referenceType = req.url.searchParams.get('referenceType') || '';
 
-    /**
-     * Product Calls ***************************************************************************************************
-     */
+        return res(ctx.status(200), ctx.json(productReferences(referenceType, faker.datatype.number(100))));
+      }),
 
-    // product references call
-    rest.get(routes.productReferences, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const referenceType = req.url.searchParams.get('referenceType') || '';
+      // product reviews call
+      rest.get(this.routes.productReviews, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(productReviews()));
+      }),
 
-      return res(ctx.status(200), ctx.json(productReferences(referenceType, faker.datatype.number(100))));
-    }),
+      rest.post(this.routes.productReviews, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(productReviewSubmit()));
+      }),
 
-    // product reviews call
-    rest.get(routes.productReviews, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(productReviews()));
-    }),
+      rest.get(this.routes.productSearch, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const query = req.url.searchParams.get('query') || '';
+        const pageSize = parseInt(req.url.searchParams.get('pageSize') || '');
+        const sort = req.url.searchParams.get('sort') || '';
+        const currentPage = parseInt(req.url.searchParams.get('currentPage') || '0');
 
-    rest.post(routes.productReviews, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(productReviewSubmit()));
-    }),
+        return res(ctx.status(200), ctx.json(productSearch(query, pageSize, sort, currentPage, pageSize === 5)));
+      }),
 
-    rest.get(routes.productSearch, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const query = req.url.searchParams.get('query') || '';
-      const pageSize = parseInt(req.url.searchParams.get('pageSize') || '');
-      const sort = req.url.searchParams.get('sort') || '';
-      const currentPage = parseInt(req.url.searchParams.get('currentPage') || '0');
+      // product general data call (used for product call scopes default / list / details)
+      rest.get(this.routes.product, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const productCode = typeof req.params['productCode'] === 'string' ? req.params['productCode'] : '';
+        const requestFields = req.url.searchParams?.get('fields') || '';
 
-      return res(ctx.status(200), ctx.json(productSearch(query, pageSize, sort, currentPage, pageSize === 5)));
-    }),
+        if (requestFields.indexOf('variantOptions') > -1) {
+          // fields=name,purchasable,baseOptions(DEFAULT),baseProduct,variantOptions(DEFAULT),variantType
+          return res(ctx.status(200), ctx.json(productBaseData()));
+        } else if (requestFields.indexOf('classifications') > -1) {
+          // fields=classifications
+          return res(ctx.status(200), ctx.json(productClassifications()));
+        } else {
+          // all other scopes
+          return res(ctx.status(200), ctx.json(product(productCode, 1)));
+        }
+      }),
+    ];
+  }
 
-    // product general data call (used for product call scopes default / list / details)
-    rest.get(routes.product, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const productCode = typeof req.params['productCode'] === 'string' ? req.params['productCode'] : '';
-      const requestFields = req.url.searchParams?.get('fields') || '';
+  getCartHandlers(): RestHandler[] {
+    return [
+      // cart call to return the cart details for a cart containing products
+      rest.get(this.routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+        const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+        const requestFields = req.url.searchParams?.get('fields') || '';
 
-      if (requestFields.indexOf('variantOptions') > -1) {
-        // fields=name,purchasable,baseOptions(DEFAULT),baseProduct,variantOptions(DEFAULT),variantType
-        return res(ctx.status(200), ctx.json(productBaseData()));
-      } else if (requestFields.indexOf('classifications') > -1) {
-        // fields=classifications
-        return res(ctx.status(200), ctx.json(productClassifications()));
-      } else {
-        // all other scopes
-        return res(ctx.status(200), ctx.json(product(productCode, 1)));
-      }
-    }),
+        if (requestFields.indexOf('deliveryAddress') > -1) {
+          return res(ctx.status(201), ctx.json(getCheckoutDetails()));
+        } else {
+          return res(ctx.status(201), ctx.json(getCart(cartId, getUserTypeById(userId))));
+        }
+      }),
 
-    /**
-     * Cart Calls ******************************************************************************************************
-     */
+      // cart call to return multiple carts for normal cart, wishlist and saved cart
+      rest.get(this.routes.carts, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
 
-    // cart call to return the cart details for a cart containing products
-    rest.get(routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
-      const requestFields = req.url.searchParams?.get('fields') || '';
+        return res(ctx.status(200), ctx.json(getCarts(getUserTypeById(userId))));
+      }),
 
-      if (requestFields.indexOf('deliveryAddress') > -1) {
-        return res(ctx.status(201), ctx.json(getCheckoutDetails()));
-      } else {
+      // post call to get either cart data for the different scopes
+      rest.post(this.routes.carts, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+        let cartId = '';
+
+        // oldCartId is only present if the call is done after login to merge the anonymous cart with the user cart
+        const oldCartId = req.url.searchParams?.get('oldCartId') || '';
+
+        if (oldCartId) {
+          cartId = '8e2cb9e8-406e-4746-a398-f663a88730f3';
+        }
+
         return res(ctx.status(201), ctx.json(getCart(cartId, getUserTypeById(userId))));
-      }
-    }),
+      }),
 
-    // cart call to return multiple carts for normal cart, wishlist and saved cart
-    rest.get(routes.carts, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+      // patch call to save a cart
+      rest.patch(this.routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        console.log('FOO');
+        const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+        const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
 
-      return res(ctx.status(200), ctx.json(getCarts(getUserTypeById(userId))));
-    }),
+        return res(
+          ctx.status(200),
+          ctx.json({
+            savedCartData: getCart(cartId, getUserTypeById(userId)),
+          })
+        );
+      }),
 
-    // post call to get either cart data for the different scopes
-    rest.post(routes.carts, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
-      let cartId = '';
-      // oldCartId is only present if the call is done after login to merge the anonymous cart with the user cart
-      const oldCartId = req.url.searchParams?.get('oldCartId') || '';
+      // cart post call to add entries to the cart
+      rest.post(this.routes.addEntries, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const { quantity, product } = await req.json();
 
-      if (oldCartId) {
-        cartId = '8e2cb9e8-406e-4746-a398-f663a88730f3';
-      }
+        return res(ctx.status(201), ctx.json(addToCart(product, quantity)));
+      }),
 
-      return res(ctx.status(201), ctx.json(getCart(cartId, getUserTypeById(userId))));
-    }),
+      // cart patch call to update entries in the cart
+      rest.patch(this.routes.updateEntries, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+        const entryNumber = parseInt(typeof req.params['entryNumber'] === 'string' ? req.params['entryNumber'] : '');
+        const { quantity } = await req.json();
 
-    // patch call to save a cart
-    rest.patch(routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+        return res(ctx.status(200), ctx.json(updateEntries(cartId, entryNumber, quantity)));
+      }),
 
-      return res(
-        ctx.status(200),
-        ctx.json({
-          savedCartData: getCart(cartId, getUserTypeById(userId)),
-        })
-      );
-    }),
+      // cart delete call to update entries in the cart
+      rest.delete(this.routes.removeEntries, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+        const entryNumber = parseInt(typeof req.params['entryNumber'] === 'string' ? req.params['entryNumber'] : '');
 
-    // cart post call to add entries to the cart
-    rest.post(routes.addEntries, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const { quantity, product } = await req.json();
+        removeEntries(cartId, entryNumber);
+        return res(ctx.status(200));
+      }),
 
-      return res(ctx.status(201), ctx.json(addToCart(product, quantity)));
-    }),
+      rest.delete(this.routes.deleteCart, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        deleteCart();
 
-    // cart patch call to update entries in the cart
-    rest.patch(routes.updateEntries, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const entryNumber = parseInt(typeof req.params['entryNumber'] === 'string' ? req.params['entryNumber'] : '');
-      const { quantity } = await req.json();
+        return res(ctx.status(201));
+      }),
 
-      return res(ctx.status(200), ctx.json(updateEntries(cartId, entryNumber, quantity)));
-    }),
+      rest.put(this.routes.addEmail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        setGuestCheckout(true);
 
-    // cart delete call to update entries in the cart
-    rest.delete(routes.removeEntries, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const entryNumber = parseInt(typeof req.params['entryNumber'] === 'string' ? req.params['entryNumber'] : '');
+        return res(ctx.status(200), ctx.json({}));
+      }),
 
-      removeEntries(cartId, entryNumber);
-      return res(ctx.status(200));
-    }),
+      // cart save call which is done, if the currently loggedIn user does not have a wishlist cart
+      rest.patch(this.routes.saveCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const name = req.url.searchParams?.get('saveCartName') || '';
+        const description = req.url.searchParams?.get('saveCartDescription') || '';
 
-    rest.delete(routes.deleteCart, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      deleteCart();
+        // Clears the active cart
+        setTimeout(() => updateLocalStorage('activeCartEntries', []));
+        return res(
+          ctx.status(201),
+          ctx.json({
+            savedCartData: {
+              ...getCart('', CartUserType.OCC_USER_ID_CURRENT),
+              name,
+              description,
+            },
+          })
+        );
+      }),
 
-      return res(ctx.status(201));
-    }),
+      rest.post(this.routes.cartVoucher, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const voucherId = req.url.searchParams?.get('voucherId') || '';
 
-    rest.put(routes.addEmail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      setGuestCheckout(true);
+        addVoucher(voucherId);
+        return res(ctx.status(200));
+      }),
 
-      return res(ctx.status(200), ctx.json({}));
-    }),
+      rest.delete(this.routes.cartVoucherRemove, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const voucherCode = typeof req.params['voucherCode'] === 'string' ? req.params['voucherCode'] : '';
 
-    // cart save call which is done, if the currently loggedIn user does not have a wishlist cart
-    rest.patch(routes.saveCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const name = req.url.searchParams?.get('saveCartName') || '';
-      const description = req.url.searchParams?.get('saveCartDescription') || '';
+        deleteVoucher(voucherCode);
+        return res(ctx.status(200));
+      }),
+    ];
+  }
 
-      // Clears the active cart
-      setTimeout(() => updateLocalStorage('activeCartEntries', []));
-      return res(
-        ctx.status(201),
-        ctx.json({
-          savedCartData: {
-            ...getCart('', CartUserType.OCC_USER_ID_CURRENT),
-            name,
-            description,
-          },
-        })
-      );
-    }),
+  getCheckoutHandlers(): RestHandler[] {
+    return [
+      rest.put(
+        this.routes.setDeliveryAddress,
+        async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+          return res(ctx.status(201));
+        }
+      ),
 
-    rest.post(routes.cartVoucher, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const voucherId = req.url.searchParams?.get('voucherId') || '';
+      rest.post(
+        this.routes.createDeliveryAddress,
+        async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+          const body = await req.json();
+          return res(ctx.status(201), ctx.json(body));
+        }
+      ),
 
-      addVoucher(voucherId);
-      return res(ctx.status(200));
-    }),
+      rest.delete(
+        this.routes.removeDeliveryAddress,
+        (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+          return res(ctx.status(201));
+        }
+      ),
 
-    rest.delete(routes.cartVoucherRemove, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const voucherCode = typeof req.params['voucherCode'] === 'string' ? req.params['voucherCode'] : '';
+      rest.delete(this.routes.deliveryMode, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(201));
+      }),
 
-      deleteVoucher(voucherCode);
-      return res(ctx.status(200));
-    }),
+      rest.put(this.routes.deliveryMode, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(201));
+      }),
 
-    /**
-     * Checkout Calls **************************************************************************************************
-     */
-    rest.put(routes.setDeliveryAddress, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201));
-    }),
+      rest.get(this.routes.deliveryModes, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(getDeliveryModes()));
+      }),
 
-    rest.post(routes.createDeliveryAddress, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const body = await req.json();
-      return res(ctx.status(201), ctx.json(body));
-    }),
+      rest.get(this.routes.cardTypes, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(getCardTypes()));
+      }),
 
-    rest.delete(routes.removeDeliveryAddress, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201));
-    }),
+      rest.get(this.routes.paymentProviderSubInfo, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(getPaymentSopRequest()));
+      }),
 
-    rest.delete(routes.deliveryMode, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201));
-    }),
+      rest.post(this.routes.sopMockProcess, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.text(getPaymentSopResponse()));
+      }),
 
-    rest.put(routes.deliveryMode, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201));
-    }),
+      rest.post(this.routes.createPaymentDetails, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(createPaymentDetails(true)));
+      }),
 
-    rest.get(routes.deliveryModes, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(getDeliveryModes()));
-    }),
+      rest.put(this.routes.setCartPaymentDetails, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json({}));
+      }),
+    ];
+  }
 
-    rest.get(routes.cardTypes, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(getCardTypes()));
-    }),
+  getOrderHandlers(): RestHandler[] {
+    return [
+      rest.post(this.routes.placeOrder, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
 
-    rest.get(routes.paymentProviderSubInfo, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(getPaymentSopRequest()));
-    }),
+        const responseData = createOrder(getUserTypeById(userId));
 
-    rest.post(routes.sopMockProcess, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.text(getPaymentSopResponse()));
-    }),
+        setGuestCheckout(false);
+        deleteCart();
 
-    rest.post(routes.createPaymentDetails, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createPaymentDetails(true)));
-    }),
+        return res(ctx.status(200), ctx.json(responseData));
+      }),
 
-    rest.put(routes.setCartPaymentDetails, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json({}));
-    }),
+      rest.get(this.routes.orderHistory, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(getOrders()));
+      }),
 
-    /**
-     * Order Calls *****************************************************************************************************
-     */
-    rest.post(routes.placeOrder, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+      rest.get(this.routes.orderDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(createOrder(CartUserType.OCC_USER_ID_CURRENT)));
+      }),
 
-      const responseData = createOrder(getUserTypeById(userId));
+      /*rest.post(this.routes.orderReturnsSubmit, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(getOrderReturn()));
+      }),
 
-      setGuestCheckout(false);
-      deleteCart();
+      rest.get(this.routes.orderReturns, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(getOrderReturn()));
+      }),
 
-      return res(ctx.status(200), ctx.json(responseData));
-    }),
+      rest.get(this.routes.orderReturnsSubmit, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(getReturnRequestList(10)));
+      }),
 
-    rest.get(routes.orderHistory, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(getOrders()));
-    }),
+      rest.get(this.routes.returnListOfOrder, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const orderId = typeof req.params['orderId'] === 'string' ? req.params['orderId'] : '';
 
-    rest.get(routes.orderDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createOrder(CartUserType.OCC_USER_ID_CURRENT)));
-    }),
+        return res(ctx.status(200), ctx.json(getReturnRequestList(faker.datatype.number({ min: 0, max: 5 }), orderId)));
+      }),*/
+    ];
+  }
 
-    /*rest.post(routes.orderReturnsSubmit, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(getOrderReturn()));
-    }),
+  getAccountHandlers(): RestHandler[] {
+    return [
+      rest.patch(this.routes.restoreSavedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+        const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
 
-    rest.get(routes.orderReturns, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(getOrderReturn()));
-    }),
+        return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
+      }),
+      rest.post(this.routes.cloneSavedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+        const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+        const name = req.url.searchParams?.get('name') || '';
 
-    rest.get(routes.orderReturnsSubmit, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(getReturnRequestList(10)));
-    }),
+        return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId, name)));
+      }),
+      rest.get(this.routes.savedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+        const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
 
-    rest.get(routes.returnListOfOrder, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const orderId = typeof req.params['orderId'] === 'string' ? req.params['orderId'] : '';
+        return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
+      }),
+      rest.patch(this.routes.addressDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200));
+      }),
+      rest.delete(this.routes.addressDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200));
+      }),
+      rest.post(this.routes.addresses, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(201), ctx.json(createAddress()));
+      }),
+      rest.delete(this.routes.paymentDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200));
+      }),
+      rest.patch(this.routes.users, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(user(true)));
+      }),
+      rest.put(this.routes.userUpdatePassword, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200));
+      }),
+      rest.put(this.routes.userUpdateLoginId, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200));
+      }),
+      rest.delete(this.routes.consentDetail, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200));
+      }),
+      rest.post(this.routes.consents, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(createConsentTemplate()));
+      }),
+      rest.delete(this.routes.users, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200));
+      }),
+      rest.patch(this.routes.notificationPreference, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200));
+      }),
+    ];
+  }
 
-      return res(ctx.status(200), ctx.json(getReturnRequestList(faker.datatype.number({ min: 0, max: 5 }), orderId)));
-    }),*/
+  getStoreFinderHandlers(): RestHandler[] {
+    return [
+      rest.get(this.routes.storescounts, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(storesAndRegionsStoreCount()));
+      }),
 
-    /**
-     * Account Calls *****************************************************************************************************
-     */
-    rest.patch(routes.restoreSavedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+      rest.get(this.routes.stores, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(stores()));
+      }),
 
-      return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
-    }),
-    rest.post(routes.cloneSavedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
-      const name = req.url.searchParams?.get('name') || '';
+      rest.get(this.routes.store, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+        return res(ctx.status(200), ctx.json(store()));
+      }),
+    ];
+  }
 
-      return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId, name)));
-    }),
-    rest.get(routes.savedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
-
-      return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
-    }),
-    rest.patch(routes.addressDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
-    }),
-    rest.delete(routes.addressDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
-    }),
-    rest.post(routes.addresses, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201), ctx.json(createAddress()));
-    }),
-    rest.delete(routes.paymentDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
-    }),
-    rest.patch(routes.users, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(user(true)));
-    }),
-    rest.put(routes.userUpdatePassword, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
-    }),
-    rest.put(routes.userUpdateLoginId, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
-    }),
-    rest.delete(routes.consentDetail, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
-    }),
-    rest.post(routes.consents, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createConsentTemplate(true)));
-    }),
-    rest.delete(routes.users, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
-    }),
-    rest.patch(routes.notificationPreference, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
-    }),
-
-    // media route to load sap related media's from project's dev server
-    // TODO check if mediaCommerce is needed in default handlers
-    /*rest.get(routes.mediaCommerce, (req: RestRequest, res: ResponseComposition, _ctx: RestContext) => {
-      return res(redirect(`https://sparta.webdev.v-zug.ch${req.url.pathname}`, 301));
-    }),*/
-
-    /**
-     * Store Finder ****************************************************************************************************
-     */
-
-    rest.get(routes.storescounts, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(storesAndRegionsStoreCount()));
-    }),
-
-    rest.get(routes.stores, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(stores()));
-    }),
-
-    rest.get(routes.store, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(store()));
-    }),
-  ];
+  getAllHandlers(): RestHandler[] {
+    return [
+      ...getBaseHandlers(this.routes),
+      ...this.getUserHandlers(),
+      ...this.getCmsHandlers(),
+      ...this.getSearchHandlers(),
+      ...this.getProductHandlers(),
+      ...this.getCartHandlers(),
+      ...this.getCheckoutHandlers(),
+      ...this.getOrderHandlers(),
+      ...this.getAccountHandlers(),
+      ...this.getStoreFinderHandlers(),
+    ];
+  }
 }

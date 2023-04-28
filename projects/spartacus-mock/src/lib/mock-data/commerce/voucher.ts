@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { Voucher } from '@spartacus/cart/base/root';
 import { LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
-import { getCurrency } from '../general/currencies';
+import { createCurrency } from '../general/currencies';
 
 export const createVoucher = (code?: string, name?: string, description?: string) => {
   return {
     code: code || faker.datatype.uuid(),
-    currency: getCurrency('USD', 'US Dollar', '$'),
+    currency: createCurrency(),
     description: description || faker.lorem.paragraphs(1),
     freeShipping: faker.datatype.boolean(),
     name: name || faker.lorem.words(4),

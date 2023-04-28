@@ -1,18 +1,29 @@
 import { Occ } from '@spartacus/core';
 
-import Currency = Occ.Currency;
-
-export const getCurrency = (isocode: string, name: string, symbol: string): Currency => {
+export const createCurrency = (additionalData?: Occ.Currency): Occ.Currency => {
   return {
     active: true,
-    isocode,
-    name,
-    symbol,
+    isocode: 'USD',
+    name: 'US Dollar',
+    symbol: '$',
+    ...additionalData,
   };
 };
 
-export const currencies = () => {
+export const currencies = (): Occ.CurrencyList => {
   return {
-    currencies: [getCurrency('USD', 'US Dollar', '$'), getCurrency('CHF', 'Swiss Franc', 'CHF')],
+    currencies: [
+      createCurrency(),
+      createCurrency({
+        isocode: 'EUR',
+        name: 'Euro',
+        symbol: '€',
+      }),
+      createCurrency({
+        isocode: 'CHF',
+        name: 'Schweizer Franken',
+        symbol: 'CHF',
+      }),
+    ],
   };
 };

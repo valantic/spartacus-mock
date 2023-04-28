@@ -1,10 +1,11 @@
 import { SetupWorker, rest, setupWorker } from 'msw';
-import { getDefaultHandlers } from './defaultHandlers';
+import { DefaultHandlers } from './defaultHandlers';
 import { createLocalstorage } from './defaultLocalStorage';
 import { defaultPassThroughUrls } from './defaultPassthrough';
 import { MockConfig } from './types';
 
 function getWorker(config: MockConfig): SetupWorker {
+  const defaultHandlers = new DefaultHandlers(config.environment);
   // create default local storage if it does not exist
   createLocalstorage(config);
 
@@ -16,11 +17,12 @@ function getWorker(config: MockConfig): SetupWorker {
         return req.passthrough();
       });
     }),
-    // TODO decide how default and custom handlers should be merged
-    ...getDefaultHandlers(config.environment),
 
-    // TODO figure out if overriding default handlers with custom handlers is possible
-    ...(config.handlers || [])
+    // Custom Handlers (overwrite default handlers)
+    ...(config.handlers || []),
+
+    // Default Handlers
+    ...defaultHandlers.getAllHandlers()
   );
 }
 
