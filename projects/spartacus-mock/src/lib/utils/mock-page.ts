@@ -1,13 +1,10 @@
-import { contentPages, OccCmsPageExtended, Pages } from '../mock-data/pages';
+import { contentPages, Pages } from '../mock-data/pages';
 import { homePage } from '../mock-data/pages/home';
 import { productCategoryPage } from '../mock-data/pages/product-category';
 import { productDetailPage } from '../mock-data/pages/product-detail';
+import { Occ } from '@spartacus/core';
 
-export function getMockPage(
-  pageType?: string,
-  pageLabelOrId?: string,
-  productCode?: string
-): OccCmsPageExtended | null {
+export function getMockPage(pageType?: string, pageLabelOrId?: string, productCode?: string): Occ.CMSPage | null {
   const pages: Pages = contentPages();
 
   if (!pageType && !pageLabelOrId) {

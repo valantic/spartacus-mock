@@ -35,30 +35,23 @@ import { accountNotificationPreferenceSlots } from '../slots/account-notificatio
 import { accountCouponsSlots } from '../slots/account-coupons-slots';
 import { accountQuickOrderSlots } from '../slots/account-quick-order-slots';
 
-import PageRobots = Occ.PageRobots;
-
-export interface OccCmsPageExtended extends Occ.CMSPage {
-  uuid: string;
-}
-
 export interface Pages {
-  [key: string]: OccCmsPageExtended;
+  [key: string]: Occ.CMSPage;
 }
 
-const contentPage = (
+export const contentPage = (
   pageLabelOrId: string,
   title: string,
   contentSlots: ContentSlot[],
   template?: string
-): OccCmsPageExtended => {
+): Occ.CMSPage => {
   return {
     uid: `contentPage${faker.datatype.uuid()}`,
-    uuid: faker.datatype.uuid(),
     title,
     template: template ?? 'ContentPage1Template',
     typeCode: 'ContentPage',
     name: title ?? 'dummy title',
-    robotTag: PageRobots.INDEX_FOLLOW,
+    robotTag: Occ.PageRobots.INDEX_FOLLOW,
     contentSlots: {
       contentSlot: [...headerSlots(breadcrumbComponent()), ...contentSlots, ...footerSlots()],
     },

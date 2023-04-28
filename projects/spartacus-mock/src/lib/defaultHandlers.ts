@@ -28,8 +28,7 @@ import {
 import { createConsentTemplate } from './mock-data/consent-templates/consent-templates';
 import { createOrder } from './mock-data/order/order';
 import { getOrders } from './mock-data/order/order-history';
-import { OccCmsPageExtended } from './mock-data/pages';
-import { activeTabItems, product, productBaseData, productClassifications } from './mock-data/products/product';
+import { product, productBaseData, productClassifications } from './mock-data/products/product';
 import { productReferences } from './mock-data/products/product-references';
 import { productReviewSubmit, productReviews } from './mock-data/products/product-reviews';
 import { productSearch } from './mock-data/products/product-search';
@@ -42,65 +41,13 @@ import { getMockPage } from './utils/mock-page';
 import { getBaseHandlers } from './handlers/base-handler';
 import { getUserHandlers } from './handlers/user-handler';
 import { createUser } from './mock-data/auth/user';
+import { getCmsHandlers } from './handlers/cms-handler';
 
 export class DefaultHandlers {
   readonly routes;
 
   constructor(protected environment: Environment) {
     this.routes = getDefaultRoutes(environment);
-  }
-
-  getCmsHandlers(): RestHandler[] {
-    return [
-      rest.get(this.routes.pages, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        const pageType: string = req.url.searchParams?.get('pageType') || '';
-        const pageLabelOrId: string = req.url.searchParams?.get('pageLabelOrId') || '';
-        const productCode: string = req.url.searchParams?.get('code') || '';
-        const page: OccCmsPageExtended | null = getMockPage(pageType, pageLabelOrId, productCode);
-
-        if (page) {
-          return res(ctx.status(200), ctx.json(page));
-        }
-
-        // eslint-disable-next-line  no-console
-        console.error(
-          `The page with the pageLabelOrId ${pageLabelOrId} and the page type ${pageType} has not been mocked yet`
-        );
-        return res(
-          ctx.status(404),
-          ctx.json({
-            errors: [
-              {
-                message: `The page with the pageLabelOrId ${pageLabelOrId} and the page type ${pageType} has not been mocked yet`,
-                type: 'CMSItemNotFoundError',
-              },
-            ],
-          })
-        );
-      }),
-
-      // additional component data call
-      rest.get(this.routes.components, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-        const componentIds = req.url.searchParams?.get('componentIds') || '';
-        const componentIdsArray = componentIds.split(',');
-
-        if (activeTabItems.some((tabUid) => componentIds.indexOf(tabUid) > -1)) {
-          return res(ctx.status(200), ctx.json(productDetailTabComponents(componentIdsArray || [])));
-        } else if (componentIds.indexOf('PersonalDetailsLink') > -1) {
-          // special call to get the MyAccount Dropdown Link components
-          return res(ctx.status(200), ctx.json(myAccountLinkComponents(componentIdsArray || [])));
-        } else if (componentIds.indexOf('nav_main_') > -1) {
-          // special call to get the Nav Main Link components
-          return res(ctx.status(200), ctx.json(navMainLinkComponents(componentIdsArray || [])));
-        } else if (componentIds.indexOf('footer_') > -1) {
-          // special call to get the Footer Link components
-          return res(ctx.status(200), ctx.json(footerLinkComponents(componentIdsArray || [])));
-        } else {
-          // general call to get the Main Navigation Link components
-          return res(ctx.status(200), ctx.json(components(componentIdsArray || [])));
-        }
-      }),
-    ];
   }
 
   getSearchHandlers(): RestHandler[] {
@@ -459,7 +406,7 @@ export class DefaultHandlers {
     return [
       ...getBaseHandlers(this.routes),
       ...getUserHandlers(this.routes),
-      ...this.getCmsHandlers(),
+      ...getCmsHandlers(this.routes),
       ...this.getSearchHandlers(),
       ...this.getProductHandlers(),
       ...this.getCartHandlers(),
