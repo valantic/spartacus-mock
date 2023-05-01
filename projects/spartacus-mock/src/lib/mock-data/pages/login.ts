@@ -6,8 +6,6 @@ import { flexTypeComponent } from '../components/default/flex-type-component';
 import { footerSlots } from '../slots/footer-slots';
 import { headerSlots } from '../slots/header-slots';
 
-import PageRobots = Occ.PageRobots;
-
 export const loginPage = (): Occ.CMSPage => {
   return {
     uid: `loginPage${faker.datatype.number(1000)}`,
@@ -15,7 +13,7 @@ export const loginPage = (): Occ.CMSPage => {
     template: 'LoginPageTemplate',
     typeCode: 'ContentPage',
     name: 'Content Page',
-    robotTag: PageRobots.INDEX_FOLLOW,
+    robotTag: Occ.PageRobots.INDEX_FOLLOW,
     contentSlots: {
       contentSlot: [
         ...headerSlots(breadcrumbComponent()),
@@ -37,7 +35,7 @@ export const registerPage = (): Occ.CMSPage => {
     template: 'AccountPageTemplate',
     typeCode: 'ContentPage',
     name: 'Register Page',
-    robotTag: PageRobots.INDEX_FOLLOW,
+    robotTag: Occ.PageRobots.INDEX_FOLLOW,
     contentSlots: {
       contentSlot: [
         ...headerSlots(breadcrumbComponent()),

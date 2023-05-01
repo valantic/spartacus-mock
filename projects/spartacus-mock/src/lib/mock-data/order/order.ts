@@ -1,28 +1,14 @@
 import { faker } from '@faker-js/faker';
-import { Occ, Price, PriceType } from '@spartacus/core';
+import { Occ } from '@spartacus/core';
 import { LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
 import { createAddress } from '../account/addresses';
 import { createPaymentDetails, DEFAULT_PAYMENT_ID } from '../account/payments';
 import { CartUserType, getUserForCart } from '../commerce/cart';
-import { createDeliveryCost, createDeliveryMode } from '../commerce/delivery-mode';
+import { createDeliveryMode } from '../commerce/delivery-mode';
 import { createVoucher } from '../commerce/voucher';
 import { createFullProduct } from '../products/product';
 import { createPromotionResult } from '../commerce/promotion';
 import { createPrice } from '../commerce/price';
-
-// needed since Occ.Order seems to have these properties missing
-interface OccOrderExtended extends Occ.Order {
-  returnable?: boolean;
-  cancellable?: boolean;
-  placed?: Date;
-  total?: Price;
-}
-
-// needed since Occ.OrderEntry seems to have these properties missing
-export interface OccOrderEntryExtended extends Occ.OrderEntry {
-  returnableQuantity?: number;
-  cancellableQuantity?: number;
-}
 
 const orderStatusDisplayOptions = [
   'cancelled',
@@ -53,52 +39,42 @@ const orderStatusOptions = [
   'CANCELLED',
 ];
 
-export const createOrderEntry = (
-  entryNumber: number,
-  productCode: string,
-  maxPrice: number = 1000,
-  returnable?: boolean,
-  noReturnableQuantity?: boolean
-): OccOrderEntryExtended => {
-  const quantity = faker.datatype.number({ min: 1, max: 20 });
-  const returnableQuantity = noReturnableQuantity ? 0 : faker.datatype.number({ min: 0, max: quantity });
-
+export const createOrderEntry = (additionalData?: Occ.OrderEntry): Occ.OrderEntry => {
   return {
-    entryNumber: entryNumber,
-    quantity,
     basePrice: createPrice(),
-    totalPrice: createPrice(),
-    product: createFullProduct(),
-    updateable: false,
-    deliveryMode: createDeliveryMode('standard', 'Standard Delivery'),
+    deliveryMode: createDeliveryMode({ code: 'standard', name: 'Standard Delivery' }),
     deliveryPointOfService: undefined,
-    returnableQuantity,
+    entryNumber: faker.datatype.number({ min: 100000, max: 999999 }),
+    product: createFullProduct(),
+    quantity: faker.datatype.number({ min: 1, max: 20 }),
+    totalPrice: createPrice(),
+    updateable: false,
+    statusSummaryList: [],
+    configurationInfos: [],
+    ...additionalData,
   };
 };
 
-const createConsignmentEntry = (
-  entryNumber: number,
-  maxPrice: number = 1000,
-  returnable?: boolean,
-  noReturnableQuantity?: boolean
-) => {
-  const productCode = faker.datatype.number({ min: 100000, max: 999999 }).toString();
+export const createConsignmentEntry = (additionalData?: Occ.ConsignmentEntry): Occ.ConsignmentEntry => {
   return {
-    orderEntry: createOrderEntry(entryNumber, productCode, maxPrice, returnable, noReturnableQuantity),
+    orderEntry: createOrderEntry(),
     quantity: 1,
+    ...additionalData,
   };
 };
 
-const createConsignment = (numEntries?: number) => {
+export const createConsignment = (additionalData?: Occ.Consignment): Occ.Consignment => {
   return {
     code: 'cons' + faker.datatype.uuid(),
-    entries: new Array(numEntries || faker.datatype.number({ min: 1, max: 10 }))
+    deliveryPointOfService: undefined,
+    entries: new Array(faker.datatype.number({ min: 1, max: 10 }))
       .fill(null)
-      .map((_entry, index) => createConsignmentEntry(index + 1, 1000, index > 1, index === 1)),
+      .map((_entry, index) => createConsignmentEntry()),
+    shippingAddress: createAddress(),
     status: faker.helpers.arrayElement(orderStatusOptions),
     statusDate: faker.date.past(),
-    statusDisplay: faker.helpers.arrayElement(orderStatusDisplayOptions),
-    shippingAddress: createAddress(),
+    trackingID: faker.random.numeric(10),
+    ...additionalData,
   };
 };
 
@@ -108,29 +84,24 @@ export const createOrder = (
   numEntries?: number,
   numVouchers?: number,
   freeOrder?: boolean
-): OccOrderExtended => {
+): Occ.Order => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
   const totalItems = mockData.activeCartEntries.length || numEntries || faker.datatype.number({ min: 3, max: 10 });
-  const productCode = faker.datatype.number({ min: 100000, max: 999999 }).toString();
-  const genericEntries = new Array(totalItems)
-    .fill(null)
-    .map((_entry, index) => createOrderEntry(index + 1, productCode, freeOrder ? 0 : 1000, index > 1, index === 1));
+  const genericEntries = new Array(totalItems).fill(null).map((_entry, index) => createOrderEntry());
 
   return {
     code: code || faker.datatype.number({ min: 100000, max: 999999 }).toString(),
     calculated: true,
     guid: faker.datatype.uuid(),
     entries: genericEntries,
-    consignments: new Array(faker.datatype.number({ min: 1, max: 3 }))
-      .fill(null)
-      .map(() => createConsignment(faker.datatype.number({ min: 1, max: 5 }))),
+    consignments: new Array(faker.datatype.number({ min: 1, max: 3 })).fill(null).map(() => createConsignment()),
     appliedOrderPromotions: new Array(numVouchers).fill(null).map(() => createPromotionResult()),
     appliedProductPromotions: new Array(numVouchers).fill(null).map(() => createPromotionResult()),
-    appliedVouchers: new Array(numVouchers).fill(null).map(() => createVoucher(faker.datatype.string(10))),
+    appliedVouchers: new Array(numVouchers).fill(null).map(() => createVoucher()),
     deliveryAddress: createAddress(),
-    deliveryCost: createDeliveryCost(),
+    deliveryCost: createPrice(),
     deliveryItemsQuantity: 1,
-    deliveryMode: createDeliveryMode('standard', 'Standard Delivery'),
+    deliveryMode: createDeliveryMode({ code: 'standard', name: 'Standard Delivery' }),
     paymentInfo: createPaymentDetails({ defaultPayment: true, id: DEFAULT_PAYMENT_ID }),
     totalItems,
     totalDiscounts: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
@@ -138,13 +109,9 @@ export const createOrder = (
     totalPrice: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
     totalPriceWithTax: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
     totalTax: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
-    returnable: faker.datatype.boolean(),
-    cancellable: false,
     user: getUserForCart(cartUserType),
     created: faker.date.past(),
     status: faker.helpers.arrayElement(orderStatusOptions),
     statusDisplay: faker.helpers.arrayElement(orderStatusDisplayOptions),
-    placed: faker.date.past(),
-    total: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
   };
 };

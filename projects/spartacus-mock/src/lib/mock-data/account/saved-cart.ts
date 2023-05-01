@@ -1,17 +1,13 @@
-import { getCart, getUserTypeById } from '../commerce/cart';
 import { Occ } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
-
-interface SavedCartResult {
-  savedCartData: Occ.Cart;
-}
+import { getCart, getUserTypeById } from '../commerce/cart';
 
 export const savedCartResult = (
   cartId: string,
   userId: string,
   name?: string,
   description?: string
-): SavedCartResult => {
+): Occ.SaveCartResult => {
   return {
     savedCartData: {
       ...getCart(cartId, getUserTypeById(userId), true),

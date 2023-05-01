@@ -4,11 +4,12 @@ import { ReturnRequest, ReturnRequestList } from '@spartacus/order/root';
 import { CartUserType } from '../commerce/cart';
 import { createOrder, createOrderEntry } from './order';
 import { createPrice } from '../commerce/price';
+import { createFullProduct } from '../products/product';
 
 const createReturnRequestEntry = (entryNumber: number): Occ.ReturnRequestEntry => {
   const productCode = faker.datatype.number({ min: 100000, max: 999999 }).toString();
   return {
-    orderEntry: createOrderEntry(entryNumber, productCode, 500),
+    orderEntry: createOrderEntry({ entryNumber, product: createFullProduct({ code: productCode }), quantity: 500 }),
     expectedQuantity: 1,
     refundAmount: createPrice(),
   };

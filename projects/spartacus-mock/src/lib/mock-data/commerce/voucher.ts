@@ -2,18 +2,20 @@ import { faker } from '@faker-js/faker';
 import { Voucher } from '@spartacus/cart/base/root';
 import { LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
 import { createCurrency } from '../general/currencies';
+import { Occ } from '@spartacus/core';
 
-export const createVoucher = (code?: string, name?: string, description?: string) => {
+export const createVoucher = (additionalData?: Occ.Voucher): Occ.Voucher => {
   return {
-    code: code || faker.datatype.uuid(),
+    code: faker.datatype.uuid(),
     currency: createCurrency(),
-    description: description || faker.lorem.paragraphs(1),
+    description: faker.lorem.paragraphs(1),
     freeShipping: faker.datatype.boolean(),
-    name: name || faker.lorem.words(4),
+    name: faker.lorem.words(4),
     value: 0,
     valueFormatted: 'USD 0.00',
     valueString: '0',
-    voucherCode: code,
+    voucherCode: faker.random.numeric(10),
+    ...additionalData,
   };
 };
 
