@@ -8,7 +8,7 @@ import { readSearchParams, readUrlParams } from '../utils/request-params';
 export const getProductHandlers = (routes: any): RestHandler[] => {
   return [
     rest.get(routes.productReferences, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const referenceType = req.url.searchParams.get('referenceType') || '';
+      const referenceType = readSearchParams(req, 'referenceType');
 
       return res(ctx.status(200), ctx.json(productReferenceList({ referenceType })));
     }),

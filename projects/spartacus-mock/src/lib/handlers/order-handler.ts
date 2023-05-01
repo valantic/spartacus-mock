@@ -2,12 +2,12 @@ import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from
 import { createOrder } from '../mock-data/order/order';
 import { CartUserType, deleteCart, getUserTypeById, setGuestCheckout } from '../mock-data/commerce/cart';
 import { getOrders } from '../mock-data/order/order-history';
+import { readUrlParams } from '../utils/request-params';
 
 export const getOrderHandlers = (routes: any): RestHandler[] => {
   return [
     rest.post(routes.placeOrder, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
-
+      const userId = readUrlParams(req, 'userId');
       const responseData = createOrder(getUserTypeById(userId));
 
       setGuestCheckout(false);

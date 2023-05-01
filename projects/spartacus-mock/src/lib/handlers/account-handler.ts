@@ -3,25 +3,26 @@ import { savedCartResult } from '../mock-data/account/saved-cart';
 import { createAddress } from '../mock-data/account/addresses';
 import { createUser } from '../mock-data/auth/user';
 import { createConsentTemplate } from '../mock-data/consent-templates/consent-templates';
+import { readSearchParams, readUrlParams } from '../utils/request-params';
 
 export const getAccountHandlers = (routes: any): RestHandler[] => {
   return [
     rest.patch(routes.restoreSavedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+      const cartId = readUrlParams(req, 'cartId');
+      const userId = readUrlParams(req, 'userId');
 
       return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
     }),
     rest.post(routes.cloneSavedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
-      const name = req.url.searchParams?.get('name') || '';
+      const cartId = readUrlParams(req, 'cartId');
+      const userId = readUrlParams(req, 'userId');
+      const name = readSearchParams(req, 'name');
 
       return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId, name)));
     }),
     rest.get(routes.savedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+      const cartId = readUrlParams(req, 'cartId');
+      const userId = readUrlParams(req, 'userId');
 
       return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
     }),

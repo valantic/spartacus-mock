@@ -13,14 +13,15 @@ import {
 } from '../mock-data/commerce/cart';
 import { updateLocalStorage } from '../defaultLocalStorage';
 import { addVoucher, deleteVoucher } from '../mock-data/commerce/voucher';
+import { readSearchParams, readUrlParams } from '../utils/request-params';
 
 export const getCartHandlers = (routes: any): RestHandler[] => {
   return [
     // cart call to return the cart details for a cart containing products
     rest.get(routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
-      const requestFields = req.url.searchParams?.get('fields') || '';
+      const cartId = readUrlParams(req, 'cartId');
+      const userId = readUrlParams(req, 'userId');
+      const requestFields = readSearchParams(req, 'fields');
 
       if (requestFields.indexOf('deliveryAddress') > -1) {
         return res(ctx.status(201), ctx.json(getCheckoutDetails()));
@@ -31,18 +32,18 @@ export const getCartHandlers = (routes: any): RestHandler[] => {
 
     // cart call to return multiple carts for normal cart, wishlist and saved cart
     rest.get(routes.carts, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+      const userId = readUrlParams(req, 'userId');
 
       return res(ctx.status(200), ctx.json(getCarts(getUserTypeById(userId))));
     }),
 
     // post call to get either cart data for the different scopes
     rest.post(routes.carts, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
+      const userId = readUrlParams(req, 'userId');
       let cartId = '';
 
       // oldCartId is only present if the call is done after login to merge the anonymous cart with the user cart
-      const oldCartId = req.url.searchParams?.get('oldCartId') || '';
+      const oldCartId = readSearchParams(req, 'oldCartId');
 
       if (oldCartId) {
         cartId = '8e2cb9e8-406e-4746-a398-f663a88730f3';
@@ -53,9 +54,8 @@ export const getCartHandlers = (routes: any): RestHandler[] => {
 
     // patch call to save a cart
     rest.patch(routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      console.log('FOO');
-      const userId = typeof req.params['userId'] === 'string' ? req.params['userId'] : '';
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
+      const cartId = readUrlParams(req, 'cartId');
+      const userId = readUrlParams(req, 'userId');
 
       return res(
         ctx.status(200),
@@ -74,8 +74,8 @@ export const getCartHandlers = (routes: any): RestHandler[] => {
 
     // cart patch call to update entries in the cart
     rest.patch(routes.updateEntries, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const entryNumber = parseInt(typeof req.params['entryNumber'] === 'string' ? req.params['entryNumber'] : '');
+      const cartId = readUrlParams(req, 'cartId');
+      const entryNumber = parseInt(readUrlParams(req, 'entryNumber'));
       const { quantity } = await req.json();
 
       return res(ctx.status(200), ctx.json(updateEntries(cartId, entryNumber, quantity)));
@@ -83,8 +83,8 @@ export const getCartHandlers = (routes: any): RestHandler[] => {
 
     // cart delete call to update entries in the cart
     rest.delete(routes.removeEntries, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = typeof req.params['cartId'] === 'string' ? req.params['cartId'] : '';
-      const entryNumber = parseInt(typeof req.params['entryNumber'] === 'string' ? req.params['entryNumber'] : '');
+      const cartId = readUrlParams(req, 'cartId');
+      const entryNumber = parseInt(readUrlParams(req, 'entryNumber'));
 
       removeEntries(cartId, entryNumber);
       return res(ctx.status(200));
@@ -104,8 +104,8 @@ export const getCartHandlers = (routes: any): RestHandler[] => {
 
     // cart save call which is done, if the currently loggedIn user does not have a wishlist cart
     rest.patch(routes.saveCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const name = req.url.searchParams?.get('saveCartName') || '';
-      const description = req.url.searchParams?.get('saveCartDescription') || '';
+      const name = readSearchParams(req, 'saveCartName');
+      const description = readSearchParams(req, 'saveCartDescription');
 
       // Clears the active cart
       setTimeout(() => updateLocalStorage('activeCartEntries', []));
@@ -122,14 +122,14 @@ export const getCartHandlers = (routes: any): RestHandler[] => {
     }),
 
     rest.post(routes.cartVoucher, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const voucherId = req.url.searchParams?.get('voucherId') || '';
+      const voucherId = readSearchParams(req, 'voucherId');
 
       addVoucher(voucherId);
       return res(ctx.status(200));
     }),
 
     rest.delete(routes.cartVoucherRemove, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const voucherCode = typeof req.params['voucherCode'] === 'string' ? req.params['voucherCode'] : '';
+      const voucherCode = readUrlParams(req, 'voucherCode');
 
       deleteVoucher(voucherCode);
       return res(ctx.status(200));

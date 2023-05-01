@@ -9,13 +9,14 @@ import {
   productDetailTabComponents,
 } from '../mock-data/components/components';
 import { Occ } from '@spartacus/core';
+import { readSearchParams } from '../utils/request-params';
 
 export const getCmsHandlers = (routes: any): RestHandler[] => {
   return [
     rest.get(routes.pages, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const pageType: string = req.url.searchParams?.get('pageType') || '';
-      const pageLabelOrId: string = req.url.searchParams?.get('pageLabelOrId') || '';
-      const productCode: string = req.url.searchParams?.get('code') || '';
+      const pageType = readSearchParams(req, 'pageType');
+      const pageLabelOrId = readSearchParams(req, 'pageLabelOrId');
+      const productCode = readSearchParams(req, 'productCode');
       const page: Occ.CMSPage | null = getMockPage(pageType, pageLabelOrId, productCode);
 
       if (page) {
@@ -41,7 +42,7 @@ export const getCmsHandlers = (routes: any): RestHandler[] => {
 
     // additional component data call
     rest.get(routes.components, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const componentIds = req.url.searchParams?.get('componentIds') || '';
+      const componentIds = readSearchParams(req, 'componentIds');
       const componentIdsArray = componentIds.split(',');
 
       if (activeTabItems.some((tabUid) => componentIds.indexOf(tabUid) > -1)) {
