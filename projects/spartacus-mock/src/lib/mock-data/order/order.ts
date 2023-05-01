@@ -78,40 +78,40 @@ export const createConsignment = (additionalData?: Occ.Consignment): Occ.Consign
   };
 };
 
-export const createOrder = (
-  cartUserType: CartUserType,
-  code?: string,
-  numEntries?: number,
-  numVouchers?: number,
-  freeOrder?: boolean
-): Occ.Order => {
+export const createOrder = (additionalData?: Occ.Order): Occ.Order => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
-  const totalItems = mockData.activeCartEntries.length || numEntries || faker.datatype.number({ min: 3, max: 10 });
+
+  const totalItems = mockData.activeCartEntries.length || faker.datatype.number({ min: 3, max: 10 });
   const genericEntries = new Array(totalItems).fill(null).map((_entry, index) => createOrderEntry());
 
   return {
-    code: code || faker.datatype.number({ min: 100000, max: 999999 }).toString(),
+    code: faker.random.numeric(6),
     calculated: true,
     guid: faker.datatype.uuid(),
     entries: genericEntries,
     consignments: new Array(faker.datatype.number({ min: 1, max: 3 })).fill(null).map(() => createConsignment()),
-    appliedOrderPromotions: new Array(numVouchers).fill(null).map(() => createPromotionResult()),
-    appliedProductPromotions: new Array(numVouchers).fill(null).map(() => createPromotionResult()),
-    appliedVouchers: new Array(numVouchers).fill(null).map(() => createVoucher()),
+    appliedOrderPromotions: new Array(faker.datatype.number({ min: 0, max: 3 }))
+      .fill(null)
+      .map(() => createPromotionResult()),
+    appliedProductPromotions: new Array(faker.datatype.number({ min: 0, max: 3 }))
+      .fill(null)
+      .map(() => createPromotionResult()),
+    appliedVouchers: new Array(faker.datatype.number({ min: 0, max: 3 })).fill(null).map(() => createVoucher()),
     deliveryAddress: createAddress(),
     deliveryCost: createPrice(),
     deliveryItemsQuantity: 1,
     deliveryMode: createDeliveryMode({ code: 'standard', name: 'Standard Delivery' }),
     paymentInfo: createPaymentDetails({ defaultPayment: true, id: DEFAULT_PAYMENT_ID }),
     totalItems,
-    totalDiscounts: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
-    subTotal: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
-    totalPrice: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
-    totalPriceWithTax: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
-    totalTax: createPrice(undefined, { value: freeOrder ? 0 : undefined }),
-    user: getUserForCart(cartUserType),
+    totalDiscounts: createPrice(),
+    subTotal: createPrice(),
+    totalPrice: createPrice(),
+    totalPriceWithTax: createPrice(),
+    totalTax: createPrice(),
+    user: getUserForCart(),
     created: faker.date.past(),
     status: faker.helpers.arrayElement(orderStatusOptions),
     statusDisplay: faker.helpers.arrayElement(orderStatusDisplayOptions),
+    ...additionalData,
   };
 };

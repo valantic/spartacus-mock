@@ -1,6 +1,12 @@
 import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
 import { createOrder } from '../mock-data/order/order';
-import { CartUserType, deleteCart, getUserTypeById, setGuestCheckout } from '../mock-data/commerce/cart';
+import {
+  CartUserType,
+  deleteCart,
+  getUserForCart,
+  getUserTypeById,
+  setGuestCheckout,
+} from '../mock-data/commerce/cart';
 import { getOrders } from '../mock-data/order/order-history';
 import { readUrlParams } from '../utils/request-params';
 
@@ -8,7 +14,7 @@ export const getOrderHandlers = (routes: any): RestHandler[] => {
   return [
     rest.post(routes.placeOrder, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const userId = readUrlParams(req, 'userId');
-      const responseData = createOrder(getUserTypeById(userId));
+      const responseData = createOrder({ user: getUserForCart(getUserTypeById(userId)) });
 
       setGuestCheckout(false);
       deleteCart();
@@ -21,7 +27,7 @@ export const getOrderHandlers = (routes: any): RestHandler[] => {
     }),
 
     rest.get(routes.orderDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createOrder(CartUserType.OCC_USER_ID_CURRENT)));
+      return res(ctx.status(200), ctx.json(createOrder({ user: getUserForCart(CartUserType.OCC_USER_ID_CURRENT) })));
     }),
 
     /*rest.post(routes.orderReturnsSubmit, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {

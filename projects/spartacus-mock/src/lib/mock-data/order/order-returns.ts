@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
 import { ReturnRequest, ReturnRequestList } from '@spartacus/order/root';
-import { CartUserType } from '../commerce/cart';
+import { CartUserType, getUserForCart } from '../commerce/cart';
 import { createOrder, createOrderEntry } from './order';
 import { createPrice } from '../commerce/price';
 import { createFullProduct } from '../products/product';
@@ -15,8 +15,6 @@ const createReturnRequestEntry = (entryNumber: number): Occ.ReturnRequestEntry =
   };
 };
 
-// const returnRequestStatusOptions = Object.keys(ReturnRequestStatusMap);
-
 export const getOrderReturn = (numEntries?: number, orderId?: string): Occ.ReturnRequest => {
   const returnEntriesAmount = numEntries || faker.datatype.number({ min: 1, max: 10 });
 
@@ -24,12 +22,11 @@ export const getOrderReturn = (numEntries?: number, orderId?: string): Occ.Retur
     code: `RMA-${faker.datatype.number({ min: 100000, max: 999999 })}`,
     cancellable: false,
     creationTime: faker.date.past(),
-    order: createOrder(CartUserType.OCC_USER_ID_CURRENT, orderId),
+    order: createOrder({ user: getUserForCart(CartUserType.OCC_USER_ID_CURRENT), code: orderId }),
     refundDeliveryCost: false,
     returnEntries: new Array(returnEntriesAmount).fill(null).map((_, index) => createReturnRequestEntry(index)),
     returnLabelDownloadUrl: '/download-url',
     rma: faker.datatype.number({ min: 100000, max: 999999 }).toString(),
-    // status: faker.helpers.arrayElement(returnRequestStatusOptions),
     deliveryCost: createPrice(),
     subTotal: createPrice(),
     totalPrice: createPrice(),
