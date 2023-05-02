@@ -1,16 +1,15 @@
-import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
 import { ContentSlot } from '../../types';
 import { cmsParagraphComponent } from '../components/default/cms-paragraph';
 import { flexTypeComponent } from '../components/default/flex-type-component';
 import { footerNavigationComponent } from '../components/default/footer-navigation';
 import { profileScriptComponent } from '../components/default/profile-script';
 
-export const placeholderContentSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const placeholderContentSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    slotId: 'PlaceholderContentSlot',
+    position: 'PlaceholderContentSlot',
+    name: 'Placeholder Content Slot',
     slotShared: true,
     components: {
       component: [profileScriptComponent()],
@@ -18,12 +17,11 @@ export const placeholderContentSlot = (slotId: string, slotPosition: string, slo
   };
 };
 
-export const footerSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const footerSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    slotId: 'FooterSlot',
+    position: 'Footer',
+    name: 'Footer Slot',
     slotShared: true,
     components: {
       component: [
@@ -40,8 +38,5 @@ export const footerSlot = (slotId: string, slotPosition: string, slotName: strin
 
 export const footerSlots = (): ContentSlot[] => {
   // shared footer slots
-  return [
-    placeholderContentSlot('PlaceholderContentSlot', 'PlaceholderContentSlot', 'Placeholder for Addon tag files'),
-    footerSlot('FooterSlot', 'Footer', 'Footer'),
-  ];
+  return [placeholderContentSlot(), footerSlot()];
 };

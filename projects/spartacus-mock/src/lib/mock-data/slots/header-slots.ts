@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker';
 import { Component, ContentSlot } from '../../types';
 import { categoryNavigationComponent } from '../components/default/category-navigation';
 import { cmsLinkComponent } from '../components/default/cms-link';
