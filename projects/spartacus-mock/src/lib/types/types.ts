@@ -57,6 +57,7 @@ export interface MockConfig {
   handlers?: RestHandler[];
   contentPages?: ContentPages;
   productDetailPage?: Page;
+  productCategoryPage?: Page;
   homePage?: Page;
   headerSlots?: ContentSlot[];
   footerSlots?: ContentSlot[];

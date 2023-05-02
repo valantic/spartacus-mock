@@ -1,5 +1,5 @@
 import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
-import { getMockPage } from '../utils/mock-page';
+import { MockContentPages } from '../utils/mock-page';
 import { activeTabItems } from '../mock-data/products/product';
 import {
   components,
@@ -11,13 +11,13 @@ import {
 import { Occ } from '@spartacus/core';
 import { readSearchParams } from '../utils/request-params';
 
-export const getCmsHandlers = (routes: any): RestHandler[] => {
+export const getCmsHandlers = (routes: any, mockContentPages: MockContentPages): RestHandler[] => {
   return [
     rest.get(routes.pages, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const pageType = readSearchParams(req, 'pageType');
       const pageLabelOrId = readSearchParams(req, 'pageLabelOrId');
       const productCode = readSearchParams(req, 'productCode');
-      const page: Occ.CMSPage | null = getMockPage(pageType, pageLabelOrId, productCode);
+      const page: Occ.CMSPage | null = mockContentPages?.getMockPage(pageType, pageLabelOrId, productCode);
 
       if (page) {
         return res(ctx.status(200), ctx.json(page));

@@ -3,9 +3,11 @@ import { DefaultHandlers } from './defaultHandlers';
 import { createLocalstorage } from './defaultLocalStorage';
 import { defaultPassThroughUrls } from './defaultPassthrough';
 import { MockConfig } from './types';
+import { MockContentPages } from './utils/mock-page';
 
 function getWorker(config: MockConfig): SetupWorker {
-  const defaultHandlers = new DefaultHandlers(config.environment);
+  const mockContentPages = getCustomMockContentPages(config);
+  const defaultHandlers = new DefaultHandlers(config.environment, mockContentPages);
   // create default local storage if it does not exist
   createLocalstorage(config);
 
@@ -24,6 +26,28 @@ function getWorker(config: MockConfig): SetupWorker {
     // Default Handlers
     ...defaultHandlers.getAllHandlers()
   );
+}
+
+function getCustomMockContentPages(config: MockConfig): MockContentPages {
+  const mockContentPages = new MockContentPages();
+
+  if (config.contentPages) {
+    mockContentPages.setCustomContentPages(config.contentPages);
+  }
+
+  if (config.productDetailPage) {
+    mockContentPages.setCustomProductDetailPage(config.productDetailPage);
+  }
+
+  if (config.productCategoryPage) {
+    mockContentPages.setCustomProductCategoryPage(config.productCategoryPage);
+  }
+
+  if (config.homePage) {
+    mockContentPages.setCustomHomePage(config.homePage);
+  }
+
+  return mockContentPages;
 }
 
 export function prepareMock(config: MockConfig): Promise<ServiceWorkerRegistration | undefined> {
