@@ -13,7 +13,7 @@ import { cmsPageContentSlots } from '../slots/cms-page-content-slots';
 import { cmsPageContentSlotsNotFound } from '../slots/cms-page-content-slots-not-found';
 import { exampleContentSlots } from '../slots/example-content-slots';
 import { footerSlots } from '../slots/footer-slots';
-import { headerSlots } from '../slots/header-slots';
+import { bottomHeaderSlot, headerSlots } from '../slots/header-slots';
 import { orderConfirmationContentSlots } from '../slots/order-confirmation-content-slots';
 import { storeFinderOrderSlots } from '../slots/store-finder-slots';
 import { cmsSearchContentSlots } from '../slots/search-content-slots';
@@ -53,7 +53,7 @@ export const contentPage = (
     name: title ?? 'dummy title',
     robotTag: Occ.PageRobots.INDEX_FOLLOW,
     contentSlots: {
-      contentSlot: [...headerSlots(breadcrumbComponent()), ...contentSlots, ...footerSlots()],
+      contentSlot: [...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]), ...contentSlots, ...footerSlots()],
     },
     label: pageLabelOrId,
   };

@@ -6,13 +6,14 @@ import { miniCartComponent } from '../components/default/mini-cart';
 import { searchBoxComponent } from '../components/default/search-box';
 import { simpleBannerComponent } from '../components/default/simple-banner';
 import { siteContextComponent } from '../components/default/site-context';
+import { Occ } from '@spartacus/core';
+import { flexTypeComponent } from '../components/default/flex-type-component';
 
-export const siteLogoSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const siteLogoSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    slotId: 'siteLogoSlot',
+    position: 'SiteLogo',
+    name: 'Site Logo Slot',
     slotShared: true,
     components: {
       component: [simpleBannerComponent('/')],
@@ -20,12 +21,11 @@ export const siteLogoSlot = (slotId: string, slotPosition: string, slotName: str
   };
 };
 
-export const miniCartSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const miniCartSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    slotId: 'MiniCartSlot',
+    position: 'MiniCart',
+    name: 'Mini Cart Slot',
     slotShared: true,
     components: {
       component: [miniCartComponent()],
@@ -33,12 +33,11 @@ export const miniCartSlot = (slotId: string, slotPosition: string, slotName: str
   };
 };
 
-export const homePageNavLinkSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const homepageNavLinkSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    slotId: 'homepageNavLinkSlot',
+    position: 'HomepageNavLink',
+    name: 'Homepage Nav Link Slot',
     slotShared: true,
     components: {
       component: [
@@ -58,23 +57,15 @@ export const homePageNavLinkSlot = (slotId: string, slotPosition: string, slotNa
   };
 };
 
-export const headerLinksSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const headerLinksSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    slotId: 'HeaderLinksSlot',
+    position: 'HeaderLinks',
+    name: 'Header Links Slot',
     slotShared: true,
     components: {
-      // TODO extend with header links if needed
       component: [
-        {
-          uid: 'MyAccountComponent',
-          uuid: 'eyJpdGVtSWQiOiJNeUFjY291bnRDb21wb25lbnQiLCJjYXRhbG9nSWQiOiJlbGVjdHJvbmljcy1zcGFDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
-          typeCode: 'NavigationComponent',
-          modifiedtime: '2021-11-18T00:08:02.544Z',
-          name: 'My Account',
-          container: 'false',
+        flexTypeComponent('NavigationComponent', undefined, {
           styleClass: 'accNavComponent',
           navigationNode: {
             uid: 'MyAccountNavNode',
@@ -266,18 +257,17 @@ export const headerLinksSlot = (slotId: string, slotPosition: string, slotName: 
             ],
             title: 'My Account',
           },
-        },
+        }),
       ],
     },
   };
 };
 
-export const searchBoxSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const searchBoxSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    slotId: 'SearchBoxSlot',
+    position: 'SearchBox',
+    name: 'Search Box Slot',
     slotShared: true,
     components: {
       component: [searchBoxComponent()],
@@ -285,27 +275,24 @@ export const searchBoxSlot = (slotId: string, slotPosition: string, slotName: st
   };
 };
 
-export const topHeaderSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const topHeaderSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    slotId: 'TopHeaderSlot',
+    position: 'TopHeaderSlot',
+    name: 'Top Header SLot',
     slotShared: true,
     components: {
-      // TODO extend with header links if needed
-      component: [] as Component[],
+      component: [],
     },
   };
 };
 
 // containing language / currency selector
-export const siteContextSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const siteContextSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    slotId: 'SiteContextSlot',
+    position: 'SiteContext',
+    name: 'Site Context Slot',
     slotShared: true,
     components: {
       component: [siteContextComponent('LANGUAGE'), siteContextComponent('CURRENCY')],
@@ -314,12 +301,11 @@ export const siteContextSlot = (slotId: string, slotPosition: string, slotName: 
 };
 
 // containg storefinder / contact us / help meta nav links
-export const siteLinksSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const siteLinksSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    slotId: 'SiteLinksSlot',
+    position: 'SiteLinks',
+    name: 'Site Links Slot',
     slotShared: true,
     components: {
       component: [
@@ -366,12 +352,11 @@ export const siteLinksSlot = (slotId: string, slotPosition: string, slotName: st
   };
 };
 
-export const navigationBarSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const navigationBarSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    slotId: 'NavigationBarSlot',
+    position: 'NavigationBar',
+    name: 'Navigation Bar Slot',
     slotShared: true,
     components: {
       component: [categoryNavigationComponent()],
@@ -379,37 +364,31 @@ export const navigationBarSlot = (slotId: string, slotPosition: string, slotName
   };
 };
 
-export const bottomHeaderSlot = (slotId: string, slotPosition: string, slotName: string, breadcrumb?: Component) => {
-  const bottomHeader = {
-    slotId,
-    slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+export const bottomHeaderSlot = (additionalComponents: Component[] = []): Occ.ContentSlot => {
+  return {
+    slotId: 'BottomHeaderSlot',
+    position: 'BottomHeaderSlot',
+    name: 'Bottom Header Slot',
     slotShared: true,
     components: {
-      component: [] as Component[],
+      component: additionalComponents,
     },
   };
-
-  if (breadcrumb) {
-    bottomHeader.components.component.push(breadcrumb);
-  }
-
-  return bottomHeader;
 };
 
-export const headerSlots = (breadcrumb?: Component): ContentSlot[] => {
+export const headerSlots = (additionalSlots: ContentSlot[] = []): ContentSlot[] => {
   // shared header slots
   return [
-    siteLogoSlot('SiteLogoSlot', 'SiteLogo', 'Default Site Logo Slot'),
-    miniCartSlot('MiniCartSlot', 'MiniCart', 'Mini Cart'),
-    homePageNavLinkSlot('NavLinkSlot', 'HomepageNavLink', 'Default Homepage Link'),
-    headerLinksSlot('HeaderLinksSlot', 'HeaderLinks', 'Header links'),
-    searchBoxSlot('SearchBoxSlot', 'SearchBox', 'Search Box'),
-    topHeaderSlot('TopHeaderSlot', 'TopHeaderSlot', 'Top Header'),
-    siteContextSlot('SiteContextSlot', 'SiteContext', 'Site Context Slot'),
-    siteLinksSlot('SiteLinksSlot', 'SiteLinks', 'Site Links Slot'),
-    navigationBarSlot('NavigationBarSlot', 'NavigationBar', 'Navigation Bar'),
-    bottomHeaderSlot('BottomHeaderSlot', 'BottomHeaderSlot', 'Homepage Bottom Header Slot', breadcrumb),
+    siteLogoSlot(),
+    miniCartSlot(),
+    homepageNavLinkSlot(),
+    headerLinksSlot(),
+    searchBoxSlot(),
+    topHeaderSlot(),
+    siteContextSlot(),
+    siteLinksSlot(),
+    navigationBarSlot(),
+    bottomHeaderSlot(),
+    ...additionalSlots,
   ];
 };

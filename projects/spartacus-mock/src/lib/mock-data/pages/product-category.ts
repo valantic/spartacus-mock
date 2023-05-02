@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
 import { breadcrumbComponent } from '../components/default/breadcrumb';
 import { footerSlots } from '../slots/footer-slots';
-import { headerSlots } from '../slots/header-slots';
+import { bottomHeaderSlot, headerSlots } from '../slots/header-slots';
 import { cmsSearchContentSlots } from '../slots/search-content-slots';
 
 export const productCategoryPage = (): Occ.CMSPage => {
@@ -15,7 +15,7 @@ export const productCategoryPage = (): Occ.CMSPage => {
     robotTag: Occ.PageRobots.INDEX_FOLLOW,
     contentSlots: {
       contentSlot: [
-        ...headerSlots(breadcrumbComponent()),
+        ...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]),
         ...cmsSearchContentSlots('ProductListSlot', 'CMSProductListComponent'),
         ...footerSlots(),
       ],
