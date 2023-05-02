@@ -40,17 +40,12 @@ export const homepageNavLinkSlot = (): Occ.ContentSlot => {
     slotShared: true,
     components: {
       component: [
-        cmsLinkComponent(
-          'Home Page Nav Link',
-          'HomepageNavLink',
-          'eyJpdGVtSWQiOiJIb21lcGFnZU5hdkxpbmsiLCJjYXRhbG9nSWQiOiJlbGVjdHJvbmljcy1zcGFDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
-          'Home',
-          '/',
-          'false',
-          'false',
-          'homepage',
-          'homepage'
-        ),
+        cmsLinkComponent({
+          linkName: 'Home',
+          url: '/',
+          contentPage: 'homepage',
+          contentPageLabelOrId: 'homepage',
+        }),
       ],
     },
   };
@@ -308,44 +303,24 @@ export const siteLinksSlot = (): Occ.ContentSlot => {
     slotShared: true,
     components: {
       component: [
-        cmsLinkComponent(
-          'Quick Order Link',
-          'QuickOrderLink',
-          'eyJpdGVtSWQiOiJRdWlja09yZGVyTGluayIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ=',
-          'Quick Order',
-          '/my-account/quick-order',
-          'false',
-          'false'
-        ),
-        cmsLinkComponent(
-          'Store Finder Link',
-          'StoreFinderLink',
-          'eyJpdGVtSWQiOiJTdG9yZUZpbmRlckxpbmsiLCJjYXRhbG9nSWQiOiJlbGVjdHJvbmljcy1zcGFDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
-          'Find a Store',
-          '/store-finder',
-          'false',
-          'false',
-          'storefinderPage',
-          '/store-finder'
-        ),
-        cmsLinkComponent(
-          'Contact Us Link',
-          'ContactUsLink',
-          'eyJpdGVtSWQiOiJDb250YWN0VXNMaW5rIiwiY2F0YWxvZ0lkIjoiZWxlY3Ryb25pY3Mtc3BhQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
-          'Contact Us',
-          '/example-content',
-          'false',
-          'false'
-        ),
-        cmsLinkComponent(
-          'Help Link',
-          'HelpLink',
-          'eyJpdGVtSWQiOiJIZWxwTGluayIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
-          'Help',
-          '/example-content',
-          'false',
-          'false'
-        ),
+        cmsLinkComponent({
+          linkName: 'Quick Order',
+          url: '/my-account/quick-order',
+        }),
+        cmsLinkComponent({
+          linkName: 'Find a Store',
+          url: '/store-finder',
+          contentPage: 'storefinderPage',
+          contentPageLabelOrId: '/store-finder',
+        }),
+        cmsLinkComponent({
+          linkName: 'Contact Us',
+          url: '/contact',
+        }),
+        cmsLinkComponent({
+          linkName: 'Help',
+          url: '/help',
+        }),
       ],
     },
   };

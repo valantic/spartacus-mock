@@ -1,42 +1,18 @@
-export const cmsLinkComponent = (
-  name: string,
-  uid: string,
-  uuid: string,
-  linkText: string,
-  linkUrl: string,
-  external: string = 'false',
-  target: string = 'false',
-  contentPage?: string,
-  contentPageLabelOrId?: string
-) => {
-  let linkComponent = {
-    uid,
-    uuid,
+import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
+
+export const cmsLinkComponent = (additionalData?: Occ.Component): Occ.Component => {
+  return {
+    uuid: faker.datatype.uuid(),
+    uid: faker.datatype.uuid(),
+    modifiedtime: faker.date.past(),
+    name: faker.lorem.words(3),
+    otherProperties: undefined,
     typeCode: 'CMSLinkComponent',
-    modifiedtime: '2021-01-18T18:14:59.237Z',
-    name,
-    container: 'false',
-    external,
-    linkName: linkText,
-    url: linkUrl,
-    target,
+    linkName: faker.lorem.words(3),
+    url: '/',
+    target: '_self',
+    external: false,
+    ...additionalData,
   };
-
-  if (contentPage) {
-    linkComponent = {
-      ...linkComponent,
-      // @ts-ignore
-      contentPage,
-    };
-  }
-
-  if (contentPageLabelOrId) {
-    linkComponent = {
-      ...linkComponent,
-      // @ts-ignore
-      contentPageLabelOrId,
-    };
-  }
-
-  return linkComponent;
 };

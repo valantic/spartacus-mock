@@ -1,6 +1,21 @@
 import { RestHandler } from 'msw';
 import { Voucher } from '@spartacus/cart/base/root';
-import { BackendConfig, ImageType, Occ, OccConfig, Page as SpartacusPage } from '@spartacus/core';
+import { BackendConfig, Occ, OccConfig, Page as SpartacusPage } from '@spartacus/core';
+
+declare module '@spartacus/core' {
+  namespace Occ {
+    interface Component {
+      uuid?: string;
+      linkName?: string;
+      url?: string;
+      target?: string;
+      external?: boolean;
+      contentPage?: string;
+      contentPageLabelOrId?: string;
+      [key: string]: string | boolean | object | undefined;
+    }
+  }
+}
 
 export interface ActiveCartEntry {
   code: string;
@@ -27,9 +42,6 @@ export interface ContentSlot extends Occ.ContentSlot {
 
 export interface Component extends Occ.Component {
   uuid: string;
-  modifiedtime?: string;
-  container?: string;
-
   [key: string]: string | boolean | object | undefined;
 }
 
