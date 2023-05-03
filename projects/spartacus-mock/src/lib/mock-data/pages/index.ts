@@ -1,4 +1,3 @@
-import { Occ } from '@spartacus/core';
 import { cmsCartContentSlots } from '../slots/cart-content-slots';
 import { checkoutContentSlots } from '../slots/checkout-content-slots';
 import { checkoutDeliveryAddressContentSlots } from '../slots/checkout-delivery-address-content-slots';
@@ -30,10 +29,7 @@ import { accountNotificationPreferenceSlots } from '../slots/account-notificatio
 import { accountCouponsSlots } from '../slots/account-coupons-slots';
 import { accountQuickOrderSlots } from '../slots/account-quick-order-slots';
 import { ContentPage } from './content';
-
-export interface Pages {
-  [key: string]: Occ.CMSPage;
-}
+import { Pages } from '../../types';
 
 /**
  * !!! Please note: !!!

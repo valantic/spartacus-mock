@@ -7,10 +7,12 @@ import { simpleBannerComponent } from '../components/default/simple-banner';
 import { siteContextComponent } from '../components/default/site-context';
 import { Occ } from '@spartacus/core';
 import { flexTypeComponent } from '../components/default/flex-type-component';
+import { faker } from '@faker-js/faker';
 
 export const siteLogoSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'siteLogoSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'SiteLogo',
     name: 'Site Logo Slot',
     slotShared: true,
@@ -23,6 +25,7 @@ export const siteLogoSlot = (): Occ.ContentSlot => {
 export const miniCartSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'MiniCartSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'MiniCart',
     name: 'Mini Cart Slot',
     slotShared: true,
@@ -35,6 +38,7 @@ export const miniCartSlot = (): Occ.ContentSlot => {
 export const homepageNavLinkSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'homepageNavLinkSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'HomepageNavLink',
     name: 'Homepage Nav Link Slot',
     slotShared: true,
@@ -54,6 +58,7 @@ export const homepageNavLinkSlot = (): Occ.ContentSlot => {
 export const headerLinksSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'HeaderLinksSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'HeaderLinks',
     name: 'Header Links Slot',
     slotShared: true,
@@ -260,6 +265,7 @@ export const headerLinksSlot = (): Occ.ContentSlot => {
 export const searchBoxSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'SearchBoxSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'SearchBox',
     name: 'Search Box Slot',
     slotShared: true,
@@ -272,6 +278,7 @@ export const searchBoxSlot = (): Occ.ContentSlot => {
 export const topHeaderSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'TopHeaderSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'TopHeaderSlot',
     name: 'Top Header SLot',
     slotShared: true,
@@ -285,6 +292,7 @@ export const topHeaderSlot = (): Occ.ContentSlot => {
 export const siteContextSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'SiteContextSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'SiteContext',
     name: 'Site Context Slot',
     slotShared: true,
@@ -298,6 +306,7 @@ export const siteContextSlot = (): Occ.ContentSlot => {
 export const siteLinksSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'SiteLinksSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'SiteLinks',
     name: 'Site Links Slot',
     slotShared: true,
@@ -329,6 +338,7 @@ export const siteLinksSlot = (): Occ.ContentSlot => {
 export const navigationBarSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'NavigationBarSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'NavigationBar',
     name: 'Navigation Bar Slot',
     slotShared: true,
@@ -341,6 +351,7 @@ export const navigationBarSlot = (): Occ.ContentSlot => {
 export const bottomHeaderSlot = (additionalComponents: Component[] = []): Occ.ContentSlot => {
   return {
     slotId: 'BottomHeaderSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'BottomHeaderSlot',
     name: 'Bottom Header Slot',
     slotShared: true,

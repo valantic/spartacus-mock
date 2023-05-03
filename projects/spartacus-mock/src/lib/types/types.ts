@@ -14,7 +14,15 @@ declare module '@spartacus/core' {
       contentPageLabelOrId?: string;
       [key: string]: string | boolean | object | undefined;
     }
+
+    interface ContentSlot {
+      slotUuid?: string;
+    }
   }
+}
+
+export interface Pages {
+  [key: string]: Occ.CMSPage;
 }
 
 export interface ActiveCartEntry {

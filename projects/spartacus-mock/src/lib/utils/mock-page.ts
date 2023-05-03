@@ -1,10 +1,10 @@
-import { contentPages, Pages } from '../mock-data/pages';
+import { contentPages } from '../mock-data/pages';
 import { homePage } from '../mock-data/pages/home';
 import { productCategoryPage } from '../mock-data/pages/product-category';
 import { productDetailPage } from '../mock-data/pages/product-detail';
 import { Occ } from '@spartacus/core';
-import { ContentPages, Page } from '../types';
-import { ContentPage } from '../mock-data/pages/content';
+import { ContentPages, Page, Pages } from '../types';
+import { ContentPage } from '../mock-data';
 
 export class MockContentPages {
   customContentPages?: ContentPages;

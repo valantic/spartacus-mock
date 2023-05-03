@@ -4,10 +4,12 @@ import { cmsParagraphComponent } from '../components/default/cms-paragraph';
 import { flexTypeComponent } from '../components/default/flex-type-component';
 import { footerNavigationComponent } from '../components/default/footer-navigation';
 import { profileScriptComponent } from '../components/default/profile-script';
+import { faker } from '@faker-js/faker';
 
 export const placeholderContentSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'PlaceholderContentSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'PlaceholderContentSlot',
     name: 'Placeholder Content Slot',
     slotShared: true,
@@ -20,6 +22,7 @@ export const placeholderContentSlot = (): Occ.ContentSlot => {
 export const footerSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'FooterSlot',
+    slotUuid: faker.datatype.uuid(),
     position: 'Footer',
     name: 'Footer Slot',
     slotShared: true,
