@@ -71,8 +71,7 @@ export interface MockConfig {
   productDetailPage?: Page;
   productCategoryPage?: Page;
   homePage?: Page;
-  headerSlots?: ContentSlot[];
-  footerSlots?: ContentSlot[];
+  customSlots?: Occ.ContentSlot[];
 
   // TODO Components Call Handler Options
 }

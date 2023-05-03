@@ -4,10 +4,12 @@ import { createLocalstorage } from './defaultLocalStorage';
 import { defaultPassThroughUrls } from './defaultPassthrough';
 import { MockConfig } from './types';
 import { MockContentPages } from './utils/mock-page';
+import { ContentPage } from './mock-data/pages/content';
 
 function getWorker(config: MockConfig): SetupWorker {
   const mockContentPages = getCustomMockContentPages(config);
-  const defaultHandlers = new DefaultHandlers(config.environment, mockContentPages);
+  const contentPage = new ContentPage(config.customSlots);
+  const defaultHandlers = new DefaultHandlers(config.environment, mockContentPages, contentPage);
   // create default local storage if it does not exist
   createLocalstorage(config);
 

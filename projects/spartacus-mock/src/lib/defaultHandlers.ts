@@ -14,11 +14,16 @@ import {
   getStoreFinderHandlers,
 } from './handlers';
 import { MockContentPages } from './utils/mock-page';
+import { ContentPage } from './mock-data/pages/content';
 
 export class DefaultHandlers {
   readonly routes;
 
-  constructor(protected environment: Environment, protected mockContentPages: MockContentPages) {
+  constructor(
+    protected environment: Environment,
+    protected mockContentPages: MockContentPages,
+    protected contentPage: ContentPage
+  ) {
     this.routes = getDefaultRoutes(environment);
   }
 
@@ -26,7 +31,7 @@ export class DefaultHandlers {
     return [
       ...getBaseHandlers(this.routes),
       ...getUserHandlers(this.routes),
-      ...getCmsHandlers(this.routes, this.mockContentPages),
+      ...getCmsHandlers(this.routes, this.mockContentPages, this.contentPage),
       ...getSearchHandlers(this.routes),
       ...getProductHandlers(this.routes),
       ...getCartHandlers(this.routes),

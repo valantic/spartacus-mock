@@ -4,6 +4,7 @@ import { productCategoryPage } from '../mock-data/pages/product-category';
 import { productDetailPage } from '../mock-data/pages/product-detail';
 import { Occ } from '@spartacus/core';
 import { ContentPages, Page } from '../types';
+import { ContentPage } from '../mock-data/pages/content';
 
 export class MockContentPages {
   customContentPages?: ContentPages;
@@ -27,9 +28,14 @@ export class MockContentPages {
     this.productCategoryPage = page;
   }
 
-  getMockPage(pageType?: string, pageLabelOrId?: string, productCode?: string): Occ.CMSPage | null {
+  getMockPage(
+    contentPage: ContentPage,
+    pageType?: string,
+    pageLabelOrId?: string,
+    productCode?: string
+  ): Occ.CMSPage | null {
     const pages: Pages = {
-      ...contentPages(),
+      ...contentPages(contentPage),
       ...this.customContentPages,
     };
 
