@@ -23,6 +23,7 @@ export const components = (componentIds: string[]): Occ.ComponentList => {
 
         componentData.component?.push(
           cmsLinkComponent({
+            uid: componentId,
             linkName: componentLinkText,
             url: `/mock/category/${componentLinkText.replace(' ', '-')}/c/${componentCategoryCode}`,
           })
@@ -30,6 +31,7 @@ export const components = (componentIds: string[]): Occ.ComponentList => {
       } else {
         componentData.component?.push(
           cmsLinkComponent({
+            uid: componentId,
             linkName: componentLinkText,
             url: `/example-content/${faker.lorem.word()}`,
           })
