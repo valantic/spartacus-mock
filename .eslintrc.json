@@ -4,7 +4,11 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": ["tsconfig.json"],
+        "project": [
+          "tsconfig.json",
+          "projects/spartacus-mock/tsconfig.lib.json",
+          "projects/spartacus-mock/tsconfig.spec.json"
+        ],
         "createDefaultProgram": true
       },
       "extends": ["plugin:@angular-eslint/recommended", "plugin:@angular-eslint/template/process-inline-templates"],
