@@ -8,7 +8,7 @@ import { ContentPage } from './mock-data/pages/content';
 
 function getWorker(config: MockConfig): SetupWorker {
   const mockContentPages = getCustomMockContentPages(config);
-  const contentPage = new ContentPage(config.customSlots);
+  const contentPage = new ContentPage(config.customSlots || []);
   const defaultHandlers = new DefaultHandlers(config.environment, mockContentPages, contentPage);
   // create default local storage if it does not exist
   createLocalstorage(config);

@@ -11,7 +11,6 @@ import { exampleContentSlots } from '../slots/example-content-slots';
 import { orderConfirmationContentSlots } from '../slots/order-confirmation-content-slots';
 import { storeFinderOrderSlots } from '../slots/store-finder-slots';
 import { cmsSearchContentSlots } from '../slots/search-content-slots';
-import { loginPage, registerPage } from './login';
 import { accountOrderHistorySlots } from '../slots/account-order-history-slots';
 import { accountOrderSlots } from '../slots/account-order-slots';
 import { accountWishListSlots } from '../slots/account-wish-list-slots';
@@ -41,8 +40,8 @@ import { Pages } from '../../types';
 export const contentPages = (contentPage: ContentPage): Pages => {
   return {
     'example-content': contentPage.createContentPage('/example-content', 'Example Content Page', exampleContentSlots()),
-    'login/register': registerPage(),
-    login: loginPage(),
+    'login/register': contentPage.createRegisterPage(),
+    login: contentPage.createLoginPage(),
     logout: contentPage.createContentPage('/logout', 'Logout', cmsPageContentSlots()),
     search: contentPage.createContentPage(
       '/search',

@@ -1,7 +1,4 @@
 import { contentPages } from '../mock-data/pages';
-import { homePage } from '../mock-data/pages/home';
-import { productCategoryPage } from '../mock-data/pages/product-category';
-import { productDetailPage } from '../mock-data/pages/product-detail';
 import { Occ } from '@spartacus/core';
 import { ContentPages, Page, Pages } from '../types';
 import { ContentPage } from '../mock-data';
@@ -40,7 +37,7 @@ export class MockContentPages {
     };
 
     if (!pageType && !pageLabelOrId) {
-      return this.customHomePage || homePage();
+      return this.customHomePage || contentPage.createHomePage();
     }
 
     switch (pageType) {
@@ -59,10 +56,10 @@ export class MockContentPages {
         break;
 
       case 'CategoryPage':
-        return this.productCategoryPage || productCategoryPage();
+        return this.productCategoryPage || contentPage.createProductCategoryPage();
 
       case 'ProductPage':
-        return this.customProductDetailPage || productDetailPage(productCode || '');
+        return this.customProductDetailPage || contentPage.createProductDetailPage(productCode || '');
     }
 
     return null;
