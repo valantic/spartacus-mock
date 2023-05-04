@@ -57,6 +57,7 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 2. Run `npm link` in the folder `dist/spartacus-mock` of this library to be able to use the current dev version of the library in your spartacus project
 3. Run `npm link @valantic/spartacus-mock` in your spartacus project's root folder to link the dev version of the library
 4. Run `ng add @valantic/spartacus-mock` in your spartacus project's root folder to add the library and run the schematics
+5. Run `npm link @valantic/spartacus-mock` again, since running `ng add` seems to delete the link
 
 ### Build the library
 

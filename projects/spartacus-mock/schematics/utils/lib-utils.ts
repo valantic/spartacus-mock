@@ -1,7 +1,7 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodeDependency, addPackageJsonDependency } from '@schematics/angular/utility/dependencies';
 import { createNodePackageInstallationTask, dependencyExists } from './package-utils';
-import { getDefaultProjectNameFromWorkspace, getWorkspace } from './workspace-utils';
+import { getWorkspace } from './workspace-utils';
 
 export function addPackageJsonDependencies(dependencies: NodeDependency[], packageJson: any): Rule {
   return (tree: Tree, _context: SchematicContext): Tree => {
@@ -16,9 +16,9 @@ export function addPackageJsonDependencies(dependencies: NodeDependency[], packa
 
 export function enhanceAngularJsonAssets(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-    const { path, workspace: angularJson } = getWorkspace(tree);
-    const project = getDefaultProjectNameFromWorkspace(tree);
-    const architect = angularJson.projects[project].architect;
+    const { path, workspaceConfig } = getWorkspace(tree);
+    const projectName = Object.keys(workspaceConfig.projects)[0];
+    const architect = workspaceConfig.projects[projectName].architect;
 
     // `build` architect section
     const architectBuild = architect?.build;
@@ -29,11 +29,11 @@ export function enhanceAngularJsonAssets(): Rule {
     };
 
     const updatedAngularJson = {
-      ...angularJson,
+      ...workspaceConfig,
       projects: {
-        ...angularJson.projects,
-        [project]: {
-          ...angularJson.projects[project],
+        ...workspaceConfig.projects,
+        [projectName]: {
+          ...workspaceConfig.projects[projectName],
           architect: {
             ...architect,
             build: {

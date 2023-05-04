@@ -7,13 +7,13 @@ const DEFAULT_POSSIBLE_PROJECT_FILES = ['/angular.json', '/.angular.json'];
 export function getWorkspace(
   host: Tree,
   files = DEFAULT_POSSIBLE_PROJECT_FILES
-): { path: string; workspace: WorkspaceSchema } {
-  const angularJson = getAngularJsonFile(host, files);
+): { path: string; workspaceConfig: WorkspaceSchema } {
+  const workspaceConfig = getAngularJsonFile(host, files);
   const path = files.filter((filePath) => host.exists(filePath))[0];
 
   return {
     path,
-    workspace: angularJson,
+    workspaceConfig,
   };
 }
 
@@ -30,10 +30,4 @@ export function getAngularJsonFile(tree: Tree, possibleProjectFiles = DEFAULT_PO
 
   const angularJsonContent = configBuffer.toString();
   return parse(angularJsonContent, undefined, { allowTrailingComma: true });
-}
-
-export function getDefaultProjectNameFromWorkspace(tree: Tree): string {
-  const workspace = getWorkspace(tree).workspace;
-
-  return workspace.defaultProject !== undefined ? workspace.defaultProject : Object.keys(workspace.projects)[0];
 }

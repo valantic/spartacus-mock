@@ -29,18 +29,13 @@ function getParsedPath(workspaceConfigBuffer: Buffer, name: string, relativePath
 
   if (parsedPath.path === '/') {
     const workspaceConfig = JSON.parse(workspaceConfigBuffer.toString());
-    const projectName = getProjectName();
+    const projectName = Object.keys(workspaceConfig.projects)[0];
     const defaultProject = workspaceConfig.projects[projectName];
     const sourceRoot = defaultProject.sourceRoot;
     parsedPath = parseName(`${sourceRoot}/${relativePath}`, name);
   }
 
   return parsedPath;
-}
-
-function getProjectName(): string {
-  const pathArray = process.cwd().split('/');
-  return pathArray[pathArray.length - 1];
 }
 
 function getTemplate(options: Schema, tree: Tree, name: string, relativePath: string): Source {
@@ -50,14 +45,12 @@ function getTemplate(options: Schema, tree: Tree, name: string, relativePath: st
   }
   const sourceTemplate = url(`./files/${name}`);
   const { name: parsedName, path } = getParsedPath(workspaceConfigBuffer, name, relativePath);
-  const projectName = getProjectName();
 
   return apply(sourceTemplate, [
     template({
       ...options,
       ...strings,
       name: parsedName,
-      projectName,
     }),
     move(path),
   ]);
