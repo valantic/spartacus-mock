@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "SpartacusMockSchematics",
+  "title": "Spartacus Mock Options Schema",
+  "type": "object",
+  "description": "Creates a blueprint",
+  "properties": {
+    "useSsr": {
+      "type": "boolean",
+      "description": "Boolean if the spartacus project is using Server Side Rendering",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Is your Spartacus Project using server side rendering?"
+    }
+  },
+  "required": ["useSsr"]
+}

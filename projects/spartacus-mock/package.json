@@ -1,11 +1,46 @@
 {
-  "name": "spartacus-mock",
+  "name": "@valantic/spartacus-mock",
   "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^14.2.0",
-    "@angular/core": "^14.2.0"
+  "description": "This project offers you the possibility, to mock the OCC Endpoint of your Spartacus Storefront. It uses the Mock Service Worker to mock the API calls.",
+  "keywords": ["spartacus", "spartacus-mock", "schematics", "angular", "valantic"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valantic/spartacus-mock.git"
+  },
+  "engines": {
+    "node": ">=16 <17",
+    "npm": ">=7.10"
+  },
+  "author": "valantic CEC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valantic/spartacus-mock/issues"
+  },
+  "homepage": "https://github.com/valantic/spartacus-mock.git",
+  "main": "./index.js",
+  "scripts": {
+    "postinstall": "cd $INIT_CWD && npx msw init ./src --save",
+    "build": "tsc -p tsconfig.schematics.json",
+    "watch": "tsc -p tsconfig.schematics.json --watch",
+    "postbuild": "copyfiles schematics/*/schema.json schematics/*/files/**/* schematics/collection.json ../../dist/spartacus-mock/"
+  },
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "devDependencies"
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "~14.2.0",
+    "@angular/core": "~14.2.0",
+    "@angular/compiler": "~14.2.3"
+  },
+  "devDependencies": {
+    "copyfiles": "file:../../node_modules/copyfiles",
+    "typescript": "file:../../node_modules/typescript",
+    "@angular-devkit/core": "file:../../node_modules/@angular-devkit/core",
+    "@angular-devkit/schematics": "file:../../node_modules/@angular-devkit/schematics",
+    "@schematics/angular": "file:../../node_modules/@schematics/angular"
   }
 }

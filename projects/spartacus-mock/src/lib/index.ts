@@ -24,7 +24,7 @@ function getWorker(config: MockConfig): SetupWorker {
   );
 }
 
-export function prepareMock(config: MockConfig): Promise<ServiceWorkerRegistration | undefined> {
+export default function prepareMock(config: MockConfig): Promise<ServiceWorkerRegistration | undefined> {
   if (config.enableWorker) {
     const worker = getWorker(config);
 
