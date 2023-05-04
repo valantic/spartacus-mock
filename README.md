@@ -8,51 +8,7 @@ This project offers you the possibility, to mock the OCC Endpoint of your Sparta
 
 ### Use the Default Mock Data for Spartacus Electronics Store
 
-1. Install the Mock Service Worker: `npm i --save-dev msw`
-2. Create the local service worker script: `npx msw init ./src --save`
-3. Install it: `npm i @valantic/spartacus-mock`
-4. Add the service worker script to the `angular.json` assets array: `"assets": ["src/mockServiceWorker.js"]`
-5. Enhance your `environment.ts` with the information about your OCC Endpoint and the trigger to enable / disable the mock server:
-
-```ts
-export const environment = {
-  mockServer: true,
-  backend: {
-    occ: {
-      baseUrl:
-        'https://spartacus-demo.eastus.cloudapp.azure.com:8443',
-      prefix: '/occ/v2/',
-    },
-  },
-};
-```
-
-6. Adjust your `main.ts` file from
-
-```ts
-if (document.readyState === 'complete') {
-  bootstrap();
-} else {
-  document.addEventListener('DOMContentLoaded', bootstrap);
-}
-```
-
-To
-
-```ts
-const mockConfig: MockConfig = {
-  enableWorker: environment.mockServer || false,
-  environment,
-};
-
-if (document.readyState === 'complete') {
-  prepareMock(mockConfig).then(() => bootstrap());
-} else {
-  document.addEventListener('DOMContentLoaded', () =>
-    prepareMock(mockConfig).then(() => bootstrap())
-  );
-}
-```
+1. Install the package: `npm i @valantic/spartacus-mock`
 
 ### Use your own Mock Data for your project
 
