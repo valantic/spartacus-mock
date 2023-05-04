@@ -38,22 +38,25 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 
 ### Develop the mock-data
 
-1. Go to the dist folder of the package `cd dist/spartacus-mock`
-2. Run `npm link` in the dist folder to be able to use the current dev version of the library in your spartacus project
-3. Go back to the project root `cd ../..`
-4. Run `npm run watch` to start the watch mode
-5. Run `npm link @valantic/spartacus-mock` in your spartacus project's root folder to link the dev version of the library
-6. Run `ng add @valantic/spartacus-mock` in your spartacus project's root folder to add the library and run the schematics
-7. When you're done, make a pull request with your changes
+1. Do your changes in the mock-data
+2. Go to the dist folder of the package `cd dist/spartacus-mock`
+3. Run `npm link` in the dist folder to be able to use the current dev version of the library in your spartacus project
+4. Go back to the project root `cd ../..`
+5. Run `npm run watch` to start the watch mode
+6. When you're done, make a pull request with your changes
 
 ### Develop the schematics
 
-1. Do the changes in the schematics in `projects/spartacus-mock/schematics`
-2. Run `npm run build` in the project root to build the library
-3. Run `npm run build` in `projects/spartacus-mock` to build the schematics
-4. Run `npm link` in the dist folder to be able to use the current dev version of the library in your spartacus project
-5. Run `npm link @valantic/spartacus-mock` in your spartacus project's root folder to link the dev version of the library
-6. Run `ng add @valantic/spartacus-mock` in your spartacus project's root folder to add the library and run the schematics
+1. Do your changes in the schematics in `projects/spartacus-mock/schematics`
+2. Run `npm run build` in `projects/spartacus-mock` to build the schematics
+3. When you're done, make a pull request with your changes
+
+### Use the library while developing
+
+1. Make sure, the build tasks have been run for both the lib and the schematics
+2. Run `npm link` in the dist folder of this library to be able to use the current dev version of the library in your spartacus project
+3. Run `npm link @valantic/spartacus-mock` in your spartacus project's root folder to link the dev version of the library
+4. Run `ng add @valantic/spartacus-mock` in your spartacus project's root folder to add the library and run the schematics
 
 ### Build the library
 
