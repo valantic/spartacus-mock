@@ -1,3 +1,1 @@
-export interface Schema {
-  useSsr: boolean;
-}
+export interface Schema {}

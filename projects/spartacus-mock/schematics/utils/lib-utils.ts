@@ -4,11 +4,10 @@ import { createNodePackageInstallationTask, dependencyExists } from './package-u
 import { getDefaultProjectNameFromWorkspace, getWorkspace } from './workspace-utils';
 
 export function addPackageJsonDependencies(dependencies: NodeDependency[], packageJson: any): Rule {
-  return (tree: Tree, context: SchematicContext): Tree => {
+  return (tree: Tree, _context: SchematicContext): Tree => {
     for (const dependency of dependencies) {
       if (!dependencyExists(dependency, packageJson)) {
         addPackageJsonDependency(tree, dependency);
-        context.logger.info(`✅️ Added '${dependency.name}' into ${dependency.type}`);
       }
     }
     return tree;
@@ -16,7 +15,7 @@ export function addPackageJsonDependencies(dependencies: NodeDependency[], packa
 }
 
 export function enhanceAngularJsonAssets(): Rule {
-  return (tree: Tree, context: SchematicContext) => {
+  return (tree: Tree, _context: SchematicContext) => {
     const { path, workspace: angularJson } = getWorkspace(tree);
     const project = getDefaultProjectNameFromWorkspace(tree);
     const architect = angularJson.projects[project].architect;
@@ -53,8 +52,6 @@ export function enhanceAngularJsonAssets(): Rule {
       tree.overwrite(path, toUpdate);
     }
 
-    context.logger.log('info', '✅️ Updated angular.json file with mockServiceWorker.js asset');
-
     return tree;
   };
 }
@@ -62,7 +59,6 @@ export function enhanceAngularJsonAssets(): Rule {
 export function installPackageJsonDependencies(): Rule {
   return (tree: Tree, context: SchematicContext) => {
     createNodePackageInstallationTask(context);
-    context.logger.log('info', '✅️ Run npm install task');
     return tree;
   };
 }

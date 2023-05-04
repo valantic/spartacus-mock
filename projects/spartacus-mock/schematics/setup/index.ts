@@ -63,6 +63,14 @@ function getTemplate(options: Schema, tree: Tree, name: string, relativePath: st
   ]);
 }
 
+function logMessage(): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    context.logger.info('⌛️ Waiting for file copy and package installation to finish..');
+
+    return tree;
+  };
+}
+
 function setup(options: Schema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const packageJsonFile = readPackageJson(tree);
@@ -74,6 +82,10 @@ function setup(options: Schema): Rule {
         version: '1.2.1',
       },
     ];
+
+    context.logger.info(`⌛️ Updating files to work with spartacus-mock..`);
+    context.logger.info('🔧️ Installing msw as dependency..');
+    context.logger.info('🔧️ Create mockServiceWorker.js file..');
 
     return chain([
       // add msw dependency
@@ -96,6 +108,8 @@ function setup(options: Schema): Rule {
         chain([mergeWith(getTemplate(options, tree, 'environment', 'environments'), MergeStrategy.Overwrite)]),
         MergeStrategy.Overwrite
       ),
+
+      logMessage(),
     ])(tree, context);
   };
 }
