@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "factory": "./ng-add/index",
+      "description": "Install and configure spartacus-mock",
+      "private": true,
+      "hidden": true,
+      "aliases": ["install"]
+    },
+    "setup": {
+      "description": "Adds the necessary file changes for spartacus mock",
+      "factory": "./setup/index#setup",
+      "schema": "./setup/schema.json"
+    }
+  }
+}

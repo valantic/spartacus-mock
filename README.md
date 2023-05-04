@@ -6,55 +6,37 @@ This project offers you the possibility, to mock the OCC Endpoint of your Sparta
 
 ## How to use
 
-### Use the Default Mock Data for Spartacus Electronics Store
+### Getting started
 
-1. Install the Mock Service Worker: `npm i --save-dev msw`
-2. Create the local service worker script: `npx msw init ./src --save`
-3. Install it: `npm i @valantic/spartacus-mock`
-4. Add the service worker script to the `angular.json` assets array: `"assets": ["src/mockServiceWorker.js"]`
-5. Enhance your `environment.ts` with the information about your OCC Endpoint and the trigger to enable / disable the mock server:
+The package offers a schematics to install the package and add the needed file changes in your spartacus project.
 
-```ts
-export const environment = {
-  mockServer: true,
-  backend: {
-    occ: {
-      baseUrl:
-        'https://spartacus-demo.eastus.cloudapp.azure.com:8443',
-      prefix: '/occ/v2/',
-    },
-  },
-};
-```
+1. Open a terminal and navigate to the root folder of your angular / spartacus project (the folder where the `angular.json` is located)
+2. Install the package: `ng add @valantic/spartacus-mock`
+3. Check the automatically added changes in the files
+   1. `angular.json`
+   2. `package.json`
+   3. `src/environments/environment.ts`
+   4. `src/main.ts`
+4. Start the spartacus instance as you would normally do
+5. Open your browser
+   1. Notice the message in the console: `[MSW] Mocking enabled.`
+   2. All mocked calls are still normally visible in the network tab of your browser's developer tools
+   3. For more information, see the [MSW documentation](https://mswjs.io/docs/api/rest)
 
-6. Adjust your `main.ts` file from
+### Define Mock Data
 
-```ts
-if (document.readyState === 'complete') {
-  bootstrap();
-} else {
-  document.addEventListener('DOMContentLoaded', bootstrap);
-}
-```
+Out of the box, `spartacus-mock` comes with all mock-data needed to run the standard spartacus electronic sample store.
+For your project, you probably want to define your own mock-data for the default endpoints or also add more mocked pages / components / endpoints.
 
-To
+### Mocking Endpoints
 
-```ts
-const mockConfig: MockConfig = {
-  enableWorker: environment.mockServer || false,
-  environment,
-};
+TODO
 
-if (document.readyState === 'complete') {
-  prepareMock(mockConfig).then(() => bootstrap());
-} else {
-  document.addEventListener('DOMContentLoaded', () =>
-    prepareMock(mockConfig).then(() => bootstrap())
-  );
-}
-```
+### Mocking Pages
 
-### Use your own Mock Data for your project
+TODO
+
+### Mocking Components
 
 TODO
 

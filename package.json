@@ -1,5 +1,5 @@
 {
-  "name": "@valantic/spartacus-mock",
+  "name": "@valantic/spartacus-mock-root",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -29,8 +29,8 @@
     "@angular/platform-server": "~14.2.3",
     "@angular/router": "~14.2.0",
     "@angular/service-worker": "~14.2.3",
-    "@ng-select/ng-select": "~9.0.2",
     "@faker-js/faker": "~7.6.0",
+    "@ng-select/ng-select": "~9.0.2",
     "@ngrx/effects": "~14.3.0",
     "@ngrx/router-store": "~14.3.0",
     "@ngrx/store": "~14.3.0",
@@ -59,7 +59,9 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~14.~2.10",
+    "@angular-devkit/build-angular": "~14.2.11",
+    "@angular-devkit/core": "~14.2.11",
+    "@angular-devkit/schematics": "14.2.11",
     "@angular-eslint/builder": "14.4.0",
     "@angular-eslint/eslint-plugin": "14.4.0",
     "@angular-eslint/eslint-plugin-template": "14.4.0",
@@ -67,12 +69,14 @@
     "@angular-eslint/template-parser": "14.4.0",
     "@angular/cli": "~14.2.10",
     "@angular/compiler-cli": "~14.2.0",
+    "@schematics/angular": "~14.2.3",
     "@trivago/prettier-plugin-sort-imports": "~3.2.0",
     "@types/events": "~3.0.0",
     "@types/jasmine": "~4.0.0",
     "@typescript-eslint/eslint-plugin": "5.43.0",
     "@typescript-eslint/parser": "5.43.0",
-    "eslint": "~8.33.0",
+    "copyfiles": "~2.4.1",
+    "eslint": "^8.28.0",
     "eslint-plugin-deprecation": "~1.3.3",
     "husky": "~7.0.0",
     "jasmine-core": "~4.3.0",
