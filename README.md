@@ -30,15 +30,150 @@ For your project, you probably want to define your own mock-data for the default
 
 ### Mocking Endpoints
 
-TODO
+Create a custom handlers file `src/mock-server/handlers.ts`
+
+In this handlers file you can define all your custom handlers like in this example:
+
+```ts
+export const handlers: any[] = [
+  rest.get(
+    routes.regions,
+    (
+      _req: RestRequest,
+      res: ResponseComposition,
+      ctx: RestContext
+    ) => {
+      return res(ctx.status(200), ctx.json(regions()));
+    }
+  ),
+];
+```
+
+Then you just need to append your custom handlers to the mockConfig in your `main.ts` file
+
+```ts
+import { handlers } from './mock-server/handlers';
+
+async function prepare(): Promise<
+  ServiceWorkerRegistration | undefined
+> {
+  if (environment.mockServer) {
+    const { prepareMock } = await import(
+      /* webpackChunkName: "mock-server" */ '@valantic/spartacus-mock'
+    );
+
+    const mockConfig: MockConfig = {
+      enableWorker: environment.mockServer || false,
+      environment,
+      handlers,
+    };
+
+    return prepareMock(mockConfig);
+  }
+
+  return Promise.resolve(undefined);
+}
+```
 
 ### Mocking Pages
 
-TODO
+To provider your own content pages you need to create a content pages object like following:
 
-### Mocking Components
+(Using the ContentPage Class is optional)
 
-TODO
+```ts
+// src/mock-server/mock-data/pages/index.ts
+import {
+  ContentPage,
+  Pages,
+} from '@valantic/spartacus-mock';
+
+export const contentPages = (): Pages => {
+  const contentPage = new ContentPage([]);
+
+  return {
+    'hello-world': contentPage.createContentPage(
+      'helloWorld',
+      'Hello World',
+      []
+    ),
+  };
+};
+```
+
+This contentPages object you can provide now by the mockConfig in your `main.ts` file.
+
+```ts
+import { contentPages } from './mock-server/mock-data/pages';
+
+async function prepare(): Promise<
+  ServiceWorkerRegistration | undefined
+> {
+  if (environment.mockServer) {
+    const { prepareMock } = await import(
+      /* webpackChunkName: "mock-server" */ '@valantic/spartacus-mock'
+    );
+
+    const mockConfig: MockConfig = {
+      enableWorker: environment.mockServer || false,
+      environment,
+      contentPages: contentPages(),
+    };
+
+    return prepareMock(mockConfig);
+  }
+
+  return Promise.resolve(undefined);
+}
+```
+
+### Mocking Global Slots
+
+To provide custom global Slots you need to create your slot like following:
+
+```ts
+import { Occ } from '@spartacus/core';
+
+export const testSlot = (): Occ.ContentSlot => {
+  return {
+    slotId: 'testSlot',
+    slotUuid: 'testSlot1234',
+    position: 'TestSlot',
+    name: 'My Test Slot',
+    slotShared: true,
+    components: {
+      component: [
+        // Add Custom Components
+      ],
+    },
+  };
+};
+```
+
+And provide this slot to your mockConfig in your main.ts file like following:
+
+```ts
+import { testSlot } from './mock-server/mock-data/slots/test-slot';
+
+async function prepare(): Promise<
+  ServiceWorkerRegistration | undefined
+> {
+  if (environment.mockServer) {
+    const { prepareMock } = await import(
+      /* webpackChunkName: "mock-server" */ '@valantic/spartacus-mock'
+    );
+
+    const mockConfig: MockConfig = {
+      enableWorker: environment.mockServer || false,
+      environment,
+      customSlots: [testSlot()],
+    };
+
+    return prepareMock(mockConfig);
+  }
+  return Promise.resolve(undefined);
+}
+```
 
 ## GitHub issues
 
