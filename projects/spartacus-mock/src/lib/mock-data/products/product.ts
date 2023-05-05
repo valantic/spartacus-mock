@@ -1,14 +1,14 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { image } from '../media/image';
+import { createPrice, createPriceRange } from '../commerce';
+import { createPromotion } from '../commerce';
+import { image } from '../media';
+import { createBaseOption, createVariantOption } from './product-base-option';
 import { createProductCategory } from './product-categories';
 import { createProductClassification } from './product-classification';
-import { createBaseOption, createVariantOption } from './product-base-option';
-import { createPrice, createPriceRange } from '../commerce/price';
-import { createFutureStock, createProductStock } from './product-stock';
-import { createPromotion } from '../commerce/promotion';
 import { createProductReference } from './product-references';
 import { reviewList } from './product-reviews';
+import { createFutureStock, createProductStock } from './product-stock';
 
 export const activeTabItems = [
   'ProductDetailsTabComponent',

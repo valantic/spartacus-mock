@@ -1,7 +1,7 @@
-import { Occ } from '@spartacus/core';
-import { createAddress } from '../account/addresses';
-import { createCurrency } from '../general/currencies';
 import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
+import { createAddress } from '../account';
+import { createCurrency } from '../general/currencies';
 import { createLanguage } from '../languages';
 
 export const createUser = (additionalData?: Occ.User): Occ.User => {

@@ -1,9 +1,9 @@
+import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
 import { CartUserType, getUserForCart } from '../commerce/cart';
+import { createPaginationModel } from '../general';
+import { createSortModel } from '../general';
 import { createOrder } from './order';
-import { faker } from '@faker-js/faker';
-import { createPaginationModel } from '../general/pagination';
-import { createSortModel } from '../general/sort';
 
 export const getOrders = (additionalData?: Occ.OrderHistoryList): Occ.OrderHistoryList => {
   const amount = faker.datatype.number({ min: 1, max: 10 });

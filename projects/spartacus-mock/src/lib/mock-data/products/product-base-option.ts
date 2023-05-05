@@ -1,6 +1,6 @@
-import { Occ } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
-import { createPrice } from '../commerce/price';
+import { Occ } from '@spartacus/core';
+import { createPrice } from '../commerce';
 import { createProductStock } from './product-stock';
 
 export const createVariantOptionQualifier = (): Occ.VariantOptionQualifier => {

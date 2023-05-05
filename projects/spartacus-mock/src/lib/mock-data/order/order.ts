@@ -1,14 +1,14 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
 import { LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
-import { createAddress } from '../account/addresses';
-import { createPaymentDetails, DEFAULT_PAYMENT_ID } from '../account/payments';
+import { createAddress } from '../account';
+import { DEFAULT_PAYMENT_ID, createPaymentDetails } from '../account';
+import { createDeliveryMode } from '../commerce';
+import { createVoucher } from '../commerce';
+import { createPromotionResult } from '../commerce';
+import { createPrice } from '../commerce';
 import { CartUserType, getUserForCart } from '../commerce/cart';
-import { createDeliveryMode } from '../commerce/delivery-mode';
-import { createVoucher } from '../commerce/voucher';
 import { createFullProduct } from '../products/product';
-import { createPromotionResult } from '../commerce/promotion';
-import { createPrice } from '../commerce/price';
 
 const orderStatusDisplayOptions = [
   'cancelled',

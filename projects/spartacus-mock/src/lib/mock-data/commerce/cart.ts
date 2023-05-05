@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker';
 import { Occ, Stock } from '@spartacus/core';
 import { ActiveCartEntry, LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
+import { createUser } from '../auth';
 import { image } from '../media/image';
+import { createOrderEntry } from '../order/order';
 import { createFullProduct } from '../products/product';
 import { createPrice } from './price';
-import { createOrderEntry } from '../order/order';
-import { createUser } from '../auth/user';
 
 export enum CartUserType {
   OCC_USER_ID_ANONYMOUS = 'anonymous',

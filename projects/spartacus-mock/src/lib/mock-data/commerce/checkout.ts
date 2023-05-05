@@ -1,6 +1,6 @@
 import { Occ } from '@spartacus/core';
-import { createAddress } from '../account/addresses';
-import { createPaymentDetails, DEFAULT_PAYMENT_ID } from '../account/payments';
+import { createAddress } from '../account';
+import { DEFAULT_PAYMENT_ID, createPaymentDetails } from '../account';
 import { createDeliveryMode } from './delivery-mode';
 
 export const getCheckoutDetails = (additionalData?: Occ.Cart): Occ.Cart => {

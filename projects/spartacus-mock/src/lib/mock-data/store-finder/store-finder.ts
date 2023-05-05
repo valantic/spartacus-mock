@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { countryList, createCountry } from '../general/countries';
-import { createAddress } from '../account/addresses';
-import { image } from '../media/image';
+import { createAddress } from '../account';
+import { countryList, createCountry } from '../general';
+import { image } from '../media';
 
 export const createStoreCount = (additionalData?: Occ.StoreCount): Occ.StoreCount => {
   return {

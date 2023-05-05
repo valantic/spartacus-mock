@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
 import { ReturnRequest, ReturnRequestList } from '@spartacus/order/root';
+import { createPrice } from '../commerce';
 import { CartUserType, getUserForCart } from '../commerce/cart';
-import { createOrder, createOrderEntry } from './order';
-import { createPrice } from '../commerce/price';
 import { createFullProduct } from '../products/product';
+import { createOrder, createOrderEntry } from './order';
 
 const createReturnRequestEntry = (entryNumber: number): Occ.ReturnRequestEntry => {
   const productCode = faker.datatype.number({ min: 100000, max: 999999 }).toString();

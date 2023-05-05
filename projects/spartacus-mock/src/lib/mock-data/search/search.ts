@@ -1,11 +1,11 @@
-import { Occ } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
-import { createSortModel } from '../general/sort';
-import { createFacet } from './facet';
-import { createPaginationModel } from '../general/pagination';
-import { createFullProduct } from '../products/product';
+import { Occ } from '@spartacus/core';
 import { ProductSearchPageModifier, SearchStateModifier } from '../../types';
+import { createSortModel } from '../general';
+import { createPaginationModel } from '../general';
+import { createFullProduct } from '../products';
 import { createBreadcrumb } from './breadcrumb';
+import { createFacet } from './facet';
 
 const DEFAULT_SORT: string = 'relevance';
 const CATEGORY_QUERY: string = ':allCategories:';
