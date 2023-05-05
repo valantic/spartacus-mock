@@ -10,8 +10,9 @@ This project is guaranteed to work with the listed angular versions in this tabl
 | ---------------- | :------------: |
 | >=14.0.0 <15.0.0 |      v1.x      |
 
-# Table of contents
+## Table of contents
 
+- [Feature Scope](#feature-scope)
 - [How to use](#how-to-use)
   - [Getting started](#getting-started)
   - [Define Mock Data](#define-mock-data)
@@ -21,6 +22,22 @@ This project is guaranteed to work with the listed angular versions in this tabl
     - [Override default Slots or add custom Slots](#override-default-slots-or-add-custom-slots)
   - [Validation state](#validation-state)
 - [GitHub issues](#github-issues)
+- [Roadmap](#roadmap)
+
+## Feature Scope
+
+Spartacus-Mock currently covers the following spartacus features:
+
+- Home Page
+- Content Page
+- Product Categories
+- Product Search
+- Product Detail
+- Cart
+- Checkout
+- My Account (except Order Returns)
+
+See [Roadmap](#roadmap) for more information about the planned features.
 
 ## How to use
 
@@ -53,6 +70,9 @@ returns mock data. Every handler needs a route to intercept the call.
 
 #### Define Routes for Endpoints
 
+> You need to define routes for your custom endpoints. Default Endpoints can use the `getDefaultRoutes` function from the library (besides
+> if you want to adjust the url of a default endpoint).
+
 1. Create a routes file `src/mock-server/routes.ts`
 2. Add a routes function which returns an object like the following:
 
@@ -63,7 +83,7 @@ export function getRoutes(environment: Environment) {
   const occEndpoint = `${environment.backend.occ?.baseUrl}${environment.backend.occ?.prefix}`;
 
   return {
-    countries: `${occEndpoint}:baseSiteId/countries`,
+    customEndpoint: `${occEndpoint}:baseSiteId/my-custom-endpoint`,
   };
 }
 ```
@@ -262,3 +282,15 @@ async function prepare(): Promise<
 
 If you encounter a problem with this library or if you have a new feature you'd like to see in this project,
 please create [a new issue](https://github.com/valantic/spartacus-mock/issues/new/choose).
+
+## Roadmap
+
+- Add Angular 15 / 16 Compatibility Support (usually when new Spartacus Versions are released)
+- Add unit tests for the library code
+- Add mock handlers for more Spartacus features
+  - My Account Order Returns
+  - Asm
+  - Product Configurator
+  - Pickup in Store
+  - Organization
+  - ...
