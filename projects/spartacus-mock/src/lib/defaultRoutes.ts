@@ -8,7 +8,8 @@ import { occUserConfig } from './occ-config/occ-user-config';
 import { Environment } from './types';
 
 /**
- * TODO use endpoints from default configs
+ * TODO use endpoints from default configs after SAP exports them
+ * TODO Refactor this file to be a service
  *
  * defaultOccCartConfig
  * defaultOccCheckoutConfig
@@ -32,6 +33,10 @@ const userEndpoints = occUserConfig.backend?.occ?.endpoints;
 const userProfileEndpoints = defaultOccUserProfileConfig.backend?.occ?.endpoints;
 const storeFinderEndpoints = occStoreFinderConfig.backend.occ.endpoints;
 
+/**
+ * Returns the default routes for Spartacus Mock Server
+ * @param environment
+ */
 export function getDefaultRoutes(environment: Environment) {
   const occEndpoint = `${environment.backend.occ?.baseUrl}${environment.backend.occ?.prefix}`;
 
@@ -205,7 +210,7 @@ export function getDefaultRoutes(environment: Environment) {
     restoreSavedCart: `${occEndpoint}:baseSideId/${savedCartEndpoints?.restoreSavedCart}`
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'),
-    cloneSavedCart: `${occEndpoint}:baseSideId/${savedCartEndpoints?.cloneSavedCart}`
+    cloneSavedCart: `${occEndpoint}:baseSideId/${(savedCartEndpoints?.cloneSavedCart as string).split('?')}`
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'),
     savedCart: `${occEndpoint}:baseSideId/${savedCartEndpoints?.savedCart}`

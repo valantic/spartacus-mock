@@ -1,30 +1,34 @@
-export const languages = () => {
+import { Occ } from '@spartacus/core';
+
+export const createLanguage = (additionalData?: Occ.Language): Occ.Language => {
+  return {
+    active: true,
+    isocode: 'en',
+    name: 'English',
+    nativeName: 'English',
+    ...additionalData,
+  };
+};
+
+export const languageList = (): Occ.LanguageList => {
   return {
     languages: [
-      {
-        active: true,
-        isocode: 'en_CH',
-        name: 'English',
-        nativeName: 'English',
-      },
-      {
-        active: true,
-        isocode: 'de_CH',
+      createLanguage(),
+      createLanguage({
+        isocode: 'de',
         name: 'German',
         nativeName: 'Deutsch',
-      },
-      {
-        active: true,
-        isocode: 'it_CH',
+      }),
+      createLanguage({
+        isocode: 'it',
         name: 'Italian',
         nativeName: 'Italiano',
-      },
-      {
-        active: true,
-        isocode: 'fr_CH',
+      }),
+      createLanguage({
+        isocode: 'fr',
         name: 'French',
         nativeName: 'Francais',
-      },
+      }),
     ],
   };
 };

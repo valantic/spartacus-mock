@@ -1,22 +1,19 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { ReturnRequest, ReturnRequestEntry, ReturnRequestList } from '@spartacus/order/root';
-import { CartUserType } from '../commerce/cart';
-import { productPrice } from '../products/product-price';
+import { ReturnRequest, ReturnRequestList } from '@spartacus/order/root';
+import { createPrice } from '../commerce';
+import { CartUserType, getUserForCart } from '../commerce/cart';
+import { createFullProduct } from '../products/product';
 import { createOrder, createOrderEntry } from './order';
-
-// import { ReturnReasons, ReturnRequestStatusMap } from '@models/order';
 
 const createReturnRequestEntry = (entryNumber: number): Occ.ReturnRequestEntry => {
   const productCode = faker.datatype.number({ min: 100000, max: 999999 }).toString();
   return {
-    orderEntry: createOrderEntry(entryNumber, productCode, 500),
+    orderEntry: createOrderEntry({ entryNumber, product: createFullProduct({ code: productCode }), quantity: 500 }),
     expectedQuantity: 1,
-    refundAmount: productPrice(faker.datatype.number({ min: 10, max: 500 })),
+    refundAmount: createPrice(),
   };
 };
-
-// const returnRequestStatusOptions = Object.keys(ReturnRequestStatusMap);
 
 export const getOrderReturn = (numEntries?: number, orderId?: string): Occ.ReturnRequest => {
   const returnEntriesAmount = numEntries || faker.datatype.number({ min: 1, max: 10 });
@@ -25,15 +22,14 @@ export const getOrderReturn = (numEntries?: number, orderId?: string): Occ.Retur
     code: `RMA-${faker.datatype.number({ min: 100000, max: 999999 })}`,
     cancellable: false,
     creationTime: faker.date.past(),
-    order: createOrder(CartUserType.OCC_USER_ID_CURRENT, orderId),
+    order: createOrder({ user: getUserForCart(CartUserType.OCC_USER_ID_CURRENT), code: orderId }),
     refundDeliveryCost: false,
     returnEntries: new Array(returnEntriesAmount).fill(null).map((_, index) => createReturnRequestEntry(index)),
     returnLabelDownloadUrl: '/download-url',
     rma: faker.datatype.number({ min: 100000, max: 999999 }).toString(),
-    // status: faker.helpers.arrayElement(returnRequestStatusOptions),
-    deliveryCost: productPrice(faker.datatype.number({ min: 0, max: 50 })),
-    subTotal: productPrice(faker.datatype.number({ min: 50, max: 4000 })),
-    totalPrice: productPrice(faker.datatype.number({ min: 50, max: 4000 })),
+    deliveryCost: createPrice(),
+    subTotal: createPrice(),
+    totalPrice: createPrice(),
   };
 };
 

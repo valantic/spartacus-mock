@@ -1,9 +1,3 @@
-import { Occ } from '@spartacus/core';
-import { user } from '../auth/user';
-import { getDeliveryModes } from './checkout';
-
-import User = Occ.User;
-
 export const getPaymentSopResponse = (): string => {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

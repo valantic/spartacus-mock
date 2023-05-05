@@ -1,9 +1,14 @@
 import { faker } from '@faker-js/faker';
-import { ImageType, Occ } from '@spartacus/core';
-import { mediaImage } from '../media/media-image';
-import { productCategories } from './product-categories';
-import { productClassification } from './product-classification';
-import { productPrice } from './product-price';
+import { Occ } from '@spartacus/core';
+import { createPrice, createPriceRange } from '../commerce';
+import { createPromotion } from '../commerce';
+import { image } from '../media';
+import { createBaseOption, createVariantOption } from './product-base-option';
+import { createProductCategory } from './product-categories';
+import { createProductClassification } from './product-classification';
+import { createProductReference } from './product-references';
+import { reviewList } from './product-reviews';
+import { createFutureStock, createProductStock } from './product-stock';
 
 export const activeTabItems = [
   'ProductDetailsTabComponent',
@@ -12,68 +17,129 @@ export const activeTabItems = [
   'deliveryTab',
 ];
 
-interface OccProductExtended extends Occ.Product {
-  displayedTabs?: string[];
-}
-
-export const product = (productCode: string, _productIndex: number = 1): OccProductExtended => {
-  const productName = faker.commerce.productName();
-
-  const purchasable = true;
-
+/**
+ * Gets a Base Set of Product Data
+ */
+export const createBaseProduct = (additionalData?: Occ.Product): Occ.Product => {
   return {
-    // Scope List / Default properties
-    code: productCode,
-    name: productName,
-    price: productPrice(),
-    images: [
-      mediaImage('hires', ImageType.PRIMARY, 3500, 3500),
-      mediaImage('product', ImageType.PRIMARY, 675, 675),
-      mediaImage('thumbnail', ImageType.PRIMARY, 180, 180),
-      mediaImage('cartIcon', ImageType.PRIMARY, 180, 180),
-
-      mediaImage('zoom', ImageType.GALLERY, 1200, 1200, 0),
-      mediaImage('product', ImageType.GALLERY, 480, 480, 0),
-      mediaImage('thumbnail', ImageType.GALLERY, 180, 180, 0),
-
-      mediaImage('zoom', ImageType.GALLERY, 1200, 1200, 1),
-      mediaImage('product', ImageType.GALLERY, 480, 480, 1),
-      mediaImage('thumbnail', ImageType.GALLERY, 180, 180, 1),
-
-      mediaImage('zoom', ImageType.GALLERY, 1200, 1200, 2),
-      mediaImage('product', ImageType.GALLERY, 480, 480, 2),
-      mediaImage('thumbnail', ImageType.GALLERY, 180, 180, 2),
-    ],
-
-    // Scope Details
-    availableForPickup: true,
-    averageRating: 4.541666666666667,
-    categories: productCategories(),
-    description: `<p>${faker.commerce.productDescription()}</p><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>`,
-    summary: `${faker.commerce.productDescription()}`,
-    manufacturer: 'Product Brand',
-    numberOfReviews: 24,
-    priceRange: {},
-    stock: {
-      stockLevel: faker.datatype.number(999),
-      stockLevelStatus: 'inStock',
-    },
-    url: `/product/${productCode}/product-name`,
-    displayedTabs: activeTabItems,
-    purchasable,
-  };
-};
-
-export const productBaseData = (): Occ.Product => {
-  return {
-    baseOptions: [],
+    code: faker.random.numeric(6),
     name: faker.commerce.productName(),
+    images: [
+      // PRIMARY
+      image({ format: 'hires' }, { width: 3500, height: 3500 }),
+      image({ format: 'product' }, { width: 675, height: 675 }),
+      image({ format: 'thumbnail' }, { width: 180, height: 180 }),
+      image({ format: 'cartIcon' }, { width: 180, height: 180 }),
+
+      // GALLERY
+      image(
+        { format: 'zoom', imageType: Occ.ImageType.GALLERY, galleryIndex: 1 },
+        {
+          width: 1200,
+          height: 1200,
+        }
+      ),
+      image(
+        { format: 'product', imageType: Occ.ImageType.GALLERY, galleryIndex: 1 },
+        {
+          width: 480,
+          height: 480,
+        }
+      ),
+      image(
+        { format: 'thumbnail', imageType: Occ.ImageType.GALLERY, galleryIndex: 1 },
+        {
+          width: 180,
+          height: 180,
+        }
+      ),
+
+      image(
+        { format: 'zoom', imageType: Occ.ImageType.GALLERY, galleryIndex: 2 },
+        {
+          width: 1200,
+          height: 1200,
+        }
+      ),
+      image(
+        { format: 'product', imageType: Occ.ImageType.GALLERY, galleryIndex: 2 },
+        {
+          width: 480,
+          height: 480,
+        }
+      ),
+      image(
+        { format: 'thumbnail', imageType: Occ.ImageType.GALLERY, galleryIndex: 2 },
+        {
+          width: 180,
+          height: 180,
+        }
+      ),
+
+      image(
+        { format: 'zoom', imageType: Occ.ImageType.GALLERY, galleryIndex: 3 },
+        {
+          width: 1200,
+          height: 1200,
+        }
+      ),
+      image(
+        { format: 'product', imageType: Occ.ImageType.GALLERY, galleryIndex: 3 },
+        {
+          width: 480,
+          height: 480,
+        }
+      ),
+      image(
+        { format: 'thumbnail', imageType: Occ.ImageType.GALLERY, galleryIndex: 3 },
+        {
+          width: 180,
+          height: 180,
+        }
+      ),
+    ],
+    baseProduct: `BASE_${faker.random.numeric(6)}`,
+    price: createPrice(),
     purchasable: true,
+    url: faker.internet.url(),
+    stock: createProductStock(),
+    ...additionalData,
   };
 };
 
-export const productClassifications = (): Occ.Product => {
+/**
+ * Gets a Full Set of Product Data
+ */
+export const createFullProduct = (additionalData?: Occ.Product): Occ.Product => {
   return {
-    classifications: new Array(faker.datatype.number(10)).fill(null).map(() => productClassification()),
+    ...createBaseProduct(),
+    availableForPickup: true,
+    averageRating: faker.datatype.number({ min: 1, max: 5, precision: 0.1 }),
+    baseOptions: [createBaseOption()],
+    categories: [createProductCategory(), createProductCategory(), createProductCategory()],
+    classifications: [createProductClassification(), createProductClassification(), createProductClassification()],
+    description: faker.commerce.productDescription(),
+    futureStocks: [createFutureStock()],
+    manufacturer: faker.company.name(),
+    multidimensional: false,
+    numberOfReviews: faker.datatype.number({ min: 0, max: 999 }),
+    potentialPromotions: [createPromotion()],
+    priceRange: createPriceRange(),
+    productReferences: [
+      createProductReference({ referenceType: 'ACCESSORIES' }),
+      createProductReference({ referenceType: 'SIMILAR' }),
+    ],
+    reviews: reviewList().reviews,
+    summary: faker.lorem.sentences(5),
+    variantMatrix: [],
+    variantOptions: [createVariantOption(), createVariantOption(), createVariantOption()],
+    variantType: '',
+    volumePrices: [
+      createPrice({ minQuantity: 10 }),
+      createPrice({ minQuantity: 100 }),
+      createPrice({ minQuantity: 1000 }),
+    ],
+    volumePricesFlag: false,
+    ...additionalData,
   };
 };

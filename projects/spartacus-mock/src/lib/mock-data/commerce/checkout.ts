@@ -1,36 +1,30 @@
 import { Occ } from '@spartacus/core';
-import { getSharedAddress } from '../account/addresses';
-import { createPaymentDetails } from '../account/payments';
+import { createAddress } from '../account';
+import { DEFAULT_PAYMENT_ID, createPaymentDetails } from '../account';
 import { createDeliveryMode } from './delivery-mode';
 
-import PriceType = Occ.PriceType;
-
-export const getCheckoutDetails = (): Occ.Cart => {
+export const getCheckoutDetails = (additionalData?: Occ.Cart): Occ.Cart => {
   return {
-    // @ts-ignore
-    type: 'cartWsDTO',
-    deliveryAddress: getSharedAddress(),
-    deliveryMode: {
+    deliveryAddress: createAddress(),
+    deliveryMode: createDeliveryMode({
       code: 'standard-gross',
-      deliveryCost: {
-        currencyIso: 'USD',
-        formattedValue: '$8.99',
-        priceType: PriceType.BUY,
-        value: 8.99,
-      },
       description: '3-5 business days',
       name: 'Standard Delivery',
-    },
-    paymentInfo: createPaymentDetails(true),
+    }),
+    paymentInfo: createPaymentDetails({
+      defaultPayment: true,
+      id: DEFAULT_PAYMENT_ID,
+    }),
+    ...additionalData,
   };
 };
 
 export const getDeliveryModes = (): Occ.DeliveryModeList => {
   return {
     deliveryModes: [
-      createDeliveryMode('standard', 'Standard Delivery'),
-      createDeliveryMode('premium', 'Premium Delivery'),
-      createDeliveryMode('express', 'Express Delivery'),
+      createDeliveryMode({ code: 'standard', name: 'Standard Delivery' }),
+      createDeliveryMode({ code: 'premium', name: 'Premium Delivery' }),
+      createDeliveryMode({ code: 'express', name: 'Express Delivery' }),
     ],
   };
 };

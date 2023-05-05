@@ -1,105 +1,114 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { countries } from '../general/countries';
+import { createAddress } from '../account';
+import { countryList, createCountry } from '../general';
+import { image } from '../media';
 
-const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-export const storesAndRegionsStoreCount = (): Occ.StoreCountList => {
+export const createStoreCount = (additionalData?: Occ.StoreCount): Occ.StoreCount => {
   return {
-    countriesAndRegionsStoreCount: countries().countries?.map((country) => {
-      return {
-        count: faker.datatype.number({ min: 1, max: 15 }),
-        isoCode: country.isocode,
-        name: country.name,
-        type: 'COUNTRY',
-      } as Occ.StoreCount;
-    }),
+    count: faker.datatype.number({ min: 1, max: 15 }),
+    isoCode: faker.address.countryCode(),
+    name: faker.address.country(),
+    type: 'COUNTRY',
+    ...additionalData,
   };
 };
 
-const createFeatures = () => {
-  return new Array(faker.datatype.number({ min: 1, max: 5 })).fill(null).map(() => {
-    const feature = faker.company.catchPhraseAdjective();
-    const featureKey = feature.toLowerCase().replace(' ', '-');
-    return {
-      key: featureKey,
-      value: feature,
-    };
-  });
-};
-
-const createOpeningHours = (): object[] => {
-  return new Array(7).fill(null).map((_value, index) => {
-    const isClosed = faker.datatype.boolean();
-    const hours = {
-      closed: isClosed,
-      weekDay: weekDays[index],
-    };
-
-    if (!isClosed) {
-      const hourOpening = faker.datatype.number({ min: 8, max: 12 });
-      const minuteOpening = faker.datatype.number({ min: 0, max: 60 });
-      // @ts-ignore
-      hours['openingTime'] = {
-        formattedHour: `${hourOpening}:${minuteOpening} AM`,
-        hour: hourOpening,
-        minute: minuteOpening,
-      };
-
-      const hourClosing = faker.datatype.number({ min: 3, max: 6 });
-      const minuteClosing = faker.datatype.number({ min: 0, max: 60 });
-      // @ts-ignore
-      hours['closingTime'] = {
-        formattedHour: `${hourClosing}:${minuteClosing} PM`,
-        hour: hourClosing,
-        minute: minuteClosing,
-      };
-    }
-
-    return hours;
-  });
-};
-
-export const createPointOfService = (countryIsoCode?: string): Occ.PointOfService => {
-  const name = faker.company.name();
+export const storesAndRegionsStoreCount = (): Occ.StoreCountList => {
   return {
-    address: {
-      country: {
-        isocode: countryIsoCode || faker.address.countryCode('alpha-2'),
-      },
-      line1: faker.address.streetAddress(),
-      phone: faker.phone.number(),
-      town: faker.address.city(),
-    },
-    displayName: name,
-    features: {
-      // @ts-ignore
-      entry: createFeatures(),
-    },
-    formattedDistance: `${faker.datatype.number({ min: 1, max: 999 })}km`,
+    countriesAndRegionsStoreCount: countryList().countries?.map((country) =>
+      createStoreCount({ isoCode: country.isocode, name: country.name })
+    ),
+  };
+};
+
+export const createTime = (additionalData?: Occ.Time): Occ.Time => {
+  const date = faker.date.future();
+
+  return {
+    formattedHour: `${date.getHours()}:${date.getMinutes()} Uhr`,
+    hour: date.getHours(),
+    minute: date.getMinutes(),
+    ...additionalData,
+  };
+};
+
+export const createSpecialOpeningDay = (additionalData?: Occ.SpecialOpeningDay): Occ.SpecialOpeningDay => {
+  const date = faker.date.future();
+
+  return {
+    closed: faker.datatype.boolean(),
+    closingTime: createTime(),
+    comment: faker.lorem.sentences(2),
+    date,
+    formattedDate: date.toDateString(),
+    name: faker.lorem.words(3),
+    openingTime: createTime(),
+    ...additionalData,
+  };
+};
+
+export const createWeekdayOpeningDay = (additionalData?: Occ.WeekdayOpeningDay): Occ.WeekdayOpeningDay => {
+  return {
+    closed: faker.datatype.boolean(),
+    closingTime: createTime(),
+    openingTime: createTime(),
+    weekDay: faker.date.weekday(),
+    ...additionalData,
+  };
+};
+
+export const createOpeningSchedule = (additionalData?: Occ.OpeningSchedule): Occ.OpeningSchedule => {
+  return {
+    code: faker.datatype.uuid(),
+    name: faker.lorem.words(3),
+    specialDayOpeningList: [createSpecialOpeningDay(), createSpecialOpeningDay()],
+    weekDayOpeningList: [
+      createWeekdayOpeningDay({ weekDay: 'Mo' }),
+      createWeekdayOpeningDay({ weekDay: 'Di' }),
+      createWeekdayOpeningDay({ weekDay: 'Mi' }),
+      createWeekdayOpeningDay({ weekDay: 'Do' }),
+      createWeekdayOpeningDay({ weekDay: 'Fr' }),
+      createWeekdayOpeningDay({ weekDay: 'Sa', closed: true }),
+      createWeekdayOpeningDay({ weekDay: 'So', closed: true }),
+    ],
+    ...additionalData,
+  };
+};
+
+export const createPointOfService = (additionalData?: Occ.PointOfService): Occ.PointOfService => {
+  const distanceKm = faker.datatype.number({ min: 1, max: 9999 });
+
+  return {
+    address: createAddress(),
+    description: faker.lorem.sentences(3),
+    displayName: faker.company.name(),
+    distanceKm,
+    features: undefined,
+    formattedDistance: `${distanceKm}km`,
     geoPoint: {
       latitude: parseFloat(faker.address.latitude()),
       longitude: parseFloat(faker.address.longitude()),
     },
-    name: name,
-    openingHours: {
-      specialDayOpeningList: [],
-      weekDayOpeningList: createOpeningHours(),
-    },
+    mapIcon: image(),
+    name: faker.company.name(),
+    openingHours: createOpeningSchedule(),
+    storeContent: '',
+    storeImages: [image(), image(), image()],
+    url: faker.internet.url(),
+    ...additionalData,
   };
 };
 
-export const store = (): Occ.PointOfService => {
-  return createPointOfService();
-};
-
-export const stores = (): object => {
+export const storeFinderSearchPage = (additionalData?: Occ.StoreFinderSearchPage): Occ.StoreFinderSearchPage => {
   const storesCount = storesAndRegionsStoreCount().countriesAndRegionsStoreCount;
   const stores: Occ.PointOfService[] = [];
 
   storesCount?.forEach((storeCount) => {
     const pointOfServicesForCountry = new Array(storeCount.count).fill(null).map(() => {
-      return createPointOfService(storeCount.isoCode || '');
+      return createPointOfService({
+        address: createAddress({ country: createCountry({ isocode: storeCount.isoCode, name: storeCount.name }) }),
+      });
     });
 
     stores.push(...pointOfServicesForCountry);
@@ -114,5 +123,6 @@ export const stores = (): object => {
       totalResults: 88,
     },
     stores,
+    ...additionalData,
   };
 };

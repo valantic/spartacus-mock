@@ -1,5 +1,10 @@
 import { PassThroughUrl } from './types';
 
+/**
+ * TODO refactor this to a service
+ *
+ * Returns the default pass through urls
+ */
 export const defaultPassThroughUrls: PassThroughUrl[] = [
   { url: '/assets/*', requestFunction: 'get' },
   { url: '*.woff2', requestFunction: 'get' },

@@ -1,15 +1,11 @@
 import { faker } from '@faker-js/faker';
-import { Occ, Promotion, Stock } from '@spartacus/core';
+import { Occ, Stock } from '@spartacus/core';
 import { ActiveCartEntry, LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
-import { mediaImage } from '../media/media-image';
-import { OccOrderEntryExtended, createOrderEntry } from '../order/order';
-import { product } from '../products/product';
-
-import ImageType = Occ.ImageType;
-import PriceType = Occ.PriceType;
-
-import OrderEntry = Occ.OrderEntry;
-import { productPrice } from '../products/product-price';
+import { createUser } from '../auth';
+import { image } from '../media/image';
+import { createOrderEntry } from '../order/order';
+import { createFullProduct } from '../products/product';
+import { createPrice } from './price';
 
 export enum CartUserType {
   OCC_USER_ID_ANONYMOUS = 'anonymous',
@@ -89,11 +85,11 @@ const wishlistCartData = (userType: CartUserType): Occ.Cart => {
           baseOptions: [],
           code: 'product', // needs to match product ID for mock product /de/products/product
           images: [
-            mediaImage('product-zoom', ImageType.PRIMARY, 900, 900),
-            mediaImage('product-Summary', ImageType.PRIMARY, 440, 440),
-            mediaImage('product-main', ImageType.PRIMARY, 240, 240),
-            mediaImage('product-thumbnail', ImageType.PRIMARY, 150, 150),
-            mediaImage('product-icon', ImageType.PRIMARY, 80, 80),
+            image({ format: 'product-zoom' }, { width: 900, height: 900 }),
+            image({ format: 'product-Summary' }, { width: 440, height: 440 }),
+            image({ format: 'product-main' }, { width: 240, height: 240 }),
+            image({ format: 'product-thumbnail' }, { width: 150, height: 150 }),
+            image({ format: 'product-icon' }, { width: 80, height: 80 }),
           ],
           manufacturer: 'Canon',
           name: 'Product 1',
@@ -119,33 +115,13 @@ const wishlistCartData = (userType: CartUserType): Occ.Cart => {
     guid: '22579b1a-9bb8-4c34-82fa-c71bb402a4d5',
     net: false,
     pickupItemsQuantity: 0,
-    productDiscounts: {
-      formattedValue: '$0.00',
-    },
-    subTotal: {
-      formattedValue: '$0.00',
-    },
-    totalDiscounts: {
-      currencyIso: 'USD',
-      formattedValue: '$0.00',
-      priceType: PriceType.BUY,
-      value: 0,
-    },
+    productDiscounts: createPrice(),
+    subTotal: createPrice(),
+    totalDiscounts: createPrice(),
     totalItems: 0,
-    totalPrice: {
-      currencyIso: 'USD',
-      formattedValue: '$0.00',
-      value: 0,
-    },
-    totalPriceWithTax: {
-      currencyIso: 'USD',
-      formattedValue: '$0.00',
-      value: 0,
-    },
-    totalTax: {
-      formattedValue: '$0.00',
-      value: 0,
-    },
+    totalPrice: createPrice(),
+    totalPriceWithTax: createPrice(),
+    totalTax: createPrice(),
     user: getUserForCart(userType),
     description: 'undefined',
     // name consists out of 'wishlist' and user id and must match user id from user.ts
@@ -174,11 +150,11 @@ const savedCartData = (userType: CartUserType): Occ.Cart => {
           baseOptions: [],
           code: 'product', // needs to match product ID for mock product /de/products/product
           images: [
-            mediaImage('product-zoom', ImageType.PRIMARY, 900, 900),
-            mediaImage('product-Summary', ImageType.PRIMARY, 440, 440),
-            mediaImage('product-main', ImageType.PRIMARY, 240, 240),
-            mediaImage('product-thumbnail', ImageType.PRIMARY, 150, 150),
-            mediaImage('product-icon', ImageType.PRIMARY, 80, 80),
+            image({ format: 'product-zoom' }, { width: 900, height: 900 }),
+            image({ format: 'product-Summary' }, { width: 440, height: 440 }),
+            image({ format: 'product-main' }, { width: 240, height: 240 }),
+            image({ format: 'product-thumbnail' }, { width: 150, height: 150 }),
+            image({ format: 'product-icon' }, { width: 80, height: 80 }),
           ],
           manufacturer: 'Canon',
           name: 'Product 1',
@@ -193,20 +169,20 @@ const savedCartData = (userType: CartUserType): Occ.Cart => {
         },
         quantity: 1,
         statusSummaryList: [],
-        totalPrice: productPrice(),
+        totalPrice: createPrice(),
         updateable: true,
       },
     ],
     guid: '22579b1a-9bb8-4c34-82fa-c71bb402a4d5',
     net: false,
     pickupItemsQuantity: 0,
-    productDiscounts: productPrice(),
-    subTotal: productPrice(),
-    totalDiscounts: productPrice(),
+    productDiscounts: createPrice(),
+    subTotal: createPrice(),
+    totalDiscounts: createPrice(),
     totalItems: 0,
-    totalPrice: productPrice(),
-    totalPriceWithTax: productPrice(),
-    totalTax: productPrice(),
+    totalPrice: createPrice(),
+    totalPriceWithTax: createPrice(),
+    totalTax: createPrice(),
     user: getUserForCart(userType),
     description: 'undefined',
     // name consists out of 'wishlist' and user id and must match user id from user.ts
@@ -220,18 +196,9 @@ const savedCartData = (userType: CartUserType): Occ.Cart => {
 
 const fullCartData = (cartGuid: string, userType: CartUserType, forceEntries?: boolean): Occ.Cart => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
-
   const activeCartEntries = forceEntries ? [{ code: 'entry1', quantity: 1 }] : mockData.activeCartEntries;
-
   const totalQuantity = activeCartEntries.reduce((acc, entry) => {
     return acc + entry.quantity;
-  }, 0);
-  const entries: OrderEntry[] = activeCartEntries.map((entry, index) =>
-    getCartOrderEntry(index, entry.code, entry.quantity, true)
-  );
-
-  let totalAmount = entries.reduce((acc, entry) => {
-    return acc + (entry.totalPrice?.value || 0);
   }, 0);
 
   return {
@@ -240,44 +207,25 @@ const fullCartData = (cartGuid: string, userType: CartUserType, forceEntries?: b
     appliedVouchers: mockData.activeVouchers,
     code: '0030424022',
     deliveryItemsQuantity: totalQuantity,
-    entries,
+    entries: activeCartEntries.map((entry, index) =>
+      createOrderEntry({
+        entryNumber: index,
+        product: createFullProduct({ code: entry.code }),
+        quantity: entry.quantity,
+      })
+    ),
     guid: cartGuid,
     net: false,
     pickupItemsQuantity: 0,
     productDiscounts: {
       formattedValue: '$0.00',
     },
-    subTotal: {
-      currencyIso: 'USD',
-      formattedValue: `$${totalAmount}`,
-      priceType: PriceType.BUY,
-      value: totalAmount,
-    },
-    totalDiscounts: {
-      currencyIso: 'USD',
-      formattedValue: '$20.00',
-      priceType: PriceType.BUY,
-      value: 20,
-    },
+    subTotal: createPrice(),
+    totalDiscounts: createPrice(),
     totalItems: totalQuantity,
-    totalPrice: {
-      currencyIso: 'USD',
-      formattedValue: `$${totalAmount}`,
-      priceType: PriceType.BUY,
-      value: totalAmount,
-    },
-    totalPriceWithTax: {
-      currencyIso: 'USD',
-      formattedValue: `$${totalAmount}`,
-      priceType: PriceType.BUY,
-      value: totalAmount,
-    },
-    totalTax: {
-      currencyIso: 'USD',
-      formattedValue: '$0.00',
-      priceType: PriceType.BUY,
-      value: 0,
-    },
+    totalPrice: createPrice(),
+    totalPriceWithTax: createPrice(),
+    totalTax: createPrice(),
     user: getUserForCart(userType),
     potentialOrderPromotions: [],
     potentialProductPromotions: [],
@@ -336,7 +284,11 @@ export const addToCart = (product: ProductAddToCart, quantity: number): Occ.Cart
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 
   return {
-    entry: getCartOrderEntry(0, product.code, activeCartEntry.quantity),
+    entry: createOrderEntry({
+      entryNumber: 0,
+      product: createFullProduct({ code: product.code }),
+      quantity: activeCartEntry.quantity,
+    }),
     quantity: quantity,
     quantityAdded: quantity,
     statusCode: 'success',
@@ -365,14 +317,18 @@ export const updateEntries = (_cartId: string, entryNumber: number, quantity: nu
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 
   return {
-    entry: getCartOrderEntry(0, activeCartEntry.code, activeCartEntry.quantity),
+    entry: createOrderEntry({
+      entryNumber: 0,
+      product: createFullProduct({ code: activeCartEntry.code }),
+      quantity: activeCartEntry.quantity,
+    }),
     quantity: activeCartEntry.quantity,
     quantityAdded,
     statusCode: 'success',
   };
 };
 
-export const removeEntries = (_cartId: string, entryNumber: number) => {
+export const removeEntries = (_cartId: string, entryNumber: number): void => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
   let activeCartEntries = mockData.activeCartEntries;
   let activeCartEntry = activeCartEntries[entryNumber];
@@ -390,7 +346,7 @@ export const removeEntries = (_cartId: string, entryNumber: number) => {
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 };
 
-export const deleteCart = () => {
+export const deleteCart = (): void => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
 
   mockData = {
@@ -401,7 +357,7 @@ export const deleteCart = () => {
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 };
 
-export const setGuestCheckout = (newState: boolean) => {
+export const setGuestCheckout = (newState: boolean): void => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
 
   mockData = {
@@ -412,7 +368,7 @@ export const setGuestCheckout = (newState: boolean) => {
   window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockData));
 };
 
-export const getUserForCart = (userType?: CartUserType) => {
+export const getUserForCart = (userType?: CartUserType): Occ.User => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
 
   if (mockData.isGuestCheckout) {
@@ -421,20 +377,20 @@ export const getUserForCart = (userType?: CartUserType) => {
 
   switch (userType) {
     case CartUserType.OCC_USER_ID_GUEST:
-      return {
+      return createUser({
         name: userType,
         uid: '780da81b-f797-4274-b2a7-aa879808e6a7|' + faker.internet.email(),
-      };
+      });
     case CartUserType.OCC_USER_ID_CURRENT:
-      return {
+      return createUser({
         name: 'Hans Muster',
         uid: 'hans.muster@gmail.com',
-      };
+      });
     default:
-      return {
+      return createUser({
         name: CartUserType.OCC_USER_ID_ANONYMOUS,
         uid: CartUserType.OCC_USER_ID_ANONYMOUS,
-      };
+      });
   }
 };
 
@@ -448,48 +404,3 @@ export const getUserTypeById = (userId: string): CartUserType => {
       return CartUserType.OCC_USER_ID_ANONYMOUS;
   }
 };
-
-function getCartOrderEntry(
-  index: number,
-  productCode: string,
-  quantity: number,
-  isFullCartRequest?: boolean
-): OccOrderEntryExtended {
-  const price = faker.commerce.price(100, 10000, 0, '');
-  const priceNumber = getPriceWithDecimals(price);
-
-  let orderEntry: OccOrderEntryExtended = {
-    cancellableQuantity: 0,
-    configurationInfos: [],
-    entryNumber: index,
-    product: product(productCode, index),
-    quantity,
-    returnableQuantity: 0,
-    statusSummaryList: [],
-    totalPrice: {
-      currencyIso: 'USD',
-      formattedValue: `$${priceNumber}`,
-      value: priceNumber,
-    },
-  };
-
-  // updateable needs to be set to true to enable the item counter in the add to cart dialog
-  if (isFullCartRequest) {
-    orderEntry = {
-      ...orderEntry,
-      basePrice: {
-        formattedValue: `$${priceNumber}`,
-        value: priceNumber,
-      },
-      updateable: true,
-    };
-  }
-
-  return orderEntry;
-}
-
-export function getPriceWithDecimals(price: string): number {
-  let decimalsNumber = faker.datatype.number({ min: 0, max: 99 });
-
-  return parseFloat(`${price}.${decimalsNumber === 0 ? '00' : decimalsNumber}`);
-}

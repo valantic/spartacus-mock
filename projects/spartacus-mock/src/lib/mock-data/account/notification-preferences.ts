@@ -1,17 +1,26 @@
-export const notificationPreferences = () => {
+import { NotificationPreference, NotificationPreferenceList } from '@spartacus/core';
+import { faker } from '@faker-js/faker';
+
+export const createNotificationPreference = (additionalData?: NotificationPreference): NotificationPreference => {
+  return {
+    channel: 'EMAIL',
+    enabled: true,
+    value: faker.internet.email(),
+    visible: true,
+    ...additionalData,
+  };
+};
+
+export const notificationPreferenceList = (): NotificationPreferenceList => {
   return {
     preferences: [
-      {
-        channel: 'EMAIL',
-        enabled: false,
-        value: 'hans.muster@gmail.com',
-        visible: true,
-      },
-      {
+      createNotificationPreference(),
+      createNotificationPreference({
         channel: 'SITE_MESSAGE',
         enabled: false,
-        visible: false,
-      },
+        visible: true,
+        value: '',
+      }),
     ],
   };
 };

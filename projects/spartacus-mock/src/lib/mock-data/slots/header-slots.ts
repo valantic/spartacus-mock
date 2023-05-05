@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker';
 import { Component, ContentSlot } from '../../types';
 import { categoryNavigationComponent } from '../components/default/category-navigation';
 import { cmsLinkComponent } from '../components/default/cms-link';
@@ -6,13 +5,16 @@ import { miniCartComponent } from '../components/default/mini-cart';
 import { searchBoxComponent } from '../components/default/search-box';
 import { simpleBannerComponent } from '../components/default/simple-banner';
 import { siteContextComponent } from '../components/default/site-context';
+import { Occ } from '@spartacus/core';
+import { flexTypeComponent } from '../components/default/flex-type-component';
+import { faker } from '@faker-js/faker';
 
-export const siteLogoSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const siteLogoSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
+    slotId: 'siteLogoSlot',
     slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    position: 'SiteLogo',
+    name: 'Site Logo Slot',
     slotShared: true,
     components: {
       component: [simpleBannerComponent('/')],
@@ -20,12 +22,12 @@ export const siteLogoSlot = (slotId: string, slotPosition: string, slotName: str
   };
 };
 
-export const miniCartSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const miniCartSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
+    slotId: 'MiniCartSlot',
     slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    position: 'MiniCart',
+    name: 'Mini Cart Slot',
     slotShared: true,
     components: {
       component: [miniCartComponent()],
@@ -33,48 +35,36 @@ export const miniCartSlot = (slotId: string, slotPosition: string, slotName: str
   };
 };
 
-export const homePageNavLinkSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const homepageNavLinkSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
+    slotId: 'homepageNavLinkSlot',
     slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    position: 'HomepageNavLink',
+    name: 'Homepage Nav Link Slot',
     slotShared: true,
     components: {
       component: [
-        cmsLinkComponent(
-          'Home Page Nav Link',
-          'HomepageNavLink',
-          'eyJpdGVtSWQiOiJIb21lcGFnZU5hdkxpbmsiLCJjYXRhbG9nSWQiOiJlbGVjdHJvbmljcy1zcGFDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
-          'Home',
-          '/',
-          'false',
-          'false',
-          'homepage',
-          'homepage'
-        ),
+        cmsLinkComponent({
+          linkName: 'Home',
+          url: '/',
+          contentPage: 'homepage',
+          contentPageLabelOrId: 'homepage',
+        }),
       ],
     },
   };
 };
 
-export const headerLinksSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const headerLinksSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
+    slotId: 'HeaderLinksSlot',
     slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    position: 'HeaderLinks',
+    name: 'Header Links Slot',
     slotShared: true,
     components: {
-      // TODO extend with header links if needed
       component: [
-        {
-          uid: 'MyAccountComponent',
-          uuid: 'eyJpdGVtSWQiOiJNeUFjY291bnRDb21wb25lbnQiLCJjYXRhbG9nSWQiOiJlbGVjdHJvbmljcy1zcGFDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
-          typeCode: 'NavigationComponent',
-          modifiedtime: '2021-11-18T00:08:02.544Z',
-          name: 'My Account',
-          container: 'false',
+        flexTypeComponent('NavigationComponent', undefined, {
           styleClass: 'accNavComponent',
           navigationNode: {
             uid: 'MyAccountNavNode',
@@ -266,18 +256,18 @@ export const headerLinksSlot = (slotId: string, slotPosition: string, slotName: 
             ],
             title: 'My Account',
           },
-        },
+        }),
       ],
     },
   };
 };
 
-export const searchBoxSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const searchBoxSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
+    slotId: 'SearchBoxSlot',
     slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    position: 'SearchBox',
+    name: 'Search Box Slot',
     slotShared: true,
     components: {
       component: [searchBoxComponent()],
@@ -285,27 +275,26 @@ export const searchBoxSlot = (slotId: string, slotPosition: string, slotName: st
   };
 };
 
-export const topHeaderSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const topHeaderSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
+    slotId: 'TopHeaderSlot',
     slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    position: 'TopHeaderSlot',
+    name: 'Top Header SLot',
     slotShared: true,
     components: {
-      // TODO extend with header links if needed
-      component: [] as Component[],
+      component: [],
     },
   };
 };
 
 // containing language / currency selector
-export const siteContextSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const siteContextSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
+    slotId: 'SiteContextSlot',
     slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    position: 'SiteContext',
+    name: 'Site Context Slot',
     slotShared: true,
     components: {
       component: [siteContextComponent('LANGUAGE'), siteContextComponent('CURRENCY')],
@@ -314,64 +303,44 @@ export const siteContextSlot = (slotId: string, slotPosition: string, slotName: 
 };
 
 // containg storefinder / contact us / help meta nav links
-export const siteLinksSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const siteLinksSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
+    slotId: 'SiteLinksSlot',
     slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    position: 'SiteLinks',
+    name: 'Site Links Slot',
     slotShared: true,
     components: {
       component: [
-        cmsLinkComponent(
-          'Quick Order Link',
-          'QuickOrderLink',
-          'eyJpdGVtSWQiOiJRdWlja09yZGVyTGluayIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ=',
-          'Quick Order',
-          '/my-account/quick-order',
-          'false',
-          'false'
-        ),
-        cmsLinkComponent(
-          'Store Finder Link',
-          'StoreFinderLink',
-          'eyJpdGVtSWQiOiJTdG9yZUZpbmRlckxpbmsiLCJjYXRhbG9nSWQiOiJlbGVjdHJvbmljcy1zcGFDb250ZW50Q2F0YWxvZyIsImNhdGFsb2dWZXJzaW9uIjoiT25saW5lIn0=',
-          'Find a Store',
-          '/store-finder',
-          'false',
-          'false',
-          'storefinderPage',
-          '/store-finder'
-        ),
-        cmsLinkComponent(
-          'Contact Us Link',
-          'ContactUsLink',
-          'eyJpdGVtSWQiOiJDb250YWN0VXNMaW5rIiwiY2F0YWxvZ0lkIjoiZWxlY3Ryb25pY3Mtc3BhQ29udGVudENhdGFsb2ciLCJjYXRhbG9nVmVyc2lvbiI6Ik9ubGluZSJ9',
-          'Contact Us',
-          '/example-content',
-          'false',
-          'false'
-        ),
-        cmsLinkComponent(
-          'Help Link',
-          'HelpLink',
-          'eyJpdGVtSWQiOiJIZWxwTGluayIsImNhdGFsb2dJZCI6ImVsZWN0cm9uaWNzLXNwYUNvbnRlbnRDYXRhbG9nIiwiY2F0YWxvZ1ZlcnNpb24iOiJPbmxpbmUifQ==',
-          'Help',
-          '/example-content',
-          'false',
-          'false'
-        ),
+        cmsLinkComponent({
+          linkName: 'Quick Order',
+          url: '/my-account/quick-order',
+        }),
+        cmsLinkComponent({
+          linkName: 'Find a Store',
+          url: '/store-finder',
+          contentPage: 'storefinderPage',
+          contentPageLabelOrId: '/store-finder',
+        }),
+        cmsLinkComponent({
+          linkName: 'Contact Us',
+          url: '/contact',
+        }),
+        cmsLinkComponent({
+          linkName: 'Help',
+          url: '/help',
+        }),
       ],
     },
   };
 };
 
-export const navigationBarSlot = (slotId: string, slotPosition: string, slotName: string) => {
+export const navigationBarSlot = (): Occ.ContentSlot => {
   return {
-    slotId,
+    slotId: 'NavigationBarSlot',
     slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    position: 'NavigationBar',
+    name: 'Navigation Bar Slot',
     slotShared: true,
     components: {
       component: [categoryNavigationComponent()],
@@ -379,37 +348,32 @@ export const navigationBarSlot = (slotId: string, slotPosition: string, slotName
   };
 };
 
-export const bottomHeaderSlot = (slotId: string, slotPosition: string, slotName: string, breadcrumb?: Component) => {
-  const bottomHeader = {
-    slotId,
+export const bottomHeaderSlot = (additionalComponents: Component[] = []): Occ.ContentSlot => {
+  return {
+    slotId: 'BottomHeaderSlot',
     slotUuid: faker.datatype.uuid(),
-    position: slotPosition,
-    name: slotName,
+    position: 'BottomHeaderSlot',
+    name: 'Bottom Header Slot',
     slotShared: true,
     components: {
-      component: [] as Component[],
+      component: additionalComponents,
     },
   };
-
-  if (breadcrumb) {
-    bottomHeader.components.component.push(breadcrumb);
-  }
-
-  return bottomHeader;
 };
 
-export const headerSlots = (breadcrumb?: Component): ContentSlot[] => {
+export const headerSlots = (additionalSlots: ContentSlot[] = []): ContentSlot[] => {
   // shared header slots
   return [
-    siteLogoSlot('SiteLogoSlot', 'SiteLogo', 'Default Site Logo Slot'),
-    miniCartSlot('MiniCartSlot', 'MiniCart', 'Mini Cart'),
-    homePageNavLinkSlot('NavLinkSlot', 'HomepageNavLink', 'Default Homepage Link'),
-    headerLinksSlot('HeaderLinksSlot', 'HeaderLinks', 'Header links'),
-    searchBoxSlot('SearchBoxSlot', 'SearchBox', 'Search Box'),
-    topHeaderSlot('TopHeaderSlot', 'TopHeaderSlot', 'Top Header'),
-    siteContextSlot('SiteContextSlot', 'SiteContext', 'Site Context Slot'),
-    siteLinksSlot('SiteLinksSlot', 'SiteLinks', 'Site Links Slot'),
-    navigationBarSlot('NavigationBarSlot', 'NavigationBar', 'Navigation Bar'),
-    bottomHeaderSlot('BottomHeaderSlot', 'BottomHeaderSlot', 'Homepage Bottom Header Slot', breadcrumb),
+    siteLogoSlot(),
+    miniCartSlot(),
+    homepageNavLinkSlot(),
+    headerLinksSlot(),
+    searchBoxSlot(),
+    topHeaderSlot(),
+    siteContextSlot(),
+    siteLinksSlot(),
+    navigationBarSlot(),
+    bottomHeaderSlot(),
+    ...additionalSlots,
   ];
 };

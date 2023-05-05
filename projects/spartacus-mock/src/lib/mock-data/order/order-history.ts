@@ -1,26 +1,22 @@
-import { SortModel } from '@spartacus/core';
-import { OrderHistoryList } from '@spartacus/order/root';
-import { CartUserType } from '../commerce/cart';
+import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
+import { CartUserType, getUserForCart } from '../commerce/cart';
+import { createPaginationModel } from '../general';
+import { createSortModel } from '../general';
 import { createOrder } from './order';
 
-export const getOrders = (amount: number = 5): OrderHistoryList => {
-  return {
-    orders: new Array(amount).fill(null).map(() => createOrder(CartUserType.OCC_USER_ID_CURRENT)),
-    pagination: {
-      currentPage: 1,
-      pageSize: 999,
-      sort: 'date',
-      totalPages: 1,
-      totalResults: amount,
-    },
-    sorts: getSorts(),
-  };
-};
+export const getOrders = (additionalData?: Occ.OrderHistoryList): Occ.OrderHistoryList => {
+  const amount = faker.datatype.number({ min: 1, max: 10 });
 
-const getSorts = (selected?: string): SortModel[] => {
-  return ['Date', 'Code', 'Status', 'Total'].map((code) => ({
-    code: code.toLowerCase(),
-    name: code,
-    selected: code === selected,
-  }));
+  return {
+    orders: new Array(amount)
+      .fill(null)
+      .map(() => createOrder({ user: getUserForCart(CartUserType.OCC_USER_ID_CURRENT) })),
+    pagination: createPaginationModel({
+      sort: 'date',
+      totalResults: amount,
+    }),
+    sorts: ['Date', 'Code', 'Status', 'Total'].map((code) => createSortModel({ code: code.toLowerCase(), name: code })),
+    ...additionalData,
+  };
 };

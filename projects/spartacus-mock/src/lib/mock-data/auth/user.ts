@@ -1,23 +1,26 @@
+import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { getSharedAddress } from '../account/addresses';
-import { getCurrency } from '../general/currencies';
+import { createAddress } from '../account';
+import { createCurrency } from '../general/currencies';
+import { createLanguage } from '../languages';
 
-export const user = (isActive: boolean): Occ.User => {
+export const createUser = (additionalData?: Occ.User): Occ.User => {
+  const firstName = faker.name.firstName();
+  const lastName = faker.name.lastName();
+
   return {
-    // @ts-ignore
-    active: true,
-    currency: getCurrency('USD', 'US Dollar', '$'),
-    customerId: '85c9e5b9-8924-474d-8f44-ec15b14c5888',
-    displayUid: 'hans.muster@gmail.com',
-    firstName: 'Hans',
-    language: { active: true, isocode: 'de', name: 'German', nativeName: 'Deutsch' },
-    defaultAddress: getSharedAddress(),
-    lastName: 'Muster',
-    name: 'Hans Muster',
-    selected: false,
+    currency: createCurrency(),
+    customerId: faker.random.numeric(6),
+    deactivationDate: faker.date.future(),
+    defaultAddress: createAddress(),
+    displayUid: faker.internet.email(firstName, lastName),
+    firstName,
+    language: createLanguage(),
+    lastName,
+    name: faker.name.fullName({ firstName, lastName }),
     title: 'Mr.',
     titleCode: 'mr',
-    type: 'userWsDTO',
-    uid: 'hans.muster@gmail.com',
+    uid: faker.datatype.uuid(),
+    ...additionalData,
   };
 };

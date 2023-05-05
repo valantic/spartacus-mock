@@ -1,9 +1,14 @@
 import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
 
-export const searchSuggestions = (_query: string, max: number) => {
+export const createSuggestion = (): Occ.Suggestion => {
   return {
-    suggestions: new Array(faker.datatype.number(max)).fill(null).map(() => ({
-      value: faker.lorem.word(),
-    })),
+    value: faker.commerce.productName(),
+  };
+};
+
+export const suggestionList = (): Occ.SuggestionList => {
+  return {
+    suggestions: new Array(faker.datatype.number(10)).fill(null).map(() => createSuggestion()),
   };
 };

@@ -22,23 +22,19 @@ export const components = (componentIds: string[]): Occ.ComponentList => {
         componentCategoryCode = faker.datatype.number(999).toString();
 
         componentData.component?.push(
-          cmsLinkComponent(
-            componentLinkText.replace(' ', '-'),
-            componentId, // must match with the componentId from the pages call
-            faker.datatype.uuid(),
-            componentLinkText,
-            `/mock/category/${componentLinkText.replace(' ', '-')}/c/${componentCategoryCode}`
-          )
+          cmsLinkComponent({
+            uid: componentId,
+            linkName: componentLinkText,
+            url: `/mock/category/${componentLinkText.replace(' ', '-')}/c/${componentCategoryCode}`,
+          })
         );
       } else {
         componentData.component?.push(
-          cmsLinkComponent(
-            componentLinkText.replace(' ', '-'),
-            componentId, // must match with the componentId from the pages call
-            faker.datatype.uuid(),
-            componentLinkText,
-            `/example-content/${faker.lorem.word()}`
-          )
+          cmsLinkComponent({
+            uid: componentId,
+            linkName: componentLinkText,
+            url: `/example-content/${faker.lorem.word()}`,
+          })
         );
       }
     }
@@ -56,14 +52,10 @@ export const navMainLinkComponents = (componentIds: string[]): Occ.ComponentList
     const componentLinkText = faker.lorem.words(2);
 
     componentData.component?.push(
-      cmsLinkComponent(
-        componentId,
-        componentId, // must match with the componentId from the pages call
-        faker.datatype.uuid(),
-        // link text is derived from componentId
-        componentLinkText,
-        `/${componentId.split('_').join('/')}`
-      )
+      cmsLinkComponent({
+        linkName: componentLinkText,
+        url: `/${componentId.split('_').join('/')}`,
+      })
     );
   }
 
@@ -99,14 +91,10 @@ export const myAccountLinkComponents = (componentIds: string[]): Occ.ComponentLi
     }
 
     componentData.component?.push(
-      cmsLinkComponent(
-        componentId,
-        componentId, // must match with the componentId from the pages call
-        faker.datatype.uuid(),
-        // link text is derived from componentId
-        componentId.replace(/([^A-Z])([A-Z])/g, '$1 $2').substring(0, componentId.length - 3),
-        linkUrl
-      )
+      cmsLinkComponent({
+        linkName: componentId.replace(/([^A-Z])([A-Z])/g, '$1 $2').substring(0, componentId.length - 3),
+        url: linkUrl,
+      })
     );
   }
 
@@ -124,20 +112,14 @@ export const footerLinkComponents = (componentIds: string[]): Occ.ComponentList 
     const url = componentId.startsWith('footer_social')
       ? 'https://www.google.ch'
       : `/${componentId.split('_').join('/')}`;
-    const external = componentId.startsWith('footer_social') ? 'true' : 'false';
-    const target = componentId.startsWith('footer_social') ? 'true' : 'false';
 
     componentData.component?.push(
-      cmsLinkComponent(
-        componentId,
-        componentId, // must match with the componentId from the pages call
-        faker.datatype.uuid(),
-        // link text is derived from componentId
-        componentLinkText,
+      cmsLinkComponent({
+        linkName: componentLinkText,
         url,
-        external,
-        target
-      )
+        external: componentId.startsWith('footer_social'),
+        target: componentId.startsWith('footer_social') ? '_blank' : '_self',
+      })
     );
   }
 

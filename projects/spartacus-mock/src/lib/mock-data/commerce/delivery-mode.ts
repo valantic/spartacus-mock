@@ -1,25 +1,13 @@
 import { faker } from '@faker-js/faker';
-import { DeliveryMode } from '@spartacus/cart/base/root';
-import { PriceType } from '@spartacus/core';
-import { getPriceWithDecimals } from './cart';
+import { Occ } from '@spartacus/core';
+import { createPrice } from './price';
 
-export const createDeliveryCost = () => {
-  const price = faker.commerce.price(100, 10000, 0, '');
-  const priceNumber = getPriceWithDecimals(price);
-
+export const createDeliveryMode = (additionalData?: Occ.DeliveryMode): Occ.DeliveryMode => {
   return {
-    currencyIso: 'USD',
-    formattedValue: `$${priceNumber}`,
-    priceType: PriceType.BUY,
-    value: priceNumber,
-  };
-};
-
-export const createDeliveryMode = (code: string, name: string): DeliveryMode => {
-  return {
-    code,
-    name,
+    code: faker.datatype.uuid(),
+    name: faker.lorem.words(3),
     description: faker.lorem.sentences(1),
-    deliveryCost: createDeliveryCost(),
+    deliveryCost: createPrice(),
+    ...additionalData,
   };
 };

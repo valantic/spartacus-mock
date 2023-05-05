@@ -2,6 +2,29 @@ import { RestHandler } from 'msw';
 import { Voucher } from '@spartacus/cart/base/root';
 import { BackendConfig, Occ, OccConfig, Page as SpartacusPage } from '@spartacus/core';
 
+declare module '@spartacus/core' {
+  namespace Occ {
+    interface Component {
+      uuid?: string;
+      linkName?: string;
+      url?: string;
+      target?: string;
+      external?: boolean;
+      contentPage?: string;
+      contentPageLabelOrId?: string;
+      [key: string]: string | boolean | object | undefined;
+    }
+
+    interface ContentSlot {
+      slotUuid?: string;
+    }
+  }
+}
+
+export interface Pages {
+  [key: string]: Occ.CMSPage;
+}
+
 export interface ActiveCartEntry {
   code: string;
   quantity: number;
@@ -27,9 +50,6 @@ export interface ContentSlot extends Occ.ContentSlot {
 
 export interface Component extends Occ.Component {
   uuid: string;
-  modifiedtime?: string;
-  container?: string;
-
   [key: string]: string | boolean | object | undefined;
 }
 
@@ -57,9 +77,36 @@ export interface MockConfig {
   handlers?: RestHandler[];
   contentPages?: ContentPages;
   productDetailPage?: Page;
+  productCategoryPage?: Page;
   homePage?: Page;
-  headerSlots?: ContentSlot[];
-  footerSlots?: ContentSlot[];
+  customSlots?: Occ.ContentSlot[];
 
   // TODO Components Call Handler Options
+}
+
+export interface ProductSearchPageModifier {
+  query?: string;
+  pageSize?: number;
+  sort?: string;
+  currentPage?: number;
+}
+
+export interface SearchStateModifier {
+  query?: string;
+  activeSort?: string;
+}
+
+export interface FacetValueModifier extends SearchStateModifier {}
+
+export interface ProductReferenceListModifier {
+  referenceType?: string;
+}
+
+export interface ImageModifier {
+  width?: number;
+  height?: number;
+}
+
+export interface PriceModifier {
+  value?: number;
 }
