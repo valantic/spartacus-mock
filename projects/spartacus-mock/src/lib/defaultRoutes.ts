@@ -210,7 +210,7 @@ export function getDefaultRoutes(environment: Environment) {
     restoreSavedCart: `${occEndpoint}:baseSideId/${savedCartEndpoints?.restoreSavedCart}`
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'),
-    cloneSavedCart: `${occEndpoint}:baseSideId/${savedCartEndpoints?.cloneSavedCart}`
+    cloneSavedCart: `${occEndpoint}:baseSideId/${(savedCartEndpoints?.cloneSavedCart as string).split('?')}`
       .replace('${userId}', ':userId')
       .replace('${cartId}', ':cartId'),
     savedCart: `${occEndpoint}:baseSideId/${savedCartEndpoints?.savedCart}`

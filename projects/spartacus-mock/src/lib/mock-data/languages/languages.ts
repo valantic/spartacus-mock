@@ -3,7 +3,7 @@ import { Occ } from '@spartacus/core';
 export const createLanguage = (additionalData?: Occ.Language): Occ.Language => {
   return {
     active: true,
-    isocode: 'en_CH',
+    isocode: 'en',
     name: 'English',
     nativeName: 'English',
     ...additionalData,
@@ -15,17 +15,17 @@ export const languageList = (): Occ.LanguageList => {
     languages: [
       createLanguage(),
       createLanguage({
-        isocode: 'de_CH',
+        isocode: 'de',
         name: 'German',
         nativeName: 'Deutsch',
       }),
       createLanguage({
-        isocode: 'it_CH',
+        isocode: 'it',
         name: 'Italian',
         nativeName: 'Italiano',
       }),
       createLanguage({
-        isocode: 'fr_CH',
+        isocode: 'fr',
         name: 'French',
         nativeName: 'Francais',
       }),
