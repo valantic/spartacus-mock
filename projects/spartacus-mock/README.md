@@ -187,15 +187,15 @@ To override a default page or provide your own content pages you need to create 
 ```ts
 // src/mock-server/mock-data/pages/index.ts
 import {
-  ContentPage,
+  PageFactoryService,
   Pages,
 } from '@valantic/spartacus-mock';
 
 export const contentPages = (): Pages => {
-  const contentPage = new ContentPage([]);
+  const pageFactoryService = new PageFactoryService();
 
   return {
-    'hello-world': contentPage.createContentPage(
+    'hello-world': pageFactoryService.createContentPage(
       'helloWorld',
       'Hello World',
       []
@@ -231,6 +231,8 @@ async function prepare(): Promise<
 ```
 
 #### Override default Slots or add custom Slots
+
+If you want to overwrite a default slot make sure you use the same `slotId` like the default slot. If your custom slot has the same `position` a unique `slotId` it will deliver both slots.
 
 To provide custom global Slots you need to create your slot like following:
 
