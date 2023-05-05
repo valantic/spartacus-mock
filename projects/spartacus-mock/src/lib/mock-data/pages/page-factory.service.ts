@@ -1,15 +1,15 @@
-import { Occ } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
-import { bottomHeaderSlot, headerSlots } from '../slots/header-slots';
+import { Occ } from '@spartacus/core';
 import { breadcrumbComponent } from '../components/default/breadcrumb';
-import { footerSlots } from '../slots/footer-slots';
-import { cmsSearchContentSlots } from '../slots/search-content-slots';
-import { homeContentSlots } from '../slots/home-content-slots';
-import { productDetailContentSlots } from '../slots/product-detail-content-slots';
 import { contentSlot } from '../components/default/content-slot';
 import { flexTypeComponent } from '../components/default/flex-type-component';
+import { footerSlots } from '../slots/footer-slots';
+import { bottomHeaderSlot, headerSlots } from '../slots/header-slots';
+import { homeContentSlots } from '../slots/home-content-slots';
+import { productDetailContentSlots } from '../slots/product-detail-content-slots';
+import { cmsSearchContentSlots } from '../slots/search-content-slots';
 
-export class ContentPage {
+export class PageFactoryService {
   private _customSlots: Occ.ContentSlot[] = [];
 
   constructor(protected customSlots?: Occ.ContentSlot[]) {

@@ -1,8 +1,8 @@
-import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
-import { getCheckoutDetails } from '../mock-data/commerce/checkout';
+import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { LocalStorageService } from '../local-storage';
 import {
-  addToCart,
   CartUserType,
+  addToCart,
   deleteCart,
   getCart,
   getCarts,
@@ -11,11 +11,11 @@ import {
   setGuestCheckout,
   updateEntries,
 } from '../mock-data/commerce/cart';
-import { updateLocalStorage } from '../defaultLocalStorage';
+import { getCheckoutDetails } from '../mock-data/commerce/checkout';
 import { addVoucher, deleteVoucher } from '../mock-data/commerce/voucher';
 import { readSearchParams, readUrlParams } from '../utils/request-params';
 
-export const getCartHandlers = (routes: any): RestHandler[] => {
+export const getCartHandlers = (routes: any, localStorageService: LocalStorageService): RestHandler[] => {
   return [
     // cart call to return the cart details for a cart containing products
     rest.get(routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
@@ -108,7 +108,7 @@ export const getCartHandlers = (routes: any): RestHandler[] => {
       const description = readSearchParams(req, 'saveCartDescription');
 
       // Clears the active cart
-      setTimeout(() => updateLocalStorage('activeCartEntries', []));
+      setTimeout(() => localStorageService.updateLocalStorage('activeCartEntries', []));
       return res(
         ctx.status(201),
         ctx.json({

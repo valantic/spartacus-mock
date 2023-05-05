@@ -1,17 +1,16 @@
 import { SetupWorker, rest, setupWorker } from 'msw';
-import { DefaultHandlers } from './defaultHandlers';
-import { createLocalstorage } from './defaultLocalStorage';
 import { defaultPassThroughUrls } from './defaultPassthrough';
+import { HandlerService } from './handlers';
+import { LocalStorageService } from './local-storage';
+import { PageFactoryService } from './mock-data';
+import { PageService } from './mock-data';
 import { MockConfig } from './types';
-import { MockContentPages } from './utils/mock-page';
-import { ContentPage } from './mock-data/pages/content';
 
 function getWorker(config: MockConfig): SetupWorker {
-  const mockContentPages = getCustomMockContentPages(config);
-  const contentPage = new ContentPage(config.customSlots || []);
-  const defaultHandlers = new DefaultHandlers(config.environment, mockContentPages, contentPage);
-  // create default local storage if it does not exist
-  createLocalstorage(config);
+  const localStorageService = new LocalStorageService(config);
+  const pageFactoryService = new PageFactoryService(config.customSlots || []);
+  const pageService = new PageService(config, pageFactoryService);
+  const handlerService = new HandlerService(config.environment, pageFactoryService, pageService, localStorageService);
 
   const passThroughUrls = [...defaultPassThroughUrls, ...(config.passThroughUrls || [])];
 
@@ -22,34 +21,12 @@ function getWorker(config: MockConfig): SetupWorker {
       });
     }),
 
-    // Custom Handlers (overwrite default handlers)
+    // Custom Handlers (overwrite default handlers due to the order of spreading them into the array)
     ...(config.handlers || []),
 
     // Default Handlers
-    ...defaultHandlers.getAllHandlers()
+    ...handlerService.getAllHandlers()
   );
-}
-
-function getCustomMockContentPages(config: MockConfig): MockContentPages {
-  const mockContentPages = new MockContentPages();
-
-  if (config.contentPages) {
-    mockContentPages.setCustomContentPages(config.contentPages);
-  }
-
-  if (config.productDetailPage) {
-    mockContentPages.setCustomProductDetailPage(config.productDetailPage);
-  }
-
-  if (config.productCategoryPage) {
-    mockContentPages.setCustomProductCategoryPage(config.productCategoryPage);
-  }
-
-  if (config.homePage) {
-    mockContentPages.setCustomHomePage(config.homePage);
-  }
-
-  return mockContentPages;
 }
 
 export function prepareMock(config: MockConfig): Promise<ServiceWorkerRegistration | undefined> {
