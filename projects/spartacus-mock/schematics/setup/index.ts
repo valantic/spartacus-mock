@@ -74,6 +74,17 @@ function setup(options: Schema): Rule {
         name: 'msw',
         version: '1.2.1',
       },
+      {
+        type: NodeDependencyType.Default,
+        name: '@faker-js/faker',
+        version: '7.6.0',
+      },
+      // needed because of https://github.com/mswjs/msw/issues/1621
+      {
+        type: NodeDependencyType.Dev,
+        name: '@types/events',
+        version: '3.0.0',
+      },
     ];
 
     context.logger.info(`⌛️ Updating files to work with spartacus-mock..`);
