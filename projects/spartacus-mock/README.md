@@ -8,7 +8,7 @@ This project is guaranteed to work with the listed angular versions and the list
 
 | Angular          | Spartacus | spartacus-mock |
 | ---------------- | :-------: | :------------: |
-| >=14.0.0 <15.0.0 |   5.x.x   |      v1.x      |
+| >=14.0.0 <15.0.0 |   5.x.x   |      1.x       |
 
 ## Table of contents
 
