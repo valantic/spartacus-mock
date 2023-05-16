@@ -263,10 +263,6 @@ Out of the box, `spartacus-mock` comes with the mock-data for the global content
 You can add additional custom slots:
 
 1. Create a file `src/mock-server/mock-data/slots.ts`
-
-> Pro tip: When your project (and therefore also your mock-data) grows, we recommend to created different files / folders for different features / pages
-> to keep your mock-data organized.
-
 2. Add a `testSlot` function to return the mock-data for your custom slot
 
 ```ts
@@ -316,6 +312,9 @@ async function prepare(): Promise<
   return Promise.resolve(undefined);
 }
 ```
+
+> Pro tip: When your project (and therefore also your mock-data) grows, we recommend to created different files / folders for different features / pages
+> to keep your mock-data organized.
 
 ## GitHub issues
 

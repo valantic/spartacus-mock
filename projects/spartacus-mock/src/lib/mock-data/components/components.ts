@@ -53,6 +53,7 @@ export const navMainLinkComponents = (componentIds: string[]): Occ.ComponentList
 
     componentData.component?.push(
       cmsLinkComponent({
+        uid: componentId,
         linkName: componentLinkText,
         url: `/${componentId.split('_').join('/')}`,
       })
@@ -92,6 +93,7 @@ export const myAccountLinkComponents = (componentIds: string[]): Occ.ComponentLi
 
     componentData.component?.push(
       cmsLinkComponent({
+        uid: componentId,
         linkName: componentId.replace(/([^A-Z])([A-Z])/g, '$1 $2').substring(0, componentId.length - 3),
         url: linkUrl,
       })
@@ -115,6 +117,7 @@ export const footerLinkComponents = (componentIds: string[]): Occ.ComponentList 
 
     componentData.component?.push(
       cmsLinkComponent({
+        uid: componentId,
         linkName: componentLinkText,
         url,
         external: componentId.startsWith('footer_social'),

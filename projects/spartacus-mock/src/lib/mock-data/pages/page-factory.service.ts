@@ -18,6 +18,17 @@ export class PageFactoryService {
     }
   }
 
+  private _getGlobalSlots(defaultSlots: Occ.ContentSlot[]): Occ.ContentSlot[] {
+    if (!this._customSlots?.length) {
+      return defaultSlots;
+    }
+
+    return [
+      ...defaultSlots.filter((slot) => !this._customSlots.some((customSlot) => customSlot.slotId === slot.slotId)),
+      ...this._customSlots,
+    ];
+  }
+
   public createContentPage(
     pageLabelOrId: string,
     title: string,
@@ -33,10 +44,8 @@ export class PageFactoryService {
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
         contentSlot: [
-          ...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]),
+          ...this._getGlobalSlots([...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]), ...footerSlots()]),
           ...contentSlots,
-          ...footerSlots(),
-          ...this._customSlots,
         ],
       },
       label: pageLabelOrId,
@@ -53,10 +62,8 @@ export class PageFactoryService {
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
         contentSlot: [
-          ...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]),
+          ...this._getGlobalSlots([...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]), ...footerSlots()]),
           ...cmsSearchContentSlots('ProductListSlot', 'CMSProductListComponent'),
-          ...footerSlots(),
-          ...this._customSlots,
         ],
       },
     };
@@ -71,7 +78,7 @@ export class PageFactoryService {
       name: 'Homepage',
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
-        contentSlot: [...headerSlots(), ...homeContentSlots(), ...footerSlots(), ...this._customSlots],
+        contentSlot: [...this._getGlobalSlots([...headerSlots(), ...footerSlots()]), ...homeContentSlots()],
       },
     };
   }
@@ -85,7 +92,7 @@ export class PageFactoryService {
       name: 'Product Detail Page',
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
-        contentSlot: [...headerSlots(), ...productDetailContentSlots(), ...footerSlots(), ...this._customSlots],
+        contentSlot: [...this._getGlobalSlots([...headerSlots(), ...footerSlots()]), ...productDetailContentSlots()],
       },
     };
   }
@@ -100,13 +107,11 @@ export class PageFactoryService {
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
         contentSlot: [
-          ...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]),
+          ...this._getGlobalSlots([...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]), ...footerSlots()]),
           contentSlot('LeftContentSlot', [
             flexTypeComponent('ReturningCustomerLoginComponent'),
             flexTypeComponent('ReturningCustomerRegisterComponent'),
           ]),
-          ...footerSlots(),
-          ...this._customSlots,
         ],
       },
       label: '/login',
@@ -123,10 +128,8 @@ export class PageFactoryService {
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
         contentSlot: [
-          ...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]),
+          ...this._getGlobalSlots([...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]), ...footerSlots()]),
           contentSlot('BodyContent', [flexTypeComponent('RegisterCustomerComponent')]),
-          ...footerSlots(),
-          ...this._customSlots,
         ],
       },
       label: '/login/register',
