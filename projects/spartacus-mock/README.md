@@ -1,6 +1,14 @@
 # SpartacusMock
 
-This project offers you the possibility, to mock the OCC Endpoint of your Spartacus Storefront. It uses the [Mock Service Worker](https://mswjs.io/) to mock the API calls.
+This developer tool offers you the possibility, to mock the OCC Endpoints of your Composable Storefront (Spartacus). It uses the [Mock Service Worker](https://mswjs.io/) to mock the calls.
+It increases the flexibility and independence of frontend engineers, since you don't need to wait anymore, until
+
+- "...that dev system is ready"
+- "...that feature has been merged & deployed by the backend"
+- "...that page / component has been added in Smartedit by the backend"
+
+It comes with the mock-data for the standard electronics store. You can then define your own custom mock-data tailored to your custom spartacus project.
+Adding new pages and components in no time helps you, developing your actual feature, without waiting until the Backend has actually added it.
 
 ## Versions
 
