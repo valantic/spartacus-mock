@@ -1,7 +1,7 @@
 import { ContentSlot } from '../../types';
-import { contentSlot } from '../components/default/content-slot';
-import { flexTypeComponent } from '../components/default/flex-type-component';
-import { cmsParagraphComponent } from '../components/default/cms-paragraph';
+import { contentSlot } from '../components';
+import { flexTypeComponent } from '../components';
+import { cmsParagraphComponent } from '../components';
 
 export const accountCloseAccountSlots = (): ContentSlot[] => {
   // content slots

@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { Component, ContentSlot } from '../../../types';
+import { Component, ContentSlot } from '../../types';
 
 export const contentSlot = (slotPosition: string, components: Component[]): ContentSlot => {
   return {

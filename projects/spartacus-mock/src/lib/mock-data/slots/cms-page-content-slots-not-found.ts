@@ -1,6 +1,6 @@
 import { ContentSlot } from '../../types';
-import { cmsParagraphComponent } from '../components/default/cms-paragraph';
-import { contentSlot } from '../components/default/content-slot';
+import { cmsParagraphComponent } from '../components';
+import { contentSlot } from '../components';
 
 export const cmsPageContentSlotsNotFound = (): ContentSlot[] => {
   // content slots

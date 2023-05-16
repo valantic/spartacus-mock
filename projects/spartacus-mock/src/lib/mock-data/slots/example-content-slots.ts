@@ -1,8 +1,8 @@
 import { ContentSlot } from '../../types';
-import { cmsParagraphComponent } from '../components/default/cms-paragraph';
-import { contentSlot } from '../components/default/content-slot';
-import { ResponsiveMediaRendition } from '../components/default/media';
-import { simpleResponsiveBanner } from '../components/default/simple-responsive-banner';
+import { cmsParagraphComponent } from '../components';
+import { contentSlot } from '../components';
+import { ResponsiveMediaRendition } from '../components';
+import { simpleResponsiveBanner } from '../components';
 
 export const exampleContentSlots = (): ContentSlot[] => {
   // content slots

@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { breadcrumbComponent } from '../components/default/breadcrumb';
-import { contentSlot } from '../components/default/content-slot';
-import { flexTypeComponent } from '../components/default/flex-type-component';
+import { contentSlot } from '../components';
+import { flexTypeComponent } from '../components';
+import { breadcrumbComponent } from '../components/breadcrumb';
 import { footerSlots } from '../slots/footer-slots';
 import { bottomHeaderSlot, headerSlots } from '../slots/header-slots';
 import { homeContentSlots } from '../slots/home-content-slots';

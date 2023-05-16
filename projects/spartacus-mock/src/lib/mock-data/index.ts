@@ -2,6 +2,7 @@ export * from './account';
 export * from './auth';
 export * from './base-sites';
 export * from './commerce';
+export * from './components';
 export * from './consent-templates';
 export * from './general';
 export * from './languages';

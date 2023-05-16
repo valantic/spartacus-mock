@@ -4,11 +4,11 @@ This project offers you the possibility, to mock the OCC Endpoint of your Sparta
 
 ## Versions
 
-This project is guaranteed to work with the listed angular versions in this table. It is possible that it works with newer angular versions, but not tested.
+This project is guaranteed to work with the listed angular versions and the listed Spartacus Versions in this table. It is possible that it works with other versions, but not tested.
 
-| Angular          | spartacus-mock |
-| ---------------- | :------------: |
-| >=14.0.0 <15.0.0 |      v1.x      |
+| Angular          | Spartacus | spartacus-mock |
+| ---------------- | :-------: | :------------: |
+| >=14.0.0 <15.0.0 |   5.x.x   |      v1.x      |
 
 ## Table of contents
 
@@ -18,9 +18,8 @@ This project is guaranteed to work with the listed angular versions in this tabl
   - [Define Mock Data](#define-mock-data)
     - [Define Routes for Endpoints](#define-routes-for-endpoints)
     - [Add Handlers for Endpoints](#add-handlers-for-endpoints)
-    - [Override default pages or add custom pages](#override-default-pages-or-add-custom-pages)
-    - [Override default Slots or add custom Slots](#override-default-slots-or-add-custom-slots)
-  - [Validation state](#validation-state)
+    - [Add custom pages or override default pages](#add-custom-pages-or-override-default-pages)
+    - [Add custom Slots or overrode default slots](#add-custom-slots-or-override-default-slots)
 - [GitHub issues](#github-issues)
 - [Roadmap](#roadmap)
 
@@ -61,12 +60,14 @@ The package offers a schematics to install the package and add the needed file c
 
 ### Define Mock Data
 
-Out of the box, `spartacus-mock` comes with all mock-data needed to run the standard spartacus electronic sample store.
+Out of the box, `spartacus-mock` comes with all\* mock-data needed to run the standard spartacus electronic sample store.
 For your project, you probably want to define your own mock-data for the default Endpoints of spartacus and also add
 custom Endpoints.
 
-For every endpoint where you want to return custom data, you need to define a handler , which intercepts the call to the endpoint and
+For every endpoint where you want to return custom data, you need to define a handler, which intercepts the call to the endpoint and
 returns mock data. Every handler needs a route to intercept the call.
+
+\*All meaning all base commerce features. Check list of supported feature libs & roadmap to see which feature libs are planned to add
 
 #### Define Routes for Endpoints
 
@@ -108,6 +109,7 @@ import { environment } from '../environments/environment';
 import { countryList } from './mock-data/countries';
 
 // default routes defined in the spartacus-mock library
+// for custom routes, use your getRoutes function explained above
 const defaultRoutes = getDefaultRoutes(environment);
 
 export const handlers: RestHandler[] = [
@@ -124,6 +126,8 @@ export const handlers: RestHandler[] = [
 ];
 ```
 
+> Defining a custom handler for an existing route (aka OCC Endpoint) will override the default handler for this route.
+
 4. Create a file `src/mock-server/mock-data/languages.ts`
 5. Add a `languageList` function to return the mock data for the languages endpoint:
 
@@ -132,7 +136,7 @@ export const handlers: RestHandler[] = [
 import { createLanguage } from '@valantic/spartacus-mock';
 import { Occ } from '@spartacus/core';
 
-// you can use the `languageList` function from our library or create your own
+// you can use the `createLanguage` function from our library or create your own
 export const languageList = (): Occ.LanguageList => {
   return {
     languages: [
@@ -155,6 +159,7 @@ export const languageList = (): Occ.LanguageList => {
 
 ```ts
 // src/main.ts
+// your custom defined handlers
 import { handlers } from './mock-server/handlers';
 
 async function prepare(): Promise<
@@ -178,35 +183,57 @@ async function prepare(): Promise<
 }
 ```
 
-#### Override default pages or add custom pages
+#### Add custom pages or override default pages
 
-To override a default page or provide your own content pages you need to create a content pages object like following:
+Out of the box, `spartacus-mock` comes with the mock-data for the following pages:
 
-(Using the ContentPage Class is optional)
+- Homepage
+- Search Page
+- Category Page
+- Product Detail Page
+- Cart Page
+- Checkout Pages
+- My Account Pages
+- Content Page
+
+You can override these pages or provide your own custom pages:
+
+1. Create a file `src/mock-server/mock-data/pages.ts`
+2. Add a `contentPages` function to return the mock-data for your custom pages
+   (Using the ContentPage Class is optional)
 
 ```ts
 // src/mock-server/mock-data/pages/index.ts
 import {
   PageFactoryService,
   Pages,
+  cmsParagraphComponent,
+  contentSlot,
 } from '@valantic/spartacus-mock';
 
 export const contentPages = (): Pages => {
-  const pageFactoryService = new PageFactoryService();
+  const pageFactoryService = new PageFactoryService([]);
 
   return {
     'hello-world': pageFactoryService.createContentPage(
       'helloWorld',
       'Hello World',
-      []
+      [
+        contentSlot('Section2A', [
+          cmsParagraphComponent('Hello World!'),
+        ]),
+      ]
     ),
   };
 };
 ```
 
-This contentPages object you can provide now by the mockConfig in your `main.ts` file.
+> Defining a custom page for an existing object-key (aka Page label in the browser) will override the default mock data for this page.
+
+3. Append your pages function to the mockConfig in your `main.ts` file
 
 ```ts
+// src/main.ts
 import { contentPages } from './mock-server/mock-data/pages';
 
 async function prepare(): Promise<
@@ -230,13 +257,17 @@ async function prepare(): Promise<
 }
 ```
 
-#### Override default Slots or add custom Slots
+#### Add custom Slots
 
-If you want to overwrite a default slot make sure you use the same `slotId` like the default slot. If your custom slot has the same `position` a unique `slotId` it will deliver both slots.
+Out of the box, `spartacus-mock` comes with the mock-data for the global content slots to display header and footer for the standard electronics store.
+You can add additional custom slots:
 
-To provide custom global Slots you need to create your slot like following:
+1. Create a file `src/mock-server/mock-data/slots.ts`
+2. Add a `testSlot` function to return the mock-data for your custom slot
 
 ```ts
+// src/mock-server/mock-data/slots.ts
+import { cmsParagraphComponent } from '@valantic/spartacus-mock';
 import { Occ } from '@spartacus/core';
 
 export const testSlot = (): Occ.ContentSlot => {
@@ -247,17 +278,19 @@ export const testSlot = (): Occ.ContentSlot => {
     name: 'My Test Slot',
     slotShared: true,
     components: {
-      component: [
-        // Add Custom Components
-      ],
+      component: [cmsParagraphComponent('Hello World!')],
     },
   };
 };
 ```
 
-And provide this slot to your mockConfig in your main.ts file like following:
+> Use `slotPosition` of an existing slot to add your custom components to that slot.
+> Use `slotPosition` and `slotId` to override the default components with your custom components.
+
+3. Append your slot function to your mockConfig in your `main.ts` file
 
 ```ts
+// src/main.ts
 import { testSlot } from './mock-server/mock-data/slots/test-slot';
 
 async function prepare(): Promise<
@@ -279,6 +312,9 @@ async function prepare(): Promise<
   return Promise.resolve(undefined);
 }
 ```
+
+> Pro tip: When your project (and therefore also your mock-data) grows, we recommend to created different files / folders for different features / pages
+> to keep your mock-data organized.
 
 ## GitHub issues
 
