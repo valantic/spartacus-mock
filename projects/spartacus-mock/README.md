@@ -26,14 +26,14 @@ It is possible that it works with other versions, but not tested.
 ## Table of contents
 
 - [Feature Scope](#feature-scope)
-- [How to use](#how-to-use)
-  - [Getting started](#getting-started)
-  - [Define Mock Data](#define-mock-data)
-    - [Define Routes for Endpoints](#define-routes-for-endpoints)
-    - [Add Handlers for Endpoints](#add-handlers-for-endpoints)
-    - [Add custom pages or override default pages](#add-custom-pages-or-override-default-pages)
-    - [Add custom Slots or overrode default slots](#add-custom-slots-or-override-default-slots)
-    - [Add custom translations or override default translations](#add-custom-translations-or-override-default-translations)
+- [Getting started](#getting-started)
+- [Define Mock Data](#define-mock-data)
+  - [Define Routes for Endpoints](#define-routes-for-endpoints)
+  - [Add Handlers for Endpoints](#add-handlers-for-endpoints)
+  - [Add custom pages or override default pages](#add-custom-pages-or-override-default-pages)
+  - [Add custom Slots or overrode default slots](#add-custom-slots-or-override-default-slots)
+  - [Add custom translations or override default translations](#add-custom-translations-or-override-default-translations)
+  - [For an existing project](#for-an-existing-project)
 - [API](#api)
 - [Use with HTTPS](#use-with-https)
 - [GitHub issues](#github-issues)
@@ -54,9 +54,7 @@ Spartacus-Mock currently covers the following spartacus features:
 
 See [Roadmap](#roadmap) for more information about the planned features.
 
-## How to use
-
-### Getting started
+## Getting started
 
 The package offers a schematics to install the package and add the needed file changes in your spartacus project.
 
@@ -68,24 +66,37 @@ The package offers a schematics to install the package and add the needed file c
    3. `src/environments/environment.ts`
    4. `src/environments/environment.model.ts`
    5. `src/main.ts`
-4. Start the spartacus instance as you would normally do
-5. Open your browser
-6. Notice the message in the console: `[MSW] Mocking enabled.`
-7. All mocked calls are still normally visible in the network tab of your browser's developer tools
-8. For more information, see the [MSW documentation](https://mswjs.io/docs/api/rest)
+4. Enhance the file `src/app/spartacus/spartacus-configuration.module.ts` with the following config:
 
-### Define Mock Data
+```ts
+provideConfig(<OccConfig>{
+  backend: {
+    occ: {
+      prefix: environment.backend.occ.prefix,
+      baseUrl: environment.backend.occ.baseUrl,
+    }
+  },
+}),
+```
 
-Out of the box, `spartacus-mock` comes with all\* mock-data needed to run the standard spartacus electronic sample store.
+5. Start the spartacus instance as you would normally do: `npm run dev` (or your defined npm script)
+6. Open your browser
+7. Notice the message in the console: `[MSW] Mocking enabled.`
+8. All mocked calls are still normally visible in the network tab of your browser's developer tools
+9. For more information, see the [MSW documentation](https://mswjs.io/docs/api/rest)
+
+## Define Mock Data
+
+Out of the box, `spartacus-mock` comes with all\*\* mock-data needed to run the standard spartacus electronic sample store.
 For your project, you probably want to define your own mock-data for the default Endpoints of spartacus and also add
 custom Endpoints.
 
 For every endpoint where you want to return custom data, you need to define a handler, which intercepts the call to the endpoint and
 returns mock data. Every handler needs a route to intercept the call.
 
-\*All meaning all base commerce features. Check list of supported feature libs & roadmap to see which feature libs are planned to add
+> \*\* "all" meaning all base commerce features. Check list of supported feature libs & roadmap to see which feature libs are planned to add
 
-#### Define Routes for Endpoints
+### Define Routes for Endpoints
 
 > You need to define routes for your custom endpoints. Default Endpoints can use the `getDefaultRoutes` function from the library (besides
 > if you want to adjust the url of a default endpoint).
@@ -105,7 +116,7 @@ export function getRoutes(environment: Environment) {
 }
 ```
 
-#### Add Handlers for Endpoints
+### Add Handlers for Endpoints
 
 1. Create a handlers file `src/mock-server/handlers.ts`
 2. Create a folder `src/mock-server/mock-data` where all your mock data lives
@@ -128,18 +139,23 @@ import { countryList } from './mock-data/countries';
 // for custom routes, use your getRoutes function explained above
 const defaultRoutes = getDefaultRoutes(environment);
 
-export const handlers: RestHandler[] = [
-  rest.get(
-    defaultRoutes.countries,
-    (
-      _req: RestRequest,
-      res: ResponseComposition,
-      ctx: RestContext
-    ) => {
-      return res(ctx.status(200), ctx.json(countryList()));
-    }
-  ),
-];
+export const handlers = (): RestHandler[] => {
+  return [
+    rest.get(
+      defaultRoutes.languages,
+      (
+        _req: RestRequest,
+        res: ResponseComposition,
+        ctx: RestContext
+      ) => {
+        return res(
+          ctx.status(200),
+          ctx.json(languageList())
+        );
+      }
+    ),
+  ];
+};
 ```
 
 > Defining a custom handler for an existing route (aka OCC Endpoint) will override the default handler for this route.
@@ -189,7 +205,7 @@ async function prepare(): Promise<
     const mockConfig: MockConfig = {
       enableWorker: environment.mockServer || false,
       environment,
-      handlers,
+      handlers: handlers(),
     };
 
     return prepareMock(mockConfig);
@@ -199,7 +215,7 @@ async function prepare(): Promise<
 }
 ```
 
-#### Add custom pages or override default pages
+### Add custom pages or override default pages
 
 Out of the box, `spartacus-mock` comes with the mock-data for the following pages:
 
@@ -226,13 +242,17 @@ import {
   cmsParagraphComponent,
   contentSlot,
 } from '@valantic/spartacus-mock';
+import { customSlots } from './slots';
 
 export const contentPages = (): Pages => {
-  const pageFactoryService = new PageFactoryService([]);
+  // pass in your customSlots function if you need custom slots, otherwise pass in empty array
+  const pageFactoryService = new PageFactoryService(
+    customSlots()
+  );
 
   return {
     'hello-world': pageFactoryService.createContentPage(
-      'helloWorld',
+      '/hello-world',
       'Hello World',
       [
         contentSlot('Section2A', [
@@ -273,7 +293,7 @@ async function prepare(): Promise<
 }
 ```
 
-#### Add custom Slots or override default Slots
+### Add custom Slots or override default Slots
 
 Out of the box, `spartacus-mock` comes with the mock-data for the global content slots to display header and footer for the standard electronics store.
 You can add additional custom slots:
@@ -288,15 +308,19 @@ import { Occ } from '@spartacus/core';
 
 export const testSlot = (): Occ.ContentSlot => {
   return {
-    slotId: 'testSlot',
+    slotId: 'testSlot', // use same slotId as an existing slot to overide the default slot
     slotUuid: 'testSlot1234',
-    position: 'TestSlot',
+    position: 'TestSlot', // use an existing position to add your custom components to that slot
     name: 'My Test Slot',
     slotShared: true,
     components: {
       component: [cmsParagraphComponent('Hello World!')],
     },
   };
+};
+
+export const customSlots = (): Occ.ContentSlot[] => {
+  return [testSlot()];
 };
 ```
 
@@ -320,7 +344,7 @@ async function prepare(): Promise<
     const mockConfig: MockConfig = {
       enableWorker: environment.mockServer || false,
       environment,
-      customSlots: [testSlot()],
+      customSlots: customSlots(),
     };
 
     return prepareMock(mockConfig);
@@ -332,7 +356,11 @@ async function prepare(): Promise<
 > Pro tip: When your project (and therefore also your mock-data) grows, we recommend to created different files / folders for different features / pages
 > to keep your mock-data organized.
 
-#### Add custom translations or override default translations
+### Add custom translations or override default translations
+
+TODO
+
+### Use Spartacus-Mock with an existing Project
 
 TODO
 

@@ -30,12 +30,13 @@ export class PageFactoryService {
   }
 
   public createContentPage(
-    pageLabelOrId: string,
+    label: string,
     title: string,
     contentSlots: Occ.ContentSlot[],
     template?: string
   ): Occ.CMSPage {
     return {
+      label,
       uid: `contentPage${faker.datatype.uuid()}`,
       title,
       template: template ?? 'ContentPage1Template',
@@ -48,7 +49,6 @@ export class PageFactoryService {
           ...contentSlots,
         ],
       },
-      label: pageLabelOrId,
     };
   }
 
@@ -71,6 +71,7 @@ export class PageFactoryService {
 
   public createHomePage(): Occ.CMSPage {
     return {
+      label: 'homepage',
       uid: 'homepage',
       title: 'Homepage',
       template: 'LandingPage2Template',
@@ -99,6 +100,7 @@ export class PageFactoryService {
 
   public createLoginPage(): Occ.CMSPage {
     return {
+      label: '/login',
       uid: `loginPage${faker.datatype.number(1000)}`,
       title: `Login Page`,
       template: 'LoginPageTemplate',
@@ -114,12 +116,12 @@ export class PageFactoryService {
           ]),
         ],
       },
-      label: '/login',
     };
   }
 
   public createRegisterPage(): Occ.CMSPage {
     return {
+      label: '/login/register',
       uid: `loginPage${faker.datatype.number(1000)}`,
       title: `Register Page`,
       template: 'AccountPageTemplate',
@@ -132,7 +134,6 @@ export class PageFactoryService {
           contentSlot('BodyContent', [flexTypeComponent('RegisterCustomerComponent')]),
         ],
       },
-      label: '/login/register',
     };
   }
 }
