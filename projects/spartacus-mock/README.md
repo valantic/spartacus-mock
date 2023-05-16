@@ -7,8 +7,11 @@ It increases the flexibility and independence of frontend engineers, since you d
 - "...that feature has been merged & deployed by the backend"
 - "...that page / component has been added in Smartedit by the backend"
 
-It comes with the mock-data for the standard electronics store. You can then define your own custom mock-data tailored to your custom spartacus project.
-Adding new pages and components in no time helps you, developing your actual feature, without waiting until the Backend has actually added it.
+It comes with the mock-data for the standard electronics store.
+
+You can then define your own custom mock-data tailored to your custom spartacus project.
+Adding new pages and components in no time helps you, developing your actual feature, without
+waiting until the Backend has finished or the hassle of running a local hybris ;-).
 
 ## Versions
 
