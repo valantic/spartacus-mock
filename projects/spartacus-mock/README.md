@@ -4,11 +4,13 @@ This project offers you the possibility, to mock the OCC Endpoint of your Sparta
 
 ## Versions
 
-This project is guaranteed to work with the listed angular versions and the listed Spartacus Versions in this table. It is possible that it works with other versions, but not tested.
+This project is guaranteed to work with the listed angular versions and the listed Spartacus Versions in this table.
 
 | Angular          | Spartacus | spartacus-mock |
 | ---------------- | :-------: | :------------: |
 | >=14.0.0 <15.0.0 |   5.x.x   |      1.x       |
+
+It is possible that it works with other versions, but not tested.
 
 ## Table of contents
 
@@ -50,16 +52,16 @@ The package offers a schematics to install the package and add the needed file c
 1. Open a terminal and navigate to the root folder of your angular / spartacus project (the folder where the `angular.json` is located)
 2. Install the package: `ng add @valantic/spartacus-mock`
 3. Check the automatically added changes in the files
-4. `angular.json`
-5. `package.json`
-6. `src/environments/environment.ts`
-7. `src/environments/environment.model.ts`
-8. `src/main.ts`
-9. Start the spartacus instance as you would normally do
-10. Open your browser
-11. Notice the message in the console: `[MSW] Mocking enabled.`
-12. All mocked calls are still normally visible in the network tab of your browser's developer tools
-13. For more information, see the [MSW documentation](https://mswjs.io/docs/api/rest)
+   1. `angular.json`
+   2. `package.json`
+   3. `src/environments/environment.ts`
+   4. `src/environments/environment.model.ts`
+   5. `src/main.ts`
+4. Start the spartacus instance as you would normally do
+5. Open your browser
+6. Notice the message in the console: `[MSW] Mocking enabled.`
+7. All mocked calls are still normally visible in the network tab of your browser's developer tools
+8. For more information, see the [MSW documentation](https://mswjs.io/docs/api/rest)
 
 ### Define Mock Data
 
