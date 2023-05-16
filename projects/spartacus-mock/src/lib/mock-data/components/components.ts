@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { cmsLinkComponent } from './default/cms-link';
-import { cmsParagraphComponent } from './default/cms-paragraph';
-import { flexTypeComponent } from './default/flex-type-component';
+import { cmsLinkComponent } from './cms-link';
+import { cmsParagraphComponent } from './cms-paragraph';
+import { flexTypeComponent } from './flex-type-component';
 
 /*
  * This function is used to render additional data for components being loaded within the pages calls

@@ -1,13 +1,13 @@
-import { Component, ContentSlot } from '../../types';
-import { categoryNavigationComponent } from '../components/default/category-navigation';
-import { cmsLinkComponent } from '../components/default/cms-link';
-import { miniCartComponent } from '../components/default/mini-cart';
-import { searchBoxComponent } from '../components/default/search-box';
-import { simpleBannerComponent } from '../components/default/simple-banner';
-import { siteContextComponent } from '../components/default/site-context';
-import { Occ } from '@spartacus/core';
-import { flexTypeComponent } from '../components/default/flex-type-component';
 import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
+import { Component, ContentSlot } from '../../types';
+import { cmsLinkComponent } from '../components';
+import { simpleBannerComponent } from '../components';
+import { flexTypeComponent } from '../components';
+import { categoryNavigationComponent } from '../components/category-navigation';
+import { miniCartComponent } from '../components/mini-cart';
+import { searchBoxComponent } from '../components/search-box';
+import { siteContextComponent } from '../components/site-context';
 
 export const siteLogoSlot = (): Occ.ContentSlot => {
   return {

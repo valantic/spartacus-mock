@@ -1,4 +1,4 @@
-import { Component } from '../../../types';
+import { Component } from '../../types';
 import { flexTypeComponent } from './flex-type-component';
 import { navigationNodeComponent } from './navigation-node';
 

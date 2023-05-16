@@ -1,7 +1,7 @@
 import { Occ } from '@spartacus/core';
 import { ContentPages, MockConfig, Page, Pages } from '../../types';
-import { defaultPages } from './default-pages';
 import { PageFactoryService } from './page-factory.service';
+import { defaultPages } from './pages';
 
 /**
  * The PageService takes the custom Pages provided from the MockConfig and merges them with the default pages

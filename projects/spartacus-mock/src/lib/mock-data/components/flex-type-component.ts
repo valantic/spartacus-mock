@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { CmsComponentAdditionalData, Component } from '../../../types';
+import { CmsComponentAdditionalData, Component } from '../../types';
 
 export const flexTypeComponent = (
   typeCode: string,

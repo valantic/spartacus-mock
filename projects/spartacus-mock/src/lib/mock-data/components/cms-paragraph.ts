@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { Component } from '../../../types';
+import { Component } from '../../types';
 import { flexTypeComponent } from './flex-type-component';
 
 export const richTextExampleContent = `<h2>This is an Example Content page, ${faker.lorem.words(

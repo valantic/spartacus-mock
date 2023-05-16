@@ -1,10 +1,10 @@
+import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
 import { ContentSlot } from '../../types';
-import { cmsParagraphComponent } from '../components/default/cms-paragraph';
-import { flexTypeComponent } from '../components/default/flex-type-component';
-import { footerNavigationComponent } from '../components/default/footer-navigation';
-import { profileScriptComponent } from '../components/default/profile-script';
-import { faker } from '@faker-js/faker';
+import { cmsParagraphComponent } from '../components';
+import { flexTypeComponent } from '../components';
+import { footerNavigationComponent } from '../components/footer-navigation';
+import { profileScriptComponent } from '../components/profile-script';
 
 export const placeholderContentSlot = (): Occ.ContentSlot => {
   return {
