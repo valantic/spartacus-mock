@@ -20,6 +20,9 @@ This project is guaranteed to work with the listed angular versions and the list
     - [Add Handlers for Endpoints](#add-handlers-for-endpoints)
     - [Add custom pages or override default pages](#add-custom-pages-or-override-default-pages)
     - [Add custom Slots or overrode default slots](#add-custom-slots-or-override-default-slots)
+    - [Add custom translations or override default translations](#add-custom-translations-or-override-default-translations)
+- [API](#api)
+- [Use with HTTPS](#use-with-https)
 - [GitHub issues](#github-issues)
 - [Roadmap](#roadmap)
 
@@ -257,7 +260,7 @@ async function prepare(): Promise<
 }
 ```
 
-#### Add custom Slots
+#### Add custom Slots or override default Slots
 
 Out of the box, `spartacus-mock` comes with the mock-data for the global content slots to display header and footer for the standard electronics store.
 You can add additional custom slots:
@@ -316,6 +319,18 @@ async function prepare(): Promise<
 > Pro tip: When your project (and therefore also your mock-data) grows, we recommend to created different files / folders for different features / pages
 > to keep your mock-data organized.
 
+#### Add custom translations or override default translations
+
+TODO
+
+## API
+
+TODO
+
+## Use with HTTPS
+
+TODO
+
 ## GitHub issues
 
 If you encounter a problem with this library or if you have a new feature you'd like to see in this project,
@@ -324,6 +339,7 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 ## Roadmap
 
 - Add Angular 15 / 16 Compatibility Support (usually when new Spartacus Versions are released)
+- Add HTTP Status Code overriding to simulate different backend responses
 - Add unit tests for the library code
 - Add mock handlers for more Spartacus features
   - My Account Order Returns
