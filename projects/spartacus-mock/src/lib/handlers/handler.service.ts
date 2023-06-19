@@ -2,12 +2,12 @@ import { RestHandler } from 'msw';
 import { getDefaultRoutes } from '../defaultRoutes';
 import { LocalStorageService } from '../local-storage';
 import { PageFactoryService, PageService } from '../mock-data';
-import { Environment } from '../types';
+import { MockConfig } from '../types';
 import { getAccountHandlers } from './account-handler';
 import { getBaseHandlers } from './base-handler';
 import { getCartHandlers } from './cart-handler';
 import { getCheckoutHandlers } from './checkout-handler';
-import { getCmsHandlers } from './cms-handler';
+import { getCmsComponentsHandler, getCmsPagesHandler } from './cms-handler';
 import { getOrderHandlers } from './order-handler';
 import { getProductHandlers } from './product-handler';
 import { getSearchHandlers } from './search-handler';
@@ -21,19 +21,20 @@ export class HandlerService {
   readonly routes;
 
   constructor(
-    protected environment: Environment,
+    protected config: MockConfig,
     protected pageFactoryService: PageFactoryService,
     protected pageService: PageService,
     protected localStorageService: LocalStorageService
   ) {
-    this.routes = getDefaultRoutes(environment);
+    this.routes = getDefaultRoutes(config.environment);
   }
 
   getAllHandlers(): RestHandler[] {
     return [
       ...getBaseHandlers(this.routes),
       ...getUserHandlers(this.routes),
-      ...getCmsHandlers(this.routes, this.pageFactoryService, this.pageService),
+      ...getCmsPagesHandler(this.routes, this.pageFactoryService, this.pageService, this.config),
+      ...getCmsComponentsHandler(this.routes, this.pageFactoryService, this.pageService, this.config),
       ...getSearchHandlers(this.routes),
       ...getProductHandlers(this.routes),
       ...getCartHandlers(this.routes, this.localStorageService),
@@ -42,5 +43,9 @@ export class HandlerService {
       ...getAccountHandlers(this.routes),
       ...getStoreFinderHandlers(this.routes),
     ];
+  }
+
+  getPagesHandler(): RestHandler[] {
+    return [...getCmsPagesHandler(this.routes, this.pageFactoryService, this.pageService, this.config)];
   }
 }

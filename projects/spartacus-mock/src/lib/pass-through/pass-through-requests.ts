@@ -1,11 +1,9 @@
-import { PassThroughUrl } from './types';
+import { MockRequest } from '../types';
 
 /**
- * TODO refactor this to a service
- *
- * Returns the default pass through urls
+ * Defines the default pass through urls
  */
-export const defaultPassThroughUrls: PassThroughUrl[] = [
+export const defaultPassThroughRequests: MockRequest[] = [
   { url: '/assets/*', requestFunction: 'get' },
   { url: '*.woff2', requestFunction: 'get' },
   { url: '*.woff', requestFunction: 'get' },

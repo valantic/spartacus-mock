@@ -65,7 +65,7 @@ export interface Environment extends OccConfig {
   backend: BackendConfig;
 }
 
-export interface PassThroughUrl {
+export interface MockRequest {
   url: string;
   requestFunction: 'get' | 'post' | 'put' | 'delete' | 'head';
 }
@@ -73,13 +73,17 @@ export interface PassThroughUrl {
 export interface MockConfig {
   enableWorker: boolean;
   environment: Environment;
-  passThroughUrls?: PassThroughUrl[];
+  passThroughRequests?: MockRequest[];
   handlers?: RestHandler[];
   contentPages?: ContentPages;
   productDetailPage?: Page;
   productCategoryPage?: Page;
   homePage?: Page;
   customSlots?: Occ.ContentSlot[];
+  disableDefaultData?: boolean;
+  mockedRequests?: MockRequest[];
+  mockedPageIds?: string[];
+  debug?: boolean;
 
   // TODO Components Call Handler Options
 }

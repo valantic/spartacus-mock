@@ -44,9 +44,8 @@ export class PageService {
       case 'ContentPage':
         if (!pageLabelOrId) break;
 
-        const pageLabelOrIdSanitized = pageLabelOrId.startsWith('/')
-          ? pageLabelOrId.slice(1, pageLabelOrId.length)
-          : pageLabelOrId;
+        const pageLabelOrIdSanitized = this.getSanitizedPageLabelOrId(pageLabelOrId);
+
         const lookupPageKey =
           Object.keys(pages).find((mockPageLabelOrId) => pageLabelOrIdSanitized.startsWith(mockPageLabelOrId)) || '';
 
@@ -63,5 +62,9 @@ export class PageService {
     }
 
     return null;
+  }
+
+  getSanitizedPageLabelOrId(pageLabelOrId: string): string {
+    return pageLabelOrId.startsWith('/') ? pageLabelOrId.slice(1, pageLabelOrId.length) : pageLabelOrId;
   }
 }
