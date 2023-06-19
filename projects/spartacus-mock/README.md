@@ -362,30 +362,7 @@ TODO
 
 ### Use Spartacus-Mock with an existing Project
 
-To include the Spartacus-Mock Server to an existing project you can first follow the default installation instructions.
-Then we suggest to first pass through all API Calls to your OCC Backend.
-
-You can reach this with `**` in the url:
-
-```ts
-import { PassThroughUrl } from '@valantic/spartacus-mock';
-
-export const passThroughUrls: PassThroughUrl[] = [
-  {
-    url: '**/pages**',
-    requestFunction: 'get',
-  },
-  {
-    url: '**/languages**',
-    requestFunction: 'get',
-  },
-];
-```
-
-Then in a next step we suggest to create specific handlers for certain custom calls.
-Or even create custom handlers for your responses. Highly depends on the amount of custom data in you project.
-It would be also a way to copy your server response and add it to your custom handler as a response and maybe modify it if you like.
-Depends on how much dynamic data you need.
+TODO
 
 ## API
 
