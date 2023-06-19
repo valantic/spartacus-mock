@@ -1,5 +1,5 @@
-import { Occ } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
 import { createSearchState } from './search';
 
 export const createBreadcrumb = (additionalData?: Occ.Breadcrumb): Occ.Breadcrumb => {

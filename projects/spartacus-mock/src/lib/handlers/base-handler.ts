@@ -1,10 +1,10 @@
-import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
+import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
 import { baseSites, languageList } from '../mock-data';
-import { currencyList } from '../mock-data/general/currencies';
-import { titleList } from '../mock-data/general/titles';
-import { countryList } from '../mock-data/general/countries';
-import { regionList } from '../mock-data/general/regions';
-import { consentTemplateList } from '../mock-data/consent-templates/consent-templates';
+import { consentTemplateList } from '../mock-data';
+import { countryList } from '../mock-data';
+import { currencyList } from '../mock-data';
+import { regionList } from '../mock-data';
+import { titleList } from '../mock-data';
 import { translations } from '../mock-data/translations/translations';
 import { readUrlParams } from '../utils/request-params';
 

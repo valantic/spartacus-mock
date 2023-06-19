@@ -1,5 +1,5 @@
-import { AuthToken } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
+import { AuthToken } from '@spartacus/core';
 
 export const createAuthToken = (): AuthToken => {
   return {

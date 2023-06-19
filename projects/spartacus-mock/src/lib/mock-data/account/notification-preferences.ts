@@ -1,5 +1,5 @@
-import { NotificationPreference, NotificationPreferenceList } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
+import { NotificationPreference, NotificationPreferenceList } from '@spartacus/core';
 
 export const createNotificationPreference = (additionalData?: NotificationPreference): NotificationPreference => {
   return {
