@@ -47,7 +47,7 @@
     "@spartacus/styles": "~6.1.0",
     "@spartacus/tracking": "~6.1.0",
     "@spartacus/user": "~6.1.0",
-    "angular-oauth2-oidc": "~13.0.1",
+    "angular-oauth2-oidc": "~15.0.1",
     "bootstrap": "~4.6.1",
     "express": "~4.15.2",
     "i18next": "~21.9.1",
