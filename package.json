@@ -17,6 +17,7 @@
     "test": "ng test",
     "prettier": "prettier --write \"**/*.*(js|ts|json|md)\""
   },
+  "type": "module",
   "private": true,
   "dependencies": {
     "@angular/animations": "~15.2.9",
@@ -52,7 +53,7 @@
     "express": "~4.15.2",
     "i18next": "~21.9.1",
     "i18next-http-backend": "~1.4.1",
-    "msw": "1.2.2",
+    "msw": "1.2.3",
     "ngx-infinite-scroll": "~15.0.0",
     "rxjs": "~6.6.0",
     "tslib": "~2.3.0",
