@@ -8,20 +8,31 @@ import {
   myAccountLinkComponents,
   navMainLinkComponents,
   productDetailTabComponents,
-} from '../mock-data/components/components';
-import { activeTabItems } from '../mock-data/products/product';
+} from '../mock-data';
+import { activeTabItems } from '../mock-data';
+import { MockConfig } from '../types';
 import { readSearchParams } from '../utils/request-params';
 
-export const getCmsHandlers = (
-  routes: any, // TODO change type to be something real
+export const getCmsPagesHandler = (
+  routes: any, // TODO change type to be something real after SAP exports the default routes config
   pageFactoryService: PageFactoryService,
-  pageService: PageService
+  pageService: PageService,
+  config: MockConfig
 ): RestHandler[] => {
   return [
     rest.get(routes.pages, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const pageType = readSearchParams(req, 'pageType');
       const pageLabelOrId = readSearchParams(req, 'pageLabelOrId');
       const productCode = readSearchParams(req, 'productCode');
+
+      // return passThrough answer if defaultData is disabled and pageId is not within mockedPageIds
+      if (
+        config.disableDefaultData &&
+        !config.mockedPageIds?.includes(pageService.getSanitizedPageLabelOrId(pageLabelOrId))
+      ) {
+        return req.passthrough();
+      }
+
       const page: Occ.CMSPage | null = pageService.getMockPage(pageType, pageLabelOrId, productCode);
 
       if (page) {
@@ -44,7 +55,16 @@ export const getCmsHandlers = (
         })
       );
     }),
+  ];
+};
 
+export const getCmsComponentsHandler = (
+  routes: any, // TODO change type to be something real after SAP exports the default routes config
+  pageFactoryService: PageFactoryService,
+  pageService: PageService,
+  config: MockConfig
+): RestHandler[] => {
+  return [
     // additional component data call
     rest.get(routes.components, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const componentIds = readSearchParams(req, 'componentIds');
