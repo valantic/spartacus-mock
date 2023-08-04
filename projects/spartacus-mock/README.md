@@ -440,7 +440,8 @@ export const mockedRequests = (): MockRequest[] => {
 };
 ```
 
-4. Define a string array with the `pageId` of the page that you want to mock (this is needed, as for the other pages, the `pages` call still needs to go through) `mockedPageIds: ['hello-world']`
+4. Define a string array with the `pageId` of the page that you want to mock (this is needed, as for the other pages, the `pages` call still needs to go through)
+   `mockedPageIds: ['hello-world']`
 5. Add everything to your mockConfig
 
 ```ts
