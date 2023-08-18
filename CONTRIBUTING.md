@@ -59,6 +59,11 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 4. Run `ng add @valantic/spartacus-mock` in your spartacus project's root folder to add the library and run the schematics
 5. Run `npm link @valantic/spartacus-mock` again, since running `ng add` seems to delete the link
 
+### Update Angular Major Version
+
+1. Follow the steps in the page https://update.angular.io/?l=3&v=14.0-15.0 to update the angular version
+2. Test if it still works with the current demo electronics store of spartacus
+
 ### Build the library
 
 1. Run `npm run build` in the root of this project to build the angular lib

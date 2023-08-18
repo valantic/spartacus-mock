@@ -1,6 +1,6 @@
 {
   "name": "@valantic/spartacus-mock",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "This project offers you the possibility, to mock the OCC Endpoints of your Composable Storefront (Spartacus). It uses the Mock Service Worker to mock the API calls.",
   "keywords": ["Composable Storefront", "Spartacus", "spartacus-mock", "schematics", "angular", "valantic"],
   "repository": {
@@ -32,9 +32,9 @@
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "@angular/common": "~14.2.0",
-    "@angular/core": "~14.2.0",
-    "@angular/compiler": "~14.2.3",
+    "@angular/common": "~15.2.9",
+    "@angular/core": "~15.2.9",
+    "@angular/compiler": "~15.2.9",
     "@faker-js/faker": "~7.6.0"
   },
   "devDependencies": {

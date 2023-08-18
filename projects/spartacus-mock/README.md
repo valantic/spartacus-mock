@@ -19,6 +19,7 @@ This project is guaranteed to work with the listed angular versions and the list
 
 | Angular          | Spartacus | spartacus-mock |
 | ---------------- | :-------: | :------------: |
+| >=15.0.0 <16.0.0 |   6.x.x   |      2.x       |
 | >=14.0.0 <15.0.0 |   5.x.x   |      1.x       |
 
 It is possible that it works with other versions, but not tested.
