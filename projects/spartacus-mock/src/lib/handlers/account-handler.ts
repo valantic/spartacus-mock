@@ -1,8 +1,5 @@
 import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
-import { createAddress } from '../mock-data';
-import { savedCartResult } from '../mock-data';
-import { createUser } from '../mock-data';
-import { createConsentTemplate } from '../mock-data';
+import { createAddress, createConsentTemplate, createUser, savedCartResult } from '../mock-data';
 import { readSearchParams, readUrlParams } from '../utils/request-params';
 
 export const getAccountHandlers = (routes: any): RestHandler[] => {

@@ -1,8 +1,5 @@
 import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
-import { createFullProduct } from '../mock-data';
-import { productReferenceList } from '../mock-data';
-import { createReview, reviewList } from '../mock-data';
-import { productSearchPage } from '../mock-data';
+import { createFullProduct, createReview, productReferenceList, productSearchPage, reviewList } from '../mock-data';
 import { readSearchParams, readUrlParams } from '../utils/request-params';
 
 export const getProductHandlers = (routes: any): RestHandler[] => {

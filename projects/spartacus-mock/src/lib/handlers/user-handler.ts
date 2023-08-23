@@ -1,11 +1,14 @@
 import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
-import { addressList } from '../mock-data';
-import { customerCouponSearchResult } from '../mock-data';
-import { notificationPreferenceList } from '../mock-data';
-import { paymentDetailsList } from '../mock-data';
-import { productInterestSearchResult } from '../mock-data';
-import { authRevoke, createAuthToken } from '../mock-data';
-import { createUser } from '../mock-data';
+import {
+  addressList,
+  authRevoke,
+  createAuthToken,
+  createUser,
+  customerCouponSearchResult,
+  notificationPreferenceList,
+  paymentDetailsList,
+  productInterestSearchResult,
+} from '../mock-data';
 
 export const getUserHandlers = (routes: any): RestHandler[] => {
   return [

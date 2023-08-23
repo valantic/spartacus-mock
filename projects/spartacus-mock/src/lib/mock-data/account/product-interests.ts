@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { createPagination } from '../general';
-import { createSort } from '../general';
+import { createPagination, createSort } from '../general';
 import { createFullProduct } from '../products';
 
 export const createProductInterestEntry = (additionalData?: Occ.ProductInterestEntry): Occ.ProductInterestEntry => {
