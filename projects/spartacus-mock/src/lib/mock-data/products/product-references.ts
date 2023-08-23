@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { createBaseProduct } from './product';
 import { ProductReferenceListModifier } from '../../types';
+import { createBaseProduct } from './product';
 
 export const createProductReference = (additionalData?: Occ.ProductReference): Occ.ProductReference => {
   return {

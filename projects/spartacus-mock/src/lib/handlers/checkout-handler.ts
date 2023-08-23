@@ -1,8 +1,8 @@
-import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
+import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { DEFAULT_PAYMENT_ID, createPaymentDetails } from '../mock-data';
 import { getCardTypes, getDeliveryModes } from '../mock-data/commerce/checkout';
 import { getPaymentSopRequest } from '../mock-data/commerce/payment-sop';
 import { getPaymentSopResponse } from '../mock-data/commerce/payment-sop-response';
-import { createPaymentDetails, DEFAULT_PAYMENT_ID } from '../mock-data/account/payments';
 
 export const getCheckoutHandlers = (routes: any): RestHandler[] => {
   return [

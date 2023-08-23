@@ -1,7 +1,7 @@
-import { Occ } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
-import { createSearchState } from './search';
+import { Occ } from '@spartacus/core';
 import { FacetValueModifier } from '../../types';
+import { createSearchState } from './search';
 
 export const createFacetValue = (additionalData?: Occ.FacetValue, modifier?: FacetValueModifier): Occ.FacetValue => {
   return {

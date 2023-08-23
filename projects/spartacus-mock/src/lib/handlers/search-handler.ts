@@ -1,5 +1,5 @@
-import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
-import { suggestionList } from '../mock-data/search/search-suggestions';
+import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { suggestionList } from '../mock-data';
 
 export const getSearchHandlers = (routes: any): RestHandler[] => {
   return [

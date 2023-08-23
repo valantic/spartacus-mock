@@ -12,3 +12,4 @@ export * from './pages';
 export * from './products';
 export * from './search';
 export * from './store-finder';
+export * from './translations';
