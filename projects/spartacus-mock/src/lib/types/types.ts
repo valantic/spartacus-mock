@@ -1,6 +1,7 @@
 import { RestHandler } from 'msw';
 import { Voucher } from '@spartacus/cart/base/root';
 import { BackendConfig, Occ, OccConfig, Page as SpartacusPage } from '@spartacus/core';
+import { TranslationResources } from '@spartacus/core/src/i18n/translation-resources';
 
 declare module '@spartacus/core' {
   namespace Occ {
@@ -81,6 +82,7 @@ export interface MockConfig {
   homePage?: Page;
   customSlots?: Occ.ContentSlot[];
   disableDefaultData?: boolean;
+  translations?: TranslationResources;
   mockedRequests?: MockRequest[];
   mockedPageIds?: string[];
   debug?: boolean;
@@ -113,4 +115,29 @@ export interface ImageModifier {
 
 export interface PriceModifier {
   value?: number;
+}
+
+export interface TranslationChunks {
+  address?: object;
+  common?: object;
+  myAccount?: object;
+  payment?: object;
+  product?: object;
+  pwa?: object;
+  user?: object;
+  video?: object;
+  pdf?: object;
+
+  cart?: object;
+  importExport?: object;
+  quickOrder?: object;
+  savedCart?: object;
+  wishlist?: object;
+  checkout?: object;
+  order?: object;
+  bulkPricing?: object;
+  productImageZoom?: object;
+  storeFinder?: object;
+  userAccount?: object;
+  userProfile?: object;
 }
