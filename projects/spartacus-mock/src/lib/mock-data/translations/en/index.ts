@@ -93,20 +93,23 @@ function isObject(item: any): boolean {
 /**
  * Deep merges the translation chunks that allows to only overwrite certain translation keys.
  *
- * @param target Core Translation Chunk
- * @param source Custom Translations (All Chunks)
+ * @param defaultChunk Default Core Translation Chunk
+ * @param customChunk Custom Translations (All Chunks)
  */
-function mergeDeep(target: object, source: object): object {
-  let output: { [key: string]: object } = Object.assign({}, target);
+function mergeDeep(defaultChunk: object, customChunk: object): object {
+  let output: { [key: string]: object } = Object.assign({}, defaultChunk);
 
-  if (isObject(target) && isObject(source)) {
-    Object.keys(source).forEach((key: string) => {
-      if (isObject(source[key as keyof typeof source])) {
-        if (key in target) {
-          output[key] = mergeDeep(target[key as keyof typeof target], source[key as keyof typeof source]);
+  if (isObject(defaultChunk) && isObject(customChunk)) {
+    Object.keys(customChunk).forEach((key: string) => {
+      if (isObject(customChunk[key as keyof typeof customChunk])) {
+        if (key in defaultChunk) {
+          output[key] = mergeDeep(
+            defaultChunk[key as keyof typeof defaultChunk],
+            customChunk[key as keyof typeof customChunk]
+          );
         }
       } else {
-        Object.assign(output, { [key]: source[key as keyof typeof source] });
+        Object.assign(output, { [key]: customChunk[key as keyof typeof customChunk] });
       }
     });
   }
