@@ -407,6 +407,7 @@ export const en = {
 
 export const product = {
   // your custom translations for the chunk product
+  // you can add any nested objects here, they get deep merged with the existing default translations
 };
 ```
 
