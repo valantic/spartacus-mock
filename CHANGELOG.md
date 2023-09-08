@@ -2,7 +2,7 @@
 
 ## next
 
-## 1.1.0
+## 1.1.1
 
 - Add option to use custom translations without defining a custom handler for the translation route
 - Add whitelisting mode to use within an existing project
