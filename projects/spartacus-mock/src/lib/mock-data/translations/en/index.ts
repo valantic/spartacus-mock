@@ -97,7 +97,7 @@ function isObject(item: any): boolean {
  * @param customChunk Custom Translations (All Chunks)
  */
 function mergeDeep(defaultChunk: object, customChunk: object): object {
-  let output: { [key: string]: object } = Object.assign({}, defaultChunk);
+  let output: { [key: string]: any } = Object.assign({}, defaultChunk);
 
   if (isObject(defaultChunk) && isObject(customChunk)) {
     Object.keys(customChunk).forEach((key: string) => {
