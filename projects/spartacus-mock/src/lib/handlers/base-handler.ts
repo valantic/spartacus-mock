@@ -10,7 +10,7 @@ import {
   translations,
 } from '../mock-data';
 import { MockConfig } from '../types';
-import { readUrlParams } from '../utils/request-params';
+import { readUrlParams } from '../utils';
 
 export const getBaseHandlers = (routes: any, config: MockConfig): RestHandler[] => {
   return [

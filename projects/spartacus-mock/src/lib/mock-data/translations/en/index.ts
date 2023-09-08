@@ -28,6 +28,7 @@ import { TranslationChunks } from '../../../types';
 
 export const languageEn = (customChunksEn: TranslationChunks) => {
   return {
+    // core translations
     ...translations['en'],
 
     // feature library cart
@@ -62,6 +63,7 @@ export const languageEn = (customChunksEn: TranslationChunks) => {
     // feature library configurator
     ...configuratorTranslations['en'],
 
+    // feature library customer ticketing
     ...customerTicketingTranslations['en'],
 
     // feature library organization

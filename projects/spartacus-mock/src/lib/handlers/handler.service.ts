@@ -31,7 +31,7 @@ export class HandlerService {
 
   getAllHandlers(): RestHandler[] {
     return [
-      ...getBaseHandlers(this.routes),
+      ...getBaseHandlers(this.routes, this.config),
       ...getUserHandlers(this.routes),
       ...getCmsPagesHandler(this.routes, this.pageFactoryService, this.pageService, this.config),
       ...getCmsComponentsHandler(this.routes, this.pageFactoryService, this.pageService, this.config),
