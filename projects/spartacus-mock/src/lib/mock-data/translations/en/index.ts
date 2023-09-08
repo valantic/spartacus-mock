@@ -28,57 +28,88 @@ import { TranslationChunks } from '../../../types';
 
 export const languageEn = (customChunksEn: TranslationChunks) => {
   return {
-    // core translations
-    ...translations['en'],
-
-    // feature library cart
-    ...cartBaseTranslations['en'],
-    ...importExportTranslations['en'],
-    ...quickOrderTranslations['en'],
-    ...savedCartTranslations['en'],
-    ...wishListTranslations['en'],
-
-    // feature library product
-    ...productImageZoomTranslations['en'],
-    ...bulkPricingTranslations['en'],
-    ...productVariantsTranslations['en'],
-
-    // feature library store finder
-    ...storeFinderTranslations['en'],
-
-    // feature library user
-    ...userAccountTranslations['en'],
-    ...userProfileTranslations['en'],
-
-    // feature library checkout
-    ...checkoutTranslations['en'],
-    ...checkoutB2BTranslations['en'],
-
-    // feature library order
-    ...orderTranslations['en'],
-
-    // feature library asm
-    ...asmTranslations['en'],
-
-    // feature library configurator
-    ...configuratorTranslations['en'],
-
-    // feature library customer ticketing
-    ...customerTicketingTranslations['en'],
-
-    // feature library organization
-    ...accountSummaryTranslations['en'],
-    ...organizationTranslations['en'],
-    ...orderApprovalTranslations['en'],
-    ...unitOrderTranslations['en'],
-    ...organizationUserRegistrationTranslations['en'],
-
-    // other feature libraries
-    ...dpTranslations['en'],
-    ...epdVisualizationTranslations['en'],
-    ...s4omTranslations['en'],
-
     // override default chunks with potential custom chunks provided in the config
     ...customChunksEn,
+
+    // core translations
+    ...mergeDeep(translations['en'], customChunksEn),
+
+    // feature library cart
+    ...mergeDeep(cartBaseTranslations['en'], customChunksEn),
+    ...mergeDeep(importExportTranslations['en'], customChunksEn),
+    ...mergeDeep(quickOrderTranslations['en'], customChunksEn),
+    ...mergeDeep(savedCartTranslations['en'], customChunksEn),
+    ...mergeDeep(wishListTranslations['en'], customChunksEn),
+
+    // feature library product
+    ...mergeDeep(productImageZoomTranslations['en'], customChunksEn),
+    ...mergeDeep(bulkPricingTranslations['en'], customChunksEn),
+    ...mergeDeep(productVariantsTranslations['en'], customChunksEn),
+
+    // feature library store finder
+    ...mergeDeep(storeFinderTranslations['en'], customChunksEn),
+
+    // feature library user
+    ...mergeDeep(userAccountTranslations['en'], customChunksEn),
+    ...mergeDeep(userProfileTranslations['en'], customChunksEn),
+
+    // feature library checkout
+    ...mergeDeep(checkoutTranslations['en'], customChunksEn),
+    ...mergeDeep(checkoutB2BTranslations['en'], customChunksEn),
+
+    // feature library order
+    ...mergeDeep(orderTranslations['en'], customChunksEn),
+
+    // feature library asm
+    ...mergeDeep(asmTranslations['en'], customChunksEn),
+
+    // feature library configurator
+    ...mergeDeep(configuratorTranslations['en'], customChunksEn),
+
+    // feature library customer ticketing
+    ...mergeDeep(customerTicketingTranslations['en'], customChunksEn),
+
+    // feature library organization
+    ...mergeDeep(accountSummaryTranslations['en'], customChunksEn),
+    ...mergeDeep(organizationTranslations['en'], customChunksEn),
+    ...mergeDeep(orderApprovalTranslations['en'], customChunksEn),
+    ...mergeDeep(unitOrderTranslations['en'], customChunksEn),
+    ...mergeDeep(organizationUserRegistrationTranslations['en'], customChunksEn),
+
+    // other feature libraries
+    ...mergeDeep(dpTranslations['en'], customChunksEn),
+    ...mergeDeep(epdVisualizationTranslations['en'], customChunksEn),
+    ...mergeDeep(s4omTranslations['en'], customChunksEn),
   };
 };
+
+/**
+ * Shows if the given item is of type object.
+ */
+function isObject(item: any): boolean {
+  return item && typeof item === 'object' && !Array.isArray(item);
+}
+
+/**
+ * Deep merges the translation chunks that allows to only overwrite certain translation keys.
+ *
+ * @param target Core Translation Chunk
+ * @param source Custom Translations (All Chunks)
+ */
+function mergeDeep(target: object, source: object): object {
+  let output: { [key: string]: object } = Object.assign({}, target);
+
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach((key: string) => {
+      if (isObject(source[key as keyof typeof source])) {
+        if (key in target) {
+          output[key] = mergeDeep(target[key as keyof typeof target], source[key as keyof typeof source]);
+        }
+      } else {
+        Object.assign(output, { [key]: source[key as keyof typeof source] });
+      }
+    });
+  }
+
+  return output;
+}

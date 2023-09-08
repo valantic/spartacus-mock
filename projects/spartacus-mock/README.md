@@ -424,8 +424,6 @@ const mockConfig: MockConfig = {
 };
 ```
 
-> Please note: At the moment, translation overriding overrides the full chunk. If you pass in a custom chunk for e.g. Product, you need to pass in all translations for the product chunk.
-
 #### Add custom chunks for language EN
 
 1. Create a file `src/mock-server/mock-data/translations/translations.ts` with the following content
