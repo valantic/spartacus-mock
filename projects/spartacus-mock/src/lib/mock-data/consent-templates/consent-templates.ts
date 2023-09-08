@@ -1,5 +1,5 @@
-import { Occ } from '@spartacus/core';
 import { faker } from '@faker-js/faker';
+import { Occ } from '@spartacus/core';
 
 export const createConsentTemplate = (additionalData?: Occ.ConsentTemplate): Occ.ConsentTemplate => {
   return {

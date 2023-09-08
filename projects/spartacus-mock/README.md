@@ -226,7 +226,7 @@ Out of the box, `spartacus-mock` comes with the mock-data for the following page
 - Product Detail Page
 - Cart Page
 - Checkout Pages
-- My Account Pages
+- My Account Pages (except Order Return Feature)
 - Content Page
 
 You can override these pages or provide your own custom pages:
@@ -258,6 +258,17 @@ export const contentPages = (): Pages => {
       [
         contentSlot('Section2A', [
           cmsParagraphComponent('Hello World!'),
+        ]),
+      ]
+    ),
+
+    // overrides the default page with page label /contact
+    contact: pageFactoryService.createContentPage(
+      '/contact',
+      'Contact Custom',
+      [
+        contentSlot('Section2A', [
+          cmsParagraphComponent('Custom Contact Page!'),
         ]),
       ]
     ),
@@ -359,15 +370,277 @@ async function prepare(): Promise<
 
 ### Add custom translations or override default translations
 
-TODO
+Out of the box, spartacus-mock uses the default english translations provided by spartacus itself. You can override these translations or add your own custom translations:
 
-### Use Spartacus-Mock with an existing Project
+#### Override default translations
 
-TODO
+1. Create a file `src/mock-server/mock-data/translations/translations.ts` with the following content
+
+```ts
+// src/mock-server/mock-data/translations/translations.ts
+// your overrides for the english translations
+import { TranslationResources } from '@spartacus/core';
+import { en } from './en';
+
+export const translationResources: TranslationResources = {
+  en,
+};
+```
+
+2. Create a folder `en` within the `translations` folder
+3. Create a file `src/mock-server/mock-data/translations/en/index.ts` with the following content
+
+```ts
+// src/mock-server/mock-data/translations/en/index.ts
+// your custom chunks that you want to override
+import { product } from './product';
+
+export const en = {
+  product,
+};
+```
+
+4. Create a file `src/mock-server/mock-data/translations/en/product.ts` with the following content
+
+```ts
+// src/mock-server/mock-data/translations/en/product.ts
+// your custom translations for the chunk product
+
+export const product = {
+  // your custom translations for the chunk product
+  // you can add any nested objects here, they get deep merged with the existing default translations
+};
+```
+
+5. Append your translations to your mockConfig in your `main.ts` file
+
+```ts
+// src/main.ts
+// add your translation overrides
+import { translationResources } from './mock-server/mock-data/translations/translations';
+
+const mockConfig: MockConfig = {
+  // ...
+  translations: translationResources,
+  // ...
+};
+```
+
+#### Add custom chunks for language EN
+
+1. Create a file `src/mock-server/mock-data/translations/translations.ts` with the following content
+
+```ts
+// src/mock-server/mock-data/translations/translations.ts
+// your overrides for the english translations
+import { TranslationResources } from '@spartacus/core';
+import { en } from './en';
+
+export const translationResources: TranslationResources = {
+  en,
+};
+```
+
+2. Create a folder `en` within the `translations` folder
+3. Create a file `src/mock-server/mock-data/translations/en/index.ts` with the following content
+
+```ts
+// src/mock-server/mock-data/translations/en/index.ts
+// your custom chunks that you want to add
+import { myCustomChunk } from './my-custom-chunk';
+
+export const en = {
+  myCustomChunk,
+};
+```
+
+4. Create a file `src/mock-server/mock-data/translations/en/my-custom-chunk.ts` with the following content
+
+```ts
+// src/mock-server/mock-data/translations/en/product.ts
+// your custom translations for the chunk myCustomChunk
+
+export const myCustomChunk = {
+  // your translations for the chunk myCustomChunk
+};
+```
+
+5. Append your translations to your mockConfig in your `main.ts` file
+
+```ts
+// src/main.ts
+// add your translation overrides
+import { translationResources } from './mock-server/mock-data/translations/translations';
+
+const mockConfig: MockConfig = {
+  // ...
+  translations: translationResources,
+  // ...
+};
+```
+
+> Pro tip: Do not forget to add the new chunk to the translation chunk config of the spartacus configuration module.
+
+#### Add translations for other languages
+
+1. Create a file `src/mock-server/mock-data/translations/translations.ts` with the following content
+
+```ts
+// src/mock-server/mock-data/translations/translations.ts
+// your overrides for the english translations
+import { TranslationResources } from '@spartacus/core';
+import { de } from './de';
+
+export const translationResources: TranslationResources = {
+  de,
+};
+```
+
+2. Create a folder `de` within the `translations` folder
+3. Create a file `src/mock-server/mock-data/translations/de/index.ts` with the following content
+
+```ts
+// src/mock-server/mock-data/translations/de/index.ts
+// your custom chunks that you want to override
+import { product } from './product';
+
+export const de = {
+  product,
+};
+```
+
+4. Create a file `src/mock-server/mock-data/translations/de/product.ts` with the following content
+
+```ts
+// src/mock-server/mock-data/translations/de/product.ts
+// your german translations for the chunk product
+
+export const product = {
+  // your  german translations for the chunk product
+};
+```
+
+5. Append your translations to your mockConfig in your `main.ts` file
+
+```ts
+// src/main.ts
+// add your translation overrides
+import { translationResources } from './mock-server/mock-data/translations/translations';
+
+const mockConfig: MockConfig = {
+  // ...
+  translations: translationResources,
+  // ...
+};
+```
+
+> Pro tip: If you want to have full control over the translations, you can also provide a custom handler for the translation endpoint as described in "Add Handlers for Endpoints"
+
+### Use Spartacus-Mock with an existing Project (Whitelist Mode)
+
+Sometimes, you have an existing spartacus project, where you don't want or cannot add mock data for everything. Still it would be nice to quickly mock
+a page with a new component / a new endpoint. Don't worry, we have you covered:
+
+#### Mock only certain endpoints
+
+1. Add the property `disableDefaultData: true` to the mockConfig in your `main.ts` file
+2. Follow the steps described in [Define Routes for Endpoints](#define-routes-for-endpoints) and / or [Add Handlers for Endpoints](#add-handlers-for-endpoints) to add a route / handler for your endpoint
+3. Define an Array where you specify the request that you want to mock (this is needed, as in whitelist mode, all requested go through by default)
+
+```ts
+export const mockedRequests = (): MockRequest[] => {
+  return [
+    {
+      url: defaultRoutes.languages,
+      requestFunction: 'get',
+    },
+  ];
+};
+```
+
+4. Add everything to your mockConfig
+
+```ts
+// src/main.ts
+// your custom defined handlers
+import { handlers } from './mock-server/handlers';
+
+async function prepare(): Promise<
+  ServiceWorkerRegistration | undefined
+> {
+  if (environment.mockServer) {
+    const { prepareMock } = await import(
+      /* webpackChunkName: "mock-server" */ '@valantic/spartacus-mock'
+    );
+
+    const mockConfig: MockConfig = {
+      enableWorker: environment.mockServer || false,
+      disableDefaultData: true,
+      handlers: handlers(),
+      mockedRequests: mockedRequests(),
+      environment,
+    };
+
+    return prepareMock(mockConfig);
+  }
+
+  return Promise.resolve(undefined);
+}
+```
+
+#### Mock only certain pages
+
+1. Add the property `disableDefaultData: true` to the mockConfig in your `main.ts` file
+2. Follow the steps described in [Add custom pages or override default pages](#add-custom-pages-or-override-default-pages) to add a custom page
+3. Define an Array where you specify the request that you want to mock (this is needed, as in whitelist mode, all requested go through by default)
+
+```ts
+export const mockedRequests = (): MockRequest[] => {
+  return [
+    {
+      url: defaultRoutes.pages,
+      requestFunction: 'get',
+    },
+  ];
+};
+```
+
+4. Define a string array with the `pageId` of the page that you want to mock (this is needed, as for the other pages, the `pages` call still needs to go through)
+   `mockedPageIds: ['hello-world']`
+5. Add everything to your mockConfig
+
+```ts
+// src/main.ts
+// your custom defined handlers
+import { handlers } from './mock-server/handlers';
+
+async function prepare(): Promise<
+  ServiceWorkerRegistration | undefined
+> {
+  if (environment.mockServer) {
+    const { prepareMock } = await import(
+      /* webpackChunkName: "mock-server" */ '@valantic/spartacus-mock'
+    );
+
+    const mockConfig: MockConfig = {
+      enableWorker: environment.mockServer || false,
+      disableDefaultData: true,
+      contentPages: contentPages(),
+      mockedRequests: mockedRequests(),
+      mockedPageIds: ['hello-world'],
+      environment,
+    };
+
+    return prepareMock(mockConfig);
+  }
+
+  return Promise.resolve(undefined);
+}
+```
 
 ## API
 
-TODO
+By default, spartacus-mock
 
 ## Use with HTTPS
 

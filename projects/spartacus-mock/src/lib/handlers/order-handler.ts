@@ -1,5 +1,6 @@
-import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
-import { createOrder } from '../mock-data/order/order';
+import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { createOrder } from '../mock-data';
+import { getOrders } from '../mock-data';
 import {
   CartUserType,
   deleteCart,
@@ -7,7 +8,6 @@ import {
   getUserTypeById,
   setGuestCheckout,
 } from '../mock-data/commerce/cart';
-import { getOrders } from '../mock-data/order/order-history';
 import { readUrlParams } from '../utils/request-params';
 
 export const getOrderHandlers = (routes: any): RestHandler[] => {

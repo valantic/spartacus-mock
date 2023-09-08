@@ -1,4 +1,4 @@
-import { ResponseComposition, rest, RestContext, RestHandler, RestRequest } from 'msw';
+import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
 import {
   createPointOfService,
   storeFinderSearchPage,

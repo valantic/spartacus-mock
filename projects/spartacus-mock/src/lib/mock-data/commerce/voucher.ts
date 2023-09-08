@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { Voucher } from '@spartacus/cart/base/root';
-import { LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
-import { createCurrency } from '../general/currencies';
 import { Occ } from '@spartacus/core';
+import { LOCAL_STORAGE_KEY, LocalStorageMockData } from '../../types';
+import { createCurrency } from '../general';
 
 export const createVoucher = (additionalData?: Occ.Voucher): Occ.Voucher => {
   return {

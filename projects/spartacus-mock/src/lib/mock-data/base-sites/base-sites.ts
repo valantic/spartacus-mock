@@ -1,6 +1,6 @@
 import { Occ } from '@spartacus/core';
+import { createCurrency, currencyList } from '../general';
 import { createLanguage, languageList } from '../languages';
-import { createCurrency, currencyList } from '../general/currencies';
 
 export const createBaseStore = (additionalData?: Occ.BaseStore): Occ.BaseStore => {
   return {
