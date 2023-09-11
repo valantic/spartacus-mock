@@ -2,6 +2,10 @@
 
 ## next
 
+## 2.1.0
+
+- Remove default translations for non-standard spartacus packages
+
 ## 2.0.0
 
 - Add support for Angular 15 and Spartacus 6.3.0
