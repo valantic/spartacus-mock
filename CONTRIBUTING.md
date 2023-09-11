@@ -34,7 +34,6 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 3. Make sure, you have the compiled spartacus libraries somewhere available (SAP RBSC via S-User Token) or self hosted on a Gitlab Private Repo
 4. Add an `.npmrc` file containing the credentials
 5. Run `npm install` in the root of this project to install the angular lib dependencies
-6. Run `npm install` in `projects/spartacus-mock` to install the schematics dependencies
 
 ### Develop the mock-data
 

@@ -1,23 +1,11 @@
-import { asmTranslations } from '@spartacus/asm/assets';
 import { translations } from '@spartacus/assets';
 import { cartBaseTranslations } from '@spartacus/cart/base/assets';
 import { importExportTranslations } from '@spartacus/cart/import-export/assets';
 import { quickOrderTranslations } from '@spartacus/cart/quick-order/assets';
 import { savedCartTranslations } from '@spartacus/cart/saved-cart/assets';
 import { wishListTranslations } from '@spartacus/cart/wish-list/assets';
-import { checkoutB2BTranslations } from '@spartacus/checkout/b2b/assets';
 import { checkoutTranslations } from '@spartacus/checkout/base/assets';
-import { customerTicketingTranslations } from '@spartacus/customer-ticketing/assets';
-import { dpTranslations } from '@spartacus/digital-payments/assets';
-import { epdVisualizationTranslations } from '@spartacus/epd-visualization/assets';
 import { orderTranslations } from '@spartacus/order/assets';
-import { accountSummaryTranslations } from '@spartacus/organization/account-summary/assets';
-import { organizationTranslations } from '@spartacus/organization/administration/assets';
-import { orderApprovalTranslations } from '@spartacus/organization/order-approval/assets';
-import { unitOrderTranslations } from '@spartacus/organization/unit-order/assets';
-import { organizationUserRegistrationTranslations } from '@spartacus/organization/user-registration/assets';
-import { configuratorTranslations } from '@spartacus/product-configurator/common/assets';
-import { bulkPricingTranslations } from '@spartacus/product/bulk-pricing/assets';
 import { productImageZoomTranslations } from '@spartacus/product/image-zoom/assets';
 import { productVariantsTranslations } from '@spartacus/product/variants/assets';
 import { s4omTranslations } from '@spartacus/s4om/assets';
@@ -43,7 +31,7 @@ export const languageEn = (customChunksEn: TranslationChunks) => {
 
     // feature library product
     ...mergeDeep(productImageZoomTranslations['en'], customChunksEn),
-    ...mergeDeep(bulkPricingTranslations['en'], customChunksEn),
+    //...mergeDeep(bulkPricingTranslations['en'], customChunksEn),
     ...mergeDeep(productVariantsTranslations['en'], customChunksEn),
 
     // feature library store finder
@@ -55,31 +43,31 @@ export const languageEn = (customChunksEn: TranslationChunks) => {
 
     // feature library checkout
     ...mergeDeep(checkoutTranslations['en'], customChunksEn),
-    ...mergeDeep(checkoutB2BTranslations['en'], customChunksEn),
+    //...mergeDeep(checkoutB2BTranslations['en'], customChunksEn),
 
     // feature library order
     ...mergeDeep(orderTranslations['en'], customChunksEn),
 
     // feature library asm
-    ...mergeDeep(asmTranslations['en'], customChunksEn),
+    //...mergeDeep(asmTranslations['en'], customChunksEn),
 
     // feature library configurator
-    ...mergeDeep(configuratorTranslations['en'], customChunksEn),
+    //...mergeDeep(configuratorTranslations['en'], customChunksEn),
 
     // feature library customer ticketing
-    ...mergeDeep(customerTicketingTranslations['en'], customChunksEn),
+    //...mergeDeep(customerTicketingTranslations['en'], customChunksEn),
 
     // feature library organization
-    ...mergeDeep(accountSummaryTranslations['en'], customChunksEn),
-    ...mergeDeep(organizationTranslations['en'], customChunksEn),
-    ...mergeDeep(orderApprovalTranslations['en'], customChunksEn),
-    ...mergeDeep(unitOrderTranslations['en'], customChunksEn),
-    ...mergeDeep(organizationUserRegistrationTranslations['en'], customChunksEn),
+    //...mergeDeep(accountSummaryTranslations['en'], customChunksEn),
+    //...mergeDeep(organizationTranslations['en'], customChunksEn),
+    //...mergeDeep(orderApprovalTranslations['en'], customChunksEn),
+    //...mergeDeep(unitOrderTranslations['en'], customChunksEn),
+    //...mergeDeep(organizationUserRegistrationTranslations['en'], customChunksEn),
 
     // other feature libraries
-    ...mergeDeep(dpTranslations['en'], customChunksEn),
-    ...mergeDeep(epdVisualizationTranslations['en'], customChunksEn),
-    ...mergeDeep(s4omTranslations['en'], customChunksEn),
+    //...mergeDeep(dpTranslations['en'], customChunksEn),
+    //...mergeDeep(epdVisualizationTranslations['en'], customChunksEn),
+    //...mergeDeep(s4omTranslations['en'], customChunksEn),
   };
 };
 
