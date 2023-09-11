@@ -2,6 +2,10 @@
 
 ## next
 
+## 1.2.1
+
+- Fix bug in dependencies
+
 ## 1.2.0
 
 - Remove default translations for non-standard spartacus packages
