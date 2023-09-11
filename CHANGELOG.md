@@ -2,6 +2,10 @@
 
 ## next
 
+## 1.2.0
+
+- Remove default translations for non-standard spartacus packages
+
 ## 1.1.1
 
 - Add option to use custom translations without defining a custom handler for the translation route
