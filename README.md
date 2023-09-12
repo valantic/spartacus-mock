@@ -77,7 +77,7 @@ See [Roadmap](./docs/roadmap.md) for more information about the planned features
 
 # API Reference & Examples
 
-The developer documentation including api reference & examples can be found [here](./docs/README.MD).
+The developer documentation including api reference & examples can be found [here](./docs/README.md).
 
 ## Contribution Guidelines
 

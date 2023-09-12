@@ -73,7 +73,7 @@ Spartacus-Mock currently offers mock data for the following spartacus features /
 - Checkout
 - My Account (except Order Returns)
 
-See [Roadmap](./docs/roadmap.md) for more information about the planned features.
+See [Roadmap](../../docs/roadmap.md) for more information about the planned features.
 
 # API Reference & Examples
 
@@ -81,4 +81,4 @@ The developer documentation including api reference & examples can be found [her
 
 ## Contribution Guidelines
 
-The contribution guidelines can be found [here](./CONTRIBUTING.md).
+The contribution guidelines can be found [here](../../CONTRIBUTING.md).
