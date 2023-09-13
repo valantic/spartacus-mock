@@ -70,9 +70,9 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 
 ### Releasing
 
-1. Make sure, you have described your changes in the file [CHANGELOG.md](CHANGELOG.md)
+1. Make sure, you have described your changes in the file [CHANGELOG.md](./docs/changelog.md)
 2. Make sure, you have done the steps to build the library and the schematics
-3. Move all changes in the file [CHANGELOG.md](CHANGELOG.md) from below `## Next` below a new Paragraph with the
+3. Move all changes in the file [CHANGELOG.md](./docs/changelog.md) from below `## Next` below a new Paragraph with the
    to be released version
 4. Change the Version in the [package.json](projects/spartacus-mock/package.json) of the angular lib
 5. Create a Git Tag with the to be released version number ` git tag x.x.x`
@@ -81,5 +81,5 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 8. Login to NPM `npm login` if you not already are logged in
 9. Push the Release `npm publish --access public`
 10. [Create the Release](https://github.com/valantic/spartacus-mock/releases/new) on the github repo with the
-    changes from the [CHANGELOG.md](CHANGELOG.md)
+    changes from the [CHANGELOG.md](./docs/changelog.md)
 11. Make sure you have pushed all changes to the Repo
