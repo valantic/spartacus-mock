@@ -58,7 +58,7 @@ Spartacus-Mock currently offers mock data for the following spartacus features /
 - Checkout
 - My Account (except Order Returns)
 
-See [Roadmap](roadmap.md) for more information about the planned features.
+See [Roadmap](roadmap) for more information about the planned features.
 
 # Documentation
 
