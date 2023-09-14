@@ -58,10 +58,10 @@ Spartacus-Mock currently offers mock data for the following spartacus features /
 - Checkout
 - My Account (except Order Returns)
 
-See [Roadmap](https://valantic.gitbook.io/spartacus-mock/roadmap.md) for more information about the planned features.
+See [Roadmap](roadmap.md) for more information about the planned features.
 
 # Documentation
 
-- [Getting Started](https://valantic.gitbook.io/spartacus-mock/getting-started)
-- [Examples](https://valantic.gitbook.io/spartacus-mock/examples)
-- [API Reference](https://valantic.gitbook.io/spartacus-mock/api-reference)
+- [Getting Started](getting-started/README.md)
+- [Examples](examples/README.md)
+- [API Reference](api-reference/README.md)
