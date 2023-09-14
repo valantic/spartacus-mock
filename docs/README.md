@@ -11,7 +11,7 @@ It uses the Mock Service Worker (MSW) [library](https://mswjs.io/) to mock the A
 
 # Getting started
 
-You want to get started quickly? Follow the steps of the [Getting Started](https://valantic.gitbook.io/spartacus-mock/getting-started) section.
+You want to get started quickly? Follow the steps of the [Getting Started](getting-started/README.md) section.
 
 # Versions
 
