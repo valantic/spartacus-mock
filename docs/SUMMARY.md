@@ -17,4 +17,5 @@
   - [Default Routes](api-reference/default-routes.md)
   - [Mock Data Creation](api-reference/mock-data-creation.md)
 - [Changelog](changelog.md)
+- [Roadmap](roadmap.md)
 - [Contributors](https://github.com/valantic/spartacus-mock/graphs/contributors)
