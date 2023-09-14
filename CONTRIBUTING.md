@@ -6,7 +6,7 @@ _Pull requests, bug reports, and all other forms of contribution are welcomed an
 
 - [Code of Conduct](#book-code-of-conduct)
 - [Asking Questions](#bulb-asking-questions)
-- [How can I Contribute?](#inbox_tray-how-can-i-contribute)
+- [How can I Contribute?](#inboxtray-how-can-i-contribute)
 
 > **This guide serves to set clear expectations for everyone involved with the project so that we can improve it
 > together while also creating a welcoming space for everyone to participate. Following these guidelines will help
