@@ -11,7 +11,7 @@ It uses the Mock Service Worker (MSW) [library](https://mswjs.io/) to mock the A
 
 # Getting started
 
-You want to get started quickly? Follow the steps of the [Getting Started](https://valantic.gitbook.io/spartacus-mock/getting-started) section.
+You want to get started quickly? Follow the steps of the [Getting Started](getting-started/) section.
 
 # Versions
 
@@ -58,10 +58,10 @@ Spartacus-Mock currently offers mock data for the following spartacus features /
 - Checkout
 - My Account (except Order Returns)
 
-See [Roadmap](https://valantic.gitbook.io/spartacus-mock/roadmap) for more information about the planned features.
+See [Roadmap](roadmap) for more information about the planned features.
 
 # Documentation
 
-- [Getting Started](https://valantic.gitbook.io/spartacus-mock/getting-started)
-- [Examples](https://valantic.gitbook.io/spartacus-mock/examples)
-- [API Reference](https://valantic.gitbook.io/spartacus-mock/api-reference)
+- [Getting Started](getting-started/)
+- [Examples](examples/)
+- [API Reference](api-reference/)
