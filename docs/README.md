@@ -11,7 +11,7 @@ It uses the Mock Service Worker (MSW) [library](https://mswjs.io/) to mock the A
 
 # Getting started
 
-You want to get started quickly? Follow the steps of the [Getting Started](./getting-started/01-installation.md) section.
+You want to get started quickly? Follow the steps of the [Getting Started](getting-started/01-installation.md) section.
 
 # Versions
 
@@ -58,7 +58,7 @@ Spartacus-Mock currently offers mock data for the following spartacus features /
 - Checkout
 - My Account (except Order Returns)
 
-See [Roadmap](./roadmap.md) for more information about the planned features.
+See [Roadmap](roadmap.md) for more information about the planned features.
 
 # Documentation
 
