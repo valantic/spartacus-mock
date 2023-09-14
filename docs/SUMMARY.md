@@ -1,6 +1,5 @@
 # Table of Contents
 
-- [Read Me](../README.md)
 - [Getting Started](/docs/getting-started/README.md)
   - [Installation](/docs/getting-started/02-installation.md)
   - [Configuration](/docs/getting-started/03-configuration.md)

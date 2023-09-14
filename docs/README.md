@@ -3,7 +3,7 @@
 This project offers you the possibility, to mock the API (OCC) Endpoints of your Composable-Storefront ([Spartacus](https://github.com/SAP/spartacus)).
 It uses the Mock Service Worker (MSW) [library](https://mswjs.io/) to mock the API calls.
 
-- [Getting Started](./getting-started)
+- [Getting Started](#getting-started)
 - [Versions](#versions)
 - [Motivation](#motivation)
 - [Feature Scope](#feature-scope)
@@ -11,7 +11,7 @@ It uses the Mock Service Worker (MSW) [library](https://mswjs.io/) to mock the A
 
 # Getting started
 
-You want to get started quickly? Follow the steps of the [Getting Started](./getting-started) section.
+You want to get started quickly? Follow the steps of the [Getting Started](https://valantic.gitbook.io/spartacus-mock/getting-started) section.
 
 # Versions
 
@@ -58,7 +58,7 @@ Spartacus-Mock currently offers mock data for the following spartacus features /
 - Checkout
 - My Account (except Order Returns)
 
-See [Roadmap](./roadmap.md) for more information about the planned features.
+See [Roadmap](/roadmap) for more information about the planned features.
 
 # Documentation
 
