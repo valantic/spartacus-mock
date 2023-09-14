@@ -1,7 +1,7 @@
 # spartacus-mock
 
-This project offers you the possibility, to mock the API (OCC) Endpoints of your [Composable Storefront](https://github.com/SAP/spartacus) (Spartacus).
-It uses the [Mock Service Worker](https://mswjs.io/) to mock the API calls.
+This project offers you the possibility, to mock the API (OCC) Endpoints of your ([Spartacus](https://github.com/SAP/spartacus)).
+It uses the Mock Service Worker (MSW) [library](https://mswjs.io/) to mock the API calls.
 
 ## Table of Contents
 
@@ -9,8 +9,9 @@ It uses the [Mock Service Worker](https://mswjs.io/) to mock the API calls.
 - [Getting Started](#getting-started)
   - [Installation](#installation)
   - [Configuration](#configuration)
-- [Feature Scope](#feature-scope)
-- [API Reference](#api-reference--examples)
+- [Configuration](#configuration)
+- [Developer Documentation](#developer-documentation)
+- [Found an issue?](#github-issues)
 - [Contribution Guidelines](#contribution-guidelines)
 
 # Versions
@@ -28,10 +29,13 @@ It is possible that it works with other versions, but not tested.
 
 The package offers a schematics to install the package and add the needed file changes in your spartacus project.
 
+> Please note: The schematics adjusts below listed files in your project. If you already have made changes in these files,
+> please check the changes carefully.
+
 ## Installation
 
 1. Open a terminal and navigate to the root folder of your angular / spartacus project (the folder where the `angular.json` is located)
-2. Install the package: `ng add @valantic/spartacus-mock`
+2. Run the schematics of the package: `ng add @valantic/spartacus-mock`
 3. Check the automatically added changes in the files
 4. `angular.json`
 5. `package.json`
@@ -54,31 +58,26 @@ provideConfig(<OccConfig>{
 }),
 ```
 
-2. Start the spartacus instance as you would normally do: `npm run dev` (or your defined npm script)
+2. Start the spartacus instance as you would normally do: `npm run dev` (or your defined npm task)
 3. Open your browser
 4. Notice the message in the console: `[MSW] Mocking enabled.`
 5. All mocked calls are still normally visible in the network tab of your browser's developer tools
-6. For more information about the underlying Mock Service Worker tool, see the [MSW documentation](https://mswjs.io/docs/api/rest).
 
-## Feature Scope
+> For more information how you can configure the mock server, see the [Options](https://valantic.gitbook.io/spartacus-mock/03-api-reference) page.
 
-Spartacus-Mock currently offers mock data for the following spartacus features / pages for the default electronics store:
+> For more information how you can define your mock-data, see the [Examples](https://valantic.gitbook.io/spartacus-mock/02-examples) page.
 
-- Home Page
-- Content Page
-- Product Categories
-- Product Search
-- Product Detail
-- Cart
-- Checkout
-- My Account (except Order Returns)
+> For more information about the underlying Mock Service Worker tool, see the [MSW documentation](https://mswjs.io/docs/api/rest).
 
-See [Roadmap](../../docs/roadmap.md) for more information about the planned features.
+# Developer Documentation
 
-# API Reference & Examples
+The developer documentation including api reference & examples can be found [here](https://valantic.gitbook.io/spartacus-mock/).
 
-The developer documentation including api reference & examples can be found [here](../../docs/README.md).
+# GitHub issues
 
-## Contribution Guidelines
+If you encounter a problem with this library or if you have a new feature you'd like to see in this project,
+please create [a new issue](https://github.com/valantic/spartacus-mock/issues/new/choose).
 
-The contribution guidelines can be found [here](../../CONTRIBUTING.md).
+# Contribution Guidelines
+
+The contribution guidelines can be found [here](./CONTRIBUTING.md).

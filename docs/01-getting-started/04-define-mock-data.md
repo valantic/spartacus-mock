@@ -9,4 +9,4 @@ returns mock data. Every handler needs a route to intercept the call.
 
 > \*\* "all" meaning all base commerce features. Check list of supported feature libs & roadmap to see which feature libs are planned to add
 
-Look at the [examples](../examples/README.md) to see the different ways to define mock data.
+Look at the [examples](../02-examples/README.md) to see the different ways to define mock data.
