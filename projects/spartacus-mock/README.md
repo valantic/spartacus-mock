@@ -63,9 +63,9 @@ provideConfig(<OccConfig>{
 4. Notice the message in the console: `[MSW] Mocking enabled.`
 5. All mocked calls are still normally visible in the network tab of your browser's developer tools
 
-> For more information how you can configure the mock server, see the [Options](https://valantic.gitbook.io/spartacus-mock/03-api-reference) page.
+> For more information how you can configure the mock server, see the [Options](https://valantic.gitbook.io/spartacus-mock/api-reference) page.
 
-> For more information how you can define your mock-data, see the [Examples](https://valantic.gitbook.io/spartacus-mock/02-examples) page.
+> For more information how you can define your mock-data, see the [Examples](https://valantic.gitbook.io/spartacus-mock/examples) page.
 
 > For more information about the underlying Mock Service Worker tool, see the [MSW documentation](https://mswjs.io/docs/api/rest).
 
@@ -80,4 +80,4 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 
 # Contribution Guidelines
 
-The contribution guidelines can be found [here](./CONTRIBUTING.md).
+The contribution guidelines can be found [here](../../CONTRIBUTING.md).

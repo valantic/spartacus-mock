@@ -26,8 +26,8 @@ const mockConfig: MockConfig = {
 };
 ```
 
-> For more information how you can configure the mock server, see the [Options](../03-api-reference/01-options.md) page of the api reference.
+> For more information how you can configure the mock server, see the [Options](../api-reference/01-options.md) page of the api reference.
 
-> For more information how you can define your mock-data, see the [Examples](../02-examples/README.md) page.
+> For more information how you can define your mock-data, see the [Examples](../examples/README.md) page.
 
 > For more information about the underlying Mock Service Worker tool, see the [MSW documentation](https://mswjs.io/docs/api/rest).
