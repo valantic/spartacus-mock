@@ -1,6 +1,6 @@
 # Examples
 
-Here you can find a list of different examples on how to build up your mock data:
+Here you can find a list of different examples on how to build up your mock-data:
 
 - [Define Routes](/docs/examples/define-routes.md)
 - [Define Handlers](/docs/examples/define-handlers.md)

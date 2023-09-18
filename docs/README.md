@@ -47,7 +47,7 @@ waiting until the Backend has finished or the hassle of running a local hybris ;
 
 # Feature Scope
 
-Spartacus-Mock currently offers mock data for the following spartacus features / pages for the default electronics store:
+Spartacus-Mock currently offers mock-data for the following spartacus features / pages for the default electronics store:
 
 - Home Page
 - Content Page

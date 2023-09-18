@@ -3,7 +3,7 @@
 You can define custom handlers for your custom endpoints or for existing endpoints (aka OCC Endpoints) of spartacus-mock.
 
 1. Create a handlers file `src/mock-server/handlers.ts`
-2. Create a folder `src/mock-server/mock-data` where all your mock data lives
+2. Create a folder `src/mock-server/mock-data` where all your mock-data lives
 3. In the handlers file you can define all your custom handlers like in this example:
 
 ```ts
@@ -45,7 +45,7 @@ export const handlers = (): RestHandler[] => {
 > Defining a custom handler for an existing route (aka OCC Endpoint) will override the default handler for this route.
 
 4. Create a file `src/mock-server/mock-data/languages.ts`
-5. Add a `languageList` function to return the mock data for the languages endpoint:
+5. Add a `languageList` function to return the mock-data for the languages endpoint:
 
 ```ts
 // src/mock-server/mock-data/languages.ts
