@@ -58,7 +58,7 @@ export const contentPages = (): Pages => {
 };
 ```
 
-> Defining a custom page for an existing object-key (aka Page label in the browser) will override the default mock data for this page.
+> Defining a custom page for an existing object-key (aka Page label in the browser) will override the default mock-data for this page.
 
 3. Append your pages function to the mockConfig in your `main.ts` file
 

@@ -1,6 +1,6 @@
 # Whitelist Mode
 
-Sometimes, you have an existing spartacus project, where you don't want or cannot add mock data for everything.
+Sometimes, you have an existing spartacus project, where you don't want or cannot add mock-data for everything.
 Still it would be nice to quickly mock a page with a new component / a new endpoint. Don't worry, we have you covered:
 
 #### Mock only certain endpoints
