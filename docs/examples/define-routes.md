@@ -1,7 +1,7 @@
 # Define Routes
 
-You need to define routes for your custom endpoints. Default Endpoints can use the `getDefaultRoutes` [function](../api/default-routes.md) (besides
-if you want to adjust the url of a default endpoint).
+You need to define routes for your custom endpoints or if you want to adjust the url / params of a default endpoint.
+Default Endpoints can use the `getDefaultRoutes` [function](../api-reference/default-routes.md)
 
 1. Create a routes file `src/mock-server/routes.ts`
 2. Add a routes function which returns an object like the following:
