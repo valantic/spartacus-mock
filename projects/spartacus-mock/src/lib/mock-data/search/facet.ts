@@ -5,7 +5,7 @@ import { createSearchState } from './search';
 
 export const createFacetValue = (additionalData?: Occ.FacetValue, modifier?: FacetValueModifier): Occ.FacetValue => {
   return {
-    count: faker.datatype.number({ min: 1, max: 999 }),
+    count: faker.number.int({ min: 1, max: 999 }),
     name: faker.commerce.productMaterial(),
     query: createSearchState(undefined, modifier ?? undefined),
     selected: false,
@@ -20,7 +20,7 @@ export const createFacet = (additionalData?: Occ.Facet, modifier?: FacetValueMod
     name: faker.lorem.words(1),
     priority: 1,
     topValues: [],
-    values: new Array(faker.datatype.number({ min: 3, max: 20 }))
+    values: new Array(faker.number.int({ min: 3, max: 20 }))
       .fill(null)
       .map(() => createFacetValue(undefined, modifier)),
     visible: true,

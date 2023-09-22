@@ -1,31 +1,30 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { createCountry } from '../general/countries';
-import { createRegion } from '../general/regions';
+import { createCountry, createRegion } from '../general';
 
 export const createAddress = (additionalData?: Occ.Address): Occ.Address => {
-  const firstName = faker.name.firstName();
-  const lastName = faker.name.lastName();
+  const firstName = faker.person.firstName();
+  const lastName = faker.person.lastName();
 
   return {
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     title: 'Mr.',
     titleCode: 'mr',
-    email: faker.internet.email(firstName, lastName),
+    email: faker.internet.email({ firstName, lastName }),
     firstName,
     lastName,
     companyName: faker.company.name(),
-    line1: faker.address.streetAddress(),
+    line1: faker.location.streetAddress(),
     line2: '',
-    postalCode: faker.address.zipCode('####'),
-    town: faker.address.city(),
+    postalCode: faker.location.zipCode('####'),
+    town: faker.location.city(),
     country: createCountry(),
     region: createRegion(),
-    cellphone: faker.phone.number('+41 58 ### ## ##'),
+    cellphone: faker.phone.number(),
     defaultAddress: false,
     shippingAddress: true,
     formattedAddress: '',
-    phone: faker.phone.number('+41 79 ### ## ##'),
+    phone: faker.phone.number(),
     visibleInAddressBook: true,
     ...additionalData,
   };

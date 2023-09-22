@@ -2,6 +2,8 @@
 
 ## next
 
+- #48 Update Faker.js version to 8.x and replaces deprecated methods
+
 ## 2.0.0
 
 - Add support for Angular 15 and Spartacus 6.3.0

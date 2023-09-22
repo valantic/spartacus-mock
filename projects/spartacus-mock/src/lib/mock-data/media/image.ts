@@ -8,9 +8,9 @@ export const image = (additionalData?: Occ.Image, modifier?: ImageModifier): Occ
     format: 'picture',
     galleryIndex: undefined,
     imageType: Occ.ImageType.PRIMARY,
-    url: `https://picsum.photos/${modifier?.width || 1200}/${
-      modifier?.height || 1200
-    }.webp?random=${faker.datatype.number(999)}`,
+    url: `https://picsum.photos/${modifier?.width || 1200}/${modifier?.height || 1200}.webp?random=${faker.number.int(
+      999
+    )}`,
     ...additionalData,
   };
 };

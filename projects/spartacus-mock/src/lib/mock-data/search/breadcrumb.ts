@@ -4,10 +4,10 @@ import { createSearchState } from './search';
 
 export const createBreadcrumb = (additionalData?: Occ.Breadcrumb): Occ.Breadcrumb => {
   return {
-    facetCode: faker.datatype.uuid(),
+    facetCode: faker.string.uuid(),
     facetName: faker.commerce.department(),
-    facetValueCode: faker.datatype.uuid(),
-    facetValueName: `${faker.random.numeric(3)} ${faker.science.unit()}`,
+    facetValueCode: faker.string.uuid(),
+    facetValueName: `${faker.string.numeric(3)} ${faker.science.unit()}`,
     removeQuery: createSearchState(),
     truncateQuery: createSearchState(),
     ...additionalData,

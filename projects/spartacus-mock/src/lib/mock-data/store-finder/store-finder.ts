@@ -6,9 +6,9 @@ import { image } from '../media';
 
 export const createStoreCount = (additionalData?: Occ.StoreCount): Occ.StoreCount => {
   return {
-    count: faker.datatype.number({ min: 1, max: 15 }),
-    isoCode: faker.address.countryCode(),
-    name: faker.address.country(),
+    count: faker.number.int({ min: 1, max: 15 }),
+    isoCode: faker.location.countryCode(),
+    name: faker.location.country(),
     type: 'COUNTRY',
     ...additionalData,
   };
@@ -60,7 +60,7 @@ export const createWeekdayOpeningDay = (additionalData?: Occ.WeekdayOpeningDay):
 
 export const createOpeningSchedule = (additionalData?: Occ.OpeningSchedule): Occ.OpeningSchedule => {
   return {
-    code: faker.datatype.uuid(),
+    code: faker.string.uuid(),
     name: faker.lorem.words(3),
     specialDayOpeningList: [createSpecialOpeningDay(), createSpecialOpeningDay()],
     weekDayOpeningList: [
@@ -77,7 +77,7 @@ export const createOpeningSchedule = (additionalData?: Occ.OpeningSchedule): Occ
 };
 
 export const createPointOfService = (additionalData?: Occ.PointOfService): Occ.PointOfService => {
-  const distanceKm = faker.datatype.number({ min: 1, max: 9999 });
+  const distanceKm = faker.number.int({ min: 1, max: 9999 });
 
   return {
     address: createAddress(),
@@ -87,8 +87,8 @@ export const createPointOfService = (additionalData?: Occ.PointOfService): Occ.P
     features: undefined,
     formattedDistance: `${distanceKm}km`,
     geoPoint: {
-      latitude: parseFloat(faker.address.latitude()),
-      longitude: parseFloat(faker.address.longitude()),
+      latitude: faker.location.latitude(),
+      longitude: faker.location.longitude(),
     },
     mapIcon: image(),
     name: faker.company.name(),

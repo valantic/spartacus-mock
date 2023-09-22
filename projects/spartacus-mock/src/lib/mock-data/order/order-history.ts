@@ -6,7 +6,7 @@ import { createSortModel } from '../general';
 import { createOrder } from './order';
 
 export const getOrders = (additionalData?: Occ.OrderHistoryList): Occ.OrderHistoryList => {
-  const amount = faker.datatype.number({ min: 1, max: 10 });
+  const amount = faker.number.int({ min: 1, max: 10 });
 
   return {
     orders: new Array(amount)
