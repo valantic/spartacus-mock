@@ -12,7 +12,7 @@ export const createPagination = (additionalData?: Occ.Pagination): Occ.Paginatio
 };
 
 export const createPaginationModel = (additionalData?: Occ.PaginationModel): Occ.PaginationModel => {
-  const totalResults = faker.datatype.number({ min: 1, max: 999 });
+  const totalResults = faker.number.int({ min: 1, max: 999 });
   const pageSize = 12;
 
   return {

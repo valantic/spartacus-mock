@@ -9,6 +9,6 @@ export const createSuggestion = (): Occ.Suggestion => {
 
 export const suggestionList = (): Occ.SuggestionList => {
   return {
-    suggestions: new Array(faker.datatype.number(10)).fill(null).map(() => createSuggestion()),
+    suggestions: new Array(faker.number.int(10)).fill(null).map(() => createSuggestion()),
   };
 };

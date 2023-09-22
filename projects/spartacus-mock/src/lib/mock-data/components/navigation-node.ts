@@ -9,7 +9,7 @@ const getNavigationNode = (
 ): CmsNavigationNode => {
   const navigationNode = {
     uid,
-    uuid: faker.datatype.uuid(),
+    uuid: faker.string.uuid(),
     entries,
     children: [],
   } as CmsNavigationNode;

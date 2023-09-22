@@ -39,7 +39,7 @@ export const productSearchPage = (
   additionalData?: Occ.ProductSearchPage,
   modifier?: ProductSearchPageModifier
 ): Occ.ProductSearchPage => {
-  const numberOfResults = faker.datatype.number({ min: 1, max: 50 });
+  const numberOfResults = faker.number.int({ min: 1, max: 50 });
   const numberOfPages = Math.ceil(numberOfResults / (modifier?.pageSize || 1));
 
   const result: Occ.ProductSearchPage = {

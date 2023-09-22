@@ -7,7 +7,7 @@ export const createProductReference = (additionalData?: Occ.ProductReference): O
   return {
     description: faker.commerce.productDescription(),
     preselected: false,
-    quantity: faker.datatype.number({ min: 1, max: 99 }),
+    quantity: faker.number.int({ min: 1, max: 99 }),
     referenceType: 'ACCESSORIES',
     target: createBaseProduct(),
     ...additionalData,

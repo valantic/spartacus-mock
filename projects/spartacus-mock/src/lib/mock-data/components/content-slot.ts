@@ -3,8 +3,8 @@ import { Component, ContentSlot } from '../../types';
 
 export const contentSlot = (slotPosition: string, components: Component[]): ContentSlot => {
   return {
-    slotId: `${slotPosition}-${faker.datatype.uuid()}`,
-    slotUuid: faker.datatype.uuid(),
+    slotId: `${slotPosition}-${faker.string.uuid()}`,
+    slotUuid: faker.string.uuid(),
     position: slotPosition,
     name: `Slot-${slotPosition}`,
     slotShared: true,

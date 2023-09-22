@@ -44,9 +44,9 @@ export const createOrderEntry = (additionalData?: Occ.OrderEntry): Occ.OrderEntr
     basePrice: createPrice(),
     deliveryMode: createDeliveryMode({ code: 'standard', name: 'Standard Delivery' }),
     deliveryPointOfService: undefined,
-    entryNumber: faker.datatype.number({ min: 100000, max: 999999 }),
+    entryNumber: faker.number.int({ min: 100000, max: 999999 }),
     product: createFullProduct(),
-    quantity: faker.datatype.number({ min: 1, max: 20 }),
+    quantity: faker.number.int({ min: 1, max: 20 }),
     totalPrice: createPrice(),
     updateable: false,
     statusSummaryList: [],
@@ -65,15 +65,15 @@ export const createConsignmentEntry = (additionalData?: Occ.ConsignmentEntry): O
 
 export const createConsignment = (additionalData?: Occ.Consignment): Occ.Consignment => {
   return {
-    code: 'cons' + faker.datatype.uuid(),
+    code: 'cons' + faker.string.uuid(),
     deliveryPointOfService: undefined,
-    entries: new Array(faker.datatype.number({ min: 1, max: 10 }))
+    entries: new Array(faker.number.int({ min: 1, max: 10 }))
       .fill(null)
       .map((_entry, index) => createConsignmentEntry()),
     shippingAddress: createAddress(),
     status: faker.helpers.arrayElement(orderStatusOptions),
     statusDate: faker.date.past(),
-    trackingID: faker.random.numeric(10),
+    trackingID: faker.string.numeric(10),
     ...additionalData,
   };
 };
@@ -81,22 +81,22 @@ export const createConsignment = (additionalData?: Occ.Consignment): Occ.Consign
 export const createOrder = (additionalData?: Occ.Order): Occ.Order => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
 
-  const totalItems = mockData.activeCartEntries.length || faker.datatype.number({ min: 3, max: 10 });
+  const totalItems = mockData.activeCartEntries.length || faker.number.int({ min: 3, max: 10 });
   const genericEntries = new Array(totalItems).fill(null).map((_entry, index) => createOrderEntry());
 
   return {
-    code: faker.random.numeric(6),
+    code: faker.string.numeric(6),
     calculated: true,
-    guid: faker.datatype.uuid(),
+    guid: faker.string.uuid(),
     entries: genericEntries,
-    consignments: new Array(faker.datatype.number({ min: 1, max: 3 })).fill(null).map(() => createConsignment()),
-    appliedOrderPromotions: new Array(faker.datatype.number({ min: 0, max: 3 }))
+    consignments: new Array(faker.number.int({ min: 1, max: 3 })).fill(null).map(() => createConsignment()),
+    appliedOrderPromotions: new Array(faker.number.int({ min: 0, max: 3 }))
       .fill(null)
       .map(() => createPromotionResult()),
-    appliedProductPromotions: new Array(faker.datatype.number({ min: 0, max: 3 }))
+    appliedProductPromotions: new Array(faker.number.int({ min: 0, max: 3 }))
       .fill(null)
       .map(() => createPromotionResult()),
-    appliedVouchers: new Array(faker.datatype.number({ min: 0, max: 3 })).fill(null).map(() => createVoucher()),
+    appliedVouchers: new Array(faker.number.int({ min: 0, max: 3 })).fill(null).map(() => createVoucher()),
     deliveryAddress: createAddress(),
     deliveryCost: createPrice(),
     deliveryItemsQuantity: 1,

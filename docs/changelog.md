@@ -2,6 +2,7 @@
 
 ## next
 
+- #48 Update Faker.js version to 8.x and replaces deprecated methods
 - #50 Updates Node Version to latest 18.x
 - #50 Updates Spartacus dependency to latest 6.4.0
 
