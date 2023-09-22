@@ -3,9 +3,9 @@ import { Occ } from '@spartacus/core';
 
 export const createConsentTemplate = (additionalData?: Occ.ConsentTemplate): Occ.ConsentTemplate => {
   return {
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     name: `I approve to this sample ${faker.commerce.department()} consent`,
-    description: faker.lorem.sentences(faker.datatype.number({ min: 1, max: 5 })),
+    description: faker.lorem.sentences(faker.number.int({ min: 1, max: 5 })),
     version: 0,
     currentConsent: {
       code: 'yes',

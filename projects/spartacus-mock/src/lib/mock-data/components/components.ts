@@ -19,7 +19,7 @@ export const components = (componentIds: string[]): Occ.ComponentList => {
       let componentCategoryCode = '';
 
       if (componentId.endsWith('CategoryLink')) {
-        componentCategoryCode = faker.datatype.number(999).toString();
+        componentCategoryCode = faker.number.int(999).toString();
 
         componentData.component?.push(
           cmsLinkComponent({

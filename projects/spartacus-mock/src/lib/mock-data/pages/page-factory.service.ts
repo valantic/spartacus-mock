@@ -37,7 +37,7 @@ export class PageFactoryService {
   ): Occ.CMSPage {
     return {
       label,
-      uid: `contentPage${faker.datatype.uuid()}`,
+      uid: `contentPage${faker.string.uuid()}`,
       title,
       template: template ?? 'ContentPage1Template',
       typeCode: 'ContentPage',
@@ -54,7 +54,7 @@ export class PageFactoryService {
 
   public createProductCategoryPage(): Occ.CMSPage {
     return {
-      uid: `categoryPage-${faker.datatype.uuid()}`,
+      uid: `categoryPage-${faker.string.uuid()}`,
       title: 'Product List',
       template: 'ProductListPageTemplate',
       typeCode: 'CategoryPage',
@@ -101,7 +101,7 @@ export class PageFactoryService {
   public createLoginPage(): Occ.CMSPage {
     return {
       label: '/login',
-      uid: `loginPage${faker.datatype.number(1000)}`,
+      uid: `loginPage${faker.number.int(1000)}`,
       title: `Login Page`,
       template: 'LoginPageTemplate',
       typeCode: 'ContentPage',
@@ -122,7 +122,7 @@ export class PageFactoryService {
   public createRegisterPage(): Occ.CMSPage {
     return {
       label: '/login/register',
-      uid: `loginPage${faker.datatype.number(1000)}`,
+      uid: `loginPage${faker.number.int(1000)}`,
       title: `Register Page`,
       template: 'AccountPageTemplate',
       typeCode: 'ContentPage',

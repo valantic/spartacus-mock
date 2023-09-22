@@ -9,7 +9,7 @@ import { profileScriptComponent } from '../components/profile-script';
 export const placeholderContentSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'PlaceholderContentSlot',
-    slotUuid: faker.datatype.uuid(),
+    slotUuid: faker.string.uuid(),
     position: 'PlaceholderContentSlot',
     name: 'Placeholder Content Slot',
     slotShared: true,
@@ -22,7 +22,7 @@ export const placeholderContentSlot = (): Occ.ContentSlot => {
 export const footerSlot = (): Occ.ContentSlot => {
   return {
     slotId: 'FooterSlot',
-    slotUuid: faker.datatype.uuid(),
+    slotUuid: faker.string.uuid(),
     position: 'Footer',
     name: 'Footer Slot',
     slotShared: true,

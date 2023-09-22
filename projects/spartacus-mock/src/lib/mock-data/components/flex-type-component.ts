@@ -7,8 +7,8 @@ export const flexTypeComponent = (
   additionalData?: CmsComponentAdditionalData
 ): Component => {
   const component = {
-    uid: `${typeCode}-${faker.datatype.uuid()}`,
-    uuid: faker.datatype.uuid(),
+    uid: `${typeCode}-${faker.string.uuid()}`,
+    uuid: faker.string.uuid(),
     typeCode,
     modifiedtime: '2021-01-18T18:14:58.899Z',
     name: [typeCode, flexType].join('-'),

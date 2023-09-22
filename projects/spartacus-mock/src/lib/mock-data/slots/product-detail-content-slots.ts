@@ -11,7 +11,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
     contentSlot('Summary', [
       {
         uid: 'ProductImagesComponent',
-        uuid: faker.datatype.uuid(),
+        uuid: faker.string.uuid(),
         typeCode: 'CMSFlexComponent',
         modifiedtime: '2021-01-18T18:15:02.097Z',
         name: 'ProductImagesComponent',
@@ -20,7 +20,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       },
       {
         uid: 'ProductIntroComponent',
-        uuid: faker.datatype.uuid(),
+        uuid: faker.string.uuid(),
         typeCode: 'CMSFlexComponent',
         modifiedtime: '2021-01-18T18:15:02.107Z',
         name: 'ProductIntroComponent',
@@ -29,7 +29,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       },
       {
         uid: 'ProductSummaryComponent',
-        uuid: faker.datatype.uuid(),
+        uuid: faker.string.uuid(),
         typeCode: 'CMSFlexComponent',
         modifiedtime: '2021-01-18T18:15:02.116Z',
         name: 'ProductSummaryComponent',
@@ -38,7 +38,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       },
       {
         uid: 'VariantSelector',
-        uuid: faker.datatype.uuid(),
+        uuid: faker.string.uuid(),
         typeCode: 'ProductVariantSelectorComponent',
         modifiedtime: '2021-01-18T18:15:02.182Z',
         name: 'Product Variant Selector',
@@ -46,7 +46,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       },
       {
         uid: 'AddToCart',
-        uuid: faker.datatype.uuid(),
+        uuid: faker.string.uuid(),
         typeCode: 'ProductAddToCartComponent',
         modifiedtime: '2021-01-18T18:15:02.149Z',
         name: 'Product Add To Cart',
@@ -54,7 +54,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       },
       {
         uid: 'ConfigureProductComponent',
-        uuid: faker.datatype.uuid(),
+        uuid: faker.string.uuid(),
         typeCode: 'CMSFlexComponent',
         modifiedtime: '2021-01-18T18:15:02.159Z',
         name: 'Configure Product Component',
@@ -63,7 +63,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       },
       {
         uid: 'AddToWishListComponent',
-        uuid: faker.datatype.uuid(),
+        uuid: faker.string.uuid(),
         typeCode: 'CMSFlexComponent',
         modifiedtime: '2021-01-18T18:15:02.17Z',
         name: 'AddToWishListComponent',
@@ -72,7 +72,7 @@ export const productDetailContentSlots = (): ContentSlot[] => {
       },
       {
         uid: 'StockNotificationComponent',
-        uuid: faker.datatype.uuid(),
+        uuid: faker.string.uuid(),
         typeCode: 'CMSFlexComponent',
         modifiedtime: '2021-01-18T18:15:02.18Z',
         name: 'StockNotificationComponent',

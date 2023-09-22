@@ -22,7 +22,7 @@ export const activeTabItems = [
  */
 export const createBaseProduct = (additionalData?: Occ.Product): Occ.Product => {
   return {
-    code: faker.random.numeric(6),
+    code: faker.string.numeric(6),
     name: faker.commerce.productName(),
     images: [
       // PRIMARY
@@ -98,7 +98,7 @@ export const createBaseProduct = (additionalData?: Occ.Product): Occ.Product => 
         }
       ),
     ],
-    baseProduct: `BASE_${faker.random.numeric(6)}`,
+    baseProduct: `BASE_${faker.string.numeric(6)}`,
     price: createPrice(),
     purchasable: true,
     url: faker.internet.url(),
@@ -114,7 +114,7 @@ export const createFullProduct = (additionalData?: Occ.Product): Occ.Product => 
   return {
     ...createBaseProduct(),
     availableForPickup: true,
-    averageRating: faker.datatype.number({ min: 1, max: 5, precision: 0.1 }),
+    averageRating: faker.number.float({ min: 1, max: 5, precision: 0.1 }),
     baseOptions: [createBaseOption()],
     categories: [createProductCategory(), createProductCategory(), createProductCategory()],
     classifications: [createProductClassification(), createProductClassification(), createProductClassification()],
@@ -122,7 +122,7 @@ export const createFullProduct = (additionalData?: Occ.Product): Occ.Product => 
     futureStocks: [createFutureStock()],
     manufacturer: faker.company.name(),
     multidimensional: false,
-    numberOfReviews: faker.datatype.number({ min: 0, max: 999 }),
+    numberOfReviews: faker.number.int({ min: 0, max: 999 }),
     potentialPromotions: [createPromotion()],
     priceRange: createPriceRange(),
     productReferences: [

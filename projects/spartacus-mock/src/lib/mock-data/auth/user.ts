@@ -1,26 +1,26 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
 import { createAddress } from '../account';
-import { createCurrency } from '../general/currencies';
+import { createCurrency } from '../general';
 import { createLanguage } from '../languages';
 
 export const createUser = (additionalData?: Occ.User): Occ.User => {
-  const firstName = faker.name.firstName();
-  const lastName = faker.name.lastName();
+  const firstName = faker.person.firstName();
+  const lastName = faker.person.lastName();
 
   return {
     currency: createCurrency(),
-    customerId: faker.random.numeric(6),
+    customerId: faker.string.numeric(6),
     deactivationDate: faker.date.future(),
     defaultAddress: createAddress(),
-    displayUid: faker.internet.email(firstName, lastName),
+    displayUid: faker.internet.email({ firstName, lastName }),
     firstName,
     language: createLanguage(),
     lastName,
-    name: faker.name.fullName({ firstName, lastName }),
+    name: faker.person.fullName({ firstName, lastName }),
     title: 'Mr.',
     titleCode: 'mr',
-    uid: faker.datatype.uuid(),
+    uid: faker.string.uuid(),
     ...additionalData,
   };
 };

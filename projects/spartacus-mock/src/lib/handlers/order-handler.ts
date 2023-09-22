@@ -45,7 +45,7 @@ export const getOrderHandlers = (routes: any): RestHandler[] => {
     rest.get(routes.returnListOfOrder, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
       const orderId = typeof req.params['orderId'] === 'string' ? req.params['orderId'] : '';
 
-      return res(ctx.status(200), ctx.json(getReturnRequestList(faker.datatype.number({ min: 0, max: 5 }), orderId)));
+      return res(ctx.status(200), ctx.json(getReturnRequestList(faker.number.int({ min: 0, max: 5 }), orderId)));
     }),*/
   ];
 };

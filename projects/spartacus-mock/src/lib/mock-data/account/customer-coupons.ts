@@ -5,7 +5,7 @@ import { createSort } from '../general/sort';
 
 export const createCustomerCoupon = (additionalData?: Occ.CustomerCoupon): Occ.CustomerCoupon => {
   return {
-    couponId: faker.random.numeric(6),
+    couponId: faker.string.numeric(6),
     name: 'Free Delivery Coupon',
     startDate: faker.date.past().toDateString(),
     endDate: faker.date.future().toDateString(),
