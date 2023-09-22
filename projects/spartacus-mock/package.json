@@ -8,8 +8,8 @@
     "url": "git+https://github.com/valantic/spartacus-mock.git"
   },
   "engines": {
-    "node": ">=16 <17",
-    "npm": ">=7.10"
+    "node": ">=16 <19",
+    "npm": ">=8 <10"
   },
   "author": "valantic CEC",
   "license": "MIT",
