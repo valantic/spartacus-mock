@@ -2,6 +2,9 @@
 
 ## next
 
+- #50 Updates Node Version to latest 18.x
+- #50 Updates Spartacus dependency to latest 6.4.0
+
 ## 2.0.0
 
 - Add support for Angular 15 and Spartacus 6.3.0
