@@ -10,6 +10,11 @@ Still it would be nice to quickly mock a page with a new component / a new endpo
 3. Define an Array where you specify the request that you want to mock (this is needed, as in whitelist mode, all requested go through by default)
 
 ```ts
+import { getDefaultRoutes } from '@valantic/spartacus-mock';
+
+// default routes defined in the spartacus-mock library
+const defaultRoutes = getDefaultRoutes(environment);
+
 export const mockedRequests = (): MockRequest[] => {
   return [
     {
@@ -57,6 +62,11 @@ async function prepare(): Promise<
 3. Define an Array where you specify the request that you want to mock (this is needed, as in whitelist mode, all requested go through by default)
 
 ```ts
+import { getDefaultRoutes } from '@valantic/spartacus-mock';
+
+// default routes defined in the spartacus-mock library
+const defaultRoutes = getDefaultRoutes(environment);
+
 export const mockedRequests = (): MockRequest[] => {
   return [
     {
