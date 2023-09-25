@@ -14,7 +14,7 @@ export const createVariantOptionQualifier = (): Occ.VariantOptionQualifier => {
 
 export const createVariantOption = (additionalData?: Occ.VariantOption): Occ.VariantOption => {
   return {
-    code: `VAR_${faker.datatype.number({ min: 100000, max: 999999 })}`,
+    code: `VAR_${faker.string.numeric(6)}`,
     priceData: createPrice(),
     stock: createProductStock(),
     url: faker.internet.url(),

@@ -14,16 +14,16 @@ export const createCardType = (additionalData?: Occ.CardType): Occ.CardType => {
 
 export const createPaymentDetails = (additionalData?: Occ.PaymentDetails): Occ.PaymentDetails => {
   return {
-    accountHolderName: faker.name.fullName(),
+    accountHolderName: faker.person.fullName(),
     billingAddress: createAddress({ shippingAddress: false }),
-    cardNumber: `************${faker.datatype.number({ min: 1000, max: 9999 })}`,
+    cardNumber: `************${faker.string.numeric(4)}`,
     cardType: createCardType(),
     defaultPayment: false,
-    expiryMonth: faker.datatype.number({ min: 1, max: 12 }).toString(),
-    expiryYear: faker.datatype.number({ min: 2030, max: 2050 }).toString(),
-    id: faker.random.numeric(9),
+    expiryMonth: faker.number.int({ min: 1, max: 12 }).toString(),
+    expiryYear: faker.number.int({ min: 2030, max: 2050 }).toString(),
+    id: faker.string.numeric(9),
     saved: true,
-    subscriptionId: faker.datatype.uuid(),
+    subscriptionId: faker.string.uuid(),
     ...additionalData,
   };
 };

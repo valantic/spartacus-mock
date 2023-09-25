@@ -1,11 +1,17 @@
 # SpartacusMock
 
-This project offers you the possibility, to mock the OCC Endpoints of your Composable Storefront (Spartacus). It uses the Mock Service Worker to mock the API calls.
+This project offers you the possibility, to mock the API (OCC) Endpoints of your Composable-Storefront ([Spartacus](https://github.com/SAP/spartacus)).
+It uses the Mock Service Worker (MSW) [library](https://mswjs.io/) to mock the API calls.
 
-## Usage Documentation
+## Developer Documentation
 
-The developer usage documentation can be found [here](./projects/spartacus-mock/README.md).
+The developer documentation can be found [here](https://valantic.gitbook.io/spartacus-mock/).
 
-## Contribution Documentation
+# GitHub issues
 
-The contribution documentation can be found [here](./CONTRIBUTING.md).
+If you encounter a problem with this library or if you have a new feature you'd like to see in this project,
+please create [a new issue](https://github.com/valantic/spartacus-mock/issues/new/choose).
+
+# Contribution Guidelines
+
+The contribution guidelines can be found [here](./CONTRIBUTING.md).

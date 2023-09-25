@@ -3,7 +3,7 @@ import { Occ } from '@spartacus/core';
 
 export const createProductCategory = (additionalData?: Occ.Category): Occ.Category => {
   return {
-    code: faker.datatype.uuid(),
+    code: faker.string.uuid(),
     name: faker.commerce.department(),
     image: undefined,
     url: faker.internet.url(),

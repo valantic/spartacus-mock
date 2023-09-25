@@ -6,7 +6,7 @@ _Pull requests, bug reports, and all other forms of contribution are welcomed an
 
 - [Code of Conduct](#book-code-of-conduct)
 - [Asking Questions](#bulb-asking-questions)
-- [How can I Contribute?](#inbox_tray-how-can-i-contribute)
+- [How can I Contribute?](#inboxtray-how-can-i-contribute)
 
 > **This guide serves to set clear expectations for everyone involved with the project so that we can improve it
 > together while also creating a welcoming space for everyone to participate. Following these guidelines will help
@@ -53,10 +53,11 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 ### Use the library while developing
 
 1. Make sure, the build (or watch) tasks have been run for both the lib and the schematics
-2. Run `npm link` in the folder `dist/spartacus-mock` of this library to be able to use the current dev version of the library in your spartacus project
-3. Run `npm link @valantic/spartacus-mock` in your spartacus project's root folder to link the dev version of the library
-4. Run `ng add @valantic/spartacus-mock` in your spartacus project's root folder to add the library and run the schematics
-5. Run `npm link @valantic/spartacus-mock` again, since running `ng add` seems to delete the link
+2. Make sure to use the same node versions for spartacus-mock and your test project to make npm link work
+3. Run `npm link` in the folder `dist/spartacus-mock` of this library to be able to use the current dev version of the library in your spartacus project
+4. Run `npm link @valantic/spartacus-mock` in your spartacus project's root folder to link the dev version of the library
+5. Run `ng add @valantic/spartacus-mock` in your spartacus project's root folder to add the library and run the schematics
+6. Run `npm link @valantic/spartacus-mock` again, since running `ng add` seems to delete the link
 
 ### Update Angular Major Version
 
@@ -70,9 +71,9 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 
 ### Releasing
 
-1. Make sure, you have described your changes in the file [CHANGELOG.md](CHANGELOG.md)
+1. Make sure, you have described your changes in the file [CHANGELOG.md](./docs/changelog.md)
 2. Make sure, you have done the steps to build the library and the schematics
-3. Move all changes in the file [CHANGELOG.md](CHANGELOG.md) from below `## Next` below a new Paragraph with the
+3. Move all changes in the file [CHANGELOG.md](./docs/changelog.md) from below `## Next` below a new Paragraph with the
    to be released version
 4. Change the Version in the [package.json](projects/spartacus-mock/package.json) of the angular lib
 5. Create a Git Tag with the to be released version number ` git tag x.x.x`
@@ -81,5 +82,5 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 8. Login to NPM `npm login` if you not already are logged in
 9. Push the Release `npm publish --access public`
 10. [Create the Release](https://github.com/valantic/spartacus-mock/releases/new) on the github repo with the
-    changes from the [CHANGELOG.md](CHANGELOG.md)
+    changes from the [CHANGELOG.md](./docs/changelog.md)
 11. Make sure you have pushed all changes to the Repo

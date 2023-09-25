@@ -4,7 +4,7 @@ import { createPrice } from './price';
 
 export const createDeliveryMode = (additionalData?: Occ.DeliveryMode): Occ.DeliveryMode => {
   return {
-    code: faker.datatype.uuid(),
+    code: faker.string.uuid(),
     name: faker.lorem.words(3),
     description: faker.lorem.sentences(1),
     deliveryCost: createPrice(),

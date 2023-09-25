@@ -3,7 +3,7 @@ import { Occ } from '@spartacus/core';
 
 export const createProductStock = (additionalData?: Occ.Stock): Occ.Stock => {
   return {
-    stockLevel: faker.datatype.number({ min: 1, max: 9999 }),
+    stockLevel: faker.number.int({ min: 1, max: 9999 }),
     stockLevelStatus: 'inStock',
     ...additionalData,
   };

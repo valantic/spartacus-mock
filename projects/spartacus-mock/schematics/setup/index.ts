@@ -70,14 +70,14 @@ function setup(options: Schema): Rule {
 
     const dependencies: NodeDependency[] = [
       {
-        type: NodeDependencyType.Default,
+        type: NodeDependencyType.Dev,
         name: 'msw',
-        version: '1.2.3',
+        version: '1.3.1',
       },
       {
-        type: NodeDependencyType.Default,
+        type: NodeDependencyType.Dev,
         name: '@faker-js/faker',
-        version: '7.6.0',
+        version: '8.1.0',
       },
       // needed because of https://github.com/mswjs/msw/issues/1621
       {

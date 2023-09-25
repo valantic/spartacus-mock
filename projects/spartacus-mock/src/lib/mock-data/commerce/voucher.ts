@@ -6,7 +6,7 @@ import { createCurrency } from '../general';
 
 export const createVoucher = (additionalData?: Occ.Voucher): Occ.Voucher => {
   return {
-    code: faker.datatype.uuid(),
+    code: faker.string.uuid(),
     currency: createCurrency(),
     description: faker.lorem.paragraphs(1),
     freeShipping: faker.datatype.boolean(),
@@ -14,7 +14,7 @@ export const createVoucher = (additionalData?: Occ.Voucher): Occ.Voucher => {
     value: 0,
     valueFormatted: 'USD 0.00',
     valueString: '0',
-    voucherCode: faker.random.numeric(10),
+    voucherCode: faker.string.numeric(10),
     ...additionalData,
   };
 };

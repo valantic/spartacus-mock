@@ -190,7 +190,7 @@ const savedCartData = (userType: CartUserType): Occ.Cart => {
     potentialOrderPromotions: [],
     potentialProductPromotions: [],
     saveTime: new Date('2023-03-27T10:59:18+0000'),
-    totalUnitCount: faker.datatype.number({ min: 1, max: 99 }),
+    totalUnitCount: faker.number.int({ min: 1, max: 99 }),
   };
 };
 
