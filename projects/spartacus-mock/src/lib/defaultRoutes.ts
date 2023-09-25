@@ -8,8 +8,7 @@ import { occUserConfig } from './occ-config/occ-user-config';
 import { Environment } from './types';
 
 /**
- * TODO use endpoints from default configs after SAP exports them
- * TODO Refactor this file to be a service
+ * TODO use endpoints from default configs after SAP exports them, see https://github.com/SAP/spartacus/issues/17442
  *
  * defaultOccCartConfig
  * defaultOccCheckoutConfig
