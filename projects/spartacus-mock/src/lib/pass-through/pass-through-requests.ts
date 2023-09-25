@@ -4,6 +4,7 @@ import { MockRequest } from '../types';
  * Defines the default pass through urls
  */
 export const defaultPassThroughRequests: MockRequest[] = [
+  { url: '/electronics-spa/en/USD', requestFunction: 'get' },
   { url: '/assets/*', requestFunction: 'get' },
   { url: '*.woff2', requestFunction: 'get' },
   { url: '*.woff', requestFunction: 'get' },
