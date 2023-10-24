@@ -72,16 +72,19 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 
 ### Releasing
 
-1. Make sure, you have described your changes in the file [CHANGELOG.md](./docs/changelog.md)
-2. Make sure, you have done the steps to build the library and the schematics
-3. Move all changes in the file [CHANGELOG.md](./docs/changelog.md) from below `## Next` below a new Paragraph with the
+1. Switch to the current Release branch
+2. Merge the current main branch into the release branch
+3. Describe your changes in the file [CHANGELOG.md](./docs/changelog.md)
+4. Move all changes in the file [CHANGELOG.md](./docs/changelog.md) from below `## Next` below a new Paragraph with the
    to be released version
-4. Change the Version in the [package.json](projects/spartacus-mock/package.json) of the angular lib
-5. Create a Git Tag with the to be released version number ` git tag x.x.x`
-6. Commit and Push the changes to the remote (Make sure to also push Tags `git push origin --tags`)
-7. Open the terminal and go to the folder `dist/spartacus-mock`
-8. Login to NPM `npm login` if you not already are logged in
-9. Push the Release `npm publish --access public`
-10. [Create the Release](https://github.com/valantic/spartacus-mock/releases/new) on the github repo with the
+5. Change the Version in the [package.json](projects/spartacus-mock/package.json) of the angular lib
+6. Build the library and the schematics according to the steps above at `## Build the library`
+7. Create a Git Tag with the to be released version number ` git tag x.x.x`
+8. Commit and Push the changes to the remote (Make sure to also push Tags `git push origin --tags`)
+9. Open the terminal and go to the folder `dist/spartacus-mock`
+10. Login to NPM `npm login` if you not already are logged in
+11. Push the Release `npm publish --access public`
+12. [Create the Release](https://github.com/valantic/spartacus-mock/releases/new) on the github repo with the
     changes from the [CHANGELOG.md](./docs/changelog.md)
-11. Make sure you have pushed all changes to the Repo
+13. Attach the zip file from the dist folder to the release in github
+14. Test if the release works with the spartacus demo project
