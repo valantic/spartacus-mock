@@ -2,6 +2,10 @@
 
 ## next
 
+## 2.3.1
+
+- Soften peer dependencies requirements
+
 ## 2.3.0
 
 - Updates Spartacus dependency to latest 6.5.1
