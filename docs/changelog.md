@@ -2,6 +2,12 @@
 
 ## next
 
+## 2.3.0
+
+- Updates Spartacus dependency to latest 6.5.1
+- Updates MSW Version to 1.3.2
+- Update angular dependencies
+
 ## 2.2.0
 
 - #50 Updates Spartacus dependency to latest 6.4.0
