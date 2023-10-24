@@ -54,10 +54,11 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 
 1. Make sure, the build (or watch) tasks have been run for both the lib and the schematics
 2. Make sure to use the same node versions for spartacus-mock and your test project to make npm link work
-3. Run `npm link` in the folder `dist/spartacus-mock` of this library to be able to use the current dev version of the library in your spartacus project
-4. Run `npm link @valantic/spartacus-mock` in your spartacus project's root folder to link the dev version of the library
-5. Run `ng add @valantic/spartacus-mock` in your spartacus project's root folder to add the library and run the schematics
-6. Run `npm link @valantic/spartacus-mock` again, since running `ng add` seems to delete the link
+3. Make sure to remove "@valantic/spartacus-mock" from the package.json of your test project since it get's linked via symlink
+4. Run `npm link` in the folder `dist/spartacus-mock` of this library to be able to use the current dev version of the library in your spartacus project
+5. Run `npm link @valantic/spartacus-mock` in your spartacus project's root folder to link the dev version of the library
+6. Run `ng add @valantic/spartacus-mock` in your spartacus project's root folder to add the library and run the schematics
+7. Run `npm link @valantic/spartacus-mock` again, since running `ng add` seems to delete the link
 
 ### Update Angular Major Version
 
