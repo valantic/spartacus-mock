@@ -8,8 +8,6 @@ import { checkoutTranslations } from '@spartacus/checkout/base/assets';
 import { orderTranslations } from '@spartacus/order/assets';
 import { productImageZoomTranslations } from '@spartacus/product/image-zoom/assets';
 import { productVariantsTranslations } from '@spartacus/product/variants/assets';
-import { s4omTranslations } from '@spartacus/s4om/assets';
-import { storeFinderTranslations } from '@spartacus/storefinder/assets';
 import { userAccountTranslations } from '@spartacus/user/account/assets';
 import { userProfileTranslations } from '@spartacus/user/profile/assets';
 import { TranslationChunks } from '../../../types';
@@ -34,9 +32,6 @@ export const languageEn = (customChunksEn: TranslationChunks) => {
     //...mergeDeep(bulkPricingTranslations['en'], customChunksEn),
     ...mergeDeep(productVariantsTranslations['en'], customChunksEn),
 
-    // feature library store finder
-    ...mergeDeep(storeFinderTranslations['en'], customChunksEn),
-
     // feature library user
     ...mergeDeep(userAccountTranslations['en'], customChunksEn),
     ...mergeDeep(userProfileTranslations['en'], customChunksEn),
@@ -47,6 +42,10 @@ export const languageEn = (customChunksEn: TranslationChunks) => {
 
     // feature library order
     ...mergeDeep(orderTranslations['en'], customChunksEn),
+
+    // other libraries cannot be imported here, as it would require to install all the packages in the actual project
+    // feature library store finder
+    //...mergeDeep(storeFinderTranslations['en'], customChunksEn),
 
     // feature library asm
     //...mergeDeep(asmTranslations['en'], customChunksEn),
