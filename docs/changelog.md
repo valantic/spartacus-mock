@@ -2,6 +2,10 @@
 
 ## next
 
+## 2.3.2
+
+- Adjust name of internal translation function
+
 ## 2.3.1
 
 - Soften peer dependencies requirements
