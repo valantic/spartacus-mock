@@ -7,7 +7,7 @@ import {
   languageList,
   regionList,
   titleList,
-  translations,
+  translationsForNamespace,
 } from '../mock-data';
 import { MockConfig } from '../types';
 import { readUrlParams } from '../utils';
@@ -47,7 +47,7 @@ export const getBaseHandlers = (routes: any, config: MockConfig): RestHandler[] 
       const language = readUrlParams(req, 'language');
       const namespace = readUrlParams(req, 'namespace');
 
-      return res(ctx.status(200), ctx.json(translations(language, namespace, config)));
+      return res(ctx.status(200), ctx.json(translationsForNamespace(language, namespace, config)));
     }),
   ];
 };
