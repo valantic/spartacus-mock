@@ -2,6 +2,10 @@
 
 ## next
 
+## 2.4.0
+
+- Remove default translations as they otherwise get added to the project's main bundle
+
 ## 2.3.2
 
 - Adjust name of internal translation function
