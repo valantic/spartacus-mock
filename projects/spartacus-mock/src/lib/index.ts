@@ -1,4 +1,5 @@
-import { SetupWorker, rest, setupWorker } from 'msw';
+import { http, passthrough } from 'msw';
+import { SetupWorker, setupWorker } from 'msw/browser';
 import { HandlerService } from './handlers';
 import { LocalStorageService } from './local-storage';
 import { PageFactoryService } from './mock-data';
@@ -18,10 +19,10 @@ function getWorker(config: MockConfig): SetupWorker {
     ...(config.passThroughRequests || []),
   ];
 
-  const server = setupWorker(
+  const worker = setupWorker(
     ...passThroughRequests.map((passThroughUrl) => {
-      return rest[passThroughUrl.requestFunction](passThroughUrl.url, (req) => {
-        return req.passthrough();
+      return http[passThroughUrl.requestFunction](passThroughUrl.url, (req) => {
+        return passthrough();
       });
     }),
 
@@ -33,10 +34,13 @@ function getWorker(config: MockConfig): SetupWorker {
   );
 
   if (config.debug) {
-    server.printHandlers();
+    worker.listHandlers().forEach((handler) => {
+      // eslint-disable-next-line  no-console
+      console.log(handler.info.header);
+    });
   }
 
-  return server;
+  return worker;
 }
 
 export function prepareMock(config: MockConfig): Promise<ServiceWorkerRegistration | undefined> {
@@ -46,18 +50,25 @@ export function prepareMock(config: MockConfig): Promise<ServiceWorkerRegistrati
     return worker.start({
       ...(config.disableDefaultData
         ? {
-            // unhandledRequest handler to only show warnings, if a request is part of the mockedRequests array
-            onUnhandledRequest(req, print) {
-              if (!req.url.pathname.includes(config.environment.backend.occ?.prefix || '')) {
+            /**
+             * unhandledRequest handler to only show warnings, if a request is part of the mockedRequests array
+             * This is used for the allow-list mode where most of the requests are passed through
+             *
+             * @param request
+             * @param print
+             */
+            onUnhandledRequest(request, print) {
+              const url = new URL(request.url);
+              if (!url.pathname.includes(config.environment.backend.occ?.prefix || '')) {
                 return;
               }
 
-              const baseSiteId = req.url.pathname.split('/')[3]; // pathName is /occ/v2/:baseSiteId/...
+              const baseSiteId = url.pathname.split('/')[3]; // pathName is /occ/v2/:baseSiteId/...
 
               const isMockedRequest = config.mockedRequests?.some((mockedRequest) => {
                 const sanitizedUrl = mockedRequest.url.replace(/:baseSiteId/g, baseSiteId);
                 return (
-                  sanitizedUrl.endsWith(req.url.pathname) && req.method === mockedRequest.requestFunction.toUpperCase()
+                  sanitizedUrl.endsWith(url.pathname) && request.method === mockedRequest.requestFunction.toUpperCase()
                 );
               });
 

@@ -1,4 +1,4 @@
-import { RestHandler } from 'msw';
+import { HttpHandler } from 'msw';
 import { Voucher } from '@spartacus/cart/base/root';
 import { BackendConfig, Occ, OccConfig, Page as SpartacusPage } from '@spartacus/core';
 import { TranslationResources } from '@spartacus/core/src/i18n/translation-resources';
@@ -75,7 +75,7 @@ export interface MockConfig {
   enableWorker: boolean;
   environment: Environment;
   passThroughRequests?: MockRequest[];
-  handlers?: RestHandler[];
+  handlers?: HttpHandler[];
   contentPages?: ContentPages;
   productDetailPage?: Page;
   productCategoryPage?: Page;
@@ -114,7 +114,8 @@ export interface ImageModifier {
 }
 
 export interface PriceModifier {
-  value?: number;
+  valueMin?: number;
+  valueMax?: number;
 }
 
 export interface TranslationChunks {
