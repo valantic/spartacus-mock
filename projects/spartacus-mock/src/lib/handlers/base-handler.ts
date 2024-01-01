@@ -1,4 +1,4 @@
-import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { HttpHandler, HttpResponse, http } from 'msw';
 import {
   baseSites,
   consentTemplateList,
@@ -12,42 +12,42 @@ import {
 import { MockConfig } from '../types';
 import { readUrlParams } from '../utils';
 
-export const getBaseHandlers = (routes: any, config: MockConfig): RestHandler[] => {
+export const getBaseHandlers = (routes: any, config: MockConfig): HttpHandler[] => {
   return [
-    rest.get(routes.baseSites, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(baseSites()));
+    http.get(routes.baseSites, () => {
+      return HttpResponse.json(baseSites());
     }),
 
-    rest.get(routes.languages, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(languageList()));
+    http.get(routes.languages, () => {
+      return HttpResponse.json(languageList());
     }),
 
-    rest.get(routes.currencies, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(currencyList()));
+    http.get(routes.currencies, () => {
+      return HttpResponse.json(currencyList());
     }),
 
-    rest.get(routes.titles, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(titleList()));
+    http.get(routes.titles, () => {
+      return HttpResponse.json(titleList());
     }),
 
-    rest.get(routes.countries, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(countryList()));
+    http.get(routes.countries, () => {
+      return HttpResponse.json(countryList());
     }),
 
-    rest.get(routes.regions, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(regionList()));
+    http.get(routes.regions, () => {
+      return HttpResponse.json(regionList());
     }),
 
-    rest.get(routes.consentTemplates, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(consentTemplateList()));
+    http.get(routes.consentTemplates, () => {
+      return HttpResponse.json(consentTemplateList());
     }),
 
     // custom call to return the translation files
-    rest.get(routes.i18n, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const language = readUrlParams(req, 'language');
-      const namespace = readUrlParams(req, 'namespace');
+    http.get(routes.i18n, ({ params }) => {
+      const language = readUrlParams(params, 'language');
+      const namespace = readUrlParams(params, 'namespace');
 
-      return res(ctx.status(200), ctx.json(translationsForNamespace(language, namespace, config)));
+      return HttpResponse.json(translationsForNamespace(language, namespace, config));
     }),
   ];
 };

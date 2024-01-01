@@ -1,60 +1,60 @@
-import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { HttpHandler, HttpResponse, http } from 'msw';
 import { createAddress, createConsentTemplate, createUser, savedCartResult } from '../mock-data';
-import { readSearchParams, readUrlParams } from '../utils/request-params';
+import { readSearchParams, readUrlParams } from '../utils';
 
-export const getAccountHandlers = (routes: any): RestHandler[] => {
+export const getAccountHandlers = (routes: any): HttpHandler[] => {
   return [
-    rest.patch(routes.restoreSavedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = readUrlParams(req, 'cartId');
-      const userId = readUrlParams(req, 'userId');
+    http.patch(routes.restoreSavedCart, ({ params }) => {
+      const cartId = readUrlParams(params, 'cartId');
+      const userId = readUrlParams(params, 'userId');
 
-      return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
+      return HttpResponse.json(savedCartResult(cartId, userId));
     }),
-    rest.post(routes.cloneSavedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = readUrlParams(req, 'cartId');
-      const userId = readUrlParams(req, 'userId');
-      const name = readSearchParams(req, 'name');
+    http.post(routes.cloneSavedCart, ({ request, params }) => {
+      const cartId = readUrlParams(params, 'cartId');
+      const userId = readUrlParams(params, 'userId');
+      const name = readSearchParams(request, 'name');
 
-      return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId, name)));
+      return HttpResponse.json(savedCartResult(cartId, userId, name));
     }),
-    rest.get(routes.savedCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = readUrlParams(req, 'cartId');
-      const userId = readUrlParams(req, 'userId');
+    http.get(routes.savedCart, ({ params }) => {
+      const cartId = readUrlParams(params, 'cartId');
+      const userId = readUrlParams(params, 'userId');
 
-      return res(ctx.status(200), ctx.json(savedCartResult(cartId, userId)));
+      return HttpResponse.json(savedCartResult(cartId, userId));
     }),
-    rest.patch(routes.addressDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
+    http.patch(routes.addressDetail, () => {
+      return HttpResponse.json({});
     }),
-    rest.delete(routes.addressDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
+    http.delete(routes.addressDetail, () => {
+      return HttpResponse.json({});
     }),
-    rest.post(routes.addresses, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201), ctx.json(createAddress()));
+    http.post(routes.addresses, () => {
+      return HttpResponse.json(createAddress(), { status: 201 });
     }),
-    rest.delete(routes.paymentDetail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
+    http.delete(routes.paymentDetail, () => {
+      return HttpResponse.json({});
     }),
-    rest.patch(routes.users, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createUser()));
+    http.patch(routes.users, () => {
+      return HttpResponse.json(createUser());
     }),
-    rest.put(routes.userUpdatePassword, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
+    http.put(routes.userUpdatePassword, () => {
+      return HttpResponse.json({});
     }),
-    rest.put(routes.userUpdateLoginId, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
+    http.put(routes.userUpdateLoginId, () => {
+      return HttpResponse.json({});
     }),
-    rest.delete(routes.consentDetail, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
+    http.delete(routes.consentDetail, () => {
+      return HttpResponse.json({});
     }),
-    rest.post(routes.consents, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createConsentTemplate()));
+    http.post(routes.consents, () => {
+      return HttpResponse.json(createConsentTemplate());
     }),
-    rest.delete(routes.users, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
+    http.delete(routes.users, () => {
+      return HttpResponse.json({});
     }),
-    rest.patch(routes.notificationPreference, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200));
+    http.patch(routes.notificationPreference, () => {
+      return HttpResponse.json({});
     }),
   ];
 };

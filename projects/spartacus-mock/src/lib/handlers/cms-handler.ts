@@ -1,4 +1,4 @@
-import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { HttpHandler, HttpResponse, http, passthrough } from 'msw';
 import { Occ } from '@spartacus/core';
 import { PageFactoryService } from '../mock-data';
 import { PageService } from '../mock-data';
@@ -11,79 +11,77 @@ import {
 } from '../mock-data';
 import { activeTabItems } from '../mock-data';
 import { MockConfig } from '../types';
-import { readSearchParams } from '../utils/request-params';
+import { readSearchParams } from '../utils';
 
 export const getCmsPagesHandler = (
   routes: any, // TODO change type to be something real after SAP exports the default routes config
   pageFactoryService: PageFactoryService,
   pageService: PageService,
   config: MockConfig
-): RestHandler[] => {
+): HttpHandler[] => {
   return [
-    rest.get(routes.pages, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const pageType = readSearchParams(req, 'pageType');
-      const pageLabelOrId = readSearchParams(req, 'pageLabelOrId');
-      const productCode = readSearchParams(req, 'productCode');
+    http.get(routes.pages, ({ request }) => {
+      const pageType = readSearchParams(request, 'pageType');
+      const pageLabelOrId = readSearchParams(request, 'pageLabelOrId');
+      const productCode = readSearchParams(request, 'productCode');
 
       // return passThrough answer if defaultData is disabled and pageId is not within mockedPageIds
       if (
         config.disableDefaultData &&
-        !config.mockedPageIds?.includes(pageService.getSanitizedPageLabelOrId(pageLabelOrId))
+        !config.mockedPageIds?.includes(pageService.getSanitizedPageLabelOrId(pageLabelOrId || ''))
       ) {
-        return req.passthrough();
+        return passthrough();
       }
 
       const page: Occ.CMSPage | null = pageService.getMockPage(pageType, pageLabelOrId, productCode);
 
       if (page) {
-        return res(ctx.status(200), ctx.json(page));
+        return HttpResponse.json(page);
       }
 
       // eslint-disable-next-line  no-console
       console.error(
         `The page with the pageLabelOrId ${pageLabelOrId} and the page type ${pageType} has not been mocked yet`
       );
-      return res(
-        ctx.status(404),
-        ctx.json({
+
+      return HttpResponse.json(
+        {
           errors: [
             {
               message: `The page with the pageLabelOrId ${pageLabelOrId} and the page type ${pageType} has not been mocked yet`,
               type: 'CMSItemNotFoundError',
             },
           ],
-        })
+        },
+        { status: 404 }
       );
     }),
   ];
 };
 
 export const getCmsComponentsHandler = (
-  routes: any, // TODO change type to be something real after SAP exports the default routes config
-  pageFactoryService: PageFactoryService,
-  pageService: PageService,
-  config: MockConfig
-): RestHandler[] => {
+  routes: any // TODO change type to be something real after SAP exports the default routes config
+): HttpHandler[] => {
   return [
     // additional component data call
-    rest.get(routes.components, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const componentIds = readSearchParams(req, 'componentIds');
+    http.get(routes.components, ({ request }) => {
+      const componentIds = readSearchParams(request, 'componentIds') || '';
       const componentIdsArray = componentIds.split(',');
 
       if (activeTabItems.some((tabUid) => componentIds.indexOf(tabUid) > -1)) {
-        return res(ctx.status(200), ctx.json(productDetailTabComponents(componentIdsArray || [])));
+        return HttpResponse.json(productDetailTabComponents(componentIdsArray || []));
       } else if (componentIds.indexOf('PersonalDetailsLink') > -1) {
         // special call to get the MyAccount Dropdown Link components
-        return res(ctx.status(200), ctx.json(myAccountLinkComponents(componentIdsArray || [])));
+        return HttpResponse.json(myAccountLinkComponents(componentIdsArray || []));
       } else if (componentIds.indexOf('nav_main_') > -1) {
         // special call to get the Nav Main Link components
-        return res(ctx.status(200), ctx.json(navMainLinkComponents(componentIdsArray || [])));
+        return HttpResponse.json(navMainLinkComponents(componentIdsArray || []));
       } else if (componentIds.indexOf('footer_') > -1) {
         // special call to get the Footer Link components
-        return res(ctx.status(200), ctx.json(footerLinkComponents(componentIdsArray || [])));
+        return HttpResponse.json(footerLinkComponents(componentIdsArray || []));
       } else {
         // general call to get the Main Navigation Link components
-        return res(ctx.status(200), ctx.json(components(componentIdsArray || [])));
+        return HttpResponse.json(components(componentIdsArray || []));
       }
     }),
   ];

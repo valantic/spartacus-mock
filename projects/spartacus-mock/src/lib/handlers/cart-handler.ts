@@ -1,5 +1,6 @@
-import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { HttpHandler, HttpResponse, PathParams, StrictRequest, http } from 'msw';
 import { LocalStorageService } from '../local-storage';
+import { addVoucher, deleteVoucher } from '../mock-data';
 import {
   CartUserType,
   addToCart,
@@ -12,127 +13,128 @@ import {
   updateEntries,
 } from '../mock-data/commerce/cart';
 import { getCheckoutDetails } from '../mock-data/commerce/checkout';
-import { addVoucher, deleteVoucher } from '../mock-data/commerce/voucher';
-import { readSearchParams, readUrlParams } from '../utils/request-params';
+import { readSearchParams, readUrlParams } from '../utils';
 
-export const getCartHandlers = (routes: any, localStorageService: LocalStorageService): RestHandler[] => {
+export const getCartHandlers = (routes: any, localStorageService: LocalStorageService): HttpHandler[] => {
   return [
     // cart call to return the cart details for a cart containing products
-    rest.get(routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = readUrlParams(req, 'cartId');
-      const userId = readUrlParams(req, 'userId');
-      const requestFields = readSearchParams(req, 'fields');
+    http.get(routes.cart, ({ request, params }) => {
+      const cartId = readUrlParams(params, 'cartId');
+      const userId = readUrlParams(params, 'userId');
+      const requestFields = readSearchParams(request, 'fields');
 
-      if (requestFields.indexOf('deliveryAddress') > -1) {
-        return res(ctx.status(201), ctx.json(getCheckoutDetails()));
+      if (requestFields && requestFields.indexOf('deliveryAddress') > -1) {
+        return HttpResponse.json(getCheckoutDetails(), { status: 201 });
       } else {
-        return res(ctx.status(201), ctx.json(getCart(cartId, getUserTypeById(userId))));
+        return HttpResponse.json(getCart(cartId, getUserTypeById(userId)), { status: 201 });
       }
     }),
 
     // cart call to return multiple carts for normal cart, wishlist and saved cart
-    rest.get(routes.carts, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const userId = readUrlParams(req, 'userId');
+    http.get(routes.carts, ({ params }) => {
+      const userId = readUrlParams(params, 'userId');
 
-      return res(ctx.status(200), ctx.json(getCarts(getUserTypeById(userId))));
+      return HttpResponse.json(getCarts(getUserTypeById(userId)));
     }),
 
     // post call to get either cart data for the different scopes
-    rest.post(routes.carts, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const userId = readUrlParams(req, 'userId');
+    http.post(routes.carts, ({ request, params }) => {
+      const userId = readUrlParams(params, 'userId');
       let cartId = '';
 
       // oldCartId is only present if the call is done after login to merge the anonymous cart with the user cart
-      const oldCartId = readSearchParams(req, 'oldCartId');
+      const oldCartId = readSearchParams(request, 'oldCartId');
 
       if (oldCartId) {
         cartId = '8e2cb9e8-406e-4746-a398-f663a88730f3';
       }
 
-      return res(ctx.status(201), ctx.json(getCart(cartId, getUserTypeById(userId))));
+      return HttpResponse.json(getCart(cartId, getUserTypeById(userId)), { status: 201 });
     }),
 
     // patch call to save a cart
-    rest.patch(routes.cart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = readUrlParams(req, 'cartId');
-      const userId = readUrlParams(req, 'userId');
+    http.patch(routes.cart, ({ params }) => {
+      const cartId = readUrlParams(params, 'cartId');
+      const userId = readUrlParams(params, 'userId');
 
-      return res(
-        ctx.status(200),
-        ctx.json({
-          savedCartData: getCart(cartId, getUserTypeById(userId)),
-        })
-      );
+      return HttpResponse.json({ savedCartData: getCart(cartId, getUserTypeById(userId)) });
     }),
 
     // cart post call to add entries to the cart
-    rest.post(routes.addEntries, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const { quantity, product } = await req.json();
+    http.post(
+      routes.addEntries,
+      async ({ request }: { request: StrictRequest<{ quantity: number; product: { code: string } }> }) => {
+        const { quantity, product } = await request.json();
 
-      return res(ctx.status(201), ctx.json(addToCart(product, quantity)));
-    }),
+        return HttpResponse.json(addToCart(product, quantity), { status: 201 });
+      }
+    ),
 
     // cart patch call to update entries in the cart
-    rest.patch(routes.updateEntries, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = readUrlParams(req, 'cartId');
-      const entryNumber = parseInt(readUrlParams(req, 'entryNumber'));
-      const { quantity } = await req.json();
+    http.patch(
+      routes.updateEntries,
+      async ({ request, params }: { request: StrictRequest<{ quantity: number }>; params: PathParams }) => {
+        const cartId = readUrlParams(params, 'cartId');
+        const entryNumber = parseInt(readUrlParams(params, 'entryNumber'));
+        const { quantity } = await request.json();
 
-      return res(ctx.status(200), ctx.json(updateEntries(cartId, entryNumber, quantity)));
-    }),
+        return HttpResponse.json(updateEntries(cartId, entryNumber, quantity));
+      }
+    ),
 
     // cart delete call to update entries in the cart
-    rest.delete(routes.removeEntries, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const cartId = readUrlParams(req, 'cartId');
-      const entryNumber = parseInt(readUrlParams(req, 'entryNumber'));
+    http.delete(routes.removeEntries, ({ params }) => {
+      const cartId = readUrlParams(params, 'cartId');
+      const entryNumber = parseInt(readUrlParams(params, 'entryNumber'));
 
       removeEntries(cartId, entryNumber);
-      return res(ctx.status(200));
+      return HttpResponse.json({});
     }),
 
-    rest.delete(routes.deleteCart, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+    http.delete(routes.deleteCart, async () => {
       deleteCart();
 
-      return res(ctx.status(201));
+      return HttpResponse.json({}, { status: 201 });
     }),
 
-    rest.put(routes.addEmail, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+    http.put(routes.addEmail, () => {
       setGuestCheckout(true);
 
-      return res(ctx.status(200), ctx.json({}));
+      return HttpResponse.json({});
     }),
 
     // cart save call which is done, if the currently loggedIn user does not have a wishlist cart
-    rest.patch(routes.saveCart, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const name = readSearchParams(req, 'saveCartName');
-      const description = readSearchParams(req, 'saveCartDescription');
+    http.patch(routes.saveCart, ({ request }) => {
+      const name = readSearchParams(request, 'saveCartName');
+      const description = readSearchParams(request, 'saveCartDescription');
 
       // Clears the active cart
       setTimeout(() => localStorageService.updateLocalStorage('activeCartEntries', []));
-      return res(
-        ctx.status(201),
-        ctx.json({
+
+      return HttpResponse.json(
+        {
           savedCartData: {
             ...getCart('', CartUserType.OCC_USER_ID_CURRENT),
             name,
             description,
           },
-        })
+        },
+        { status: 201 }
       );
     }),
 
-    rest.post(routes.cartVoucher, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const voucherId = readSearchParams(req, 'voucherId');
+    http.post(routes.cartVoucher, ({ request }) => {
+      const voucherId = readSearchParams(request, 'voucherId');
 
-      addVoucher(voucherId);
-      return res(ctx.status(200));
+      addVoucher(voucherId || '');
+      return HttpResponse.json({});
     }),
 
-    rest.delete(routes.cartVoucherRemove, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const voucherCode = readUrlParams(req, 'voucherCode');
+    http.delete(routes.cartVoucherRemove, ({ params }) => {
+      const voucherCode = readUrlParams(params, 'voucherCode');
 
       deleteVoucher(voucherCode);
-      return res(ctx.status(200));
+      return HttpResponse.json({});
     }),
   ];
 };

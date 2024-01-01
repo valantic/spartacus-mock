@@ -1,22 +1,22 @@
-import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { HttpHandler, HttpResponse, http } from 'msw';
 import {
   createPointOfService,
   storeFinderSearchPage,
   storesAndRegionsStoreCount,
 } from '../mock-data/store-finder/store-finder';
 
-export const getStoreFinderHandlers = (routes: any): RestHandler[] => {
+export const getStoreFinderHandlers = (routes: any): HttpHandler[] => {
   return [
-    rest.get(routes.storescounts, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(storesAndRegionsStoreCount()));
+    http.get(routes.storescounts, () => {
+      return HttpResponse.json(storesAndRegionsStoreCount());
     }),
 
-    rest.get(routes.stores, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(storeFinderSearchPage()));
+    http.get(routes.stores, () => {
+      return HttpResponse.json(storeFinderSearchPage());
     }),
 
-    rest.get(routes.store, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createPointOfService()));
+    http.get(routes.store, () => {
+      return HttpResponse.json(createPointOfService());
     }),
   ];
 };
