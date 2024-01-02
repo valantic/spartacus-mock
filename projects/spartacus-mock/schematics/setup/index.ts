@@ -72,18 +72,12 @@ function setup(options: Schema): Rule {
       {
         type: NodeDependencyType.Dev,
         name: 'msw',
-        version: '1.3.1',
+        version: '2.0.11',
       },
       {
         type: NodeDependencyType.Dev,
         name: '@faker-js/faker',
-        version: '8.1.0',
-      },
-      // needed because of https://github.com/mswjs/msw/issues/1621
-      {
-        type: NodeDependencyType.Dev,
-        name: '@types/events',
-        version: '3.0.0',
+        version: '8.3.1',
       },
     ];
 
@@ -109,7 +103,30 @@ function setup(options: Schema): Rule {
 
       // override environment files with additional logic
       branchAndMerge(
-        chain([mergeWith(getTemplate(options, tree, 'environment', 'environments'), MergeStrategy.Overwrite)]),
+        chain([mergeWith(getTemplate(options, tree, 'environments', 'environments'), MergeStrategy.Overwrite)]),
+        MergeStrategy.Overwrite
+      ),
+
+      // add mock-server files with some boilerplate code
+      branchAndMerge(
+        chain([mergeWith(getTemplate(options, tree, 'mock-server', 'mock-server'), MergeStrategy.Overwrite)]),
+        MergeStrategy.Overwrite
+      ),
+
+      // add mock-data files with readme
+      branchAndMerge(
+        chain([mergeWith(getTemplate(options, tree, 'mock-data', 'mock-server/mock-data'), MergeStrategy.Overwrite)]),
+        MergeStrategy.Overwrite
+      ),
+
+      // add languages files with languages generate method
+      branchAndMerge(
+        chain([
+          mergeWith(
+            getTemplate(options, tree, 'mock-data--languages', 'mock-server/mock-data/languages'),
+            MergeStrategy.Overwrite
+          ),
+        ]),
         MergeStrategy.Overwrite
       ),
 
