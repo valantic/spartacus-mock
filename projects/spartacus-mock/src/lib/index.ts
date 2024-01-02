@@ -21,7 +21,7 @@ function getWorker(config: MockConfig): SetupWorker {
 
   const worker = setupWorker(
     ...passThroughRequests.map((passThroughUrl) => {
-      return http[passThroughUrl.requestFunction](passThroughUrl.url, (req) => {
+      return http[passThroughUrl.requestFunction](passThroughUrl.url, ({ request }) => {
         return passthrough();
       });
     }),
