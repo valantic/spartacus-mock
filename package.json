@@ -63,7 +63,7 @@
     "i18next": "~21.10.0",
     "i18next-http-backend": "~1.4.5",
     "i18next-resources-to-backend": "~1.1.2",
-    "msw": "2.0.11",
+    "msw": "2.0.12",
     "ngx-infinite-scroll": "~15.0.0",
     "rxjs": "~6.6.0",
     "tslib": "~2.3.0",
