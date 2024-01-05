@@ -38,8 +38,9 @@ export const getBaseHandlers = (routes: any, config: MockConfig): HttpHandler[] 
       return HttpResponse.json(regionList());
     }),
 
-    http.get(routes.consentTemplates, () => {
-      return HttpResponse.json(consentTemplateList());
+    http.get(routes.consentTemplates, ({ params }) => {
+      const user = readUrlParams(params, 'user');
+      return HttpResponse.json(consentTemplateList(user));
     }),
 
     // custom call to return the translation files
