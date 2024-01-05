@@ -78,6 +78,17 @@ export const createConsignment = (additionalData?: Occ.Consignment): Occ.Consign
   };
 };
 
+export const createOrderHistory = (additionalData?: Occ.OrderHistoryList): Occ.OrderHistory => {
+  return {
+    code: faker.string.numeric(6),
+    guid: faker.string.uuid(),
+    placed: faker.date.past(),
+    status: faker.helpers.arrayElement(orderStatusOptions),
+    statusDisplay: faker.helpers.arrayElement(orderStatusDisplayOptions),
+    total: createPrice(),
+  };
+};
+
 export const createOrder = (additionalData?: Occ.Order): Occ.Order => {
   let mockData = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) || '{}') as LocalStorageMockData;
 

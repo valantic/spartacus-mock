@@ -1,5 +1,5 @@
 import { HttpHandler, HttpResponse, http } from 'msw';
-import { createOrder } from '../mock-data';
+import { createOrder, createOrderHistory } from '../mock-data';
 import { getOrders } from '../mock-data';
 import {
   CartUserType,
