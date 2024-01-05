@@ -87,6 +87,7 @@ export interface MockConfig {
   inclusionMode?: boolean;
   mockedRequests?: MockRequest[];
   mockedPageIds?: string[];
+  quiet?: boolean;
   debug?: boolean;
 
   // TODO Components Call Handler Options

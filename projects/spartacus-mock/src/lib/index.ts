@@ -51,6 +51,7 @@ export function prepareMock(config: MockConfig): Promise<ServiceWorkerRegistrati
     const worker = getWorker(config);
 
     return worker.start({
+      ...(config.quiet ? { quiet: true } : {}),
       ...(config.inclusionMode
         ? {
             /**
