@@ -17,10 +17,11 @@ You want to get started quickly? Follow the steps of the [Getting Started](getti
 
 This project is tested to work with the listed angular versions and the listed Spartacus Versions in this table.
 
-| Angular          | Spartacus | spartacus-mock |
-| ---------------- | :-------: | :------------: |
-| >=15.0.0 <16.0.0 |   6.x.x   |      2.x       |
-| >=14.0.0 <15.0.0 |   5.x.x   |      1.x       |
+| Angular          | Spartacus | msw | spartacus-mock |
+| ---------------- | :-------: | :-: | :------------: |
+| >=15.0.0 <16.0.0 |   6.x.x   | 2.x |      3.x       |
+| >=15.0.0 <16.0.0 |   6.x.x   | 1.x |      2.x       |
+| >=14.0.0 <15.0.0 |   5.x.x   | 1.x |      1.x       |
 
 It is possible that it works with other versions, but not tested.
 
