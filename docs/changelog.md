@@ -1,6 +1,16 @@
 # Changelog
 
-## next
+## 3.0.0
+
+- #58 Update to msw 2.x, update all handlers to use the new syntax, see breaking changes below
+- #61 Improve separation of defaultData and inclusion mode
+- #62 Add quiet option to disable console output
+
+### Breaking Changes
+
+- rename config option `disableDefaultData` to `enableDefaultData`
+- add new options `inclusionMode` (previously used `disableDefaultData`)
+- use msw Version 2.x, check Migration Guide [here](https://mswjs.io/docs/migrations/1.x-to-2.x)
 
 ## 2.2.0
 
