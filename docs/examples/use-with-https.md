@@ -11,3 +11,5 @@ To use the mock-server with https make sure following keys are fulfilled:
 ```
 "start:staging": "ng serve --ssl --ssl-key certificates/localhost.key --ssl-cert certificates/localhost.crt --configuration=staging --disable-host-check",
 ```
+
+> You can find more information about the topic [here](https://mswjs.io/docs/recipes/using-local-https).

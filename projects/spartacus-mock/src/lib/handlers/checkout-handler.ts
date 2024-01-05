@@ -1,54 +1,54 @@
-import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { HttpHandler, HttpResponse, http } from 'msw';
 import { DEFAULT_PAYMENT_ID, createPaymentDetails } from '../mock-data';
 import { getCardTypes, getDeliveryModes } from '../mock-data/commerce/checkout';
 import { getPaymentSopRequest } from '../mock-data/commerce/payment-sop';
 import { getPaymentSopResponse } from '../mock-data/commerce/payment-sop-response';
 
-export const getCheckoutHandlers = (routes: any): RestHandler[] => {
+export const getCheckoutHandlers = (routes: any): HttpHandler[] => {
   return [
-    rest.put(routes.setDeliveryAddress, async (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201));
+    http.put(routes.setDeliveryAddress, async () => {
+      return HttpResponse.json({}, { status: 201 });
     }),
 
-    rest.post(routes.createDeliveryAddress, async (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const body = await req.json();
-      return res(ctx.status(201), ctx.json(body));
+    http.post(routes.createDeliveryAddress, async ({ request }) => {
+      const body = await request.json();
+      return HttpResponse.json(body, { status: 201 });
     }),
 
-    rest.delete(routes.removeDeliveryAddress, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201));
+    http.delete(routes.removeDeliveryAddress, () => {
+      return HttpResponse.json({}, { status: 201 });
     }),
 
-    rest.delete(routes.deliveryMode, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201));
+    http.delete(routes.deliveryMode, () => {
+      return HttpResponse.json({}, { status: 201 });
     }),
 
-    rest.put(routes.deliveryMode, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201));
+    http.put(routes.deliveryMode, () => {
+      return HttpResponse.json({}, { status: 201 });
     }),
 
-    rest.get(routes.deliveryModes, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(getDeliveryModes()));
+    http.get(routes.deliveryModes, () => {
+      return HttpResponse.json(getDeliveryModes());
     }),
 
-    rest.get(routes.cardTypes, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(getCardTypes()));
+    http.get(routes.cardTypes, () => {
+      return HttpResponse.json(getCardTypes());
     }),
 
-    rest.get(routes.paymentProviderSubInfo, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(getPaymentSopRequest()));
+    http.get(routes.paymentProviderSubInfo, () => {
+      return HttpResponse.json(getPaymentSopRequest());
     }),
 
-    rest.post(routes.sopMockProcess, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.text(getPaymentSopResponse()));
+    http.post(routes.sopMockProcess, () => {
+      return HttpResponse.json(getPaymentSopResponse());
     }),
 
-    rest.post(routes.createPaymentDetails, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createPaymentDetails({ defaultPayment: true, id: DEFAULT_PAYMENT_ID })));
+    http.post(routes.createPaymentDetails, () => {
+      return HttpResponse.json(createPaymentDetails({ defaultPayment: true, id: DEFAULT_PAYMENT_ID }));
     }),
 
-    rest.put(routes.setCartPaymentDetails, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json({}));
+    http.put(routes.setCartPaymentDetails, () => {
+      return HttpResponse.json({});
     }),
   ];
 };

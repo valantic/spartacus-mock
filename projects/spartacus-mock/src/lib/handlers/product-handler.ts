@@ -1,47 +1,51 @@
-import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
-import { createFullProduct, createReview, productReferenceList, productSearchPage, reviewList } from '../mock-data';
-import { readSearchParams, readUrlParams } from '../utils/request-params';
+import { HttpHandler, HttpResponse, http } from 'msw';
+import {
+  createFullProduct,
+  createReview,
+  getOrders,
+  productReferenceList,
+  productSearchPage,
+  reviewList,
+} from '../mock-data';
+import { readSearchParams, readUrlParams } from '../utils';
 
-export const getProductHandlers = (routes: any): RestHandler[] => {
+export const getProductHandlers = (routes: any): HttpHandler[] => {
   return [
-    rest.get(routes.productReferences, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const referenceType = readSearchParams(req, 'referenceType');
+    http.get(routes.productReferences, ({ request }) => {
+      const referenceType = readSearchParams(request, 'referenceType');
 
-      return res(ctx.status(200), ctx.json(productReferenceList({ referenceType })));
+      return HttpResponse.json(productReferenceList({ referenceType }));
     }),
 
-    rest.get(routes.productReviews, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(reviewList()));
+    http.get(routes.productReviews, () => {
+      return HttpResponse.json(reviewList());
     }),
 
-    rest.post(routes.productReviews, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createReview()));
+    http.post(routes.productReviews, () => {
+      return HttpResponse.json(createReview());
     }),
 
-    rest.get(routes.productSearch, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const query = readSearchParams(req, 'query');
-      const sort = readSearchParams(req, 'sort');
-      const pageSize = parseInt(readSearchParams(req, 'pageSize'));
-      const currentPage = parseInt(readSearchParams(req, 'currentPage'));
+    http.get(routes.productSearch, ({ request }) => {
+      const query = readSearchParams(request, 'query');
+      const sort = readSearchParams(request, 'sort');
+      const pageSize = parseInt(readSearchParams(request, 'pageSize') || '');
+      const currentPage = parseInt(readSearchParams(request, 'currentPage') || '');
 
-      return res(
-        ctx.status(200),
-        ctx.json(
-          productSearchPage(undefined, {
-            query,
-            pageSize,
-            sort,
-            currentPage,
-          })
-        )
+      return HttpResponse.json(
+        productSearchPage(undefined, {
+          query,
+          pageSize,
+          sort,
+          currentPage,
+        })
       );
     }),
 
     // product general data call (used for product call scopes default / list / details)
-    rest.get(routes.product, (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      const productCode = readUrlParams(req, 'productCode');
+    http.get(routes.product, ({ request, params }) => {
+      const productCode = readUrlParams(params, 'productCode');
 
-      return res(ctx.status(200), ctx.json(createFullProduct({ code: productCode })));
+      return HttpResponse.json(createFullProduct({ code: productCode }));
     }),
   ];
 };

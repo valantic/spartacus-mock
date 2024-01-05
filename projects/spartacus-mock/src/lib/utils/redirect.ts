@@ -1,5 +1,10 @@
-import { compose, context } from 'msw';
+import { HttpResponse } from 'msw';
 
 export function redirect(destination: string, statusCode: number) {
-  return compose(context.status(statusCode), context.set('Location', destination));
+  return new HttpResponse(null, {
+    status: statusCode,
+    headers: {
+      Location: destination,
+    },
+  });
 }

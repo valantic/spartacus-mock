@@ -3,11 +3,15 @@ import { Occ } from '@spartacus/core';
 import { PriceModifier } from '../../types';
 
 export const createPrice = (additionalData?: Occ.Price, modifier?: PriceModifier): Occ.Price => {
-  const value = Number.isInteger(modifier?.value) ? modifier?.value : faker.number.int({ min: 1, max: 9999 });
+  const valueMin = Number.isInteger(modifier?.valueMin) ? modifier?.valueMin : faker.number.int({ min: 1, max: 9999 });
+  const valueMax = Number.isInteger(modifier?.valueMax)
+    ? modifier?.valueMax
+    : faker.number.int({ min: valueMin, max: 9999 });
+  const value = faker.number.int({ min: valueMin, max: valueMax });
 
   return {
     currencyIso: 'CHF',
-    formattedValue: faker.commerce.price({ min: value, max: value, dec: 2, symbol: 'CHF' }),
+    formattedValue: faker.commerce.price({ min: valueMin, max: valueMax, dec: 2, symbol: 'CHF' }),
     maxQuantity: undefined,
     minQuantity: undefined,
     priceType: Occ.PriceType.BUY,

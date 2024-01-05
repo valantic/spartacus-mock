@@ -1,4 +1,4 @@
-import { RestHandler } from 'msw';
+import { HttpHandler } from 'msw';
 import { getDefaultRoutes } from '../defaultRoutes';
 import { LocalStorageService } from '../local-storage';
 import { PageFactoryService, PageService } from '../mock-data';
@@ -29,12 +29,12 @@ export class HandlerService {
     this.routes = getDefaultRoutes(config.environment);
   }
 
-  getAllHandlers(): RestHandler[] {
+  getAllHandlers(): HttpHandler[] {
     return [
       ...getBaseHandlers(this.routes, this.config),
       ...getUserHandlers(this.routes),
       ...getCmsPagesHandler(this.routes, this.pageFactoryService, this.pageService, this.config),
-      ...getCmsComponentsHandler(this.routes, this.pageFactoryService, this.pageService, this.config),
+      ...getCmsComponentsHandler(this.routes),
       ...getSearchHandlers(this.routes),
       ...getProductHandlers(this.routes),
       ...getCartHandlers(this.routes, this.localStorageService),
@@ -45,7 +45,7 @@ export class HandlerService {
     ];
   }
 
-  getPagesHandler(): RestHandler[] {
+  getPagesHandler(): HttpHandler[] {
     return [...getCmsPagesHandler(this.routes, this.pageFactoryService, this.pageService, this.config)];
   }
 }

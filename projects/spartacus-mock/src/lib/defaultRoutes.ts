@@ -121,6 +121,11 @@ export function getDefaultRoutes(environment: Environment) {
     consentTemplates: `${occEndpoint}:baseSiteId/users/:user/consenttemplates`,
 
     /**
+     * Route for the call to get the consent templates for the current user
+     */
+    anonymousConsentTemplates: `${occEndpoint}:baseSiteId/users/anonymous/consenttemplates`,
+
+    /**
      * Route for the call to get the notification preferences for the current user
      */
     notificationPreferences: `${occEndpoint}:baseSiteId/users/:user/notificationpreferences`,
@@ -484,6 +489,13 @@ export function getDefaultRoutes(environment: Environment) {
      * Route for the call to get all consents of a user
      */
     consents: `${occEndpoint}:baseSiteId/${userEndpoints?.consents}`.replace('${userId}', ':userId'),
+
+    /**
+     * Route for the call to get all consents of a user
+     */
+    anonymousConsents: `${occEndpoint}:baseSiteId/${
+      (userEndpoints?.anonymousConsentTemplates as string).split('?')[0]
+    }}`,
 
     /**
      * Route for the call to get the notification preferences of a user

@@ -1,7 +1,7 @@
 import { OccConfig, OccEndpoints } from '@spartacus/core';
 
 // needed to have a working typing
-interface CartOccConfig extends OccConfig {
+interface UserOccConfig extends OccConfig {
   backend: {
     occ: {
       endpoints: OccEndpoints;
@@ -9,7 +9,7 @@ interface CartOccConfig extends OccConfig {
   };
 }
 
-export const occUserConfig: CartOccConfig = {
+export const occUserConfig: UserOccConfig = {
   backend: {
     occ: {
       // cannot extend from defaultOccCartConfig as it is not exported

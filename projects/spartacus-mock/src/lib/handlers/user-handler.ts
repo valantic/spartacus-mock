@@ -1,4 +1,4 @@
-import { ResponseComposition, RestContext, RestHandler, RestRequest, rest } from 'msw';
+import { HttpHandler, HttpResponse, http } from 'msw';
 import {
   addressList,
   authRevoke,
@@ -10,60 +10,55 @@ import {
   productInterestSearchResult,
 } from '../mock-data';
 
-export const getUserHandlers = (routes: any): RestHandler[] => {
+export const getUserHandlers = (routes: any): HttpHandler[] => {
   return [
-    rest.get(routes.notificationPreferences, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(notificationPreferenceList()));
+    http.get(routes.notificationPreferences, () => {
+      return HttpResponse.json(notificationPreferenceList());
     }),
 
-    rest.get(routes.productInterests, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(productInterestSearchResult()));
+    http.get(routes.productInterests, () => {
+      return HttpResponse.json(productInterestSearchResult());
     }),
 
-    rest.get(routes.customerCoupons, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(customerCouponSearchResult()));
+    http.get(routes.customerCoupons, () => {
+      return HttpResponse.json(customerCouponSearchResult());
     }),
 
-    rest.get(routes.addresses, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(addressList()));
+    http.get(routes.addresses, () => {
+      return HttpResponse.json(addressList());
     }),
 
-    rest.get(routes.payments, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(paymentDetailsList()));
+    http.get(routes.payments, () => {
+      return HttpResponse.json(paymentDetailsList());
     }),
 
-    rest.post(routes.addressVerification, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(
-        ctx.status(201),
-        ctx.json({
-          decision: 'ACCEPT',
-        })
-      );
+    http.post(routes.addressVerification, () => {
+      return HttpResponse.json({ decision: 'ACCEPT' });
     }),
 
     // authentication call to return the user token
-    rest.post(routes.authLogin, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createAuthToken()));
+    http.post(routes.authLogin, () => {
+      return HttpResponse.json(createAuthToken());
     }),
 
     // authentication call to revoke the user token
-    rest.post(routes.authRevoke, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(authRevoke()));
+    http.post(routes.authRevoke, () => {
+      return HttpResponse.json(authRevoke());
     }),
 
     // user call to return the user details after login
-    rest.get(routes.user, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createUser()));
+    http.get(routes.user, () => {
+      return HttpResponse.json(createUser());
     }),
 
     // temp user call to return the user details after login
-    rest.get(routes.userTemp, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(200), ctx.json(createUser()));
+    http.get(routes.userTemp, () => {
+      return HttpResponse.json(createUser());
     }),
 
     // user call to register a new user
-    rest.post(routes.users, (_req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-      return res(ctx.status(201), ctx.json(createUser()));
+    http.post(routes.users, () => {
+      return HttpResponse.json(createUser());
     }),
   ];
 };

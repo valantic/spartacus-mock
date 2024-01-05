@@ -10,11 +10,11 @@ You can define custom handlers for your custom endpoints or for existing endpoin
 // src/mock-server/handlers.ts
 import { getDefaultRoutes } from '@valantic/spartacus-mock';
 import {
-  ResponseComposition,
-  RestContext,
-  RestHandler,
-  RestRequest,
-  rest,
+  HttpHandler,
+  HttpResponse,
+  PathParams,
+  StrictRequest,
+  http,
 } from 'msw';
 import { environment } from '../environments/environment';
 import { countryList } from './mock-data/countries';
@@ -25,17 +25,16 @@ const defaultRoutes = getDefaultRoutes(environment);
 
 export const handlers = (): RestHandler[] => {
   return [
-    rest.get(
+    http.get(
       defaultRoutes.languages,
       (
-        _req: RestRequest,
-        res: ResponseComposition,
-        ctx: RestContext
+        request: StrictRequest<{
+          foo: number;
+          bar: string;
+        }>,
+        params: PathParams<string>
       ) => {
-        return res(
-          ctx.status(200),
-          ctx.json(languageList())
-        );
+        return HttpResponse.json(languageList());
       }
     ),
   ];
