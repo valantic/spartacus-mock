@@ -1,5 +1,11 @@
 # Changelog
 
+# next
+
+# 3.1.0
+
+- Update to latest version of msw
+
 ## 3.0.0
 
 - #58 Update to msw 2.x, update all handlers to use the new syntax, see breaking changes below
