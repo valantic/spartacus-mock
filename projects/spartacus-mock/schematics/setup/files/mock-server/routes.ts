@@ -1,4 +1,4 @@
-import { environment } from '../environment/environment';
+import { environment } from '../environments/environment';
 
 const occEndpoint = environment.backend.occ.baseUrl;
 const occPrefix = environment.backend.occ.prefix;
