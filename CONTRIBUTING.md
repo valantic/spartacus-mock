@@ -78,13 +78,15 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 4. Move all changes in the file [CHANGELOG.md](./docs/changelog.md) from below `## Next` below a new Paragraph with the
    to be released version
 5. Change the Version in the [package.json](projects/spartacus-mock/package.json) of the angular lib
-6. Build the library and the schematics according to the steps above at `## Build the library`
-7. Create a Git Tag with the to be released version number ` git tag x.x.x`
-8. Commit and Push the changes to the remote (Make sure to also push Tags `git push origin --tags`)
-9. Open the terminal and go to the folder `dist/spartacus-mock`
-10. Login to NPM `npm login` if you not already are logged in
-11. Push the Release `npm publish --access public`
-12. [Create the Release](https://github.com/valantic/spartacus-mock/releases/new) on the github repo with the
-    changes from the [CHANGELOG.md](./docs/changelog.md)
-13. Attach the zip file from the dist folder to the release in github
-14. Test if the release works with the spartacus demo project
+6. If new files within the docs folder have been added or changed, make sure, they are listed in the SUMMARY.md,
+   see [here](https://docs.gitbook.com/integrations/git-sync/troubleshooting#nothing-happens-on-gitbook-after-adding-a-new-file-to-my-repository)
+7. Build the library and the schematics according to the steps above at `## Build the library`
+8. Create a Git Tag with the to be released version number ` git tag x.x.x`
+9. Commit and Push the changes to the remote (Make sure to also push Tags `git push origin --tags`)
+10. Open the terminal and go to the folder `dist/spartacus-mock`
+11. Login to NPM `npm login` if you not already are logged in
+12. Push the Release `npm publish --access public`
+13. [Create the Release](https://github.com/valantic/spartacus-mock/releases/new) on the github repo with the changes from the [CHANGELOG.md](./docs/changelog.md)
+14. Attach the zip file from the dist folder to the release in github
+15. Test if the release works with the spartacus demo project
+16. Check if the Gitbook pages have updated correctly
