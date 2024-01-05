@@ -90,3 +90,7 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 14. Attach the zip file from the dist folder to the release in github
 15. Test if the release works with the spartacus demo project
 16. Check if the Gitbook pages have updated correctly
+    1. If sync did not happen automatically, go to app.gitbook.com
+    2. Click on the 3 dots next to the edit button in the top bar
+    3. Click Synchronize with git
+    4. Scroll down and click Sync
