@@ -25,9 +25,9 @@ export const getCmsPagesHandler = (
       const pageLabelOrId = readSearchParams(request, 'pageLabelOrId');
       const productCode = readSearchParams(request, 'productCode');
 
-      // return passThrough answer if defaultData is disabled and pageId is not within mockedPageIds
+      // return passThrough answer if inclusionMode is enabled and pageId is not within mockedPageIds
       if (
-        config.disableDefaultData &&
+        config.inclusionMode &&
         !config.mockedPageIds?.includes(pageService.getSanitizedPageLabelOrId(pageLabelOrId || ''))
       ) {
         return passthrough();

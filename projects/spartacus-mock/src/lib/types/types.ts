@@ -74,6 +74,8 @@ export interface MockRequest {
 export interface MockConfig {
   enableWorker: boolean;
   environment: Environment;
+  enableDefaultData?: boolean;
+  exclusionMode?: boolean;
   passThroughRequests?: MockRequest[];
   handlers?: HttpHandler[];
   contentPages?: ContentPages;
@@ -81,8 +83,8 @@ export interface MockConfig {
   productCategoryPage?: Page;
   homePage?: Page;
   customSlots?: Occ.ContentSlot[];
-  disableDefaultData?: boolean;
   translations?: TranslationResources;
+  inclusionMode?: boolean;
   mockedRequests?: MockRequest[];
   mockedPageIds?: string[];
   debug?: boolean;

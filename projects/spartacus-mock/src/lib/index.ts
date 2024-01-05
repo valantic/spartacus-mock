@@ -15,7 +15,7 @@ function getWorker(config: MockConfig): SetupWorker {
   const handlerService = new HandlerService(config, pageFactoryService, pageService, localStorageService);
 
   const passThroughRequests = [
-    ...(!config.disableDefaultData ? passThroughService.getPassThroughRequests() : []),
+    ...(config.enableDefaultData ? passThroughService.getPassThroughRequests() : []),
     ...(config.passThroughRequests || []),
   ];
 
@@ -30,7 +30,10 @@ function getWorker(config: MockConfig): SetupWorker {
     ...(config.handlers || []),
 
     // Default Handlers
-    ...(config.disableDefaultData ? handlerService.getPagesHandler() : handlerService.getAllHandlers())
+    ...(config.enableDefaultData ? handlerService.getAllHandlers() : []),
+
+    // Pages only Handler in inclusionMode to be able to pass through pages requests which are not included in the mockedPages array
+    ...(config.inclusionMode ? handlerService.getPagesHandler() : [])
   );
 
   if (config.debug) {
@@ -48,11 +51,11 @@ export function prepareMock(config: MockConfig): Promise<ServiceWorkerRegistrati
     const worker = getWorker(config);
 
     return worker.start({
-      ...(config.disableDefaultData
+      ...(config.inclusionMode
         ? {
             /**
              * unhandledRequest handler to only show warnings, if a request is part of the mockedRequests array
-             * This is used for the allow-list mode where most of the requests are passed through
+             * This is used for the inclusionMode where all requests are let through per default
              *
              * @param request
              * @param print

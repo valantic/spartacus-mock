@@ -3,9 +3,11 @@ import { environment } from '../environments/environment';
 import { handlers } from './handlers';
 import { passThroughRequests } from './pass-through';
 
+// see https://valantic.gitbook.io/spartacus-mock/api-reference/options for the different options
 export const mockConfig: MockConfig = {
   enableWorker: environment.mockServer || false,
   environment,
+  enableDefaultData: true,
   passThroughRequests,
   handlers,
 };
