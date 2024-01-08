@@ -3,6 +3,7 @@
 - [README](README.md)
 - [Getting Started](getting-started/README.md)
   - [Installation](getting-started/installation.md)
+  - [Schematics](getting-started/schematics.md)
   - [Configuration](getting-started/configuration.md)
   - [Terminology](getting-started/terminology.md)
 - [Examples](examples/README.md)

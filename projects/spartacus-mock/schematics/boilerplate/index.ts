@@ -14,14 +14,7 @@ import {
   template,
   url,
 } from '@angular-devkit/schematics';
-import { NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { Location, parseName } from '@schematics/angular/utility/parse-name';
-import {
-  addPackageJsonDependencies,
-  enhanceAngularJsonAssets,
-  installPackageJsonDependencies,
-} from '../utils/lib-utils';
-import { readPackageJson } from '../utils/package-utils';
 import { Schema } from './schema.model';
 
 function getParsedPath(workspaceConfigBuffer: Buffer, name: string, relativePath: string): Location {
@@ -64,48 +57,31 @@ function logMessage(): Rule {
   };
 }
 
-function setup(options: Schema): Rule {
+function boilerplate(options: Schema): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    const packageJsonFile = readPackageJson(tree);
-
-    const dependencies: NodeDependency[] = [
-      {
-        type: NodeDependencyType.Dev,
-        name: 'msw',
-        version: '2.0.12',
-      },
-      {
-        type: NodeDependencyType.Dev,
-        name: '@faker-js/faker',
-        version: '8.3.1',
-      },
-    ];
-
-    context.logger.info('🔧️ Installing msw as dependency..');
-    context.logger.info('🔧️ Create mockServiceWorker.js file..');
-    context.logger.info('🔧️ Enhance main.ts file..');
-    context.logger.info('🔧️ Enhance environment.ts file..');
-    context.logger.info('🔧️ Add environment.model.ts file..');
+    context.logger.info('🔧️ Add boilerplate src/mock-server folder and files..');
 
     return chain([
-      // add msw dependency
-      addPackageJsonDependencies(dependencies, packageJsonFile),
-
-      // run npm install
-      installPackageJsonDependencies(),
-
-      // enhance angular.json
-      enhanceAngularJsonAssets(),
-
-      // override main file with additional logic
+      // add mock-server files with some boilerplate code
       branchAndMerge(
-        chain([mergeWith(getTemplate(options, tree, 'main', ''), MergeStrategy.Overwrite)]),
+        chain([mergeWith(getTemplate(options, tree, 'mock-server', 'mock-server'), MergeStrategy.Overwrite)]),
         MergeStrategy.Overwrite
       ),
 
-      // override environment files with additional logic
+      // add mock-data files with readme
       branchAndMerge(
-        chain([mergeWith(getTemplate(options, tree, 'environments', 'environments'), MergeStrategy.Overwrite)]),
+        chain([mergeWith(getTemplate(options, tree, 'mock-data', 'mock-server/mock-data'), MergeStrategy.Overwrite)]),
+        MergeStrategy.Overwrite
+      ),
+
+      // add languages files with languages generate method
+      branchAndMerge(
+        chain([
+          mergeWith(
+            getTemplate(options, tree, 'mock-data--languages', 'mock-server/mock-data/languages'),
+            MergeStrategy.Overwrite
+          ),
+        ]),
         MergeStrategy.Overwrite
       ),
 
@@ -114,4 +90,4 @@ function setup(options: Schema): Rule {
   };
 }
 
-export { setup };
+export { boilerplate };
