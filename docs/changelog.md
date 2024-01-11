@@ -2,6 +2,11 @@
 
 # next
 
+# 3.2.0
+
+- Improve installation docs
+- Add boilerplate schematics
+
 # 3.1.0
 
 - Update to latest version of msw
