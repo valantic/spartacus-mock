@@ -25,15 +25,9 @@ const defaultRoutes = getDefaultRoutes(environment);
 
 export const handlers = (): RestHandler[] => {
   return [
-    http.get(
+    http.get<{}, { foo: number; bar: string }>(
       defaultRoutes.languages,
-      (
-        request: StrictRequest<{
-          foo: number;
-          bar: string;
-        }>,
-        params: PathParams<string>
-      ) => {
+      ({ request, params }) => {
         return HttpResponse.json(languageList());
       }
     ),
