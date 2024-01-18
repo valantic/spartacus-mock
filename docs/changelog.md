@@ -2,6 +2,10 @@
 
 # next
 
+# 3.3.0
+
+- Update docs
+
 # 3.2.0
 
 - Improve installation docs
