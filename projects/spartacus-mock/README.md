@@ -1,71 +1,65 @@
 # spartacus-mock
 
-This project offers you the possibility, to mock the API (OCC) Endpoints of your ([Spartacus](https://github.com/SAP/spartacus)).
+This project offers you the possibility, to mock the API (OCC) Endpoints of your Composable-Storefront ([Spartacus](https://github.com/SAP/spartacus)).
 It uses the Mock Service Worker (MSW) [library](https://mswjs.io/) to mock the API calls.
 
-## Table of Contents
-
-- [Versions](#versions)
 - [Getting Started](#getting-started)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
-- [Configuration](#configuration)
-- [Developer Documentation](#developer-documentation)
-- [Found an issue?](#github-issues)
-- [Contribution Guidelines](#contribution-guidelines)
+- [Versions](#versions)
+- [Motivation](#motivation)
+- [Feature Scope](#feature-scope)
+- [Documentation](#documentation)
+
+# Getting started
+
+You want to get started quickly? Follow the steps of the [Getting Started](getting-started/README.md) section.
 
 # Versions
 
 This project is tested to work with the listed angular versions and the listed Spartacus Versions in this table.
 
-| Angular          | Spartacus | spartacus-mock |
-| ---------------- | :-------: | :------------: |
-| >=15.0.0 <16.0.0 |   6.x.x   |      2.x       |
-| >=14.0.0 <15.0.0 |   5.x.x   |      1.x       |
+| Angular          | Spartacus | msw | spartacus-mock |
+| ---------------- | :-------: | :-: | :------------: |
+| >=15.0.0 <16.0.0 |   6.x.x   | 2.x |      3.x       |
+| >=15.0.0 <16.0.0 |   6.x.x   | 1.x |      2.x       |
+| >=14.0.0 <15.0.0 |   5.x.x   | 1.x |      1.x       |
 
 It is possible that it works with other versions, but not tested.
 
-# Getting Started
+# Motivation
 
-The package offers a schematics to install the package and add the needed file changes in your spartacus project.
+When building Frontend application for SAP Commerce (former hybris), it was always a little bit annoying, as the frontend engineers needed to
+run hybris on their local machines. Additionally, one needed to wait until new features where built by the backend to be able to build the
+frontend for it.
 
-> Please note: The schematics adjusts below listed files in your project. If you already have made changes in these files,
-> please check the changes carefully.
+In the new world of composable storefront (former spartacus), it already got easier as it is now possible to use a remote environment as backend.
+The problem of features not being ready yet or not being deployed to the remote environment still exists.
 
-## Installation
+Spartacus-mock tries to solve both problems since you don't need to wait anymore, until
 
-1. Open a terminal and navigate to the root folder of your angular / spartacus project (the folder where the `angular.json` is located)
-2. Run the schematics of the package: `ng add @valantic/spartacus-mock`
-3. Check the automatically added changes in the files
-4. `angular.json`
-5. `package.json`
-6. `src/environments/environment.ts`
-7. `src/environments/environment.model.ts`
-8. `src/main.ts`
+- "...that dev system is ready"
+- "...that feature has been merged & deployed by the backend"
+- "...that page / component has been added in Smartedit by the backend"
 
-## Configuration
+It comes with the mock-data for the standard electronics store.
 
-1. Enhance the file `src/app/spartacus/spartacus-configuration.module.ts` with the following config:
+You can then define your own custom mock-data tailored to your custom spartacus project.
+Adding new pages and components in no time helps you, developing your actual feature, without
+waiting until the Backend has finished or the hassle of running a local hybris ;-).
 
-```ts
-provideConfig(<OccConfig>{
-  backend: {
-    occ: {
-      prefix: environment.backend.occ.prefix,
-      baseUrl: environment.backend.occ.baseUrl,
-    }
-  },
-}),
-```
+# Feature Scope
 
-2. Start the spartacus instance as you would normally do: `npm run dev` (or your defined npm task)
-3. Open your browser
-4. Notice the message in the console: `[MSW] Mocking enabled.`
-5. All mocked calls are still normally visible in the network tab of your browser's developer tools
+Spartacus-Mock currently offers mock-data for the following spartacus features / pages for the default electronics store:
 
-> For more information how you can configure the mock server, see the [Options](https://valantic.gitbook.io/spartacus-mock/api-reference) page.
+- Home Page
+- Content Page
+- Product Categories
+- Product Search
+- Product Detail
+- Cart
+- Checkout
+- My Account (except Order Returns)
 
-> For more information how you can define your mock-data, see the [Examples](https://valantic.gitbook.io/spartacus-mock/examples) page.
+See [Roadmap](https://valantic.gitbook.io/spartacus-mock/roadmap) for more information about the planned features.
 
 > For more information about the underlying Mock Service Worker tool, see the [MSW documentation](https://mswjs.io/docs/api/rest).
 
