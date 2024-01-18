@@ -72,7 +72,7 @@ function setup(options: Schema): Rule {
       {
         type: NodeDependencyType.Dev,
         name: 'msw',
-        version: '2.0.12',
+        version: '2.1.2',
       },
       {
         type: NodeDependencyType.Dev,
