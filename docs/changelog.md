@@ -2,6 +2,10 @@
 
 # next
 
+# 3.4.0
+
+- Update to version 2.1.2 of msw
+
 # 3.3.0
 
 - Update docs
