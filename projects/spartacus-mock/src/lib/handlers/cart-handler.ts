@@ -61,26 +61,20 @@ export const getCartHandlers = (routes: any, localStorageService: LocalStorageSe
     }),
 
     // cart post call to add entries to the cart
-    http.post(
-      routes.addEntries,
-      async ({ request }: { request: StrictRequest<{ quantity: number; product: { code: string } }> }) => {
-        const { quantity, product } = await request.json();
+    http.post<{}, { quantity: number; product: { code: string } }>(routes.addEntries, async ({ request }) => {
+      const { quantity, product } = await request.json();
 
-        return HttpResponse.json(addToCart(product, quantity), { status: 201 });
-      }
-    ),
+      return HttpResponse.json(addToCart(product, quantity), { status: 201 });
+    }),
 
     // cart patch call to update entries in the cart
-    http.patch(
-      routes.updateEntries,
-      async ({ request, params }: { request: StrictRequest<{ quantity: number }>; params: PathParams }) => {
-        const cartId = readUrlParams(params, 'cartId');
-        const entryNumber = parseInt(readUrlParams(params, 'entryNumber'));
-        const { quantity } = await request.json();
+    http.patch<{}, { quantity: number }>(routes.updateEntries, async ({ request, params }) => {
+      const cartId = readUrlParams(params, 'cartId');
+      const entryNumber = parseInt(readUrlParams(params, 'entryNumber'));
+      const { quantity } = await request.json();
 
-        return HttpResponse.json(updateEntries(cartId, entryNumber, quantity));
-      }
-    ),
+      return HttpResponse.json(updateEntries(cartId, entryNumber, quantity));
+    }),
 
     // cart delete call to update entries in the cart
     http.delete(routes.removeEntries, ({ params }) => {

@@ -1,4 +1,4 @@
-import { HttpHandler, HttpResponse, PathParams, StrictRequest, http } from 'msw';
+import { HttpHandler, HttpRequestHandler, HttpResponse, PathParams, StrictRequest, http } from 'msw';
 import {
   consentTemplateList,
   consentTemplatesHead,
@@ -55,16 +55,13 @@ export const getAccountHandlers = (routes: any): HttpHandler[] => {
     http.delete(routes.consentDetail, () => {
       return HttpResponse.json({});
     }),
-    http.post(
-      routes.consents,
-      async ({ request, params }: { request: StrictRequest<{ consentTemplateId: string }>; params: PathParams }) => {
-        const user = readUrlParams(params, 'user');
+    http.post<{}, { consentTemplateId: string }>(routes.consents, async ({ request, params }) => {
+      const user = readUrlParams(params, 'user');
 
-        const { consentTemplateId } = await request.json();
+      const { consentTemplateId } = await request.json();
 
-        return HttpResponse.json(createConsentTemplate(user, consentTemplateId));
-      }
-    ),
+      return HttpResponse.json(createConsentTemplate(user, consentTemplateId));
+    }),
     http.options(routes.anonymousConsentTemplates, () => {
       // eslint-disable-next-line  no-console
       console.log('options call for anonymous consent templates');
