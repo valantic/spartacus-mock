@@ -81,7 +81,7 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 6. If new files within the docs folder have been added or changed, make sure, they are listed in the SUMMARY.md,
    see [here](https://docs.gitbook.com/integrations/git-sync/troubleshooting#nothing-happens-on-gitbook-after-adding-a-new-file-to-my-repository)
 7. Build the library and the schematics according to the steps above at `## Build the library`
-8. Create a Git Tag with the to be released version number ` git tag x.x.x`
+8. Create a Git Tag with the to be released version number `git tag x.x.x`
 9. Commit and Push the changes to the remote (Make sure to also push Tags `git push origin --tags`)
 10. Open the terminal and go to the folder `dist/spartacus-mock`
 11. Login to NPM `npm login` if you not already are logged in

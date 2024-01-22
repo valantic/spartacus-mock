@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "clean": "rm -rf dist/",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "dev": "npm run watch && cd projects/spartacus-mock && npm run watch && cd ../../dist/spartacus-mock && npm link && cd ../..",
     "dev-build": "npm run build && cd projects/spartacus-mock && npm run build && cd ../../dist/spartacus-mock && npm link && cd ../..",
+    "build-and-release": "npm run clean && npm run build && cd projects/spartacus-mock && npm run build && cd ../../dist/spartacus-mock && npm publish --access public",
     "clean:caches": "rm -rf .eslintcache node_modules/.cache",
     "\n# TASKS FOR LINTING ---------------------------------------------------------------------------------------": "",
     "prepare": "husky install",
