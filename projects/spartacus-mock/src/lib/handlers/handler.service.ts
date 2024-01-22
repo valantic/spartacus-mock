@@ -12,6 +12,7 @@ import { getOrderHandlers } from './order-handler';
 import { getProductHandlers } from './product-handler';
 import { getSearchHandlers } from './search-handler';
 import { getStoreFinderHandlers } from './store-finder-handler';
+import { getTranslationHandlers } from './translation-handler';
 import { getUserHandlers } from './user-handler';
 
 /**
@@ -43,6 +44,10 @@ export class HandlerService {
       ...getAccountHandlers(this.routes),
       ...getStoreFinderHandlers(this.routes),
     ];
+  }
+
+  getTranslationsHandler() {
+    return [...getTranslationHandlers(this.routes, this.config)];
   }
 
   getPagesHandler(): HttpHandler[] {

@@ -2,8 +2,7 @@ import { http, passthrough } from 'msw';
 import { SetupWorker, setupWorker } from 'msw/browser';
 import { HandlerService } from './handlers';
 import { LocalStorageService } from './local-storage';
-import { PageFactoryService } from './mock-data';
-import { PageService } from './mock-data';
+import { PageFactoryService, PageService } from './mock-data';
 import { PassThroughService } from './pass-through';
 import { MockConfig } from './types';
 
@@ -31,6 +30,9 @@ function getWorker(config: MockConfig): SetupWorker {
 
     // Default Handlers
     ...(config.enableDefaultData ? handlerService.getAllHandlers() : []),
+
+    // Translations Handler if custom translations are provided
+    ...(config.translations ? handlerService.getTranslationsHandler() : []),
 
     // Pages only Handler in inclusionMode to be able to pass through pages requests which are not included in the mockedPages array
     ...(config.inclusionMode ? handlerService.getPagesHandler() : [])
