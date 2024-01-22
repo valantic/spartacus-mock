@@ -2,6 +2,10 @@
 
 # next
 
+# 3.5.0
+
+- extract translation handler to be able to use it without setting enableDefaultData to true
+
 # 3.4.0
 
 - Update to version 2.1.2 of msw
