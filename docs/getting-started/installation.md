@@ -6,6 +6,23 @@ The package offers a schematics to install the package and add the needed file c
 
 1. Run the angular schematics `ng add @valantic/spartacus-mock` to install the package, add all needed changes and generate the boilerplate files.
 2. Check all the file changes made by the schematics, restore potential previous custom changes, as the adjusted files where copied from spartacus-mock
+3. Optional: If you use PWA functionality, enhance your `ngsw-config.json` section `app` config `files` array with `"!/*mock*.js"`. This makes sure, the service worker does not load the mock server files.
+   ```json
+   {
+     "name": "app",
+     "installMode": "prefetch",
+     "resources": {
+       "files": [
+         "/favicon.ico",
+         "/index.html",
+         "/manifest.webmanifest",
+         "/*.css",
+         "/*.js",
+         "!/*mock*.js"
+       ]
+     }
+   }
+   ```
 
 ## Manual installation
 
@@ -75,8 +92,28 @@ The package offers a schematics to install the package and add the needed file c
    Merge potential previous custom changes with the above content, if you have any
 
 9. Optional: Run the schematics `ng boilerplate @valantic/spartacus-mock` and check the boilerplate files generated in the `src/mock-server` folder for an easier start
+
    1. `src/mock-server/index.ts`
    2. `src/mock-server/routes.ts`
    3. `src/mock-server/handlers.ts`
    4. `src/mock-server/pass-through.ts`
    5. `src/mock-server/mock-data/languages/languages.ts`
+
+10. Optional: If you use PWA functionality, enhance your `ngsw-config.json` `app` config `files` array with `"!/*mock*.js"`. This makes sure, the service worker does not load the mock server files.
+
+```json
+{
+  "name": "app",
+  "installMode": "prefetch",
+  "resources": {
+    "files": [
+      "/favicon.ico",
+      "/index.html",
+      "/manifest.webmanifest",
+      "/*.css",
+      "/*.js",
+      "!/*mock*.js"
+    ]
+  }
+}
+```
