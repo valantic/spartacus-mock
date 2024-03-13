@@ -11,7 +11,7 @@ The package offers a schematics to install the package and add the needed file c
 
 1. Open a terminal and navigate to the root folder of your angular / spartacus project (the folder where the `angular.json` is located)
 2. Run `npm i @valantic/spartacus-mock@3.1.0 -d` to install the package as devDependency
-3. Run `npm i msw@2.1.2 -d` to install the package as devDependency
+3. Run `npm i msw@2.2.3 -d` to install the package as devDependency
 4. Enhance `angular.json` architect build target assets array with `"src/mockServiceWorker.js"`
 5. Enhanced `package.json` with the following object in the root level
    ```

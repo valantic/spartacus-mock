@@ -8,8 +8,8 @@
     "url": "git+https://github.com/valantic/spartacus-mock.git"
   },
   "engines": {
-    "node": ">=16 <19",
-    "npm": ">=8 <10"
+    "node": ">=20 <21",
+    "npm": ">=10 <11"
   },
   "author": "valantic CEC",
   "license": "MIT",
@@ -21,27 +21,28 @@
   "scripts": {
     "postinstall": "cd $INIT_CWD && npx msw init ./src --save",
     "build": "tsc -p tsconfig.schematics.json",
-    "watch": "tsc -p tsconfig.schematics.json --watch",
-    "postbuild": "copyfiles schematics/*/schema.json schematics/*/files/**/* schematics/collection.json ../../dist/spartacus-mock/"
+    "postbuild": "copyfiles schematics/*/schema.json schematics/*/files/**/* schematics/collection.json ../../dist/spartacus-mock/",
+    "watch": "tsc -p tsconfig.schematics.json --watch"
   },
   "schematics": "./schematics/collection.json",
   "ng-add": {
     "save": "devDependencies"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.6."
   },
   "peerDependencies": {
-    "@angular/common": "~15.2.9",
-    "@angular/core": "~15.2.9",
-    "@angular/compiler": "~15.2.9",
-    "msw": "~2.1.2"
+    "@angular/common": "~17.2.4",
+    "@angular/core": "~17.2.4",
+    "@angular/compiler": "~17.2.4",
+    "msw": "~2.2.3"
   },
   "devDependencies": {
     "copyfiles": "file:../../node_modules/copyfiles",
     "typescript": "file:../../node_modules/typescript",
     "@angular-devkit/core": "file:../../node_modules/@angular-devkit/core",
     "@angular-devkit/schematics": "file:../../node_modules/@angular-devkit/schematics",
-    "@schematics/angular": "file:../../node_modules/@schematics/angular"
+    "@schematics/angular": "file:../../node_modules/@schematics/angular",
+    "@types/node": "file:../../node_modules/@types/node"
   }
 }

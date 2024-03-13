@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { createPrice, createPriceRange } from '../commerce';
-import { createPromotion } from '../commerce';
+import { createPrice, createPriceRange, createPromotion } from '../commerce';
 import { image } from '../media';
 import { createBaseOption, createVariantOption } from './product-base-option';
 import { createProductCategory } from './product-categories';
@@ -114,7 +113,7 @@ export const createFullProduct = (additionalData?: Occ.Product): Occ.Product => 
   return {
     ...createBaseProduct(),
     availableForPickup: true,
-    averageRating: faker.number.float({ min: 1, max: 5, precision: 0.1 }),
+    averageRating: faker.number.float({ min: 1, max: 5, multipleOf: 0.1 }),
     baseOptions: [createBaseOption()],
     categories: [createProductCategory(), createProductCategory(), createProductCategory()],
     classifications: [createProductClassification(), createProductClassification(), createProductClassification()],

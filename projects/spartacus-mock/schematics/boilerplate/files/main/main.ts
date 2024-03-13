@@ -1,6 +1,5 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { MockConfig } from '@valantic/spartacus-mock';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
@@ -9,17 +8,13 @@ if (environment.production) {
 }
 
 async function prepare(): Promise<ServiceWorkerRegistration | undefined> {
-  if (environment.mockServer) {
-    const { prepareMock } = await import(/* webpackChunkName: "mock-server" */ '@valantic/spartacus-mock');
-
-    const mockConfig: MockConfig = {
-      enableWorker: environment.mockServer || false,
-      environment,
-    };
-
-    return prepareMock(mockConfig);
+  if (!environment.mockServer) {
+    return undefined;
   }
-  return Promise.resolve(undefined);
+
+  const { prepareMockServer } = await import(/* webpackChunkName: "mock-server" */ './mock-server');
+
+  return prepareMockServer();
 }
 
 function bootstrap() {

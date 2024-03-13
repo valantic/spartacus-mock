@@ -53,6 +53,7 @@ please create [a new issue](https://github.com/valantic/spartacus-mock/issues/ne
 ### Use the library while developing
 
 1. Make sure, the build (or watch) tasks have been run for both the lib and the schematics
+   1. For the schematics, the build task needs to be run once to copy the `collection.json` to the dist folder
 2. Make sure to use the same node versions for spartacus-mock and your test project to make npm link work
 3. Make sure to remove "@valantic/spartacus-mock" from the package.json of your test project since it get's linked via symlink
 4. Run `npm link` in the folder `dist/spartacus-mock` of this library to be able to use the current dev version of the library in your spartacus project

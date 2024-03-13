@@ -1,17 +1,17 @@
 import { strings } from '@angular-devkit/core';
 import {
+  apply,
+  branchAndMerge,
+  chain,
   MergeStrategy,
+  mergeWith,
+  move,
   Rule,
   SchematicContext,
   SchematicsException,
   Source,
-  Tree,
-  apply,
-  branchAndMerge,
-  chain,
-  mergeWith,
-  move,
   template,
+  Tree,
   url,
 } from '@angular-devkit/schematics';
 import { Location, parseName } from '@schematics/angular/utility/parse-name';
@@ -59,9 +59,30 @@ function logMessage(): Rule {
 
 function boilerplate(options: Schema): Rule {
   return (tree: Tree, context: SchematicContext) => {
+    context.logger.info('🔧️ Enhance main.ts file..');
+    context.logger.info('🔧️ Enhance environment.ts file..');
+    context.logger.info('🔧️ Add environment.model.ts file..');
     context.logger.info('🔧️ Add boilerplate src/mock-server folder and files..');
 
     return chain([
+      // override main file with additional logic
+      branchAndMerge(
+        chain([mergeWith(getTemplate(options, tree, 'main', ''), MergeStrategy.Overwrite)]),
+        MergeStrategy.Overwrite
+      ),
+
+      // override environment files with additional logic
+      branchAndMerge(
+        chain([mergeWith(getTemplate(options, tree, 'environments', 'environments'), MergeStrategy.Overwrite)]),
+        MergeStrategy.Overwrite
+      ),
+
+      // add mock-server files with some boilerplate code
+      branchAndMerge(
+        chain([mergeWith(getTemplate(options, tree, 'mock-server', 'mock-server'), MergeStrategy.Overwrite)]),
+        MergeStrategy.Overwrite
+      ),
+
       // add mock-server files with some boilerplate code
       branchAndMerge(
         chain([mergeWith(getTemplate(options, tree, 'mock-server', 'mock-server'), MergeStrategy.Overwrite)]),
