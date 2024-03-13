@@ -1,6 +1,44 @@
 # Changelog
 
-## next
+# next
+
+# 4.0.0
+
+- Update to Angular 17 and Spartacus 2211.x
+- Update to msw 2.2.3
+
+# 3.5.0
+
+- extract translation handler to be able to use it without setting enableDefaultData to true
+
+# 3.4.0
+
+- Update to version 2.1.2 of msw
+
+# 3.3.0
+
+- Update docs
+
+# 3.2.0
+
+- Improve installation docs
+- Add boilerplate schematics
+
+# 3.1.0
+
+- Update to latest version of msw
+
+## 3.0.0
+
+- #58 Update to msw 2.x, update all handlers to use the new syntax, see breaking changes below
+- #61 Improve separation of defaultData and inclusion mode
+- #62 Add quiet option to disable console output
+
+### Breaking Changes
+
+- rename config option `disableDefaultData` to `enableDefaultData`
+- add new options `inclusionMode` (previously used `disableDefaultData`)
+- use msw Version 2.x, check Migration Guide [here](https://mswjs.io/docs/migrations/1.x-to-2.x)
 
 ## 2.2.0
 
