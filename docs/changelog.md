@@ -2,6 +2,10 @@
 
 # next
 
+# 4.0.1
+
+- fix wrong tslib version
+
 # 4.0.0
 
 - Update to Angular 17 and Spartacus 2211.x
