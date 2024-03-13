@@ -29,7 +29,7 @@
     "save": "devDependencies"
   },
   "dependencies": {
-    "tslib": "^2.6."
+    "tslib": "^2.6.2"
   },
   "peerDependencies": {
     "@angular/common": "~17.2.4",
