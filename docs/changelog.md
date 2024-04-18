@@ -2,6 +2,10 @@
 
 # next
 
+# 4.0.2
+
+- fix peer dependencies to be greater than
+
 # 4.0.1
 
 - fix wrong tslib version

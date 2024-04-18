@@ -1,6 +1,6 @@
 {
   "name": "@valantic/spartacus-mock",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "This project offers you the possibility to mock the OCC Endpoints of your Composable Storefront (Spartacus). It uses the Mock Service Worker to mock the API calls.",
   "keywords": ["Composable Storefront", "Spartacus", "spartacus-mock", "schematics", "angular", "valantic"],
   "repository": {
