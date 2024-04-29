@@ -15,7 +15,10 @@ const translationResources = (config: MockConfig): TranslationResources => {
 
 export const translationsForNamespace = (language: string, namespace: string, config: MockConfig) => {
   // return the requested namespace for the requested language, or the requested namespace for the default language
-  return translationResources(config)[language][namespace] ?? translationResources(config)['en'][namespace];
+  return (
+    (translationResources(config)[language] && translationResources(config)[language][namespace]) ??
+    translationResources(config)['en'][namespace]
+  );
 };
 
 /**

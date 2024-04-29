@@ -83,12 +83,6 @@ function boilerplate(options: Schema): Rule {
         MergeStrategy.Overwrite
       ),
 
-      // add mock-server files with some boilerplate code
-      branchAndMerge(
-        chain([mergeWith(getTemplate(options, tree, 'mock-server', 'mock-server'), MergeStrategy.Overwrite)]),
-        MergeStrategy.Overwrite
-      ),
-
       // add mock-data files with readme
       branchAndMerge(
         chain([mergeWith(getTemplate(options, tree, 'mock-data', 'mock-server/mock-data'), MergeStrategy.Overwrite)]),
@@ -100,6 +94,17 @@ function boilerplate(options: Schema): Rule {
         chain([
           mergeWith(
             getTemplate(options, tree, 'mock-data--languages', 'mock-server/mock-data/languages'),
+            MergeStrategy.Overwrite
+          ),
+        ]),
+        MergeStrategy.Overwrite
+      ),
+
+      // add translation files with default en translations from spartacus
+      branchAndMerge(
+        chain([
+          mergeWith(
+            getTemplate(options, tree, 'mock-data--translations', 'mock-server/mock-data/translations'),
             MergeStrategy.Overwrite
           ),
         ]),
