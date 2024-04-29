@@ -17,14 +17,8 @@ async function prepare(): Promise<ServiceWorkerRegistration | undefined> {
   return prepareMockServer();
 }
 
-function bootstrap() {
+prepare().then(() =>
   platformBrowserDynamic()
     .bootstrapModule(AppModule)
-    .catch((err) => console.error(err));
-}
-
-if (document.readyState === 'complete') {
-  prepare().then(() => bootstrap());
-} else {
-  document.addEventListener('DOMContentLoaded', () => prepare().then(() => bootstrap()));
-}
+    .catch((err) => console.error(err))
+);
