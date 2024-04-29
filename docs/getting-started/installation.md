@@ -23,6 +23,7 @@ The package offers a schematics to install the package and add the needed file c
      }
    }
    ```
+4. Optional: if you use prettier, add the file `src/mockServiceWorker.js` to the `.prettierignore` file
 
 ## Manual installation
 
