@@ -86,3 +86,5 @@ async function prepare(): Promise<
   return Promise.resolve(undefined);
 }
 ```
+
+> Please note: As your contentPages function grows, make sure, you only call it once and store the result in a variable to avoid performance issues.

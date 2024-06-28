@@ -1,21 +1,27 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
-import { contentSlot } from '../components';
-import { flexTypeComponent } from '../components';
+import { contentSlot, flexTypeComponent } from '../components';
 import { breadcrumbComponent } from '../components/breadcrumb';
 import { footerSlots } from '../slots/footer-slots';
 import { bottomHeaderSlot, headerSlots } from '../slots/header-slots';
 import { homeContentSlots } from '../slots/home-content-slots';
 import { productDetailContentSlots } from '../slots/product-detail-content-slots';
 import { cmsSearchContentSlots } from '../slots/search-content-slots';
+import { ContentSlot } from '../../types';
 
 export class PageFactoryService {
   private _customSlots: Occ.ContentSlot[] = [];
+  private _headerSlotsWithBreadCrumb: ContentSlot[] = [];
+  private _headerSlots: ContentSlot[] = [];
+  private _footerSlots: ContentSlot[] = [];
 
   constructor(protected customSlots?: Occ.ContentSlot[]) {
     if (customSlots?.length) {
       this._customSlots = customSlots;
     }
+    this._headerSlotsWithBreadCrumb = headerSlots([bottomHeaderSlot([breadcrumbComponent()])]);
+    this._headerSlots = headerSlots();
+    this._footerSlots = footerSlots();
   }
 
   private _getGlobalSlots(defaultSlots: Occ.ContentSlot[]): Occ.ContentSlot[] {
@@ -45,7 +51,7 @@ export class PageFactoryService {
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
         contentSlot: [
-          ...this._getGlobalSlots([...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]), ...footerSlots()]),
+          ...this._getGlobalSlots([...this._headerSlotsWithBreadCrumb, ...this._footerSlots]),
           ...contentSlots,
         ],
       },
@@ -62,7 +68,7 @@ export class PageFactoryService {
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
         contentSlot: [
-          ...this._getGlobalSlots([...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]), ...footerSlots()]),
+          ...this._getGlobalSlots([...this._headerSlotsWithBreadCrumb, ...this._footerSlots]),
           ...cmsSearchContentSlots('ProductListSlot', 'CMSProductListComponent'),
         ],
       },
@@ -79,7 +85,7 @@ export class PageFactoryService {
       name: 'Homepage',
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
-        contentSlot: [...this._getGlobalSlots([...headerSlots(), ...footerSlots()]), ...homeContentSlots()],
+        contentSlot: [...this._getGlobalSlots([...this._headerSlots, ...this._footerSlots]), ...homeContentSlots()],
       },
     };
   }
@@ -93,7 +99,10 @@ export class PageFactoryService {
       name: 'Product Detail Page',
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
-        contentSlot: [...this._getGlobalSlots([...headerSlots(), ...footerSlots()]), ...productDetailContentSlots()],
+        contentSlot: [
+          ...this._getGlobalSlots([...this._headerSlots, ...this._footerSlots]),
+          ...productDetailContentSlots(),
+        ],
       },
     };
   }
@@ -109,7 +118,7 @@ export class PageFactoryService {
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
         contentSlot: [
-          ...this._getGlobalSlots([...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]), ...footerSlots()]),
+          ...this._getGlobalSlots([...this._headerSlotsWithBreadCrumb, ...this._footerSlots, ...footerSlots()]),
           contentSlot('LeftContentSlot', [
             flexTypeComponent('ReturningCustomerLoginComponent'),
             flexTypeComponent('ReturningCustomerRegisterComponent'),
@@ -130,7 +139,7 @@ export class PageFactoryService {
       robotTag: Occ.PageRobots.INDEX_FOLLOW,
       contentSlots: {
         contentSlot: [
-          ...this._getGlobalSlots([...headerSlots([bottomHeaderSlot([breadcrumbComponent()])]), ...footerSlots()]),
+          ...this._getGlobalSlots([...this._headerSlotsWithBreadCrumb, ...this._footerSlots, ...footerSlots()]),
           contentSlot('BodyContent', [flexTypeComponent('RegisterCustomerComponent')]),
         ],
       },

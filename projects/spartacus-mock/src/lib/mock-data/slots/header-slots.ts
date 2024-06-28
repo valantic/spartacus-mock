@@ -1,9 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
 import { Component, ContentSlot } from '../../types';
-import { cmsLinkComponent } from '../components';
-import { simpleBannerComponent } from '../components';
-import { flexTypeComponent } from '../components';
+import { cmsLinkComponent, flexTypeComponent, simpleBannerComponent } from '../components';
 import { categoryNavigationComponent } from '../components/category-navigation';
 import { miniCartComponent } from '../components/mini-cart';
 import { searchBoxComponent } from '../components/search-box';

@@ -12,7 +12,10 @@ export class PageService {
   customProductDetailPage?: Page;
   customProductCategoryPage?: Page;
 
-  constructor(private config: MockConfig, private pageFactoryService: PageFactoryService) {
+  constructor(
+    private config: MockConfig,
+    private pageFactoryService: PageFactoryService
+  ) {
     if (config.contentPages) {
       this.customContentPages = config.contentPages;
     }
