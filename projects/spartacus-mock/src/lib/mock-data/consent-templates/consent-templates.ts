@@ -2,9 +2,9 @@ import { faker } from '@faker-js/faker';
 import { Occ } from '@spartacus/core';
 
 export const anonymousConsents = [
-  { templateCode: 'MARKETING_NEWSLETTER', templateVersion: 0, consentState: null },
-  { templateCode: 'PROFILE', templateVersion: 0, consentState: null },
-  { templateCode: 'STORE_USER_INFORMATION', templateVersion: 0, consentState: null },
+  { templateCode: 'MARKETING_NEWSLETTER', templateVersion: 0, consentState: 'GIVEN' },
+  { templateCode: 'PROFILE', templateVersion: 0, consentState: 'GIVEN' },
+  { templateCode: 'STORE_USER_INFORMATION', templateVersion: 0, consentState: 'GIVEN' },
 ];
 
 export const consentTemplatesOptions = () => {

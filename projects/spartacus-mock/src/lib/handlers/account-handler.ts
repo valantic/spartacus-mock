@@ -1,4 +1,4 @@
-import { HttpHandler, HttpRequestHandler, HttpResponse, PathParams, StrictRequest, http } from 'msw';
+import { http, HttpHandler, HttpResponse } from 'msw';
 import {
   consentTemplateList,
   consentTemplatesHead,

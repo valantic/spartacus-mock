@@ -123,7 +123,7 @@ export function getDefaultRoutes(environment: Environment) {
     /**
      * Route for the call to get the consent templates for the current user
      */
-    anonymousConsentTemplates: `${occEndpoint}:baseSiteId/users/anonymous/consenttemplates`,
+    anonymousConsentTemplates: `${occEndpoint}:baseSiteId/users/:user/consenttemplates`,
 
     /**
      * Route for the call to get the notification preferences for the current user
