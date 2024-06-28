@@ -1,9 +1,9 @@
-import { HttpHandler, HttpResponse, PathParams, StrictRequest, http } from 'msw';
+import { http, HttpHandler, HttpResponse } from 'msw';
 import { LocalStorageService } from '../local-storage';
 import { addVoucher, deleteVoucher } from '../mock-data';
 import {
-  CartUserType,
   addToCart,
+  CartUserType,
   deleteCart,
   getCart,
   getCarts,
@@ -129,6 +129,12 @@ export const getCartHandlers = (routes: any, localStorageService: LocalStorageSe
 
       deleteVoucher(voucherCode);
       return HttpResponse.json({});
+    }),
+
+    http.post(routes.validate, () => {
+      return HttpResponse.json({
+        cartModifications: [],
+      });
     }),
   ];
 };
