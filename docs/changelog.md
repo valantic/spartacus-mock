@@ -2,6 +2,16 @@
 
 # next
 
+# 5.0.0
+
+- improve Translation handling
+- add hint regarding prettier-ignore
+- simplify mock server startup function
+- improve performance by not calling header & footer slot functions multiple times
+- adjust consent template mock calls
+- add validate cart handler
+- update to Angular 19 and Spartacus 2211.37.0
+
 # 4.0.2
 
 - fix peer dependencies to be greater than
