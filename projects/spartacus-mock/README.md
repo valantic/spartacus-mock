@@ -19,6 +19,8 @@ This project is tested to work with the listed angular versions and the listed S
 
 | Angular          | Spartacus | msw | spartacus-mock |
 | ---------------- | :-------: | :-: | :------------: |
+| >=19.0.0 <20.0.0 |  2211.x   | 2.x |      5.x       |
+| >=17.0.0 <18.0.0 |  2211.x   | 2.x |      4.x       |
 | >=15.0.0 <16.0.0 |   6.x.x   | 2.x |      3.x       |
 | >=15.0.0 <16.0.0 |   6.x.x   | 1.x |      2.x       |
 | >=14.0.0 <15.0.0 |   5.x.x   | 1.x |      1.x       |
