@@ -2,6 +2,10 @@
 
 # next
 
+# 5.0.1
+
+- update version docs
+
 # 5.0.0
 
 - improve Translation handling
