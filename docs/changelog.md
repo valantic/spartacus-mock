@@ -2,6 +2,10 @@
 
 # next
 
+# 5.0.2
+
+- fix peer dependency versions
+
 # 5.0.1
 
 - update version docs
