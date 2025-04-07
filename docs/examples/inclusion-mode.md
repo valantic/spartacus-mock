@@ -57,7 +57,7 @@ async function prepare(): Promise<
 
 #### Mock only certain pages
 
-1. Add the property `inclusionMode: true` to the mockConfig in your `main.ts` file and set the property `exclusionMode` to `false`
+1. Add the property `inclusionMode: true` to the mockConfig in your `main.ts` file
 2. Follow the steps described in [Add custom pages or override default pages](#add-custom-pages-or-override-default-pages) to add a custom page
 3. Define an Array where you specify the request that you want to mock (this is needed, as in the Inclusion Mode, all requested go through by default)
 
@@ -96,7 +96,6 @@ async function prepare(): Promise<
 
     const mockConfig: MockConfig = {
       enableWorker: environment.mockServer || false,
-      exclusionMode: false,
       inclusionMode: true,
       contentPages: contentPages(),
       mockedRequests: mockedRequests(),

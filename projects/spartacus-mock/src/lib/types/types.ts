@@ -75,7 +75,6 @@ export interface MockConfig {
   enableWorker: boolean;
   environment: Environment;
   enableDefaultData?: boolean;
-  exclusionMode?: boolean;
   passThroughRequests?: MockRequest[];
   handlers?: HttpHandler[];
   contentPages?: ContentPages;
