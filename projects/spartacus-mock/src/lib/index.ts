@@ -1,4 +1,4 @@
-import { http, passthrough } from 'msw';
+import { http, passthrough, RequestHandler } from 'msw';
 import { SetupWorker, setupWorker } from 'msw/browser';
 import { HandlerService } from './handlers';
 import { LocalStorageService } from './local-storage';
@@ -41,7 +41,7 @@ function getWorker(config: MockConfig): SetupWorker {
   if (config.debug) {
     worker.listHandlers().forEach((handler) => {
       // eslint-disable-next-line  no-console
-      console.log(handler.info.header);
+      console.log((handler as RequestHandler).info.header);
     });
   }
 
