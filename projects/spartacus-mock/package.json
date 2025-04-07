@@ -35,7 +35,7 @@
     "@angular/common": "^19.2.5",
     "@angular/core": "^19.2.5",
     "@angular/compiler": "^19.2.5",
-    "msw": "~2.7.3"
+    "msw": "^2.7.3"
   },
   "devDependencies": {
     "copyfiles": "file:../../node_modules/copyfiles",
