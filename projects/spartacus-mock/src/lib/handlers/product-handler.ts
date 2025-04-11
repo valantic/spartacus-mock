@@ -1,12 +1,5 @@
-import { HttpHandler, HttpResponse, http } from 'msw';
-import {
-  createFullProduct,
-  createReview,
-  getOrders,
-  productReferenceList,
-  productSearchPage,
-  reviewList,
-} from '../mock-data';
+import { http, HttpHandler, HttpResponse } from 'msw';
+import { createFullProduct, createReview, productReferenceList, productSearchPage, reviewList } from '../mock-data';
 import { readSearchParams, readUrlParams } from '../utils';
 
 export const getProductHandlers = (routes: any): HttpHandler[] => {
@@ -25,6 +18,7 @@ export const getProductHandlers = (routes: any): HttpHandler[] => {
       return HttpResponse.json(createReview());
     }),
 
+    // handler needs to be before the routes.product handler to not always get the product data
     http.get(routes.productSearch, ({ request }) => {
       const query = readSearchParams(request, 'query');
       const sort = readSearchParams(request, 'sort');
