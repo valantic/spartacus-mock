@@ -1,11 +1,11 @@
-import { HttpHandler, HttpResponse, http } from 'msw';
+import { HttpResponse, RequestHandler, http } from 'msw';
 import {
   createPointOfService,
   storeFinderSearchPage,
   storesAndRegionsStoreCount,
 } from '../mock-data/store-finder/store-finder';
 
-export const getStoreFinderHandlers = (routes: any): HttpHandler[] => {
+export const getStoreFinderHandlers = (routes: any): RequestHandler[] => {
   return [
     http.get(routes.storescounts, () => {
       return HttpResponse.json(storesAndRegionsStoreCount());

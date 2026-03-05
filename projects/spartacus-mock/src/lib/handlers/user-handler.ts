@@ -1,4 +1,4 @@
-import { HttpHandler, HttpResponse, http } from 'msw';
+import { HttpResponse, RequestHandler, http } from 'msw';
 import {
   addressList,
   authRevoke,
@@ -10,7 +10,7 @@ import {
   productInterestSearchResult,
 } from '../mock-data';
 
-export const getUserHandlers = (routes: any): HttpHandler[] => {
+export const getUserHandlers = (routes: any): RequestHandler[] => {
   return [
     http.get(routes.notificationPreferences, () => {
       return HttpResponse.json(notificationPreferenceList());

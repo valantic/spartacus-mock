@@ -1,4 +1,4 @@
-import { HttpHandler } from 'msw';
+import { RequestHandler } from 'msw';
 import { Voucher } from '@spartacus/cart/base/root';
 import { BackendConfig, Occ, OccConfig, Page as SpartacusPage, TranslationResources } from '@spartacus/core';
 
@@ -75,7 +75,7 @@ export interface MockConfig {
   environment: Environment;
   enableDefaultData?: boolean;
   passThroughRequests?: MockRequest[];
-  handlers?: HttpHandler[];
+  handlers?: RequestHandler[];
   contentPages?: ContentPages;
   productDetailPage?: Page;
   productCategoryPage?: Page;

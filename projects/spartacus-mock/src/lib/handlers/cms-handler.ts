@@ -1,4 +1,4 @@
-import { HttpHandler, HttpResponse, http, passthrough } from 'msw';
+import { HttpResponse, RequestHandler, http, passthrough } from 'msw';
 import { Occ } from '@spartacus/core';
 import {
   PageFactoryService,
@@ -18,7 +18,7 @@ export const getCmsPagesHandler = (
   pageFactoryService: PageFactoryService,
   pageService: PageService,
   config: MockConfig
-): HttpHandler[] => {
+): RequestHandler[] => {
   return [
     http.get(routes.pages, ({ request }) => {
       const pageType = readSearchParams(request, 'pageType');
@@ -61,7 +61,7 @@ export const getCmsPagesHandler = (
 
 export const getCmsComponentsHandler = (
   routes: any // TODO change type to be something real after SAP exports the default routes config
-): HttpHandler[] => {
+): RequestHandler[] => {
   return [
     // additional component data call
     http.get(routes.components, ({ request }) => {

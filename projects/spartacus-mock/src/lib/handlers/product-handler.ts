@@ -1,4 +1,4 @@
-import { HttpHandler, HttpResponse, http } from 'msw';
+import { HttpResponse, RequestHandler, http } from 'msw';
 import {
   createFullProduct,
   createReview,
@@ -9,7 +9,7 @@ import {
 } from '../mock-data';
 import { readSearchParams, readUrlParams } from '../utils';
 
-export const getProductHandlers = (routes: any): HttpHandler[] => {
+export const getProductHandlers = (routes: any): RequestHandler[] => {
   return [
     http.get(routes.productReferences, ({ request }) => {
       const referenceType = readSearchParams(request, 'referenceType');
