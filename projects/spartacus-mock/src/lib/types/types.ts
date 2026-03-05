@@ -1,7 +1,6 @@
 import { HttpHandler } from 'msw';
 import { Voucher } from '@spartacus/cart/base/root';
-import { BackendConfig, Occ, OccConfig, Page as SpartacusPage } from '@spartacus/core';
-import { TranslationResources } from '@spartacus/core/src/i18n/translation-resources';
+import { BackendConfig, Occ, OccConfig, Page as SpartacusPage, TranslationResources } from '@spartacus/core';
 
 declare module '@spartacus/core' {
   namespace Occ {

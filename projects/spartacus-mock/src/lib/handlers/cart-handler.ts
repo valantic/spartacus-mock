@@ -1,9 +1,9 @@
-import { http, HttpHandler, HttpResponse } from 'msw';
+import { HttpHandler, HttpResponse, http } from 'msw';
 import { LocalStorageService } from '../local-storage';
 import { addVoucher, deleteVoucher } from '../mock-data';
 import {
-  addToCart,
   CartUserType,
+  addToCart,
   deleteCart,
   getCart,
   getCarts,

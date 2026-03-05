@@ -1,13 +1,13 @@
-import { http, HttpHandler, HttpResponse, passthrough } from 'msw';
+import { HttpHandler, HttpResponse, http, passthrough } from 'msw';
 import { Occ } from '@spartacus/core';
 import {
+  PageFactoryService,
+  PageService,
   activeTabItems,
   components,
   footerLinkComponents,
   myAccountLinkComponents,
   navMainLinkComponents,
-  PageFactoryService,
-  PageService,
   productDetailTabComponents,
 } from '../mock-data';
 import { MockConfig } from '../types';
