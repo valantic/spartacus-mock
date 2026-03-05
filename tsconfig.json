@@ -22,8 +22,7 @@
     "paths": {
       "spartacus-mock": ["dist/spartacus-mock"]
     },
-    "module": "es2020",
-    "lib": ["es2020", "dom"]
+    "module": "es2020"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
