@@ -2,6 +2,11 @@
 
 # next
 
+# 6.0.0
+
+- update to Angular 21 and Spartacus 221121.7.x
+- update handlers to use `RequestHandler` instead of `HttpHandler` for MSW compatibility
+
 # 5.0.2
 
 - fix peer dependency versions
