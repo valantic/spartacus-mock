@@ -1,4 +1,4 @@
-import { http, HttpHandler, HttpResponse } from 'msw';
+import { HttpResponse, RequestHandler, http } from 'msw';
 import {
   consentTemplateList,
   consentTemplatesHead,
@@ -10,7 +10,7 @@ import {
 } from '../mock-data';
 import { readSearchParams, readUrlParams } from '../utils';
 
-export const getAccountHandlers = (routes: any): HttpHandler[] => {
+export const getAccountHandlers = (routes: any): RequestHandler[] => {
   return [
     http.patch(routes.restoreSavedCart, ({ params }) => {
       const cartId = readUrlParams(params, 'cartId');

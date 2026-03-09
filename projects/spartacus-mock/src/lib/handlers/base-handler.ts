@@ -1,4 +1,4 @@
-import { HttpHandler, HttpResponse, http } from 'msw';
+import { HttpResponse, RequestHandler, http } from 'msw';
 import {
   baseSites,
   consentTemplateList,
@@ -12,7 +12,7 @@ import {
 import { MockConfig } from '../types';
 import { readUrlParams } from '../utils';
 
-export const getBaseHandlers = (routes: any, config: MockConfig): HttpHandler[] => {
+export const getBaseHandlers = (routes: any, config: MockConfig): RequestHandler[] => {
   return [
     http.get(routes.baseSites, () => {
       return HttpResponse.json(baseSites());

@@ -1,4 +1,4 @@
-import { http, passthrough, RequestHandler } from 'msw';
+import { RequestHandler, http, passthrough } from 'msw';
 import { SetupWorker, setupWorker } from 'msw/browser';
 import { HandlerService } from './handlers';
 import { LocalStorageService } from './local-storage';

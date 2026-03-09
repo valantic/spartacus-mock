@@ -2,6 +2,29 @@
 
 # next
 
+# 6.0.0
+
+- update to Angular 21 and Spartacus 221121.7.x
+- update handlers to use `RequestHandler` instead of `HttpHandler` for MSW compatibility
+
+# 5.0.2
+
+- fix peer dependency versions
+
+# 5.0.1
+
+- update version docs
+
+# 5.0.0
+
+- improve Translation handling
+- add hint regarding prettier-ignore
+- simplify mock server startup function
+- improve performance by not calling header & footer slot functions multiple times
+- adjust consent template mock calls
+- add validate cart handler
+- update to Angular 19 and Spartacus 2211.37.0
+
 # 4.0.2
 
 - fix peer dependencies to be greater than

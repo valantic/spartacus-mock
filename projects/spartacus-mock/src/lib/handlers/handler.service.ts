@@ -1,4 +1,4 @@
-import { HttpHandler } from 'msw';
+import { RequestHandler } from 'msw';
 import { getDefaultRoutes } from '../defaultRoutes';
 import { LocalStorageService } from '../local-storage';
 import { PageFactoryService, PageService } from '../mock-data';
@@ -30,7 +30,7 @@ export class HandlerService {
     this.routes = getDefaultRoutes(config.environment);
   }
 
-  getAllHandlers(): HttpHandler[] {
+  getAllHandlers(): RequestHandler[] {
     return [
       ...getBaseHandlers(this.routes, this.config),
       ...getUserHandlers(this.routes),
@@ -50,7 +50,7 @@ export class HandlerService {
     return [...getTranslationHandlers(this.routes, this.config)];
   }
 
-  getPagesHandler(): HttpHandler[] {
+  getPagesHandler(): RequestHandler[] {
     return [...getCmsPagesHandler(this.routes, this.pageFactoryService, this.pageService, this.config)];
   }
 }

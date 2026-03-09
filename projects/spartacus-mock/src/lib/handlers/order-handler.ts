@@ -1,4 +1,4 @@
-import { HttpHandler, HttpResponse, http } from 'msw';
+import { HttpResponse, RequestHandler, http } from 'msw';
 import { createOrder, createOrderHistory } from '../mock-data';
 import { getOrders } from '../mock-data';
 import {
@@ -11,7 +11,7 @@ import {
 } from '../mock-data/commerce/cart';
 import { readUrlParams } from '../utils';
 
-export const getOrderHandlers = (routes: any): HttpHandler[] => {
+export const getOrderHandlers = (routes: any): RequestHandler[] => {
   return [
     http.post(routes.placeOrder, ({ request, params }) => {
       const userId = readUrlParams(params, 'userId');

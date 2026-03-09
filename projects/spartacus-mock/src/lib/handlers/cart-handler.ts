@@ -1,9 +1,9 @@
-import { http, HttpHandler, HttpResponse } from 'msw';
+import { HttpResponse, RequestHandler, http } from 'msw';
 import { LocalStorageService } from '../local-storage';
 import { addVoucher, deleteVoucher } from '../mock-data';
 import {
-  addToCart,
   CartUserType,
+  addToCart,
   deleteCart,
   getCart,
   getCarts,
@@ -15,7 +15,7 @@ import {
 import { getCheckoutDetails } from '../mock-data/commerce/checkout';
 import { readSearchParams, readUrlParams } from '../utils';
 
-export const getCartHandlers = (routes: any, localStorageService: LocalStorageService): HttpHandler[] => {
+export const getCartHandlers = (routes: any, localStorageService: LocalStorageService): RequestHandler[] => {
   return [
     // cart call to return the cart details for a cart containing products
     http.get(routes.cart, ({ request, params }) => {

@@ -1,10 +1,10 @@
-import { HttpHandler, HttpResponse, http } from 'msw';
+import { HttpResponse, RequestHandler, http } from 'msw';
 import { DEFAULT_PAYMENT_ID, createPaymentDetails } from '../mock-data';
 import { getCardTypes, getDeliveryModes } from '../mock-data/commerce/checkout';
 import { getPaymentSopRequest } from '../mock-data/commerce/payment-sop';
 import { getPaymentSopResponse } from '../mock-data/commerce/payment-sop-response';
 
-export const getCheckoutHandlers = (routes: any): HttpHandler[] => {
+export const getCheckoutHandlers = (routes: any): RequestHandler[] => {
   return [
     http.put(routes.setDeliveryAddress, async () => {
       return HttpResponse.json({}, { status: 201 });

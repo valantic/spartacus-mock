@@ -1,9 +1,9 @@
-import { HttpHandler, HttpResponse, http } from 'msw';
+import { HttpResponse, RequestHandler, http } from 'msw';
 import { translationsForNamespace } from '../mock-data';
 import { MockConfig } from '../types';
 import { readUrlParams } from '../utils';
 
-export const getTranslationHandlers = (routes: any, config: MockConfig): HttpHandler[] => {
+export const getTranslationHandlers = (routes: any, config: MockConfig): RequestHandler[] => {
   return [
     // custom call to return the translation files
     http.get(routes.i18n, ({ params }) => {

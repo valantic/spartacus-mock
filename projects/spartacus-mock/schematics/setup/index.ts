@@ -1,4 +1,4 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
 import { NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import {
   addPackageJsonDependencies,

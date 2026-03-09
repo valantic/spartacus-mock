@@ -1,17 +1,17 @@
 import { strings } from '@angular-devkit/core';
 import {
-  apply,
-  branchAndMerge,
-  chain,
   MergeStrategy,
-  mergeWith,
-  move,
   Rule,
   SchematicContext,
   SchematicsException,
   Source,
-  template,
   Tree,
+  apply,
+  branchAndMerge,
+  chain,
+  mergeWith,
+  move,
+  template,
   url,
 } from '@angular-devkit/schematics';
 import { Location, parseName } from '@schematics/angular/utility/parse-name';
