@@ -46,7 +46,7 @@ export class HandlerService {
     ];
   }
 
-  getTranslationsHandler() {
+  getTranslationsHandler(): RequestHandler[] {
     return [...getTranslationHandlers(this.routes, this.config)];
   }
 
